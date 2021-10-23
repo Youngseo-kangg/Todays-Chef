@@ -5,6 +5,6 @@ app.get('/', (req, res) => {
   res.send('Hello Server!');
 });
 
-app.listen(80, () => {
+app.listen(4000, () => {
   console.log(`서버 연결 성공 🍎`);
 });
