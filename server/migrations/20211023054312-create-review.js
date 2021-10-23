@@ -6,37 +6,31 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      rvUserId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       rating: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       eval: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       rvImg: {
-        type: Sequelize.STRING
-      },
-      rvChefId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING,
       },
       rvDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('reviews');
-  }
+  },
 };

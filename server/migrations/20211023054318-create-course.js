@@ -6,37 +6,34 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      coChefId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       courseName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       peopleMax: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       peopleMin: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       courseDesc: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('courses');
-  }
+  },
 };
