@@ -6,58 +6,46 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      rsUserId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       people: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       allergy: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       location: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       mobile: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       rsDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       rsTime: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       isOven: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       burner: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       messageToChef: {
-        type: Sequelize.STRING
-      },
-      rsChefId: {
-        type: Sequelize.INTEGER
-      },
-      rsCourseId: {
-        type: Sequelize.INTEGER
-      },
-      rsReviewId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('reservations');
-  }
+  },
 };

@@ -6,40 +6,37 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       cuisine: {
-        type: Sequelize.STRING
-      },
-      chUserId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING,
       },
       chefImg: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       greeting: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       career: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       values: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       rating: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('chefs');
-  }
+  },
 };
