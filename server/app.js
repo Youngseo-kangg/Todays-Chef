@@ -15,7 +15,11 @@ app.use(logger('dev'));
 
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL, 'http://localhost:3000'],
+    origin: [
+      process.env.CLIENT_URL,
+      process.env.CLIENT_URL2,
+      'http://localhost:3000',
+    ],
     credentials: true,
   })
 );
