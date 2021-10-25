@@ -48,6 +48,6 @@ sequelize
     console.error(err);
   });
 
-app.listen(serverPort, () => {
+app.listen(80, () => {
   console.log(`서버 연결 성공 🍎`);
 });
