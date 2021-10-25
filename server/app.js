@@ -6,7 +6,6 @@ const logger = require('morgan');
 const { sequelize } = require('./models');
 require('dotenv').config();
 
-const localPort = 4000;
 const serverPort = process.env.SERVER_PORT || 4000;
 
 app.use(express.json());
@@ -48,6 +47,6 @@ sequelize
     console.error(err);
   });
 
-app.listen(80, () => {
+app.listen(serverPort, () => {
   console.log(`서버 연결 성공 🍎`);
 });
