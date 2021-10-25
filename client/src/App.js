@@ -6,6 +6,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  console.log('first', url);
   const test = () => {
     axios
       .get(`${url}`)
@@ -14,6 +15,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        console.log('err', url);
       });
   };
   return (
