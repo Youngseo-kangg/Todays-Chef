@@ -1,4 +1,5 @@
 import './App.css';
+import Main from './pages/main';
 import axios from 'axios';
 
 require('dotenv').config();
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className='App'>
       <button onClick={test}>click</button>
+      <Main />
     </div>
   );
 }
