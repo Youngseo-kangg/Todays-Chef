@@ -3,6 +3,15 @@ import MypageChefEdit from '../component/mypageChefEdit';
 import MypageEdit from '../component/mypageEdit';
 import MypageReview from '../component/mypageReview';
 import { useState } from 'react';
+import styled from 'styled-components';
+
+const MypageGrid = styled.div`
+  height: 800px;
+  padding: 80px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 50px;
+`;
 
 function Mypage() {
   const menuList = {
@@ -17,7 +26,7 @@ function Mypage() {
   }; // menuList에서 몇번째 내용이 보여져야 할지 지정해주는 함수
 
   return (
-    <>
+    <MypageGrid>
       <ul>
         <li onClick={() => changeMenu(0)}>예약 확인</li>
         <li onClick={() => changeMenu(1)}>리뷰 쓰기</li>
@@ -25,8 +34,7 @@ function Mypage() {
         <li onClick={() => changeMenu(3)}>자기소개 수정</li>
       </ul>
       {menuList[mypageMenu]}
-      <p>this is Mypage</p>
-    </>
+    </MypageGrid>
   );
 }
 
