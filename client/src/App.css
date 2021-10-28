@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'Chosunilbo_myungjo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ChosunKm';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunKm.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body,
 div,
@@ -86,6 +102,7 @@ video {
   font: inherit;
   vertical-align: baseline;
   box-sizing: border-box;
+  font-family: 'Chosunilbo_myungjo', 'ChosunKm';
 }
 
 nav > a {
