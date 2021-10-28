@@ -1,11 +1,5 @@
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-const ChefInfoGrid = styled.div`
-  display: grid;
-  grid-template-rows: 100px 800px;
-  row-gap: 50px;
-  margin-bottom: 50px;
-`;
+import { ChefInfoGrid } from '../styled/styleChefInfo';
 
 function ChefInfo() {
   return (

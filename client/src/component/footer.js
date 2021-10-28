@@ -1,9 +1,5 @@
-import styled from 'styled-components';
+import { FooterWrap } from '../styled/styleFooter';
 
-const FooterWrap = styled.footer`
-  width: 100%;
-  height: 100px;
-`;
 function Footer() {
   return <FooterWrap>this is footer</FooterWrap>;
 }
