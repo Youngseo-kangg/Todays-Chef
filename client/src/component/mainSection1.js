@@ -11,6 +11,7 @@ function MainSection1() {
       <MainBackground muted autoPlay loop>
         <source src={mainVideo} type='video/mp4' />
       </MainBackground>
+
       <SloganWrap>
         <h1>최고의 음식을 내 집에서</h1>
         <h2>
