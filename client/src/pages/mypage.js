@@ -3,15 +3,7 @@ import MypageChefEdit from '../component/mypageChefEdit';
 import MypageEdit from '../component/mypageEdit';
 import MypageReview from '../component/mypageReview';
 import { useState } from 'react';
-import styled from 'styled-components';
-
-const MypageGrid = styled.div`
-  height: 800px;
-  padding: 80px;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  column-gap: 50px;
-`;
+import { MypageGrid } from '../styled/styleMypage';
 
 function Mypage() {
   const menuList = {
