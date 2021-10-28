@@ -1,11 +1,12 @@
 import { MainGrid } from '../styled/styleMain';
+import MainSection1 from '../component/mainSection1';
 
 function Main() {
   return (
     <MainGrid>
-      <p>this is main</p>
-      <p>this is main</p>
-      <p>this is main</p>
+      <MainSection1 />
+      <div>this is main</div>
+      <div>this is main</div>
     </MainGrid>
   );
 }

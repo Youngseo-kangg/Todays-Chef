@@ -2,7 +2,10 @@ import styled from 'styled-components';
 
 export const NavbarWrap = styled.div`
   width: 100%;
-  background: #603224;
+  /* background: #603224; */
+  background: transparent;
+  position: fixed;
+  z-index: 9999;
 `;
 
 export const Navbar = styled.nav`
@@ -13,6 +16,7 @@ export const Navbar = styled.nav`
   display: flex;
   justify-content: space-evenly;
   height: 80px;
+  line-height: 80px;
   max-width: 1400px;
   margin: 0 auto;
   color: #fff;
