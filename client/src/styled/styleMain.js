@@ -9,26 +9,37 @@ export const MainGrid = styled.div`
 `;
 
 export const MainBackgroundWrap = styled.div`
+  width: 100%;
   height: 100vh;
-  margin-top: -200px;
-  @media only screen and (max-width: 1080px) {
-    margin-top: 0;
-  }
 `;
 
 export const MainBackground = styled.video`
   width: 100%;
+  margin-top: -200px;
+  @media (max-width: 2000px) {
+    width: 2000px;
+    margin-top: -300px;
+  }
+  @media (max-width: 1400px) {
+    width: 1400px;
+    margin-top: 0;
+  }
+  @media (max-width: 767px) {
+    width: 1680px;
+    margin-top: 0;
+    margin-left: -500px;
+    height: 100vh;
+  }
 `;
 
 export const SloganWrap = styled.div`
   width: 800px;
   height: 400px;
-  position: relative;
-  top: -65%;
-  left: 50%;
-  /* background-color: rgb(255, 255, 255, 0.3); */
-  transform: translate(-50%);
   border-radius: 20px;
+  position: absolute;
+  top: 250px;
+  left: 50%;
+  transform: translate(-50%);
   > h1 {
     width: 100%;
     height: 150px;
