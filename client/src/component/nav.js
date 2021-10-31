@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -14,25 +14,21 @@ function Nav() {
     setMymenuState(!mymenuState);
   }; // myMenu 껏다 켯다 하는 메뉴
 
+  const handleScroll = useMemo(
+    () =>
+      throttle(() => {
+        const nextTabnavOn = window.scrollY > 80;
+        if (nextTabnavOn !== transNav) setTransNav(nextTabnavOn);
+      }, 300),
+    [transNav]
+  );
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll); //clean up
     };
-  }, []);
-
-  const handleScroll = () => {
-    if (window.scrollY > 80) {
-      console.log('state변경');
-      setTransNav(true);
-      return;
-    }
-    if (window.scrollY <= 80) {
-      console.log('state변경');
-      setTransNav(false);
-      return;
-    }
-  };
+  }, [transNav, handleScroll]);
 
   return (
     <NavbarWrap className={transNav ? 'scrolled' : null}>

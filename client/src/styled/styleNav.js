@@ -5,6 +5,7 @@ export const NavbarWrap = styled.div`
   background-color: #603224;
   position: fixed;
   z-index: 9999;
+  transition: all 0.3s;
   &.scrolled {
     background-color: transparent;
   }
