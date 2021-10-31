@@ -40,17 +40,53 @@ export const SloganWrap = styled.div`
   top: 250px;
   left: 50%;
   transform: translate(-50%);
+  @media (max-width: 420px) {
+    top: 200px;
+  }
+  @media (max-width: 320px) {
+    top: 150px;
+  }
+  @media (max-width: 280px) {
+    top: 230px;
+  }
   > h1 {
     width: 100%;
     height: 150px;
     line-height: 100px;
     font-size: 40px;
     color: #fff;
+    @media (max-width: 767px) {
+      font-size: 30px;
+    }
+    @media (max-width: 420px) {
+      font-size: 28px;
+      height: auto;
+    }
+    @media (max-width: 320px) {
+      font-size: 25px;
+    }
+    @media (max-width: 280px) {
+      font-size: 20px;
+      line-height: 70px;
+    }
   }
   > h2 {
     height: 250px;
     font-size: 25px;
     color: #fff;
     line-height: 50px;
+    @media (max-width: 767px) {
+      font-size: 20px;
+    }
+    @media (max-width: 420px) {
+      font-size: 18px;
+    }
+    @media (max-width: 320px) {
+      font-size: 15px;
+    }
+    @media (max-width: 280px) {
+      font-size: 11px;
+      line-height: 30px;
+    }
   }
 `;
