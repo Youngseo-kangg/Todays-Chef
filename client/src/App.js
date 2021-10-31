@@ -47,7 +47,7 @@ function App() {
         <Route path='/reservation'>
           <Reservation />
         </Route>
-        <Route path='/user'>
+        <Route path='/mypage'>
           <Mypage />
         </Route>
         <Route path='/loginOrSignup'>
