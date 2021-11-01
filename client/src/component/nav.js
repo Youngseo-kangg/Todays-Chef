@@ -17,7 +17,7 @@ import {
 function Nav() {
   const userInfo = useSelector(userStatus); // user의 상태
   const [mymenuState, setMymenuState] = useState(false);
-  const [transNav, setTransNav] = useState(false); // nav 투명도 지정
+  const [transNav, setTransNav] = useState(false); // nav 투명에서 색상 변경
   const [transScreen, setTransScreen] = useState(false); // false면 큰 화면, true면 작은 화면
   const showMiniMenu = () => {
     setMymenuState(!mymenuState);
@@ -35,7 +35,7 @@ function Nav() {
   const handleScreen = useMemo(
     () =>
       throttle(() => {
-        if (window.innerWidth < 767) {
+        if (window.innerWidth < 768) {
           setTransScreen(true);
         } else {
           setTransScreen(false);
@@ -74,8 +74,12 @@ function Nav() {
 
             {userInfo.userId !== -1 || userInfo.userId === undefined ? (
               <li>
-                <NavBarIcon onClick={showMiniMenu}>
-                  <FontAwesomeIcon icon={faBars} className='navBarIcon' />
+                <NavBarIcon onClick={showMiniMenu} className='menu-btn'>
+                  <div
+                    className={
+                      mymenuState ? 'menu-btn__burger open' : 'menu-btn__burger'
+                    }
+                  ></div>
                 </NavBarIcon>
                 <MymenuSmall className={mymenuState ? 'showMyMenu' : null}>
                   <li onClick={showMiniMenu}>
@@ -86,8 +90,12 @@ function Nav() {
               </li>
             ) : (
               <li>
-                <NavBarIcon onClick={showMiniMenu}>
-                  <FontAwesomeIcon icon={faBars} />
+                <NavBarIcon onClick={showMiniMenu} className='menu-btn'>
+                  <div
+                    className={
+                      mymenuState ? 'menu-btn__burger open' : 'menu-btn__burger'
+                    }
+                  ></div>
                 </NavBarIcon>
                 <MymenuSmall className={mymenuState ? 'showMyMenu' : null}>
                   <li>
