@@ -149,6 +149,8 @@ export const MymenuSmall = styled.ul`
   left: 0;
   &.showMyMenu {
     position: absolute;
+    width: 100%;
+    height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
     justify-content: center;
