@@ -11,6 +11,7 @@ export const MainGrid = styled.div`
 export const MainBackgroundWrap = styled.div`
   width: 100%;
   height: 100vh;
+  position: relative;
 `;
 
 export const MainBackground = styled.video`
@@ -21,44 +22,29 @@ export const MainBackground = styled.video`
   @media (max-width: 420px) {
     height: 100vh;
   }
-  /* margin-top: -200px;
-  @media (max-width: 2000px) {
-    width: 2000px;
-    margin-top: -300px;
-  }
-  @media (max-width: 1400px) {
-    width: 1400px;
-    margin-top: 0;
-  }
-  @media (max-width: 767px) {
-    width: 1680px;
-    margin-top: 0;
-    margin-left: -500px;
-    height: 100vh;
-  }
-  */
 `;
 
 export const SloganWrap = styled.div`
   width: 100%;
-  height: 400px;
+  height: 100%;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 250px;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%);
-  @media (max-width: 420px) {
-    top: 200px;
-  }
-  @media (max-width: 320px) {
-    top: 150px;
-  }
-  @media (max-width: 280px) {
-    top: 230px;
+  transform: translate(-50%, -50%);
+  @media (min-width: 421px) {
+    height: 90vh;
+    top: 0%;
+    left: 0%;
+    transform: translate(0%, 0%);
   }
   > h1 {
     width: 100%;
-    height: 150px;
+    /* height: 150px; */
     line-height: 100px;
     font-size: 40px;
     color: #fff;
@@ -78,7 +64,6 @@ export const SloganWrap = styled.div`
     }
   }
   > h2 {
-    height: 250px;
     font-size: 25px;
     color: #fff;
     line-height: 50px;
