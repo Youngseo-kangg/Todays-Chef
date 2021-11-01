@@ -15,7 +15,12 @@ export const MainBackgroundWrap = styled.div`
 
 export const MainBackground = styled.video`
   width: 100%;
-  margin-top: -200px;
+  height: 90vh;
+  object-fit: cover;
+  @media (max-width: 420px) {
+    height: 100vh;
+  }
+  /* margin-top: -200px;
   @media (max-width: 2000px) {
     width: 2000px;
     margin-top: -300px;
@@ -29,11 +34,11 @@ export const MainBackground = styled.video`
     margin-top: 0;
     margin-left: -500px;
     height: 100vh;
-  }
+  } */
 `;
 
 export const SloganWrap = styled.div`
-  width: 800px;
+  width: 100%;
   height: 400px;
   border-radius: 20px;
   position: absolute;
