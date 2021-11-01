@@ -26,7 +26,8 @@ function Nav() {
   const handleScroll = useMemo(
     () =>
       throttle(() => {
-        const nextTabnavOn = window.scrollY > 80;
+        // ~420까지는 100vh, 420~으로는 90vh이상일때 변경해주기
+        const nextTabnavOn = window.scrollY > window.innerHeight - 140;
         if (nextTabnavOn !== transNav) setTransNav(nextTabnavOn);
       }, 300),
     [transNav]
@@ -45,7 +46,7 @@ function Nav() {
   );
 
   useEffect(() => {
-    if (window.innerWidth < 767) {
+    if (window.innerWidth < 768) {
       setTransScreen(true);
     } else {
       setTransScreen(false);
