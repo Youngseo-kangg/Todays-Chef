@@ -12,15 +12,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(logger('dev'));
 
-const userRouter = require('./routes/user');
-app.use('/user', userRouter);
-
 app.use(
   cors({
     origin: [process.env.CLIENT_URL, 'http://localhost:3000'],
     credentials: true,
   })
 );
+
+const userRouter = require('./routes/user');
+app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello Server!');
