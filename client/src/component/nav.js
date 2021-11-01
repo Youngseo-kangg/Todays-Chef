@@ -30,7 +30,7 @@ function Nav() {
         if (nextTabnavOn !== transNav) setTransNav(nextTabnavOn);
       }, 300),
     [transNav]
-  ); // 반응형 nav바 키고 끄기
+  );
 
   const handleScreen = useMemo(
     () =>
