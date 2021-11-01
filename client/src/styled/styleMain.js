@@ -35,11 +35,12 @@ export const MainBackground = styled.video`
     margin-top: 0;
     margin-left: -500px;
     height: 100vh;
-  } */
+  }
+  */
 `;
 
 export const SloganWrap = styled.div`
-  width: 100%;
+  width: 800px;
   height: 400px;
   border-radius: 20px;
   position: absolute;
