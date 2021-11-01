@@ -1,6 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { userStatus } from '../features/user/user';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
@@ -17,7 +19,6 @@ function Nav() {
   const [mymenuState, setMymenuState] = useState(false);
   const [transNav, setTransNav] = useState(false); // nav 투명에서 색상 변경
   const [transScreen, setTransScreen] = useState(false); // false면 큰 화면, true면 작은 화면
-
   const showMiniMenu = () => {
     setMymenuState(!mymenuState);
   }; // 큰 화면에서 myMenu 껏다 켯다 하는 메뉴

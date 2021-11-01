@@ -4,12 +4,12 @@ export const NavbarWrap = styled.div`
   width: 100%;
   height: 80px;
   line-height: 80px;
-  background-color: transparent;
+  background-color: #603224;
   position: fixed;
   z-index: 9999;
   transition: all 0.3s;
   &.scrolled {
-    background-color: #603224;
+    background-color: transparent;
   }
 `;
 
@@ -51,54 +51,8 @@ export const Navbar = styled.nav`
 `;
 
 export const NavBarIcon = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 80px;
+  font-size: 40px;
   cursor: pointer;
-  transition: all 0.5s ease-in-out;
-  > .menu-btn__burger {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 6px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(255, 101, 47, 0.2);
-    transition: all 0.3s ease-in-out;
-  }
-  > .menu-btn__burger::before,
-  .menu-btn__burger::after {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 6px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(255, 101, 47, 0.2);
-    transition: all 0.3s ease-in-out;
-  }
-  > .menu-btn__burger::before {
-    transform: translateY(-16px);
-  }
-  > .menu-btn__burger::after {
-    transform: translateY(16px);
-  }
-  /* ANIMATION */
-  .menu-btn__burger.open {
-    transform: translateX(-50px);
-    background: transparent;
-    box-shadow: none;
-  }
-  .menu-btn__burger.open::before {
-    transform: rotate(45deg) translate(35px, -35px);
-  }
-  .menu-btn__burger.open::after {
-    transform: rotate(-45deg) translate(35px, 35px);
-  }
 `;
 
 export const Mymenu = styled.ul`
@@ -106,7 +60,6 @@ export const Mymenu = styled.ul`
   background-color: transparent;
   height: 45px;
   line-height: 45px;
-  transition: all 0.3s;
   &.showMyMenu {
     display: flex;
     margin-top: 5px;
@@ -133,7 +86,6 @@ export const MymenuSmall = styled.ul`
   height: 100vh;
   position: absolute;
   background-color: #dbb89a;
-  transition: all 0.3s;
   left: 0;
   &.showMyMenu {
     position: absolute;

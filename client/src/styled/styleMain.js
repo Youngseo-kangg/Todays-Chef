@@ -40,7 +40,7 @@ export const MainBackground = styled.video`
 `;
 
 export const SloganWrap = styled.div`
-  width: 800px;
+  width: 100%;
   height: 400px;
   border-radius: 20px;
   position: absolute;
