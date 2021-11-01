@@ -12,7 +12,37 @@ function Nav() {
   const [transNav, setTransNav] = useState(false); // 투명도 지정
   const showLogout = () => {
     setMymenuState(!mymenuState);
-  }; // myMenu 껏다 켯다 하는 메뉴
+  }; // 큰 화면에서 myMenu 껏다 켯다 하는 메뉴
+
+  const handleScroll = useMemo(
+    () =>
+      throttle(() => {
+        const nextTabnavOn = window.scrollY > 80;
+        if (nextTabnavOn !== transNav) setTransNav(nextTabnavOn);
+      }, 300),
+    [transNav]
+  );
+
+  const handleScreen = useMemo(
+    () =>
+      throttle(() => {
+        if (window.innerWidth < 767) {
+          setTransScreen(true);
+        } else {
+          setTransScreen(false);
+        }
+      }, 300),
+    []
+  );
+
+  useEffect(() => {
+    if (window.innerWidth < 767) {
+      setTransScreen(true);
+    } else {
+      setTransScreen(false);
+    }
+  }, []);
+  };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
