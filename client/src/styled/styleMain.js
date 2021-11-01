@@ -17,6 +17,10 @@ export const MainBackground = styled.video`
   width: 100%;
   height: 90vh;
   object-fit: cover;
+  position: relative;
+  @media (max-width: 420px) {
+    height: 100vh;
+  }
   /* margin-top: -200px;
   @media (max-width: 2000px) {
     width: 2000px;
@@ -81,10 +85,10 @@ export const SloganWrap = styled.div`
       font-size: 20px;
     }
     @media (max-width: 420px) {
-      font-size: 18px;
+      font-size: 17px;
     }
     @media (max-width: 320px) {
-      font-size: 15px;
+      font-size: 14px;
     }
     @media (max-width: 280px) {
       font-size: 11px;
