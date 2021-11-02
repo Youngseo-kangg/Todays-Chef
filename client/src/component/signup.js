@@ -35,8 +35,8 @@ function Signup() {
             placeholder='비밀번호'
             onChange={handleSignupInputValue('password')}
           />
+          <button>CLICK</button>
         </form>
-        <button>CLICK</button>
       </div>
       <div className='formDivider'></div>
       <p id='socialSignup'>

@@ -18,6 +18,7 @@ export const LoginFormWrap = styled.article`
       width: 100%;
       font-size: 20px;
       padding-bottom: 10px;
+      color: #603224;
     }
     form {
       display: flex;
@@ -25,7 +26,8 @@ export const LoginFormWrap = styled.article`
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      width: 80%;
+      width: 60%;
+      min-width: 130px;
       > input {
         background-color: #eee;
         border: none;
@@ -35,33 +37,34 @@ export const LoginFormWrap = styled.article`
         min-width: 100px;
         box-sizing: border-box;
       }
-    }
-    > button {
-      border-radius: 5px;
-      background-color: #603224;
-      border: none;
-      outline: none;
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      padding: 12px 45px;
-      margin: 10px 0px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: transform 80ms ease-in;
+      > button {
+        border-radius: 5px;
+        background-color: #dbb89a;
+        border: none;
+        outline: none;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 12px 30px;
+        margin: 10px 0px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: transform 80ms ease-in;
+      }
     }
   }
   > .formDivider {
     width: 80%;
     height: 3px;
-    background-color: #603224;
+    background-color: #dbb89a;
     border-radius: 3px;
     margin: 30px 0px;
   }
   > #socialLogin {
     display: flex;
     flex-direction: column;
+    color: #603224;
     > p {
       word-break: keep-all;
       padding: 0px 5px 15px;

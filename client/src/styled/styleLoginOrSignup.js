@@ -90,7 +90,8 @@ export const LoginOrSignupOverlayWrap = styled.div`
     opacity: 1;
     z-index: 5;
     right: 50%;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.4);
+    color: #603224;
     /* transition: all 0.6s;
     :hover {
       background-color: rgba(255, 255, 255, 0.3);
@@ -104,17 +105,18 @@ export const LoginOrSignupOverlayWrap = styled.div`
     }
     > button {
       border-radius: 5px;
-      border: 2px solid #000;
       outline: none;
-      background-color: transparent;
-      color: #000;
+      border: none;
+      background-color: #fff;
       font-size: 12px;
       font-weight: bold;
       cursor: pointer;
-      padding: 12px 45px;
+      margin: 10px 0;
+      padding: 12px 30px;
       letter-spacing: 1px;
       text-transform: uppercase;
-      transition: transform 0.6s ease-in;
+      transition: all 0.3s;
+      color: #603224;
     }
   }
   &.active #overlayLeft {
@@ -134,6 +136,7 @@ export const LoginOrSignupOverlayWrap = styled.div`
     z-index: 5;
     background-color: rgba(255, 255, 255, 0.3);
     transform: translateX(40%);
+    color: #603224;
     > h2 {
       font-size: 20px;
       padding-bottom: 15px;
@@ -143,10 +146,9 @@ export const LoginOrSignupOverlayWrap = styled.div`
     }
     > button {
       border-radius: 5px;
-      border: 2px solid #000;
+      border: none;
+      background-color: #fff;
       outline: none;
-      background-color: transparent;
-      color: #000;
       font-size: 12px;
       font-weight: bold;
       cursor: pointer;
@@ -154,7 +156,8 @@ export const LoginOrSignupOverlayWrap = styled.div`
       padding: 12px 30px;
       letter-spacing: 1px;
       text-transform: uppercase;
-      transition: transform 0.6s ease-in;
+      transition: all 0.3s;
+      color: #603224;
     }
   }
 `;
