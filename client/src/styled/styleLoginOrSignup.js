@@ -1,21 +1,41 @@
 import styled, { keyframes } from 'styled-components';
 import basic_background from '../todaysChefIMG/basic_background.jpg';
-
-const show = keyframes`
-	0%, 49.99% {
-		opacity: 0;
-	}
-	
-	50%, 100% {
-		opacity: 1;
-	}
-`;
+import small_basic_background from '../todaysChefIMG/small_basic_background.jpg';
 
 export const LoginOrSignupGrid = styled.div`
   height: 800px;
   padding: 160px 0px 50px;
   display: flex;
   position: relative;
+  @media screen and (max-width: 420px) {
+    padding: 80px 0px 50px;
+    height: 700px;
+  }
+`;
+
+export const LoginOrSignupSmallContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background: url(${small_basic_background}) center;
+  > ul {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    > li {
+      width: 50%;
+      display: grid;
+      place-items: center;
+      &.tabFocused {
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+  #loginSmallContainer {
+    height: calc(100% - 60px);
+  }
+  #signupSmallContainer {
+    height: calc(100% - 60px);
+  }
 `;
 
 export const LoginOrSignupContainer = styled.div`

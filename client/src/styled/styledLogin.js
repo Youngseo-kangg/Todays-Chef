@@ -8,6 +8,9 @@ export const LoginFormWrap = styled.article`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 420px) {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
   > #loginForm {
     display: flex;
     flex-direction: column;
