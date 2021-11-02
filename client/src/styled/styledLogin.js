@@ -37,6 +37,11 @@ export const LoginFormWrap = styled.article`
         min-width: 100px;
         box-sizing: border-box;
       }
+      > .loginError {
+        color: red;
+        font-size: 12px;
+        word-break: keep-all;
+      }
       > button {
         border-radius: 5px;
         background-color: #dbb89a;

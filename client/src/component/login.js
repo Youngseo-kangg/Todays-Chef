@@ -14,13 +14,14 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    mode: 'onChange',
+    // mode: 'onChange',
     defaultValues: {
       loginEmail: '',
       loginPassword: '',
     },
   });
-  console.log('Login의 watch: ', watch()); // target들 확인
+  // console.log('Login의 watch: ', watch()); // target들 확인
+
   const onSubmit = (data) => {
     console.log('onSubmit: ', data);
   };
@@ -48,21 +49,23 @@ function Login() {
             name='loginEmail'
             id='loginEmail'
             {...register('loginEmail', {
-              required: true,
-              minLength: {
-                value: 5,
-                message: 'Username must be longer than 5 characters',
+              required: '이메일 입력이 필요합니다.',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: '유효하지 않은 이메일 형식입니다.',
               },
             })}
           />
-          {errors.loginEmail && <span>5글자 이하입니다.</span>}
+          {errors.loginEmail && (
+            <span className='loginError'>{errors.loginEmail.message}</span>
+          )}
           <input
             type='password'
             placeholder='비밀번호'
             name='loginPassword'
             id='loginPassword'
             {...register('loginPassword', {
-              required: true,
+              required: '비밀번호 입력이 필요합니다.',
             })}
             // onChange={handleInputValue('password')}
           />
