@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class reservation extends Model {
     /**
@@ -12,24 +10,26 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
-  reservation.init({
-    rsUserId: DataTypes.INTEGER,
-    people: DataTypes.INTEGER,
-    allergy: DataTypes.STRING,
-    location: DataTypes.STRING,
-    mobile: DataTypes.STRING,
-    rsDate: DataTypes.DATE,
-    rsTime: DataTypes.STRING,
-    isOven: DataTypes.BOOLEAN,
-    burner: DataTypes.INTEGER,
-    messageToChef: DataTypes.STRING,
-    rsChefId: DataTypes.INTEGER,
-    rsCourseId: DataTypes.INTEGER,
-    rsReviewId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'reservation',
-  });
+  }
+  reservation.init(
+    {
+      rsUserId: DataTypes.INTEGER,
+      people: DataTypes.INTEGER,
+      allergy: DataTypes.STRING,
+      location: DataTypes.STRING,
+      mobile: DataTypes.STRING,
+      rsDate: DataTypes.DATE,
+      rsTime: DataTypes.STRING,
+      isOven: DataTypes.BOOLEAN,
+      burner: DataTypes.INTEGER,
+      messageToChef: DataTypes.STRING,
+      rsChefId: DataTypes.INTEGER,
+      rsCourseId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'reservation',
+    }
+  );
   return reservation;
 };

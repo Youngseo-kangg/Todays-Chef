@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      chefName: {
+        type: Sequelize.STRING,
+      },
       cuisine: {
         type: Sequelize.STRING,
       },
