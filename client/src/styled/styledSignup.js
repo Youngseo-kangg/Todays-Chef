@@ -36,6 +36,11 @@ export const SignupFormWrap = styled.article`
         width: 100%;
         box-sizing: border-box;
       }
+      > .loginError {
+        color: red;
+        font-size: 12px;
+        word-break: keep-all;
+      }
       > button {
         border-radius: 5px;
         background-color: #dbb89a;

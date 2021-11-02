@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,9 @@ import { login, userStatus } from '../features/user/user';
 import { LoginFormWrap } from '../styled/styledLogin';
 import { useForm } from 'react-hook-form';
 
+require('dotenv').config();
+axios.defaults.withCredentials = true;
+
 function Login() {
   const {
     register,
@@ -14,7 +17,7 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    // mode: 'onChange',
+    mode: 'onChange',
     defaultValues: {
       loginEmail: '',
       loginPassword: '',
@@ -67,10 +70,9 @@ function Login() {
             {...register('loginPassword', {
               required: '비밀번호 입력이 필요합니다.',
             })}
-            // onChange={handleInputValue('password')}
           />
           {errors.loginPassword && (
-            <span className='loginError'>비밀번호를 입력하지 않았습니다.</span>
+            <span className='loginError'>{errors.loginPassword.message}</span>
           )}
           <button type='submit'>로그인</button>
         </form>
