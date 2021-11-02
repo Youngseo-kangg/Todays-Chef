@@ -22,9 +22,10 @@ module.exports = {
       'rsCourseId',
       Sequelize.INTEGER
     );
+
     await queryInterface.addColumn(
-      'reservations',
-      'rsReviewId',
+      'reviews',
+      'rvReservationId',
       Sequelize.INTEGER
     );
 
@@ -58,6 +59,18 @@ module.exports = {
       name: 'rvChefIdFK',
       references: {
         table: 'chefs',
+        field: 'id',
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    });
+
+    await queryInterface.addConstraint('reviews', {
+      fields: ['rvReservationId'],
+      type: 'foreign key',
+      name: 'rvReservationIdFK',
+      references: {
+        table: 'reservations',
         field: 'id',
       },
       onDelete: 'cascade',
@@ -111,31 +124,25 @@ module.exports = {
       onDelete: 'cascade',
       onUpdate: 'cascade',
     });
-
-    await queryInterface.addConstraint('reservations', {
-      fields: ['rsReviewId'],
-      type: 'foreign key',
-      name: 'rsReviewIdFK',
-      references: {
-        table: 'reviews',
-        field: 'id',
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade',
-    });
   },
   down: async (queryInterface, Sequelize) => {
     // 만든 foreign key 지워주기
-    await queryInterface.removeConstraint('contents', 'userIdFK');
-    await queryInterface.removeConstraint('contents', 'wordIdFK');
+    await queryInterface.removeConstraint('chefs', 'chUserIdFK');
+    await queryInterface.removeConstraint('reviews', 'rvUserIdFK');
+    await queryInterface.removeConstraint('reviews', 'rvChefIdFK');
+    await queryInterface.removeConstraint('reviews', 'rvReservationIdFK');
+    await queryInterface.removeConstraint('courses', 'coChefIdFK');
+    await queryInterface.removeConstraint('reservations', 'rsUserIdFK');
+    await queryInterface.removeConstraint('reservations', 'rsChefIdFK');
+    await queryInterface.removeConstraint('reservations', 'rsCourseIdFK');
     // 만든 column 지워주기
     await queryInterface.removeColumn('chefs', 'chUserId');
     await queryInterface.removeColumn('reviews', 'rvUserId');
     await queryInterface.removeColumn('reviews', 'rvChefId');
+    await queryInterface.removeColumn('reviews', 'rvReservationId');
     await queryInterface.removeColumn('courses', 'coChefId');
     await queryInterface.removeColumn('reservations', 'rsUserId');
     await queryInterface.removeColumn('reservations', 'rsChefId');
     await queryInterface.removeColumn('reservations', 'rsCourseId');
-    await queryInterface.removeColumn('reservations', 'rsReviewId');
   },
 };
