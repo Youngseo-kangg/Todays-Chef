@@ -1,8 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { userStatus } from '../features/user/user';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
@@ -73,7 +71,7 @@ function Nav() {
               </h2>
             </li>
 
-            {userInfo.userId !== -1 || userInfo.userId === undefined ? (
+            {userInfo.userId === -1 || userInfo.userId === undefined ? (
               <li>
                 <NavBarIcon onClick={showMiniMenu} className='menu-btn'>
                   <div
@@ -84,9 +82,8 @@ function Nav() {
                 </NavBarIcon>
                 <MymenuSmall className={mymenuState ? 'showMyMenu' : null}>
                   <li onClick={showMiniMenu}>
-                    <Link to='/mypage'>mypage</Link>
+                    <Link to='/loginOrSignup'>로그인/회원가입</Link>
                   </li>
-                  <li onClick={showMiniMenu}>Logout</li>
                 </MymenuSmall>
               </li>
             ) : (
