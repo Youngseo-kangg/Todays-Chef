@@ -22,6 +22,11 @@ function Signup() {
         <form>
           <input
             type='text'
+            placeholder='이메일'
+            onChange={handleSignupInputValue('email')}
+          />
+          <input
+            type='text'
             placeholder='닉네임'
             onChange={handleSignupInputValue('username')}
           />
@@ -30,14 +35,13 @@ function Signup() {
             placeholder='비밀번호'
             onChange={handleSignupInputValue('password')}
           />
-          <input
-            type='text'
-            placeholder='이메일'
-            onChange={handleSignupInputValue('email')}
-          />
-          <button>CLICK</button>
         </form>
+        <button>CLICK</button>
       </div>
+      <div className='formDivider'></div>
+      <p id='socialSignup'>
+        간편 로그인 / 회원가입은 로그인 탭에서 가능합니다.
+      </p>
     </SignupFormWrap>
   );
 }
