@@ -24,7 +24,7 @@ module.exports = {
         const refreshToken = basicRefreshToken(userInfo.dataValues);
 
         sendRefreshToken(res, refreshToken);
-        res.status(200).json({ acessToken, userInfo });
+        res.status(200).json({ accessToken, userInfo });
       }
     }
     // try {
