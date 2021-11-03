@@ -25,6 +25,13 @@ export const Navbar = styled.nav`
     margin: 0 auto;
     max-width: 1400px;
     color: #fff;
+    > li > h2 > a {
+      font-size: 35px;
+      font-family: 'Playball', cursive;
+      @media (max-width: 420px) {
+        font-size: 25px;
+      }
+    }
   }
 
   #defaultMenu {
