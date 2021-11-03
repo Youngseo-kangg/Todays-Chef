@@ -57,10 +57,8 @@ function Signup() {
               },
             })}
           />
-          {errors.signupEmail ? (
-            <div className='loginError'>{errors.signupEmail.message}</div>
-          ) : (
-            <div className='loginError'></div>
+          {errors.signupEmail && (
+            <span className='loginError'>{errors.signupEmail.message}</span>
           )}
           <input
             type='text'
@@ -95,8 +93,11 @@ function Signup() {
           {errors.signupPassword && (
             <span className='loginError'>{errors.signupPassword.message}</span>
           )}
-          <button>CLICK</button>
+          <button>회원가입</button>
         </form>
+      </div>
+      <div className='axiosErrorMessage'>
+        {/* axios 하고 나서 뜨는 에러 메세지 나타내기 */}
       </div>
       <div className='formDivider'></div>
       <p id='socialSignup'>

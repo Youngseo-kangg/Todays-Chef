@@ -21,12 +21,20 @@ export const LoginOrSignupSmallContainer = styled.div`
     width: 100%;
     height: 60px;
     display: flex;
+    color: #603224;
     > li {
       width: 50%;
       display: grid;
       place-items: center;
       &.tabFocused {
-        background-color: rgba(255, 255, 255, 0.7);
+        background-color: rgba(255, 255, 255, 0.3);
+        p {
+          padding-bottom: 5px;
+          border-bottom: 2px solid #dbb89a;
+        }
+      }
+      > p {
+        padding: 5px;
       }
     }
   }
@@ -137,6 +145,7 @@ export const LoginOrSignupOverlayWrap = styled.div`
       text-transform: uppercase;
       transition: all 0.3s;
       color: #603224;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
   }
   &.active #overlayLeft {
@@ -178,6 +187,7 @@ export const LoginOrSignupOverlayWrap = styled.div`
       text-transform: uppercase;
       transition: all 0.3s;
       color: #603224;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
   }
 `;

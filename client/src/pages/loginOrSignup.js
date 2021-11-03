@@ -53,13 +53,13 @@ function LoginOrSignup() {
               className={!smallCompPart ? 'tabFocused' : null}
               onClick={() => setSmallCompPart(false)}
             >
-              Login
+              <p>Login</p>
             </li>
             <li
               className={!smallCompPart ? null : 'tabFocused'}
               onClick={() => setSmallCompPart(true)}
             >
-              Signup
+              <p>Signup</p>
             </li>
           </ul>
           {!smallCompPart ? (
