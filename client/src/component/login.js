@@ -11,6 +11,7 @@ require('dotenv').config();
 axios.defaults.withCredentials = true;
 
 function Login() {
+  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
     watch,
@@ -25,8 +26,12 @@ function Login() {
   });
   // console.log('Login의 watch: ', watch()); // target들 확인
 
-  const onSubmit = (data) => {
-    console.log('onSubmit: ', data);
+  const onSubmit = async (data) => {
+    // console.log('onSubmit: ', data);
+    await axios.post(`${url}/user/login`, {
+      email: data.loginEmail,
+      password: data.loginPassword,
+    });
   };
   const onError = (error) => {
     console.log(error);

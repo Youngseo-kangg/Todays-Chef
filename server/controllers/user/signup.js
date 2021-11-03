@@ -1,5 +1,5 @@
 const { user } = require('../../models');
-const { encryptPwd, decryptPwd } = require('../hashing/hashingPwd');
+const { encryptPwd } = require('../hashing/hashingPwd');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -9,9 +9,7 @@ module.exports = {
     console.log('newUserData: ', newUserData);
     const { email, password, nickname } = newUserData;
 
-    const decryptedPw = decryptPwd(password);
-    console.log('decryptedPw: ', decryptedPw);
-    const encryptedPw = encryptPwd(decryptedPw);
+    const encryptedPw = encryptPwd(password);
     console.log('encryptedPw: ', encryptedPw);
 
     const findNickname = await user.findOne({

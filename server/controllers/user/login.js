@@ -11,8 +11,6 @@ module.exports = {
     const { email, password } = req.body;
     const userInfo = await user.findOne({ where: { email } });
 
-    console.log(userInfo);
-
     if (!userInfo) {
       res.status(400).json({ message: 'Invalid User' });
     } else {
