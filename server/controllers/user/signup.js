@@ -1,13 +1,18 @@
 const { user } = require('../../models');
-const { encryptPwd } = require('../hashing/hashingPwd');
+const { encryptPwd, decryptPwd } = require('../hashing/hashingPwd');
 const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
   post: async (req, res) => {
     const newUserData = req.body;
+    console.log('newUserData: ', newUserData);
     const { email, password, nickname } = newUserData;
-    const encryptedPw = encryptPwd(password);
+
+    const decryptedPw = decryptPwd(password);
+    console.log('decryptedPw: ', decryptedPw);
+    const encryptedPw = encryptPwd(decryptedPw);
+    console.log('encryptedPw: ', encryptedPw);
 
     const findNickname = await user.findOne({
       where: { nickname },

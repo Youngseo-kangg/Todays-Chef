@@ -77,6 +77,9 @@ function Login() {
           <button type='submit'>로그인</button>
         </form>
       </div>
+      <div className='axiosErrorMessage'>
+        {/* axios 하고 나서 뜨는 에러 메세지 나타내기 */}
+      </div>
       <div className='formDivider'></div>
       <div id='socialLogin'>
         <p>간편 로그인/회원가입</p>
