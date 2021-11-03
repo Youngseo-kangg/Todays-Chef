@@ -25,7 +25,8 @@ function Nav() {
     () =>
       throttle(() => {
         // ~420까지는 100vh, 420~으로는 90vh이상일때 변경해주기
-        const nextTabnavOn = window.scrollY > window.innerHeight - 140;
+        // const nextTabnavOn = window.scrollY > window.innerHeight - 140;
+        const nextTabnavOn = window.scrollY > 80;
         if (nextTabnavOn !== transNav) setTransNav(nextTabnavOn);
       }, 300),
     [transNav]
@@ -120,7 +121,7 @@ function Nav() {
                 <Link to='/'>Todays chef</Link>
               </h2>
             </li>
-            {userInfo.userId !== -1 || userInfo.userId === undefined ? (
+            {userInfo.userId === -1 || userInfo.userId === undefined ? (
               <li>
                 <Link to='/loginOrSignup'>loginOrSignup</Link>
               </li>

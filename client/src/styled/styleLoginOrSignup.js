@@ -1,29 +1,50 @@
 import styled, { keyframes } from 'styled-components';
 import basic_background from '../todaysChefIMG/basic_background.jpg';
-
-const show = keyframes`
-	0%, 49.99% {
-		opacity: 0;
-	}
-	
-	50%, 100% {
-		opacity: 1;
-	}
-`;
+import small_basic_background from '../todaysChefIMG/small_basic_background.jpg';
 
 export const LoginOrSignupGrid = styled.div`
   height: 800px;
-  padding-top: 80px;
+  padding: 160px 0px 50px;
   display: flex;
-  margin-bottom: 50px;
   position: relative;
+  @media screen and (max-width: 420px) {
+    padding: 80px 0px 50px;
+    height: 700px;
+  }
+`;
+
+export const LoginOrSignupSmallContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background: url(${small_basic_background}) center;
+  > ul {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    > li {
+      width: 50%;
+      display: grid;
+      place-items: center;
+      &.tabFocused {
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+  #loginSmallContainer {
+    height: calc(100% - 60px);
+  }
+  #signupSmallContainer {
+    height: calc(100% - 60px);
+  }
 `;
 
 export const LoginOrSignupContainer = styled.div`
   background-color: red;
   display: flex;
   width: 100%;
+  max-width: 1400px;
   position: relative;
+  margin: 0 auto;
   > .formContainer {
     position: absolute;
     height: 100%;
@@ -83,25 +104,80 @@ export const LoginOrSignupOverlayWrap = styled.div`
     width: 50%;
     transform: translateX(0);
     transition: transform 0.6s ease-in-out;
+    word-break: keep-all;
   }
   #overlayLeft {
     opacity: 1;
     z-index: 5;
     right: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    color: #603224;
+    /* transition: all 0.6s;
+    :hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    } */
+    > h2 {
+      font-size: 20px;
+      padding-bottom: 15px;
+    }
+    > p {
+      padding-bottom: 10px;
+    }
+    > button {
+      border-radius: 5px;
+      outline: none;
+      border: none;
+      background-color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 10px 0;
+      padding: 12px 30px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      color: #603224;
+    }
   }
   &.active #overlayLeft {
     opacity: 0;
     z-index: 0;
+    background-color: transparent;
     transform: translateX(20%);
   }
   #overlayRight {
     opacity: 0;
     z-index: 0;
+    background-color: transparent;
     right: 20%;
   }
   &.active #overlayRight {
     opacity: 1;
     z-index: 5;
+    background-color: rgba(255, 255, 255, 0.3);
     transform: translateX(40%);
+    color: #603224;
+    > h2 {
+      font-size: 20px;
+      padding-bottom: 15px;
+    }
+    > p {
+      padding-bottom: 10px;
+    }
+    > button {
+      border-radius: 5px;
+      border: none;
+      background-color: #fff;
+      outline: none;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 10px 0;
+      padding: 12px 30px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.3s;
+      color: #603224;
+    }
   }
 `;
