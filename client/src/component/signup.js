@@ -1,4 +1,5 @@
 import axios from 'axios';
+import cryptojs from 'crypto-js';
 import { SignupFormWrap } from '../styled/styledSignup';
 import { useForm } from 'react-hook-form';
 
@@ -18,7 +19,7 @@ function Signup() {
   // console.log('loginState: ', loginState);
   // const userInfo = useSelector(userStatus);
   // console.log('redux store 값: ', userInfo);
-
+  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
     handleSubmit,
@@ -27,13 +28,24 @@ function Signup() {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      username: '',
-      email: '',
-      password: '',
+      signupNickname: '',
+      signupEmail: '',
+      signupPassword: '',
     },
   });
-  const onSubmit = (data) => {
-    console.log('onSubmit: ', data);
+  const onSubmit = async (data) => {
+    // console.log('onSubmit: ', data);
+    const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRET}`;
+    const encryptedPwd = cryptojs.AES.encrypt(
+      data.signupPassword,
+      secretKey
+    ).toString();
+
+    await axios.post(`${url}/user/signup`, {
+      email: data.signupEmail,
+      password: encryptedPwd,
+      nickname: data.signupNickname,
+    });
   };
   const onError = (error) => {
     console.log(error);
@@ -84,7 +96,8 @@ function Signup() {
             {...register('signupPassword', {
               required: '비밀번호 입력이 필요합니다.',
               pattern: {
-                value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}/,
+                value:
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
                 message:
                   '대문자, 특수문자, 숫자를 포함하여 8자 이상이여야 합니다.',
               },
