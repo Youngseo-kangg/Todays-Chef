@@ -14,6 +14,7 @@ import {
 
 function Nav() {
   const userInfo = useSelector(userStatus); // user의 상태
+  console.log(userInfo);
   const [mymenuState, setMymenuState] = useState(false);
   const [transNav, setTransNav] = useState(false); // nav 투명에서 색상 변경
   const [transScreen, setTransScreen] = useState(false); // false면 큰 화면, true면 작은 화면
@@ -83,6 +84,12 @@ function Nav() {
                 </NavBarIcon>
                 <MymenuSmall className={mymenuState ? 'showMyMenu' : null}>
                   <li onClick={showMiniMenu}>
+                    <Link to='/findChef'>findChef</Link>
+                  </li>
+                  <li onClick={showMiniMenu}>
+                    <Link to='/beAChef'>Be a chef</Link>
+                  </li>
+                  <li onClick={showMiniMenu}>
                     <Link to='/loginOrSignup'>로그인/회원가입</Link>
                   </li>
                 </MymenuSmall>
@@ -102,6 +109,12 @@ function Nav() {
                     <img src={basic_profile} alt='user profile' />
                   </li>
                   <li onClick={showMiniMenu}>
+                    <Link to='/findChef'>findChef</Link>
+                  </li>
+                  <li onClick={showMiniMenu}>
+                    <Link to='/beAChef'>Be a chef</Link>
+                  </li>
+                  <li onClick={showMiniMenu}>
                     <Link to='/mypage'>mypage</Link>
                   </li>
                   <li onClick={showMiniMenu}>Logout</li>
@@ -114,7 +127,14 @@ function Nav() {
             {' '}
             {/* 큰 화면에서 보이는 nav */}
             <li>
-              <Link to='/findChef'>findChef</Link>
+              <ul id='menuLeft'>
+                <li>
+                  <Link to='/beAChef'>Be a chef</Link>
+                </li>
+                <li>
+                  <Link to='/findChef'>findChef</Link>
+                </li>
+              </ul>
             </li>
             <li>
               <h2>
