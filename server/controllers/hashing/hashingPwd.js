@@ -10,14 +10,14 @@ module.exports = {
     return encrypted;
   },
 
-  decryptPwd: (hashedPwd) => {
-    let byte = cryptoJS.AES.decrypt(hashedPwd, process.env.CRYPTOJS_SECRET);
-    const decrypted = byte.toString(cryptoJS.enc.Utf8);
-    return decrypted;
-  },
+  // decryptPwd: (hashedPwd) => {
+  //   let byte = cryptoJS.AES.decrypt(hashedPwd, process.env.CRYPTOJS_SECRET);
+  //   const decrypted = byte.toString(cryptoJS.enc.Utf8);
+  //   return decrypted;
+  // },
 
-  comparePwd: (decryptedPwd, encryptedPwd) => {
-    const compare = bcrypt.compareSync(decryptedPwd, encryptedPwd);
+  comparePwd: (reqBodyPwd, encryptedPwd) => {
+    const compare = bcrypt.compareSync(reqBodyPwd, encryptedPwd);
     return compare; // boolean
   },
 };
