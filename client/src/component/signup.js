@@ -1,5 +1,4 @@
 import axios from 'axios';
-import cryptojs from 'crypto-js';
 import { SignupFormWrap } from '../styled/styledSignup';
 import { useForm } from 'react-hook-form';
 
@@ -35,15 +34,10 @@ function Signup() {
   });
   const onSubmit = async (data) => {
     // console.log('onSubmit: ', data);
-    const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRET}`;
-    const encryptedPwd = cryptojs.AES.encrypt(
-      data.signupPassword,
-      secretKey
-    ).toString();
 
     await axios.post(`${url}/user/signup`, {
       email: data.signupEmail,
-      password: encryptedPwd,
+      password: data.signupPassword,
       nickname: data.signupNickname,
     });
   };
