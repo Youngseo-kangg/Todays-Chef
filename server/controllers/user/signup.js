@@ -1,5 +1,5 @@
 const { user } = require('../../models');
-const { encryptPwd, decryptPwd } = require('../hashing/hashingPwd');
+const { encryptPwd } = require('../hashing/hashingPwd');
 const dotenv = require('dotenv');
 dotenv.config();
 
