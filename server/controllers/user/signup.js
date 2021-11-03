@@ -24,6 +24,15 @@ module.exports = {
       res.status(400).json({ message: 'invalid User' });
     } else if (!findNickname && !findEmail) {
       res.status(200).json({ message: 'ok' });
+
+      await user.create({
+        email,
+        password: encryptedPw,
+        nickname,
+        userImg: '',
+        isChef: false,
+        isOauth: false,
+      });
     }
   },
 };
