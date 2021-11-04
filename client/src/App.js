@@ -8,7 +8,9 @@ import Reservation from './pages/reservation';
 import Mypage from './pages/mypage';
 import LoginOrSignup from './pages/loginOrSignup';
 import Footer from './component/footer';
+import LogoutModal from './modal/logoutModal';
 
+import { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -28,12 +30,15 @@ function App() {
   //       console.log('err', url);
   //     });
   // };
+  const [isLogout, setIsLogout] = useState(false);
+
   return (
     <BrowserRouter>
       <div className='App'>
         {/* <button onClick={test}>click</button> */}
+        {isLogout ? <LogoutModal setIsLogout={setIsLogout} /> : null}
         <Switch>
-          <Nav />
+          <Nav setIsLogout={setIsLogout} />
         </Switch>
 
         <Route exact path='/'>
