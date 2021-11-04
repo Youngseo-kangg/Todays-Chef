@@ -1,5 +1,6 @@
 import Login from '../component/login';
 import LoginModal from '../modal/loginModal';
+import SignupModal from '../modal/signupModal';
 import Signup from '../component/signup';
 import { useState, useEffect, useMemo } from 'react';
 import { throttle } from 'lodash';
@@ -18,7 +19,8 @@ function LoginOrSignup() {
     setloginOrSignupComp(!loginOrSignupComp);
   }; // menuList에서 몇번째 내용이 보여져야 할지 지정해주는 함수
 
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // 로그인 모달창 상태
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false); // 회원가입 모달창 상태
 
   useEffect(() => {
     if (window.innerWidth < 421) {
@@ -50,133 +52,70 @@ function LoginOrSignup() {
   return (
     <>
       {isLoginModalOpen ? (
-        <>
-          <LoginModal setIsLoginModalOpen={setIsLoginModalOpen}></LoginModal>
-          <LoginOrSignupGrid>
-            {smallComp ? (
-              <LoginOrSignupSmallContainer>
-                <ul>
-                  <li
-                    className={!smallCompPart ? 'tabFocused' : null}
-                    onClick={() => setSmallCompPart(false)}
-                  >
-                    <p>Login</p>
-                  </li>
-                  <li
-                    className={!smallCompPart ? null : 'tabFocused'}
-                    onClick={() => setSmallCompPart(true)}
-                  >
-                    <p>Signup</p>
-                  </li>
-                </ul>
-                {!smallCompPart ? (
-                  <div id='loginSmallContainer' className='formSmallContainer'>
-                    <Login setIsLoginModalOpen={setIsLoginModalOpen} />
-                  </div>
-                ) : (
-                  <div id='signupSmallContainer' className='formSmallContainer'>
-                    <Signup />
-                  </div>
-                )}
-              </LoginOrSignupSmallContainer>
-            ) : (
-              <LoginOrSignupContainer
-                className={!loginOrSignupComp ? null : 'active'}
+        <LoginModal setIsLoginModalOpen={setIsLoginModalOpen} />
+      ) : null}
+      {isSignUpModalOpen ? (
+        <SignupModal setIsSignUpModalOpen={setIsSignUpModalOpen} />
+      ) : null}
+      <LoginOrSignupGrid>
+        {smallComp ? (
+          <LoginOrSignupSmallContainer>
+            <ul>
+              <li
+                className={!smallCompPart ? 'tabFocused' : null}
+                onClick={() => setSmallCompPart(false)}
               >
-                <div id='signupContainer' className='formContainer'>
-                  <Signup />
-                </div>
-                <div id='loginContainer' className='formContainer'>
-                  <Login setIsLoginModalOpen={setIsLoginModalOpen} />
-                </div>
-
-                <LoginOrSignupOverlayWrap
-                  className={!loginOrSignupComp ? null : 'active'}
-                >
-                  <div id='loginOrSignupOverlay'>
-                    <div className='overlayPanel' id='overlayLeft'>
-                      <h2>회원가입</h2>
-                      <p>더 많은 서비스를 즐겨보세요.</p>
-                      <button onClick={changeloginOrSignupComp}>
-                        회원가입 하기
-                      </button>
-                    </div>
-                    <div className='overlayPanel' id='overlayRight'>
-                      <h2>로그인</h2>
-                      <p>Welcome back!</p>
-                      <button onClick={changeloginOrSignupComp}>
-                        로그인 하기
-                      </button>
-                    </div>
-                  </div>
-                </LoginOrSignupOverlayWrap>
-              </LoginOrSignupContainer>
-            )}
-          </LoginOrSignupGrid>
-        </>
-      ) : (
-        <LoginOrSignupGrid>
-          {smallComp ? (
-            <LoginOrSignupSmallContainer>
-              <ul>
-                <li
-                  className={!smallCompPart ? 'tabFocused' : null}
-                  onClick={() => setSmallCompPart(false)}
-                >
-                  <p>Login</p>
-                </li>
-                <li
-                  className={!smallCompPart ? null : 'tabFocused'}
-                  onClick={() => setSmallCompPart(true)}
-                >
-                  <p>Signup</p>
-                </li>
-              </ul>
-              {!smallCompPart ? (
-                <div id='loginSmallContainer' className='formSmallContainer'>
-                  <Login setIsLoginModalOpen={setIsLoginModalOpen} />
-                </div>
-              ) : (
-                <div id='signupSmallContainer' className='formSmallContainer'>
-                  <Signup />
-                </div>
-              )}
-            </LoginOrSignupSmallContainer>
-          ) : (
-            <LoginOrSignupContainer
-              className={!loginOrSignupComp ? null : 'active'}
-            >
-              <div id='signupContainer' className='formContainer'>
-                <Signup />
-              </div>
-              <div id='loginContainer' className='formContainer'>
+                <p>Login</p>
+              </li>
+              <li
+                className={!smallCompPart ? null : 'tabFocused'}
+                onClick={() => setSmallCompPart(true)}
+              >
+                <p>Signup</p>
+              </li>
+            </ul>
+            {!smallCompPart ? (
+              <div id='loginSmallContainer' className='formSmallContainer'>
                 <Login setIsLoginModalOpen={setIsLoginModalOpen} />
               </div>
+            ) : (
+              <div id='signupSmallContainer' className='formSmallContainer'>
+                <Signup />
+              </div>
+            )}
+          </LoginOrSignupSmallContainer>
+        ) : (
+          <LoginOrSignupContainer
+            className={!loginOrSignupComp ? null : 'active'}
+          >
+            <div id='signupContainer' className='formContainer'>
+              <Signup setIsSignUpModalOpen={setIsSignUpModalOpen} />
+            </div>
+            <div id='loginContainer' className='formContainer'>
+              <Login setIsLoginModalOpen={setIsLoginModalOpen} />
+            </div>
 
-              <LoginOrSignupOverlayWrap
-                className={!loginOrSignupComp ? null : 'active'}
-              >
-                <div id='loginOrSignupOverlay'>
-                  <div className='overlayPanel' id='overlayLeft'>
-                    <h2>회원가입</h2>
-                    <p>더 많은 서비스를 즐겨보세요.</p>
-                    <button onClick={changeloginOrSignupComp}>
-                      회원가입 하기
-                    </button>
-                  </div>
-                  <div className='overlayPanel' id='overlayRight'>
-                    <h2>로그인</h2>
-                    <p>Welcome back!</p>
-                    <button onClick={changeloginOrSignupComp}>
-                      로그인 하기
-                    </button>
-                  </div>
+            <LoginOrSignupOverlayWrap
+              className={!loginOrSignupComp ? null : 'active'}
+            >
+              <div id='loginOrSignupOverlay'>
+                <div className='overlayPanel' id='overlayLeft'>
+                  <h2>회원가입</h2>
+                  <p>더 많은 서비스를 즐겨보세요.</p>
+                  <button onClick={changeloginOrSignupComp}>
+                    회원가입 하기
+                  </button>
                 </div>
-              </LoginOrSignupOverlayWrap>
-            </LoginOrSignupContainer>
-          )}
-        </LoginOrSignupGrid>
-      )}
+                <div className='overlayPanel' id='overlayRight'>
+                  <h2>로그인</h2>
+                  <p>Welcome back!</p>
+                  <button onClick={changeloginOrSignupComp}>로그인 하기</button>
+                </div>
+              </div>
+            </LoginOrSignupOverlayWrap>
+          </LoginOrSignupContainer>
+        )}
+      </LoginOrSignupGrid>
     </>
   );
 }
