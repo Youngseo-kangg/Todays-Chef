@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function Login() {
+function Login({ setIsLoginModalOpen }) {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
@@ -34,6 +34,10 @@ function Login() {
         email: data.loginEmail,
         password: data.loginPassword,
       });
+      console.log('login 완료', loginResult.data.message);
+
+      if (loginResult.data.message === 'ok') {
+       
       console.log('login 완료', loginResult);
       dispatch(
         login({
@@ -41,19 +45,18 @@ function Login() {
           accessToken: loginResult.data.accessToken,
         })
       );
-      window.location.replace('/');
+      setIsLoginModalOpen(true);
     } catch (err) {
       console.log(err.response.data.message);
+      if (err.response.data.message === 'Invalid User') {
+        alert('로그인에 실패하였습니다.');
+      }
     }
   };
 
   const onError = (error) => {
     console.log(error);
   };
-
-  // const handleInputValue = (key) => (e) => {
-  //   setLoginState({ ...loginState, [key]: e.target.value });
-  // }; -> react-hook-form의 watch를 썼더니 필요 없어짐
 
   // console.log('loginState: ', loginState);
   // const userInfo = useSelector(userStatus);
