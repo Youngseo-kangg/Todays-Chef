@@ -26,6 +26,8 @@ export const Navbar = styled.nav`
     max-width: 1400px;
     color: #fff;
     > li > h2 > a {
+      display: block;
+      width: 100%;
       font-size: 35px;
       font-family: 'Playball', cursive;
       @media (max-width: 420px) {
@@ -35,6 +37,16 @@ export const Navbar = styled.nav`
   }
 
   #defaultMenu {
+    li {
+      min-width: 170px;
+    }
+    #menuLeft {
+      display: flex;
+      > li {
+        flex: 1 1 auto;
+        min-width: 0px;
+      }
+    }
     .afterLogin {
       display: flex;
       justify-content: center;
