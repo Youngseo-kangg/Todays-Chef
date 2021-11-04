@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +25,8 @@ function Login({ setIsLoginModalOpen }) {
       loginPassword: '',
     },
   });
+
+  const [isErrorLogin, setIsErrorLogin] = useState(false);
   // console.log('Login의 watch: ', watch()); // target들 확인
   const dispatch = useDispatch();
 
@@ -37,19 +40,20 @@ function Login({ setIsLoginModalOpen }) {
       console.log('login 완료', loginResult.data.message);
 
       if (loginResult.data.message === 'ok') {
-       
-      console.log('login 완료', loginResult);
-      dispatch(
-        login({
-          ...loginResult.data.userInfo,
-          accessToken: loginResult.data.accessToken,
-        })
-      );
-      setIsLoginModalOpen(true);
+        console.log('login 완료', loginResult);
+        dispatch(
+          login({
+            ...loginResult.data.userInfo,
+            accessToken: loginResult.data.accessToken,
+          })
+        );
+        setIsLoginModalOpen(true);
+      }
     } catch (err) {
       console.log(err.response.data.message);
       if (err.response.data.message === 'Invalid User') {
-        alert('로그인에 실패하였습니다.');
+        // alert('로그인에 실패하였습니다.');
+        setIsErrorLogin(true);
       }
     }
   };
@@ -100,6 +104,9 @@ function Login({ setIsLoginModalOpen }) {
       </div>
       <div className='axiosErrorMessage'>
         {/* axios 하고 나서 뜨는 에러 메세지 나타내기 */}
+        {isErrorLogin ? (
+          <span className='loginError'>로그인에 실패하였습니다.</span>
+        ) : null}
       </div>
       <div className='formDivider'></div>
       <div id='socialLogin'>
