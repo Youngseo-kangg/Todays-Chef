@@ -3,7 +3,7 @@ import {
   BeAChefIntro,
   BeAChefDesc,
   BeAChefResumeWrap,
-} from '../styled/styleBeAChef';
+} from '../styled/styleBeChef';
 
 function BeAChef() {
   return (

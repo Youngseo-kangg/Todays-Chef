@@ -87,7 +87,7 @@ function Nav() {
                     <Link to='/findChef'>findChef</Link>
                   </li>
                   <li onClick={showMiniMenu}>
-                    <Link to='/beAChef'>Be a chef</Link>
+                    <Link to='/beChef'>BeChef</Link>
                   </li>
                   <li onClick={showMiniMenu}>
                     <Link to='/loginOrSignup'>로그인/회원가입</Link>
@@ -112,7 +112,7 @@ function Nav() {
                     <Link to='/findChef'>findChef</Link>
                   </li>
                   <li onClick={showMiniMenu}>
-                    <Link to='/beAChef'>Be a chef</Link>
+                    <Link to='/beChef'>BeChef</Link>
                   </li>
                   <li onClick={showMiniMenu}>
                     <Link to='/mypage'>mypage</Link>
@@ -129,7 +129,7 @@ function Nav() {
             <li>
               <ul id='menuLeft'>
                 <li>
-                  <Link to='/beAChef'>Be a chef</Link>
+                  <Link to='/beChef'>BeChef</Link>
                 </li>
                 <li>
                   <Link to='/findChef'>findChef</Link>
@@ -143,17 +143,13 @@ function Nav() {
             </li>
             {userInfo.userId === -1 || userInfo.userId === undefined ? (
               <li>
-                <Link to='/loginOrSignup'>loginOrSignup</Link>
+                <Link to='/loginOrSignup'>로그인/회원가입</Link>
               </li>
             ) : (
               <li>
-                <div className='afterLogin'>
+                <div className='afterLogin' onClick={showMiniMenu}>
                   <p>안녕하세요, OO님!</p>
-                  <img
-                    onClick={showMiniMenu}
-                    src={basic_profile}
-                    alt='user profile'
-                  />
+                  <img src={basic_profile} alt='user profile' />
                 </div>
                 <Mymenu className={mymenuState ? 'showMyMenu' : null}>
                   <li onClick={showMiniMenu}>
