@@ -28,11 +28,17 @@ function Login() {
 
   const onSubmit = async (data) => {
     // console.log('onSubmit: ', data);
-    await axios.post(`${url}/user/login`, {
-      email: data.loginEmail,
-      password: data.loginPassword,
-    });
+    try {
+      let loginResult = await axios.post(`${url}/user/login`, {
+        email: data.loginEmail,
+        password: data.loginPassword,
+      });
+      console.log('login 완료', loginResult);
+    } catch (err) {
+      console.log(err.response.data.message);
+    }
   };
+
   const onError = (error) => {
     console.log(error);
   };
