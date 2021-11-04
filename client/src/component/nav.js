@@ -147,13 +147,9 @@ function Nav() {
               </li>
             ) : (
               <li>
-                <div className='afterLogin'>
+                <div className='afterLogin' onClick={showMiniMenu}>
                   <p>안녕하세요, OO님!</p>
-                  <img
-                    onClick={showMiniMenu}
-                    src={basic_profile}
-                    alt='user profile'
-                  />
+                  <img src={basic_profile} alt='user profile' />
                 </div>
                 <Mymenu className={mymenuState ? 'showMyMenu' : null}>
                   <li onClick={showMiniMenu}>

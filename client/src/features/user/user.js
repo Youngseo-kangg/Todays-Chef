@@ -12,11 +12,14 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.username = action.payload.username;
+      state.userId = action.payload.id;
+      state.nickname = action.payload.nickname;
       state.email = action.payload.email;
+      state.isChef = action.payload.isChef;
+      state.isOauth = action.payload.isOauth;
     },
     logout: (state) => {
-      state.username = '';
+      state.nickname = '';
       state.email = '';
     },
   },

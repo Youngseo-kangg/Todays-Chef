@@ -25,6 +25,7 @@ function Login() {
     },
   });
   // console.log('Login의 watch: ', watch()); // target들 확인
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     // console.log('onSubmit: ', data);
@@ -33,9 +34,18 @@ function Login() {
         email: data.loginEmail,
         password: data.loginPassword,
       });
-      console.log('login 완료', loginResult);
+      console.log('login 완료', loginResult.data.message);
+
+      if (loginResult.data.message === 'ok') {
+        dispatch(login(loginResult.data.userInfo));
+        alert('로그인이 완료 되었습니다.'); // 모달창 띄우기
+        window.location.replace('/');
+      }
     } catch (err) {
       console.log(err.response.data.message);
+      if (err.response.data.message === 'Invalid User') {
+        alert('로그인에 실패하였습니다.');
+      }
     }
   };
 
@@ -43,11 +53,7 @@ function Login() {
     console.log(error);
   };
 
-  // const handleInputValue = (key) => (e) => {
-  //   setLoginState({ ...loginState, [key]: e.target.value });
-  // }; -> react-hook-form의 watch를 썼더니 필요 없어짐
-
-  // const dispatch = useDispatch();
+  // const dispatch = useDispatch(login(loginResult));
   // console.log('loginState: ', loginState);
   // const userInfo = useSelector(userStatus);
   // console.log('redux store 값: ', userInfo);
