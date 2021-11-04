@@ -25,6 +25,9 @@ export const Navbar = styled.nav`
     margin: 0 auto;
     max-width: 1400px;
     color: #fff;
+    > li {
+      min-width: 170px;
+    }
     > li > h2 > a {
       display: block;
       width: 100%;
@@ -37,11 +40,9 @@ export const Navbar = styled.nav`
   }
 
   #defaultMenu {
-    li {
-      min-width: 170px;
-    }
     #menuLeft {
       display: flex;
+      width: 170px;
       > li {
         flex: 1 1 auto;
         min-width: 0px;
@@ -51,6 +52,7 @@ export const Navbar = styled.nav`
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
     }
     .afterLogin > img {
       width: 40px;

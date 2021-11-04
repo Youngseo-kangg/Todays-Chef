@@ -3,7 +3,7 @@ import {
   BeAChefIntro,
   BeAChefDesc,
   BeAChefResumeWrap,
-} from '../styled/styleBeAChef';
+} from '../styled/styleBeChef';
 
 function BeAChef() {
   return (
@@ -18,33 +18,39 @@ function BeAChef() {
         </div>
       </BeAChefIntro>
       <BeAChefDesc>
-        <h3 id='beChefDescTitle'>Todays chef에서 셰프로 활동해 보세요.</h3>
-        <section id='beChefDesc'>
-          <div className='beChefDescText'>
-            <div>
-              <p>셰프의 상상력을 발휘한,</p>
-              <p>세상에 하나뿐인 미식 코스를</p>
-              <p>제공해 보세요.</p>
+        <div id='beChefDescTitleWrap'>
+          <h3 id='beChefDescTitle'>Todays chef의 셰프가 되어보세요.</h3>
+        </div>
+        <div id='beChefDescWrap'>
+          <section id='beChefDesc'>
+            <div className='beChefDescText'>
+              <div>
+                <p>셰프의 상상력을 발휘한,</p>
+                <p>세상에 하나뿐인 미식 코스를</p>
+                <p>제공해 보세요.</p>
+              </div>
             </div>
-          </div>
-          <div className='beChefDescText'>
-            <div>
-              <p>고객 개개인에게 최적화한</p>
-              <p>파인다이닝 서비스 경험을</p>
-              <p>쌓을 수 있습니다.</p>
+            <div className='beChefDescText'>
+              <div>
+                <p>고객 개개인에게 최적화한</p>
+                <p>파인다이닝 서비스 경험을</p>
+                <p>쌓을 수 있습니다.</p>
+              </div>
             </div>
-          </div>
-          <div className='beChefDescText'>
-            <div>
-              <p>이력서를 등록하고 24~72시간 후</p>
-              <p>고객센터에서 셰프 선정 여부를</p>
-              <p>안내해 드립니다.</p>
+            <div className='beChefDescText'>
+              <div>
+                <p>이력서를 등록하고 24시간 후</p>
+                <p>고객센터에서 셰프 선정 여부를</p>
+                <p>안내해 드립니다.</p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </BeAChefDesc>
       <BeAChefResumeWrap>
-        <h3 id='resumeTitle'>셰프 신청 하기</h3>
+        <div id='resumeTitleWrap'>
+          <h3 id='resumeTitle'>셰프 신청 하기</h3>
+        </div>
         <p>
           자유 형식의 이력서, 자기소개서 및 경력증빙서류를 하나의 pdf로 제출해
           주시면 됩니다.
