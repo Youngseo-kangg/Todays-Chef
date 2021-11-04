@@ -25,6 +25,12 @@ export const Navbar = styled.nav`
     margin: 0 auto;
     max-width: 1400px;
     color: #fff;
+    > li {
+      min-width: 170px;
+      @media (max-width: 767px) {
+        min-width: auto;
+      }
+    }
     > li > h2 > a {
       display: block;
       width: 100%;
@@ -41,6 +47,10 @@ export const Navbar = styled.nav`
     }
     #menuLeft {
       display: flex;
+      width: 170px;
+      @media (max-width: 767px) {
+        width: auto;
+      }
       > li {
         flex: 1 1 auto;
         min-width: 0px;

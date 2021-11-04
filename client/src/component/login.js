@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +11,7 @@ import { useForm } from 'react-hook-form';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function Login() {
+function Login({ setIsLoginModalOpen }) {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
@@ -24,7 +25,10 @@ function Login() {
       loginPassword: '',
     },
   });
+
+  const [isErrorLogin, setIsErrorLogin] = useState(false);
   // console.log('Login의 watch: ', watch()); // target들 확인
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     // console.log('onSubmit: ', data);
@@ -33,9 +37,24 @@ function Login() {
         email: data.loginEmail,
         password: data.loginPassword,
       });
-      console.log('login 완료', loginResult);
+      console.log('login 완료', loginResult.data.message);
+
+      if (loginResult.data.message === 'ok') {
+        console.log('login 완료', loginResult);
+        dispatch(
+          login({
+            ...loginResult.data.userInfo,
+            accessToken: loginResult.data.accessToken,
+          })
+        );
+        setIsLoginModalOpen(true);
+      }
     } catch (err) {
       console.log(err.response.data.message);
+      if (err.response.data.message === 'Invalid User') {
+        // alert('로그인에 실패하였습니다.');
+        setIsErrorLogin(true);
+      }
     }
   };
 
@@ -43,11 +62,6 @@ function Login() {
     console.log(error);
   };
 
-  // const handleInputValue = (key) => (e) => {
-  //   setLoginState({ ...loginState, [key]: e.target.value });
-  // }; -> react-hook-form의 watch를 썼더니 필요 없어짐
-
-  // const dispatch = useDispatch();
   // console.log('loginState: ', loginState);
   // const userInfo = useSelector(userStatus);
   // console.log('redux store 값: ', userInfo);
@@ -90,6 +104,9 @@ function Login() {
       </div>
       <div className='axiosErrorMessage'>
         {/* axios 하고 나서 뜨는 에러 메세지 나타내기 */}
+        {isErrorLogin ? (
+          <span className='loginError'>로그인에 실패하였습니다.</span>
+        ) : null}
       </div>
       <div className='formDivider'></div>
       <div id='socialLogin'>
