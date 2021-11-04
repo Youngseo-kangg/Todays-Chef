@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { userStatus } from '../features/user/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, userStatus } from '../features/user/user';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import {
   NavbarWrap,
@@ -14,8 +14,9 @@ import {
 
 function Nav() {
   const userInfo = useSelector(userStatus); // user의 상태
-  console.log(userInfo);
-  const [mymenuState, setMymenuState] = useState(false);
+  console.log('nav에서 userInfo: ', userInfo);
+  const dispatch = useDispatch();
+  const [mymenuState, setMymenuState] = useState(false); // 세부메뉴 보일지 말지
   const [transNav, setTransNav] = useState(false); // nav 투명에서 색상 변경
   const [transScreen, setTransScreen] = useState(false); // false면 큰 화면, true면 작은 화면
   const showMiniMenu = () => {
@@ -117,7 +118,14 @@ function Nav() {
                   <li onClick={showMiniMenu}>
                     <Link to='/mypage'>mypage</Link>
                   </li>
-                  <li onClick={showMiniMenu}>Logout</li>
+                  <li
+                    onClick={() => {
+                      showMiniMenu();
+                      dispatch(logout());
+                    }}
+                  >
+                    Logout
+                  </li>
                 </MymenuSmall>
               </li>
             )}
@@ -155,7 +163,14 @@ function Nav() {
                   <li onClick={showMiniMenu}>
                     <Link to='/mypage'>mypage</Link>
                   </li>
-                  <li onClick={showMiniMenu}>Logout</li>
+                  <li
+                    onClick={() => {
+                      showMiniMenu();
+                      dispatch(logout());
+                    }}
+                  >
+                    Logout
+                  </li>
                 </Mymenu>
               </li>
             )}

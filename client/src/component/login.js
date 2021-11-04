@@ -25,6 +25,7 @@ function Login() {
     },
   });
   // console.log('Login의 watch: ', watch()); // target들 확인
+  const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
     // console.log('onSubmit: ', data);
@@ -34,6 +35,10 @@ function Login() {
         password: data.loginPassword,
       });
       console.log('login 완료', loginResult);
+      dispatch(
+        login({ ...loginResult.data.userInfo, ...loginResult.data.accessToken })
+      );
+      window.location.replace('/');
     } catch (err) {
       console.log(err.response.data.message);
     }
@@ -47,7 +52,6 @@ function Login() {
   //   setLoginState({ ...loginState, [key]: e.target.value });
   // }; -> react-hook-form의 watch를 썼더니 필요 없어짐
 
-  // const dispatch = useDispatch();
   // console.log('loginState: ', loginState);
   // const userInfo = useSelector(userStatus);
   // console.log('redux store 값: ', userInfo);

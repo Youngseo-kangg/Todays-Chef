@@ -5,6 +5,7 @@ const initialState = {
   email: '',
   isChef: false,
   isOauth: false,
+  accessToken: null,
 };
 
 export const userSlice = createSlice({
@@ -12,12 +13,19 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.username = action.payload.username;
+      state.userId = action.payload.id;
+      state.nickname = action.payload.nickname;
       state.email = action.payload.email;
+      state.isChef = action.payload.isChef;
+      state.isOauth = action.payload.isOauth;
+      state.accessToken = action.payload.accessToken;
     },
     logout: (state) => {
-      state.username = '';
+      state.userId = -1;
+      state.nickname = '';
       state.email = '';
+      state.isChef = false;
+      state.isOauth = false;
     },
   },
 });
