@@ -1,23 +1,16 @@
 import axios from 'axios';
+import { useState } from 'react';
 import { SignupFormWrap } from '../styled/styledSignup';
 import { useForm } from 'react-hook-form';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function Signup() {
-  // const [signupState, setSignupState] = useState({
-  //   username: '',
-  //   email: '',
-  //   password: '',
-  // });
-  // const handleSignupInputValue = (key) => (e) => {
-  //   setSignupState({ ...signupState, [key]: e.target.value });
-  // };
-  // const dispatch = useDispatch();
-  // console.log('loginState: ', loginState);
-  // const userInfo = useSelector(userStatus);
-  // console.log('redux store 값: ', userInfo);
+function Signup({ setIsSignUpModalOpen }) {
+  const [isErrorSignup, setIsErrorSignup] = useState(false);
+  const [isUser, setIsUser] = useState(false);
+  const [isSameEmail, setisSameEmail] = useState(false);
+
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
@@ -32,18 +25,40 @@ function Signup() {
       signupPassword: '',
     },
   });
+
   const onSubmit = async (data) => {
     // console.log('onSubmit: ', data);
-
-    await axios.post(`${url}/user/signup`, {
-      email: data.signupEmail,
-      password: data.signupPassword,
-      nickname: data.signupNickname,
-    });
+    try {
+      let signupResult = await axios.post(`${url}/user/signup`, {
+        email: data.signupEmail,
+        password: data.signupPassword,
+        nickname: data.signupNickname,
+      });
+      setIsSignUpModalOpen(true);
+    } catch (err) {
+      if (err.response.data.message === 'invalid User') {
+        setIsErrorSignup(true);
+        setIsUser(true);
+        setisSameEmail(false);
+      } else if (err.response.data.message === 'same email') {
+        setIsErrorSignup(true);
+        setIsUser(false);
+        setisSameEmail(true);
+      } else if (err.response.data.message === 'same nickname') {
+        setIsErrorSignup(true);
+        setIsUser(false);
+        setisSameEmail(false);
+      }
+    }
   };
+
   const onError = (error) => {
     console.log(error);
   };
+
+  // const axiosErrorMessage = () => {
+  //   setIsErrorSignup(true);
+  // };
 
   return (
     <SignupFormWrap>
@@ -105,6 +120,16 @@ function Signup() {
       </div>
       <div className='axiosErrorMessage'>
         {/* axios 하고 나서 뜨는 에러 메세지 나타내기 */}
+        {isErrorSignup ? (
+          isUser ? (
+            <span className='loginError'>이미 존재하는 회원입니다.</span>
+          ) : isSameEmail ? (
+            <span className='loginError'>이미 존재하는 이메일 입니다.</span>
+          ) : (
+            <span className='loginError'>이미 존재하는 별명 입니다.</span>
+          )
+        ) : null}
+        {}
       </div>
       <div className='formDivider'></div>
       <p id='socialSignup'>
