@@ -8,7 +8,7 @@ export const BeAChefGrid = styled.article`
   width: 100%;
   padding-bottom: 50px;
   display: grid;
-  grid-template-rows: 630px 500px 300px;
+  grid-template-rows: 630px 480px 300px;
   grid-row-gap: 50px;
   min-width: 280px;
   > section {
@@ -18,7 +18,7 @@ export const BeAChefGrid = styled.article`
     > section {
       /* border: 1px solid blue; */
     }
-    grid-template-rows: 630px 1352px 350px;
+    grid-template-rows: 630px 1342px 320px;
   }
 `;
 
@@ -56,70 +56,99 @@ export const BeAChefIntro = styled.section`
 `;
 
 export const BeAChefDesc = styled.section`
+  width: 100%;
   display: grid;
-  grid-template-rows: 74px 426px;
-  background-color: #fff;
-  h3 {
-    font-size: 23px;
-    display: flex;
-    text-align: left;
-    justify-content: flex-start;
-    align-items: center;
-    word-break: keep-all;
+  grid-template-rows: 34px 426px;
+  grid-row-gap: 20px;
+  #beChefDescTitleWrap {
+    width: 50%;
+    border-bottom: 2px solid #603224;
+    h3 {
+      font-size: 23px;
+      display: grid;
+      place-items: center start;
+      word-break: keep-all;
+    }
   }
-  #beChefDesc {
-    display: flex;
-    flex-direction: row;
-    .beChefDescText {
-      width: calc(100% / 3);
-      min-width: 255px;
-      /* border: 1px solid red; */
+  #beChefDescWrap {
+    display: grid;
+    place-items: center;
+    #beChefDesc {
+      width: 90%;
+      height: 100%;
       display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      :nth-child(1) {
-        background: url(${beAChefDesc1}) no-repeat center;
-      }
-      :nth-child(2) {
-        background: url(${beAChefDesc2}) no-repeat center;
-      }
-      :nth-child(3) {
-        background: url(${beAChefDesc3}) no-repeat center;
-      }
-      > div {
-        background: rgba(255, 255, 255, 0.7);
-        width: 100%;
-        height: 100px;
-        padding: 10px;
-        display: grid;
-        place-items: center;
-        word-break: keep-all;
+      flex-direction: row;
+      justify-content: space-between;
+      .beChefDescText {
+        width: 30%;
+        min-width: 225px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        :nth-child(1) {
+          background: url(${beAChefDesc1}) no-repeat center;
+        }
+        :nth-child(2) {
+          background: url(${beAChefDesc2}) no-repeat center;
+        }
+        :nth-child(3) {
+          background: url(${beAChefDesc3}) no-repeat center;
+        }
+        > div {
+          background: rgba(255, 255, 255, 0.7);
+          width: 100%;
+          height: 100px;
+          padding: 10px;
+          display: grid;
+          place-items: center;
+          word-break: keep-all;
+        }
       }
     }
   }
   @media (max-width: 767px) {
-    grid-template-rows: 74px 1278px;
-    #beChefDesc {
-      flex-direction: column;
-      .beChefDescText {
-        width: 100%;
-        height: 426px;
+    grid-template-rows: 44px 1278px;
+    #beChefDescTitleWrap {
+      width: 100%;
+      display: grid;
+      place-items: center start;
+      h3 {
+        font-size: 20px;
+        word-break: keep-all;
       }
+    }
+    #beChefDescWrap {
+      #beChefDesc {
+        min-width: 280px;
+        flex-direction: column;
+        .beChefDescText {
+          width: 100%;
+          height: 426px;
+        }
+      }
+    }
+  }
+  @media (max-width: 340px) {
+    grid-template-rows: 44px 1278px;
+    #beChefDescTitleWrap {
+      display: grid;
+      place-items: start;
     }
   }
 `;
 
 export const BeAChefResumeWrap = styled.section`
   display: grid;
-  grid-template-rows: 73px 60px 217px;
-  background-color: #fff;
-  h3 {
-    font-size: 23px;
-    display: flex;
-    text-align: left;
-    justify-content: flex-start;
-    align-items: center;
-    word-break: keep-all;
+  grid-template-rows: 34px 54px 236px;
+  #resumeTitleWrap {
+    width: 50%;
+    border-bottom: 2px solid #603224;
+    h3 {
+      font-size: 23px;
+      display: grid;
+      place-items: center start;
+      word-break: keep-all;
+    }
   }
   p {
     display: flex;
@@ -152,6 +181,17 @@ export const BeAChefResumeWrap = styled.section`
         button {
           width: 100%;
         }
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    #resumeTitleWrap {
+      width: 100%;
+      display: grid;
+      place-items: center start;
+      h3 {
+        font-size: 20px;
+        word-break: keep-all;
       }
     }
   }
