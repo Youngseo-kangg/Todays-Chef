@@ -1,3 +1,5 @@
+import { useState, useEffect, useMemo } from 'react';
+import { throttle } from 'lodash';
 import {
   BeAChefGrid,
   BeAChefIntro,
@@ -6,6 +8,30 @@ import {
 } from '../styled/styleBeChef';
 
 function BeAChef() {
+  const beChefText = [
+    '셰프의 상상력을 발휘한, 세상에 하나뿐인 요리를 제공해 보세요.',
+    '고객 개개인에게 최적화한 파인다이닝 서비스 경험을 쌓을 수 있습니다.',
+    '이력서를 등록하고 24시간 후 고객센터에서 셰프 선정 여부를 안내해 드립니다.',
+  ];
+
+  const [textIdx, setTextIdx] = useState(0); // beChefText 몇번째 보여줄지 정하는 state
+  const [smallBeChef, setSmallBeChef] = useState(false); // 작은 화면인지 확인하기
+
+  let textIdxMinus = () => {
+    if (textIdx === 0) {
+      setTextIdx(2);
+    } else {
+      setTextIdx(textIdx - 1);
+    }
+  }; // 보여질 beChefText index++하는 함수
+  let textIdxPlus = () => {
+    if (textIdx === 2) {
+      setTextIdx(0);
+    } else {
+      setTextIdx(textIdx + 1);
+    }
+  }; // 보여질 beChefText index--하는 함수
+
   return (
     <BeAChefGrid>
       <BeAChefIntro>
@@ -21,32 +47,40 @@ function BeAChef() {
         <div id='beChefDescTitleWrap'>
           <h3 id='beChefDescTitle'>Todays chef의 셰프가 되어보세요.</h3>
         </div>
+
         <div id='beChefDescWrap'>
           <section id='beChefDesc'>
-            <div className='beChefDescText'>
-              <div>
-                <p>셰프의 상상력을 발휘한,</p>
-                <p>세상에 하나뿐인 미식 코스를</p>
-                <p>제공해 보세요.</p>
-              </div>
+            <div
+              className={
+                textIdx === 0 ? 'beChefDescImg active' : 'beChefDescImg'
+              }
+            ></div>
+            <div
+              className={
+                textIdx === 1 ? 'beChefDescImg active' : 'beChefDescImg'
+              }
+            ></div>
+            <div
+              className={
+                textIdx === 2 ? 'beChefDescImg active' : 'beChefDescImg'
+              }
+            ></div>
+          </section>
+        </div>
+
+        <div id='beChefDescTextWrap'>
+          <section id='beChefDescText'>
+            <div className='beChefDescArrow' onClick={textIdxMinus}>
+              &lt;
             </div>
-            <div className='beChefDescText'>
-              <div>
-                <p>고객 개개인에게 최적화한</p>
-                <p>파인다이닝 서비스 경험을</p>
-                <p>쌓을 수 있습니다.</p>
-              </div>
-            </div>
-            <div className='beChefDescText'>
-              <div>
-                <p>이력서를 등록하고 24시간 후</p>
-                <p>고객센터에서 셰프 선정 여부를</p>
-                <p>안내해 드립니다.</p>
-              </div>
+            <p>{beChefText[textIdx]}</p>
+            <div className='beChefDescArrow' onClick={textIdxPlus}>
+              &gt;
             </div>
           </section>
         </div>
       </BeAChefDesc>
+
       <BeAChefResumeWrap>
         <div id='resumeTitleWrap'>
           <h3 id='resumeTitle'>셰프 신청 하기</h3>
