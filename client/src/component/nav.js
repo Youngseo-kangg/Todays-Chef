@@ -12,7 +12,7 @@ import {
   NavBarIcon,
 } from '../styled/styleNav';
 
-function Nav() {
+function Nav({ setIsLogout }) {
   const userInfo = useSelector(userStatus); // user의 상태
   console.log('nav에서 userInfo: ', userInfo);
   const dispatch = useDispatch();
@@ -121,7 +121,8 @@ function Nav() {
                   <li
                     onClick={() => {
                       showMiniMenu();
-                      dispatch(logout());
+                      setIsLogout(true);
+                      // dispatch(logout());
                     }}
                   >
                     Logout
@@ -166,7 +167,8 @@ function Nav() {
                   <li
                     onClick={() => {
                       showMiniMenu();
-                      dispatch(logout());
+                      // dispatch(logout());
+                      setIsLogout(true);
                     }}
                   >
                     Logout
