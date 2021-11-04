@@ -26,6 +26,7 @@ export const userSlice = createSlice({
       state.email = '';
       state.isChef = false;
       state.isOauth = false;
+      state.accessToken = null;
     },
   },
 });

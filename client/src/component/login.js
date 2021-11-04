@@ -36,7 +36,10 @@ function Login() {
       });
       console.log('login 완료', loginResult);
       dispatch(
-        login({ ...loginResult.data.userInfo, ...loginResult.data.accessToken })
+        login({
+          ...loginResult.data.userInfo,
+          accessToken: loginResult.data.accessToken,
+        })
       );
       window.location.replace('/');
     } catch (err) {
