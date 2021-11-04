@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function Login() {
+function Login({ setIsLoginModalOpen }) {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
@@ -38,8 +38,7 @@ function Login() {
 
       if (loginResult.data.message === 'ok') {
         dispatch(login(loginResult.data.userInfo));
-        alert('로그인이 완료 되었습니다.'); // 모달창 띄우기
-        window.location.replace('/');
+        setIsLoginModalOpen(true);
       }
     } catch (err) {
       console.log(err.response.data.message);

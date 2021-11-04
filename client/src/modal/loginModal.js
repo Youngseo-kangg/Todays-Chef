@@ -2,6 +2,11 @@ import { ModalBackground, ModalBox } from '../styled/styledModal';
 import { useState } from 'react';
 
 function LoginModal({ setIsLoginModalOpen }) {
+  const clickOk = () => {
+    setIsLoginModalOpen(false);
+    window.location.replace('/');
+  };
+
   return (
     <>
       <ModalBackground>
@@ -14,7 +19,7 @@ function LoginModal({ setIsLoginModalOpen }) {
             </p>
           </div>
           <div id='confirmBtn'>
-            <button onClick={() => setIsLoginModalOpen(false)}>확인</button>
+            <button onClick={clickOk}>확인</button>
           </div>
         </ModalBox>
       </ModalBackground>
