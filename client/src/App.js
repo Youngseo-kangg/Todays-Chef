@@ -2,7 +2,7 @@ import './App.css';
 import Main from './pages/main';
 import Nav from './component/nav';
 import FindChef from './pages/findChef';
-import BeAChef from './pages/beAChef';
+import BeChef from './pages/beChef';
 import ChefInfo from './pages/chefInfo';
 import Reservation from './pages/reservation';
 import Mypage from './pages/mypage';
@@ -42,8 +42,8 @@ function App() {
         <Route path='/findChef'>
           <FindChef />
         </Route>
-        <Route path='/beAChef'>
-          <BeAChef />
+        <Route path='/beChef'>
+          <BeChef />
         </Route>
         <Route path='/chefInfo'>
           <ChefInfo />

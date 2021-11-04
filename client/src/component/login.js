@@ -37,9 +37,15 @@ function Login({ setIsLoginModalOpen }) {
       console.log('login 완료', loginResult.data.message);
 
       if (loginResult.data.message === 'ok') {
-        dispatch(login(loginResult.data.userInfo));
-        setIsLoginModalOpen(true);
-      }
+       
+      console.log('login 완료', loginResult);
+      dispatch(
+        login({
+          ...loginResult.data.userInfo,
+          accessToken: loginResult.data.accessToken,
+        })
+      );
+      setIsLoginModalOpen(true);
     } catch (err) {
       console.log(err.response.data.message);
       if (err.response.data.message === 'Invalid User') {
@@ -52,7 +58,6 @@ function Login({ setIsLoginModalOpen }) {
     console.log(error);
   };
 
-  // const dispatch = useDispatch(login(loginResult));
   // console.log('loginState: ', loginState);
   // const userInfo = useSelector(userStatus);
   // console.log('redux store 값: ', userInfo);
