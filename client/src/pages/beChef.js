@@ -94,10 +94,10 @@ function BeAChef() {
               <div id='resumeFileWrap'>
                 <input
                   id='resumeFileName'
-                  value='첨부파일'
+                  defaultValue='첨부파일'
                   placeholder='첨부파일'
                 />
-                <label for='resumeFile'>업로드</label>
+                <label htmlFor='resumeFile'>업로드</label>
                 <input
                   type='file'
                   id='resumeFile'
