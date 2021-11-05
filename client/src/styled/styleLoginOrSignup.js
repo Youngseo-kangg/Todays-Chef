@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import basic_background from '../todaysChefIMG/basic_background.jpg';
 import small_basic_background from '../todaysChefIMG/small_basic_background.jpg';
 

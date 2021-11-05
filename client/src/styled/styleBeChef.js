@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import beAChefBackground from '../todaysChefIMG/beAChefBackground.jpg';
 import beChefDesc1 from '../todaysChefIMG/beChefDesc1.jpg';
 import beChefDesc2 from '../todaysChefIMG/beChefDesc2.jpg';
-import beChefDesc3 from '../todaysChefIMG/beChefDesc3.jpg';
 import beChefDesc5 from '../todaysChefIMG/beChefDesc5.jpg';
 
 export const BeAChefGrid = styled.article`

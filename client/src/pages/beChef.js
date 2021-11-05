@@ -1,5 +1,7 @@
-import { useState, useEffect, useMemo } from 'react';
-import { throttle } from 'lodash';
+import { useState } from 'react';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { userStatus } from '../features/user/user';
 import {
   BeAChefGrid,
   BeAChefIntro,
@@ -7,14 +9,20 @@ import {
   BeAChefResumeWrap,
 } from '../styled/styleBeChef';
 
+require('dotenv').config();
+axios.defaults.withCredentials = true;
+
 function BeAChef() {
   const beChefText = [
     '셰프의 상상력을 발휘한, 세상에 하나뿐인 요리를 제공해 보세요.',
     '고객 개개인에게 최적화한 파인다이닝 서비스 경험을 쌓을 수 있습니다.',
     '이력서를 등록하고 24시간 후 고객센터에서 셰프 선정 여부를 안내해 드립니다.',
   ];
-
+  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  const userInfo = useSelector(userStatus);
   const [textIdx, setTextIdx] = useState(0); // beChefText 몇번째 보여줄지 정하는 state
+  const [cuisine, setCuisine] = useState('kr'); // cuisine
+  const [resumeName, setResumeName] = useState(''); // resume 파일 이름
 
   let textIdxMinus = () => {
     if (textIdx === 0) {
@@ -30,6 +38,31 @@ function BeAChef() {
       setTextIdx(textIdx + 1);
     }
   }; // 보여질 beChefText index--하는 함수
+
+  const attachResume = (event) => {
+    // formData에 파일 붙여주기
+    let formData = new FormData();
+    formData.append('file', event.target.files[0]);
+    // 로컬에서 선택한 pdf파일의 제목을 input에 보여주기
+    setResumeName(event.target.files[0].name);
+  };
+
+  const sendResumeToServer = async () => {
+    try {
+      let submitResult = await axios.post(
+        `${url}/chef`,
+        {
+          header: { authorization: `bearer ${userInfo.accessToken}` },
+        },
+        {
+          cuisine: cuisine,
+          document: '', // s3주소 필요
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <BeAChefGrid>
@@ -85,17 +118,22 @@ function BeAChef() {
         <div id='resumeFormWrap'>
           <div id='resumeForm'>
             <form>
-              <select name='resumeCuisine' id='resumeCuisine'>
-                <option>한식</option>
-                <option>일식</option>
-                <option>중식</option>
-                <option>양식</option>
+              <select
+                name='resumeCuisine'
+                id='resumeCuisine'
+                onChange={(e) => setCuisine(e.target.value)}
+              >
+                <option value='kr'>한식</option>
+                <option value='jp'>일식</option>
+                <option value='ch'>중식</option>
+                <option value='eu'>양식</option>
               </select>
               <div id='resumeFileWrap'>
                 <input
                   id='resumeFileName'
-                  defaultValue='첨부파일'
+                  value={resumeName}
                   placeholder='첨부파일'
+                  readOnly
                 />
                 <label htmlFor='resumeFile'>업로드</label>
                 <input
@@ -103,11 +141,13 @@ function BeAChef() {
                   id='resumeFile'
                   style={{ display: 'none' }}
                   name='resumeFile'
-                  id='resumeFile'
+                  onChange={attachResume}
                 />
               </div>
             </form>
-            <button id='submitBtn'>제출</button>
+            <button id='submitBtn' onClick={sendResumeToServer}>
+              제출
+            </button>
           </div>
         </div>
       </BeAChefResumeWrap>
