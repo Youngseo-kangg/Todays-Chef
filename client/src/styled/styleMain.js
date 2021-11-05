@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import '../App.css';
+import mainBeChefImg from '../todaysChefIMG/mainPageBeChef.jpg';
 
 export const MainGrid = styled.div`
   display: grid;
-  grid-template-rows: 100vh 150px 550px 600px;
+  grid-template-rows: 100vh 150px 550px 550px;
   row-gap: 50px;
 `;
 
@@ -189,12 +190,31 @@ export const BestOfChefsWrap = styled.div`
   }
 `;
 
-export const BestChefBox = styled.div``;
-
 export const RatingStar = styled.div`
   background-color: pink;
   width: 60%;
   height: 20px;
   margin: 0 auto;
   margin-top: 10px;
+`;
+
+export const MainSection4Wrap = styled.div`
+  display: grid;
+  padding: 0 200px;
+`;
+
+export const BeChefWrap = styled.div`
+  background-color: #fff;
+  border-radius: 20px;
+  display: flex;
+  > #beChefBackground {
+    width: 100%;
+    height: 550px;
+    background-image: url(${mainBeChefImg});
+    background-position: right;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    opacity: 0.7;
+  }
 `;
