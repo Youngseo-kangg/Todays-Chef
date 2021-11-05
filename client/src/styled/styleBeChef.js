@@ -3,16 +3,17 @@ import beAChefBackground from '../todaysChefIMG/beAChefBackground.jpg';
 import beChefDesc1 from '../todaysChefIMG/beChefDesc1.jpg';
 import beChefDesc2 from '../todaysChefIMG/beChefDesc2.jpg';
 import beChefDesc3 from '../todaysChefIMG/beChefDesc3.jpg';
+import beChefDesc5 from '../todaysChefIMG/beChefDesc5.jpg';
 
 export const BeAChefGrid = styled.article`
   width: 100%;
   padding-bottom: 50px;
   display: grid;
-  grid-template-rows: 730px 740px 300px;
+  grid-template-rows: 90vh 740px 300px;
   grid-row-gap: 200px;
   min-width: 280px;
   @media (max-width: 767px) {
-    grid-template-rows: 730px 734px 300px;
+    grid-template-rows: 90vh 734px 300px;
     grid-row-gap: 150px;
   }
 `;
@@ -84,34 +85,36 @@ export const BeAChefDesc = styled.section`
     width: 30%;
     height: 100%;
     min-width: 225px;
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    opacity: 0.6;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     :nth-child(1) {
-      background: url(${beChefDesc1}) no-repeat center;
+      background: url(${beChefDesc1}) no-repeat center right -360px;
     }
     :nth-child(2) {
       background: url(${beChefDesc2}) no-repeat center;
     }
     :nth-child(3) {
-      background: url(${beChefDesc3}) no-repeat center;
+      background: url(${beChefDesc5}) no-repeat center right -200px;
     }
-    &.active {
-      opacity: 1;
-    }
-    > div {
-      background: rgba(255, 255, 255, 0.7);
+    > span {
+      background: rgba(0, 0, 0, 0.6);
       width: 100%;
-      height: 100px;
-      padding: 10px;
-      display: grid;
-      place-items: center;
-      word-break: keep-all;
+      height: 100%;
+      border-radius: 5px;
+      &.imgActive {
+        background-color: transparent;
+      }
     }
     @media (max-width: 767px) {
       width: 100%;
       min-width: 280px;
+      border-radius: 0px;
+      > span {
+        border-radius: 0;
+      }
     }
   }
 
@@ -136,6 +139,7 @@ export const BeAChefDesc = styled.section`
       place-items: center;
       width: 80%;
       height: 100%;
+      border-radius: 5px;
     }
     > .beChefDescArrow {
       width: 50px;

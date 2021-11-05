@@ -15,7 +15,6 @@ function BeAChef() {
   ];
 
   const [textIdx, setTextIdx] = useState(0); // beChefText 몇번째 보여줄지 정하는 state
-  const [smallBeChef, setSmallBeChef] = useState(false); // 작은 화면인지 확인하기
 
   let textIdxMinus = () => {
     if (textIdx === 0) {
@@ -50,21 +49,15 @@ function BeAChef() {
 
         <div id='beChefDescWrap'>
           <section id='beChefDesc'>
-            <div
-              className={
-                textIdx === 0 ? 'beChefDescImg active' : 'beChefDescImg'
-              }
-            ></div>
-            <div
-              className={
-                textIdx === 1 ? 'beChefDescImg active' : 'beChefDescImg'
-              }
-            ></div>
-            <div
-              className={
-                textIdx === 2 ? 'beChefDescImg active' : 'beChefDescImg'
-              }
-            ></div>
+            <div className='beChefDescImg'>
+              <span className={textIdx === 0 ? 'imgActive' : null}></span>
+            </div>
+            <div className='beChefDescImg'>
+              <span className={textIdx === 1 ? 'imgActive' : null}></span>
+            </div>
+            <div className='beChefDescImg'>
+              <span className={textIdx === 2 ? 'imgActive' : null}></span>
+            </div>
           </section>
         </div>
 
