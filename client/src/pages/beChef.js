@@ -82,13 +82,13 @@ function BeAChef() {
 
         <div id='beChefDescWrap'>
           <section id='beChefDesc'>
-            <div className='beChefDescImg'>
+            <div className='beChefDescImg' onClick={() => setTextIdx(0)}>
               <span className={textIdx === 0 ? 'imgActive' : null}></span>
             </div>
-            <div className='beChefDescImg'>
+            <div className='beChefDescImg' onClick={() => setTextIdx(1)}>
               <span className={textIdx === 1 ? 'imgActive' : null}></span>
             </div>
-            <div className='beChefDescImg'>
+            <div className='beChefDescImg' onClick={() => setTextIdx(2)}>
               <span className={textIdx === 2 ? 'imgActive' : null}></span>
             </div>
           </section>
