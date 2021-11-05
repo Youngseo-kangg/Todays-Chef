@@ -9,7 +9,7 @@ axios.defaults.withCredentials = true;
 function Signup({ setIsSignUpModalOpen }) {
   const [isErrorSignup, setIsErrorSignup] = useState(false);
   const [isUser, setIsUser] = useState(false);
-  const [isSameEmail, setisSameEmail] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
@@ -38,16 +38,13 @@ function Signup({ setIsSignUpModalOpen }) {
     } catch (err) {
       if (err.response.data.message === 'invalid User') {
         setIsErrorSignup(true);
-        setIsUser(true);
-        setisSameEmail(false);
+        setErrorMsg('이미 존재하는 사용자 입니다.');
       } else if (err.response.data.message === 'same email') {
         setIsErrorSignup(true);
-        setIsUser(false);
-        setisSameEmail(true);
+        setErrorMsg('이미 존재하는 이메일 입니다.');
       } else if (err.response.data.message === 'same nickname') {
         setIsErrorSignup(true);
-        setIsUser(false);
-        setisSameEmail(false);
+        setErrorMsg('이미 존재하는 별명 입니다.');
       }
     }
   };
@@ -120,16 +117,8 @@ function Signup({ setIsSignUpModalOpen }) {
       </div>
       <div className='axiosErrorMessage'>
         {/* axios 하고 나서 뜨는 에러 메세지 나타내기 */}
-        {isErrorSignup ? (
-          isUser ? (
-            <span className='loginError'>이미 존재하는 회원입니다.</span>
-          ) : isSameEmail ? (
-            <span className='loginError'>이미 존재하는 이메일 입니다.</span>
-          ) : (
-            <span className='loginError'>이미 존재하는 별명 입니다.</span>
-          )
-        ) : null}
-        {}
+
+        <span className='loginError'>{errorMsg}</span>
       </div>
       <div className='formDivider'></div>
       <p id='socialSignup'>

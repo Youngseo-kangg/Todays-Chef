@@ -14,7 +14,6 @@ import {
 
 function Nav({ setIsLogout }) {
   const userInfo = useSelector(userStatus); // user의 상태
-  console.log('nav에서 userInfo: ', userInfo);
   const dispatch = useDispatch();
   const [mymenuState, setMymenuState] = useState(false); // 세부메뉴 보일지 말지
   const [transNav, setTransNav] = useState(false); // nav 투명에서 색상 변경
@@ -106,7 +105,7 @@ function Nav({ setIsLogout }) {
                 </NavBarIcon>
                 <MymenuSmall className={mymenuState ? 'showMyMenu' : null}>
                   <li>
-                    <p>안녕하세요, OO님!</p>
+                    <p>안녕하세요, {userInfo.nickname}님!</p>
                     <img src={basic_profile} alt='user profile' />
                   </li>
                   <li onClick={showMiniMenu}>
@@ -157,7 +156,7 @@ function Nav({ setIsLogout }) {
             ) : (
               <li>
                 <div className='afterLogin' onClick={showMiniMenu}>
-                  <p>안녕하세요, OO님!</p>
+                  <p>안녕하세요, {userInfo.nickname}님!</p>
                   <img src={basic_profile} alt='user profile' />
                 </div>
                 <Mymenu className={mymenuState ? 'showMyMenu' : null}>
