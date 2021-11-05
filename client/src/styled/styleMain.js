@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import '../App.css';
+import mainBeChefImg from '../todaysChefIMG/mainPageBeChef.jpg';
 
 export const MainGrid = styled.div`
   display: grid;
-  grid-template-rows: 100vh 600px 600px;
+  grid-template-rows: 100vh 150px 550px 550px;
   row-gap: 50px;
-  margin-bottom: 50px;
 `;
 
 export const MainBackgroundWrap = styled.div`
@@ -80,5 +80,141 @@ export const SloganWrap = styled.div`
       font-size: 11px;
       line-height: 30px;
     }
+  }
+`;
+
+export const MainSection2Wrap = styled.div`
+  display: grid;
+  padding: 0 200px;
+  > h3 {
+    text-align: left;
+    font-size: 23px;
+  }
+  > #cuisineBtnWrap {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    > .cuisineBtn {
+      width: 100%;
+      height: 80px;
+      margin-left: 15px;
+      border-radius: 10px;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.3s;
+      :hover {
+        background-color: #603224;
+        color: #fff;
+      }
+      > img {
+        width: 50px;
+        height: 50px;
+      }
+      > .cuisineText {
+        margin-left: 10px;
+        > h4 {
+          font-size: 20px;
+          text-align: left;
+        }
+        > p {
+          padding-top: 5px;
+          font-size: 13px;
+        }
+      }
+    }
+    > .cuisineBtn:nth-child(1) {
+      margin-left: 0;
+    }
+  }
+`;
+
+export const MainSection3Wrap = styled.div`
+  display: grid;
+  padding: 0 200px;
+  > h3 {
+    text-align: left;
+    font-size: 23px;
+  }
+`;
+
+export const BestOfChefsWrap = styled.div`
+  width: 100%;
+  height: 460px;
+  display: flex;
+  > .bestChefBox {
+    flex: 1 1 auto;
+    background-color: #fff;
+    margin-left: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    > .bestChefCuisine {
+      width: 60%;
+      height: 50px;
+      line-height: 60px;
+      margin: 0 auto;
+      border-bottom: 2px solid #dbb89a;
+      color: #603224;
+    }
+    > .bestChefPicture {
+      width: 92%;
+      height: 280px;
+      margin: 0 auto;
+      margin-top: 10px;
+      background-color: pink;
+    }
+    > .bestChefDesc {
+      width: 92%;
+      margin: 0 auto;
+      margin-top: 10px;
+      height: 100px;
+      > span {
+        display: block;
+        width: 60%;
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 2px solid #dbb89a;
+        margin: 0 auto;
+      }
+      > .ratingStar {
+        margin-top: 10px;
+        height: 60px;
+      }
+    }
+  }
+  > .bestChefBox:nth-child(1) {
+    margin-left: 0;
+  }
+`;
+
+export const RatingStar = styled.div`
+  background-color: pink;
+  width: 60%;
+  height: 20px;
+  margin: 0 auto;
+  margin-top: 10px;
+`;
+
+export const MainSection4Wrap = styled.div`
+  display: grid;
+  padding: 0 200px;
+`;
+
+export const BeChefWrap = styled.div`
+  background-color: #fff;
+  border-radius: 20px;
+  display: flex;
+  > #beChefBackground {
+    width: 100%;
+    height: 550px;
+    background-image: url(${mainBeChefImg});
+    background-position: right;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    opacity: 0.7;
   }
 `;
