@@ -143,52 +143,53 @@ export const BestOfChefsWrap = styled.div`
   width: 100%;
   height: 460px;
   display: flex;
-`;
-
-export const BestChefBox = styled.div`
-  flex: 1 1 auto;
-  background-color: #fff;
-  margin-left: 15px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  > .bestChefCuisine {
-    width: 60%;
-    height: 50px;
-    line-height: 60px;
-    margin: 0 auto;
-    border-bottom: 2px solid #dbb89a;
-    color: #603224;
-  }
-  > .bestChefPicture {
-    width: 92%;
-    height: 280px;
-    margin: 0 auto;
-    margin-top: 10px;
-    background-color: pink;
-  }
-  > .bestChefDesc {
-    width: 92%;
-    margin: 0 auto;
-    margin-top: 10px;
-    height: 100px;
-    > span {
-      display: block;
+  > .bestChefBox {
+    flex: 1 1 auto;
+    background-color: #fff;
+    margin-left: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    > .bestChefCuisine {
       width: 60%;
-      height: 40px;
-      line-height: 40px;
-      border-bottom: 2px solid #dbb89a;
+      height: 50px;
+      line-height: 60px;
       margin: 0 auto;
+      border-bottom: 2px solid #dbb89a;
+      color: #603224;
     }
-    > .ratingStar {
+    > .bestChefPicture {
+      width: 92%;
+      height: 280px;
+      margin: 0 auto;
       margin-top: 10px;
-      height: 60px;
+      background-color: pink;
+    }
+    > .bestChefDesc {
+      width: 92%;
+      margin: 0 auto;
+      margin-top: 10px;
+      height: 100px;
+      > span {
+        display: block;
+        width: 60%;
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 2px solid #dbb89a;
+        margin: 0 auto;
+      }
+      > .ratingStar {
+        margin-top: 10px;
+        height: 60px;
+      }
     }
   }
   > .bestChefBox:nth-child(1) {
     margin-left: 0;
   }
 `;
+
+export const BestChefBox = styled.div``;
 
 export const RatingStar = styled.div`
   background-color: pink;

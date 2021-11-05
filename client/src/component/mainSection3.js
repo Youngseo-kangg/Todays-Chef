@@ -11,7 +11,7 @@ function MainSection3() {
       <MainSection3Wrap>
         <h3>각 요리별 최고의 셰프를 알아보고 경험해보세요.</h3>
         <BestOfChefsWrap>
-          <BestChefBox>
+          <div className='bestChefBox'>
             <h4 className='bestChefCuisine'>한식</h4>
             <div className='bestChefPicture'>셰프 이미지</div>
             <div className='bestChefDesc'>
@@ -21,9 +21,9 @@ function MainSection3() {
                 <RatingStar></RatingStar>
               </div>
             </div>
-          </BestChefBox>
+          </div>
 
-          <BestChefBox>
+          <div className='bestChefBox'>
             <h4 className='bestChefCuisine'>일식</h4>
             <div className='bestChefPicture'>셰프 이미지</div>
             <div className='bestChefDesc'>
@@ -33,9 +33,9 @@ function MainSection3() {
                 <RatingStar></RatingStar>
               </div>
             </div>
-          </BestChefBox>
+          </div>
 
-          <BestChefBox>
+          <div className='bestChefBox'>
             <h4 className='bestChefCuisine'>중식</h4>
             <div className='bestChefPicture'>셰프 이미지</div>
             <div className='bestChefDesc'>
@@ -45,9 +45,9 @@ function MainSection3() {
                 <RatingStar></RatingStar>
               </div>
             </div>
-          </BestChefBox>
+          </div>
 
-          <BestChefBox>
+          <div className='bestChefBox'>
             <h4 className='bestChefCuisine'>양식</h4>
             <div className='bestChefPicture'>셰프 이미지</div>
             <div className='bestChefDesc'>
@@ -57,7 +57,7 @@ function MainSection3() {
                 <RatingStar></RatingStar>
               </div>
             </div>
-          </BestChefBox>
+          </div>
         </BestOfChefsWrap>
       </MainSection3Wrap>
     </>
