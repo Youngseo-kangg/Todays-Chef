@@ -9,12 +9,15 @@ export const BeAChefGrid = styled.article`
   width: 100%;
   padding-bottom: 50px;
   display: grid;
-  grid-template-rows: 90vh 740px 300px;
+  grid-template-rows: 90vh 761px 300px;
   grid-row-gap: 200px;
   min-width: 280px;
   @media (max-width: 767px) {
-    grid-template-rows: 90vh 734px 300px;
+    grid-template-rows: 90vh 726px 300px;
     grid-row-gap: 150px;
+  }
+  @media (max-width: 430px) {
+    grid-template-rows: 90vh 750px 300px;
   }
 `;
 
@@ -54,16 +57,20 @@ export const BeAChefIntro = styled.section`
 export const BeAChefDesc = styled.section`
   width: 100%;
   display: grid;
-  grid-template-rows: 34px 486px 200px;
+  grid-template-rows: 35px 486px 200px;
   grid-row-gap: 20px;
   padding: 0 50px;
   #beChefDescTitleWrap {
     width: 100%;
     h3 {
-      font-size: 23px;
-      display: grid;
-      place-items: center start;
+      font-size: 35px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
       word-break: keep-all;
+      @media (max-width: 767px) {
+        font-size: 30px;
+      }
     }
   }
   #beChefDescWrap {
@@ -154,27 +161,32 @@ export const BeAChefDesc = styled.section`
     }
   }
   @media (max-width: 767px) {
-    grid-template-rows: 34px 500px 150px;
+    grid-template-rows: 35px 500px 150px;
+    text-align: left;
     padding: 0 0;
   }
-  @media (max-width: 340px) {
-    grid-template-rows: 34px 500px 150px;
-    padding: 0 0;
+  @media (max-width: 430px) {
+    grid-template-rows: 60px 500px 150px;
   }
 `;
 
 export const BeAChefResumeWrap = styled.section`
   display: grid;
   padding: 0 50px;
-  grid-template-rows: 35px 53px 200px;
+  grid-template-rows: 35px 53px 212px;
   #resumeTitleWrap {
     width: 100%;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    word-break: keep-all;
     font-size: 35px;
-    > h3 {
-      width: 100%;
-      text-align: left;
+
+    @media (max-width: 767px) {
+      font-size: 30px;
+    }
+    @media (max-width: 420px) {
+      font-size: 25px;
     }
   }
   p {
@@ -186,42 +198,73 @@ export const BeAChefResumeWrap = styled.section`
   }
   #resumeFormWrap {
     display: grid;
+    width: 100%;
+    height: 100%;
     place-items: center;
-    background-color: #603224;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
+  }
+
+  #resumeForm {
+    /* border: 1px solid red; */
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-row-gap: 20px;
+    width: 80%;
+    height: 50%;
+    > #submitBtn {
+      width: 30%;
+      min-width: 100px;
+      margin: 0 auto;
+      background-color: #dbb89a;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      border: none;
+      outline: none;
+    }
     > form {
       display: block;
-      width: 80%;
-      min-width: 280px;
-      height: 60px;
+      width: 100%;
+      height: 100%;
       background-color: rgba(255, 255, 255, 0.3);
       border-radius: 5px;
       display: grid;
-      grid-template-columns: 1fr 3fr 1fr;
-      grid-template-rows: 30px;
-      padding: 15px;
-      @media (max-width: 420px) {
-        height: 100px;
-        grid-template-columns: none;
-        grid-template-rows: 1fr 1fr 1fr;
-        select,
-        input,
-        button {
-          width: 100%;
+      grid-template-columns: 1fr 3fr;
+      grid-column-gap: 10px;
+      grid-template-rows: 100%;
+      > input {
+        height: 100%;
+      }
+      > select {
+        border: none;
+        border-radius: 5px;
+      }
+      #resumeFileWrap {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        grid-column-gap: 10px;
+        input {
+          border: none;
+          border-radius: 5px;
+        }
+        label {
+          cursor: pointer;
+          display: grid;
+          place-items: center;
+          background-color: #603224;
+          color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+          min-width: 45px;
         }
       }
     }
+    @media (max-width: 420px) {
+      width: 100%;
+    }
   }
+
   @media (max-width: 767px) {
     padding: 0 0;
-    #resumeTitleWrap {
-      width: 100%;
-      display: grid;
-      place-items: center start;
-      h3 {
-        font-size: 20px;
-        word-break: keep-all;
-      }
-    }
   }
 `;

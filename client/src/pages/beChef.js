@@ -83,18 +83,32 @@ function BeAChef() {
           주시면 됩니다.
         </p>
         <div id='resumeFormWrap'>
-          <form>
-            <select name='resumeCuisine' id='resumeCuisine'>
-              <option>한식</option>
-              <option>일식</option>
-              <option>중식</option>
-              <option>양식</option>
-            </select>
-            <input type='file' name='resumeFile' id='resumeFile' />
-            <button type='submit' id='submitBtn'>
-              제출
-            </button>
-          </form>
+          <div id='resumeForm'>
+            <form>
+              <select name='resumeCuisine' id='resumeCuisine'>
+                <option>한식</option>
+                <option>일식</option>
+                <option>중식</option>
+                <option>양식</option>
+              </select>
+              <div id='resumeFileWrap'>
+                <input
+                  id='resumeFileName'
+                  value='첨부파일'
+                  placeholder='첨부파일'
+                />
+                <label for='resumeFile'>업로드</label>
+                <input
+                  type='file'
+                  id='resumeFile'
+                  style={{ display: 'none' }}
+                  name='resumeFile'
+                  id='resumeFile'
+                />
+              </div>
+            </form>
+            <button id='submitBtn'>제출</button>
+          </div>
         </div>
       </BeAChefResumeWrap>
     </BeAChefGrid>
