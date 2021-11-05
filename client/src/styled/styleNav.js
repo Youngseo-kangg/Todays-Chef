@@ -41,8 +41,10 @@ export const Navbar = styled.nav`
       }
     }
   }
-
   #defaultMenu {
+    li {
+      min-width: 170px;
+    }
     #menuLeft {
       display: flex;
       width: 170px;
@@ -58,7 +60,6 @@ export const Navbar = styled.nav`
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
     }
     .afterLogin > img {
       width: 40px;
@@ -68,7 +69,6 @@ export const Navbar = styled.nav`
       cursor: pointer;
     }
   }
-
   #smallMenu {
     justify-content: space-between;
     position: relative;
