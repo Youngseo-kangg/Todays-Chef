@@ -3,9 +3,8 @@ import '../App.css';
 
 export const MainGrid = styled.div`
   display: grid;
-  grid-template-rows: 100vh 150px 600px 600px;
+  grid-template-rows: 100vh 150px 550px 600px;
   row-gap: 50px;
-  margin-bottom: 50px;
 `;
 
 export const MainBackgroundWrap = styled.div`
@@ -97,7 +96,7 @@ export const MainSection2Wrap = styled.div`
     > .cuisineBtn {
       width: 100%;
       height: 80px;
-      margin-left: 20px;
+      margin-left: 15px;
       border-radius: 10px;
       background-color: #fff;
       display: flex;
@@ -129,4 +128,72 @@ export const MainSection2Wrap = styled.div`
       margin-left: 0;
     }
   }
+`;
+
+export const MainSection3Wrap = styled.div`
+  display: grid;
+  padding: 0 200px;
+  > h3 {
+    text-align: left;
+    font-size: 23px;
+  }
+`;
+
+export const BestOfChefsWrap = styled.div`
+  width: 100%;
+  height: 460px;
+  display: flex;
+`;
+
+export const BestChefBox = styled.div`
+  flex: 1 1 auto;
+  background-color: #fff;
+  margin-left: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  > .bestChefCuisine {
+    width: 60%;
+    height: 50px;
+    line-height: 60px;
+    margin: 0 auto;
+    border-bottom: 2px solid #dbb89a;
+    color: #603224;
+  }
+  > .bestChefPicture {
+    width: 92%;
+    height: 280px;
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color: pink;
+  }
+  > .bestChefDesc {
+    width: 92%;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 100px;
+    > span {
+      display: block;
+      width: 60%;
+      height: 40px;
+      line-height: 40px;
+      border-bottom: 2px solid #dbb89a;
+      margin: 0 auto;
+    }
+    > .ratingStar {
+      margin-top: 10px;
+      height: 60px;
+    }
+  }
+  > .bestChefBox:nth-child(1) {
+    margin-left: 0;
+  }
+`;
+
+export const RatingStar = styled.div`
+  background-color: pink;
+  width: 60%;
+  height: 20px;
+  margin: 0 auto;
+  margin-top: 10px;
 `;
