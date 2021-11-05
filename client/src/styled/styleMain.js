@@ -3,7 +3,7 @@ import '../App.css';
 
 export const MainGrid = styled.div`
   display: grid;
-  grid-template-rows: 100vh 600px 600px;
+  grid-template-rows: 100vh 150px 600px 600px;
   row-gap: 50px;
   margin-bottom: 50px;
 `;
@@ -79,6 +79,54 @@ export const SloganWrap = styled.div`
     @media (max-width: 280px) {
       font-size: 11px;
       line-height: 30px;
+    }
+  }
+`;
+
+export const MainSection2Wrap = styled.div`
+  display: grid;
+  padding: 0 200px;
+  > h3 {
+    text-align: left;
+    font-size: 23px;
+  }
+  > #cuisineBtnWrap {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    > .cuisineBtn {
+      width: 100%;
+      height: 80px;
+      margin-left: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.3s;
+      :hover {
+        background-color: #603224;
+        color: #fff;
+      }
+      > img {
+        width: 50px;
+        height: 50px;
+      }
+      > .cuisineText {
+        margin-left: 10px;
+        > h4 {
+          font-size: 20px;
+          text-align: left;
+        }
+        > p {
+          padding-top: 5px;
+          font-size: 13px;
+        }
+      }
+    }
+    > .cuisineBtn:nth-child(1) {
+      margin-left: 0;
     }
   }
 `;
