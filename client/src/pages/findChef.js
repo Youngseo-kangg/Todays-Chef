@@ -1,11 +1,23 @@
 import { Link } from 'react-router-dom';
-import { FindChefGrid } from '../styled/styleFindChef';
+import { FindChefGrid, SelectCuisine, ChefList } from '../styled/styleFindChef';
 
 function FindChef() {
   return (
     <FindChefGrid>
-      <p>cuisine 선택</p>
-      <div>
+      <SelectCuisine>
+        <div id='cuisineChoiceWrap'>
+          <ul>
+            <li>한식</li>
+            <li>일식</li>
+          </ul>
+          <ul>
+            <li>양식</li>
+            <li>중식</li>
+          </ul>
+        </div>
+      </SelectCuisine>
+
+      <ChefList>
         <p>셰프님들 선택</p>
         <ul>
           <li>
@@ -18,7 +30,7 @@ function FindChef() {
             <Link to='/chefInfo'>3번 chefInfo</Link>
           </li>
         </ul>
-      </div>
+      </ChefList>
     </FindChefGrid>
   );
 }
