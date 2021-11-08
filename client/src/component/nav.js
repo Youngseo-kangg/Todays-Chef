@@ -68,7 +68,7 @@ function Nav({ setIsLogout }) {
         {transScreen ? (
           <ul id='smallMenu'>
             <li>
-              <h2>
+              <h2 onClick={() => window.scrollTo(0, 0)}>
                 <Link to='/'>Todays chef</Link>
               </h2>
             </li>
@@ -136,21 +136,21 @@ function Nav({ setIsLogout }) {
             {/* 큰 화면에서 보이는 nav */}
             <li>
               <ul id='menuLeft'>
-                <li>
+                <li onClick={() => window.scrollTo(0, 0)}>
                   <Link to='/beChef'>BeChef</Link>
                 </li>
-                <li>
+                <li onClick={() => window.scrollTo(0, 0)}>
                   <Link to='/findChef'>findChef</Link>
                 </li>
               </ul>
             </li>
-            <li>
+            <li onClick={() => window.scrollTo(0, 0)}>
               <h2>
                 <Link to='/'>Todays chef</Link>
               </h2>
             </li>
             {userInfo.userId === -1 || userInfo.userId === undefined ? (
-              <li>
+              <li onClick={() => window.scrollTo(0, 0)}>
                 <Link to='/loginOrSignup'>로그인/회원가입</Link>
               </li>
             ) : (

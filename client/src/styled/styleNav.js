@@ -140,17 +140,19 @@ export const NavBarIcon = styled.div`
 
 export const Mymenu = styled.ul`
   display: none;
-  background-color: transparent;
   height: 45px;
   line-height: 45px;
   transition: all 0.3s;
   &.showMyMenu {
     display: flex;
     margin-top: 5px;
+    justify-content: space-evenly;
     > li {
-      flex: 1 1 auto;
+      /* flex: 1 1 auto; */
+      width: calc(100% / 2 - 10px);
       border-radius: 5px;
       cursor: pointer;
+      background-color: #603224;
       > a {
         display: block;
         width: 100%;
@@ -165,7 +167,6 @@ export const Mymenu = styled.ul`
 
 export const MymenuSmall = styled.ul`
   display: none;
-  background-color: transparent;
   width: 100%;
   height: 100vh;
   position: absolute;
