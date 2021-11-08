@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import '../App.css';
-import mainBeChefImg from '../todaysChefIMG/mainPageBeChef.jpg';
+import mainBeChefImg from '../todaysChefIMG/mainBeChefBlack.jpg';
 
 export const MainGrid = styled.div`
   display: grid;
@@ -105,6 +105,7 @@ export const MainSection2Wrap = styled.div`
       align-items: center;
       cursor: pointer;
       transition: 0.3s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       :hover {
         background-color: #603224;
         color: #fff;
@@ -151,6 +152,8 @@ export const BestOfChefsWrap = styled.div`
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
     > .bestChefCuisine {
       width: 60%;
       height: 50px;
@@ -207,14 +210,47 @@ export const BeChefWrap = styled.div`
   background-color: #fff;
   border-radius: 20px;
   display: flex;
+  background-color: #ddd;
   > #beChefBackground {
     width: 100%;
     height: 550px;
     background-image: url(${mainBeChefImg});
     background-position: right;
-    background-size: 70%;
     background-repeat: no-repeat;
+    background-size: cover;
     border-radius: 20px;
-    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    > #beChefDescWrap {
+      color: #fff;
+      width: 400px;
+      text-align: left;
+      padding-left: 50px;
+      > h3 {
+        font-size: 30px;
+        height: 50px;
+      }
+      > p {
+        font-size: 18px;
+        height: 100px;
+        line-height: 30px;
+      }
+      > a {
+        width: 150px;
+        height: 50px;
+        font-size: 14px;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 5px;
+        background-color: #fff;
+        display: block;
+        cursor: pointer;
+        > button {
+          font-family: sans-serif;
+          background-color: transparent;
+          cursor: pointer;
+        }
+      }
+    }
   }
 `;

@@ -4,6 +4,7 @@ import small_basic_background from '../todaysChefIMG/small_basic_background.jpg'
 
 export const LoginOrSignupGrid = styled.div`
   height: 800px;
+  background-color: #dbb89a;
   padding: 160px 0px 50px;
   display: flex;
   position: relative;
