@@ -6,6 +6,12 @@ export const MainGrid = styled.div`
   display: grid;
   grid-template-rows: 100vh 150px 550px 550px;
   row-gap: 50px;
+  @media (max-width: 1400px) {
+    grid-template-rows: 100vh 150px 470px 550px;
+  }
+  @media (max-width: 850px) {
+    grid-template-rows: 100vh 450px 400px 550px;
+  }
 `;
 
 export const MainBackgroundWrap = styled.div`
@@ -86,14 +92,27 @@ export const SloganWrap = styled.div`
 export const MainSection2Wrap = styled.div`
   display: grid;
   padding: 0 200px;
+  @media (max-width: 1400px) {
+    padding: 0 100px;
+  }
+  @media (max-width: 1079px) {
+    padding: 0;
+    width: 850px;
+    margin: 0 auto;
+  }
+  @media (max-width: 850px) {
+    width: 70%;
+  }
   > h3 {
     text-align: left;
     font-size: 23px;
   }
   > #cuisineBtnWrap {
     width: 100%;
-    height: 80px;
     display: flex;
+    @media (max-width: 850px) {
+      flex-direction: column;
+    }
     > .cuisineBtn {
       width: 100%;
       height: 80px;
@@ -106,6 +125,10 @@ export const MainSection2Wrap = styled.div`
       cursor: pointer;
       transition: 0.3s;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      @media (max-width: 850px) {
+        margin-left: 0;
+        margin-top: 15px;
+      }
       :hover {
         background-color: #603224;
         color: #fff;
@@ -113,16 +136,26 @@ export const MainSection2Wrap = styled.div`
       > img {
         width: 50px;
         height: 50px;
+        @media (max-width: 1400px) {
+          width: 40px;
+          height: 40px;
+        }
       }
       > .cuisineText {
         margin-left: 10px;
         > h4 {
           font-size: 20px;
           text-align: left;
+          @media (max-width: 1400px) {
+            font-size: 15px;
+          }
         }
         > p {
           padding-top: 5px;
           font-size: 13px;
+          @media (max-width: 1400px) {
+            font-size: 10px;
+          }
         }
       }
     }
@@ -135,6 +168,17 @@ export const MainSection2Wrap = styled.div`
 export const MainSection3Wrap = styled.div`
   display: grid;
   padding: 0 200px;
+  @media (max-width: 1400px) {
+    padding: 0 100px;
+  }
+  @media (max-width: 1079px) {
+    padding: 0;
+    width: 850px;
+    margin: 0 auto;
+  }
+  @media (max-width: 850px) {
+    width: 70%;
+  }
   > h3 {
     text-align: left;
     font-size: 23px;
@@ -145,6 +189,12 @@ export const BestOfChefsWrap = styled.div`
   width: 100%;
   height: 460px;
   display: flex;
+  @media (max-width: 1400px) {
+    height: 400px;
+  }
+  @media (max-width: 1079px) {
+    height: 330px;
+  }
   > .bestChefBox {
     flex: 1 1 auto;
     background-color: #fff;
@@ -153,7 +203,6 @@ export const BestOfChefsWrap = styled.div`
     display: flex;
     flex-direction: column;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-
     > .bestChefCuisine {
       width: 60%;
       height: 50px;
@@ -168,6 +217,18 @@ export const BestOfChefsWrap = styled.div`
       margin: 0 auto;
       margin-top: 10px;
       background-color: pink;
+      background-image: url(${mainBeChefImg});
+      background-size: cover;
+      background-position: center;
+      @media (max-width: 1400px) {
+        height: 200px;
+      }
+      @media (max-width: 1079px) {
+        height: 150px;
+      }
+      @media (max-width: 850px) {
+        height: 280px;
+      }
     }
     > .bestChefDesc {
       width: 92%;
@@ -204,6 +265,17 @@ export const RatingStar = styled.div`
 export const MainSection4Wrap = styled.div`
   display: grid;
   padding: 0 200px;
+  @media (max-width: 1400px) {
+    padding: 0 100px;
+  }
+  @media (max-width: 1079px) {
+    padding: 0;
+    width: 850px;
+    margin: 0 auto;
+  }
+  @media (max-width: 850px) {
+    width: 70%;
+  }
 `;
 
 export const BeChefWrap = styled.div`
@@ -211,11 +283,11 @@ export const BeChefWrap = styled.div`
   border-radius: 20px;
   display: flex;
   background-color: #ddd;
+
   > #beChefBackground {
     width: 100%;
-    height: 550px;
     background-image: url(${mainBeChefImg});
-    background-position: right;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 20px;
@@ -226,14 +298,23 @@ export const BeChefWrap = styled.div`
       width: 400px;
       text-align: left;
       padding-left: 50px;
+      @media (max-width: 850px) {
+        width: 450px;
+      }
       > h3 {
         font-size: 30px;
         height: 50px;
+        @media (max-width: 850px) {
+          font-size: 25px;
+        }
       }
       > p {
         font-size: 18px;
         height: 100px;
         line-height: 30px;
+        @media (max-width: 850px) {
+          font-size: 15px;
+        }
       }
       > a {
         width: 150px;
@@ -245,6 +326,9 @@ export const BeChefWrap = styled.div`
         background-color: #fff;
         display: block;
         cursor: pointer;
+        @media (max-width: 850px) {
+          font-size: 10px;
+        }
         > button {
           font-family: sans-serif;
           background-color: transparent;
