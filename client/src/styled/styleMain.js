@@ -9,8 +9,11 @@ export const MainGrid = styled.div`
   @media (max-width: 1400px) {
     grid-template-rows: 100vh 150px 470px 550px;
   }
+  @media (max-width: 1079px) {
+    grid-template-rows: 100vh 150px 970px 550px;
+  }
   @media (max-width: 850px) {
-    grid-template-rows: 100vh 450px 400px 550px;
+    grid-template-rows: 100vh 450px 970px 550px;
   }
 `;
 
@@ -168,6 +171,7 @@ export const MainSection2Wrap = styled.div`
 export const MainSection3Wrap = styled.div`
   display: grid;
   padding: 0 200px;
+  background-color: #ddd;
   @media (max-width: 1400px) {
     padding: 0 100px;
   }
@@ -193,7 +197,12 @@ export const BestOfChefsWrap = styled.div`
     height: 400px;
   }
   @media (max-width: 1079px) {
-    height: 330px;
+    display: block;
+    background-color: orange;
+    height: 1000px;
+    > .bestChefBox:nth-child(3) {
+      margin-left: 0;
+    }
   }
   > .bestChefBox {
     flex: 1 1 auto;
@@ -203,6 +212,15 @@ export const BestOfChefsWrap = styled.div`
     display: flex;
     flex-direction: column;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    @media (max-width: 1079px) {
+      width: calc(100% / 2 - 8px);
+      height: 450px;
+      float: left;
+      margin-top: 15px;
+    }
+    @media (max-width: 850px) {
+      height: 350px;
+    }
     > .bestChefCuisine {
       width: 60%;
       height: 50px;
@@ -224,7 +242,7 @@ export const BestOfChefsWrap = styled.div`
         height: 200px;
       }
       @media (max-width: 1079px) {
-        height: 150px;
+        height: 300px;
       }
       @media (max-width: 850px) {
         height: 280px;
