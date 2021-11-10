@@ -265,6 +265,7 @@ export const BeChefWrap = styled.div`
   background-color: #fff;
   border-radius: 20px;
   display: flex;
+
   > #beChefBackground {
     width: 100%;
     background-image: url(${mainBeChefImg});
