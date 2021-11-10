@@ -214,6 +214,102 @@ module.exports = {
             .replace(/T/, ' ')
             .replace(/\..+/, ''),
         },
+        {
+          email: 'bangHansik@gmail.com',
+          password: 'iamChef12?!',
+          nickname: '한식방',
+          userImg: '',
+          isChef: true,
+          isOauth: false,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+        },
+        {
+          email: 'gangHansik@gmail.com',
+          password: 'iamChef12?!',
+          nickname: '한식강',
+          userImg: '',
+          isChef: true,
+          isOauth: false,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+        },
+        {
+          email: 'minHansik@gmail.com',
+          password: 'iamChef12?!',
+          nickname: '한식민',
+          userImg: '',
+          isChef: true,
+          isOauth: false,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+        },
+        {
+          email: 'jungHansik@gmail.com',
+          password: 'iamChef12?!',
+          nickname: '한식정',
+          userImg: '',
+          isChef: true,
+          isOauth: false,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+        },
+        {
+          email: 'namgungHansik@gmail.com',
+          password: 'iamChef12?!',
+          nickname: '한식남궁',
+          userImg: '',
+          isChef: true,
+          isOauth: false,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+        },
+        {
+          email: 'jeonJungsik@gmail.com',
+          password: 'iamChef12?!',
+          nickname: '중식전',
+          userImg: '',
+          isChef: true,
+          isOauth: false,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+        },
       ],
       {}
     );
