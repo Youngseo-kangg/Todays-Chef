@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ChefAllInfo from '../component/chefAllInfo';
-import ChefAllCourse from '../component/chefAllCourse';
-import ChefAllReview from '../component/chefAllReview';
+import ChefAllInfo from '../component/chefInfoInfo';
+import ChefAllCourse from '../component/chefInfoCourse';
+import ChefAllReview from '../component/chefInfoReview';
 import {
   ChefInfoGrid,
   ChefInfoDesc,
