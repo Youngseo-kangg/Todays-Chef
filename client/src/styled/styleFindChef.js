@@ -105,7 +105,9 @@ export const ChefList = styled.section`
   box-sizing: border-box;
   display: grid;
   place-items: center;
+
   #chefListWrap {
+    background-color: red;
     /* border: 1px solid red; */
     box-sizing: border-box;
     width: 95%;
