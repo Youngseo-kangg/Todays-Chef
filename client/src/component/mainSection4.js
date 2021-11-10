@@ -11,7 +11,8 @@ function MainSection4() {
               <h3>Be Chef 시작하기</h3>
               <p>
                 셰프님들의 최고의 만찬을 뽐낼 수 있는 <br /> 기회를 만끽하며,
-                쏠쏠한 부수입도 올려보세요.
+                쏠쏠한 부수입도 <br />
+                올려보세요.
               </p>
               <Link to='/beChef'>
                 <button onClick={() => window.scrollTo(0, 0)}>

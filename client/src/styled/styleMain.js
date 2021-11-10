@@ -283,6 +283,7 @@ export const BeChefWrap = styled.div`
       padding-left: 50px;
       @media (max-width: 767px) {
         width: 100%;
+        padding-left: 30px;
       }
       > h3 {
         font-size: 30px;
@@ -297,6 +298,9 @@ export const BeChefWrap = styled.div`
         line-height: 30px;
         @media (max-width: 767px) {
           font-size: 15px;
+        }
+        @media (max-width: 420px) {
+          font-size: 13px;
         }
       }
       > a {
