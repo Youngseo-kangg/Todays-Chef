@@ -6,14 +6,11 @@ export const MainGrid = styled.div`
   display: grid;
   grid-template-rows: 100vh 150px 550px 550px;
   row-gap: 50px;
-  @media (max-width: 1400px) {
-    grid-template-rows: 100vh 150px 470px 550px;
+  @media (max-width: 767px) {
+    grid-template-rows: 100vh 450px 1050px 550px;
   }
-  @media (max-width: 1079px) {
-    grid-template-rows: 100vh 150px 970px 550px;
-  }
-  @media (max-width: 850px) {
-    grid-template-rows: 100vh 450px 970px 550px;
+  @media (max-width: 430px) {
+    grid-template-rows: 100vh 450px 1950px 550px;
   }
 `;
 
@@ -94,18 +91,9 @@ export const SloganWrap = styled.div`
 
 export const MainSection2Wrap = styled.div`
   display: grid;
-  padding: 0 200px;
-  @media (max-width: 1400px) {
-    padding: 0 100px;
-  }
-  @media (max-width: 1079px) {
-    padding: 0;
-    width: 850px;
-    margin: 0 auto;
-  }
-  @media (max-width: 850px) {
-    width: 70%;
-  }
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
   > h3 {
     text-align: left;
     font-size: 23px;
@@ -113,7 +101,7 @@ export const MainSection2Wrap = styled.div`
   > #cuisineBtnWrap {
     width: 100%;
     display: flex;
-    @media (max-width: 850px) {
+    @media (max-width: 767px) {
       flex-direction: column;
     }
     > .cuisineBtn {
@@ -128,7 +116,7 @@ export const MainSection2Wrap = styled.div`
       cursor: pointer;
       transition: 0.3s;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      @media (max-width: 850px) {
+      @media (max-width: 767px) {
         margin-left: 0;
         margin-top: 15px;
       }
@@ -139,7 +127,7 @@ export const MainSection2Wrap = styled.div`
       > img {
         width: 50px;
         height: 50px;
-        @media (max-width: 1400px) {
+        @media (max-width: 1080px) {
           width: 40px;
           height: 40px;
         }
@@ -149,15 +137,15 @@ export const MainSection2Wrap = styled.div`
         > h4 {
           font-size: 20px;
           text-align: left;
-          @media (max-width: 1400px) {
+          @media (max-width: 1080px) {
             font-size: 15px;
           }
         }
         > p {
           padding-top: 5px;
           font-size: 13px;
-          @media (max-width: 1400px) {
-            font-size: 10px;
+          @media (max-width: 1080px) {
+            font-size: 9px;
           }
         }
       }
@@ -170,19 +158,9 @@ export const MainSection2Wrap = styled.div`
 
 export const MainSection3Wrap = styled.div`
   display: grid;
-  padding: 0 200px;
-  background-color: #ddd;
-  @media (max-width: 1400px) {
-    padding: 0 100px;
-  }
-  @media (max-width: 1079px) {
-    padding: 0;
-    width: 850px;
-    margin: 0 auto;
-  }
-  @media (max-width: 850px) {
-    width: 70%;
-  }
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
   > h3 {
     text-align: left;
     font-size: 23px;
@@ -190,118 +168,103 @@ export const MainSection3Wrap = styled.div`
 `;
 
 export const BestOfChefsWrap = styled.div`
-  width: 100%;
-  height: 460px;
   display: flex;
-  @media (max-width: 1400px) {
-    height: 400px;
-  }
-  @media (max-width: 1079px) {
-    display: block;
-    background-color: orange;
-    height: 1000px;
-    > .bestChefBox:nth-child(3) {
-      margin-left: 0;
-    }
-  }
-  > .bestChefBox {
-    flex: 1 1 auto;
-    background-color: #fff;
-    margin-left: 15px;
-    border-radius: 10px;
+  ul {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    @media (max-width: 1079px) {
-      width: calc(100% / 2 - 8px);
-      height: 450px;
-      float: left;
-      margin-top: 15px;
-    }
-    @media (max-width: 850px) {
-      height: 350px;
-    }
-    > .bestChefCuisine {
-      width: 60%;
-      height: 50px;
-      line-height: 60px;
-      margin: 0 auto;
-      border-bottom: 2px solid #dbb89a;
-      color: #603224;
-    }
-    > .bestChefPicture {
-      width: 92%;
-      height: 280px;
-      margin: 0 auto;
-      margin-top: 10px;
-      background-color: pink;
-      background-image: url(${mainBeChefImg});
-      background-size: cover;
-      background-position: center;
-      @media (max-width: 1400px) {
-        height: 200px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    li {
+      /* border: 1px solid blue; */
+      box-sizing: border-box;
+      width: calc(100% / 4 - 10px);
+      display: grid;
+      grid-template-rows: 50px 300px 1fr 1fr 1fr;
+      row-gap: 15px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
+      @media (max-width: 767px) {
+        width: calc(100% / 2 - 10px);
       }
-      @media (max-width: 1079px) {
-        height: 300px;
+      @media (max-width: 430px) {
+        width: 100%;
+        row-gap: 10px;
       }
-      @media (max-width: 850px) {
-        height: 280px;
+      :hover {
+        transform: translateY(-10px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
       }
-    }
-    > .bestChefDesc {
-      width: 92%;
-      margin: 0 auto;
-      margin-top: 10px;
-      height: 100px;
-      > span {
-        display: block;
+      > .bestCuisine {
         width: 60%;
-        height: 40px;
-        line-height: 40px;
+        font-size: 18px;
+        line-height: 50px;
         border-bottom: 2px solid #dbb89a;
         margin: 0 auto;
       }
-      > .ratingStar {
-        margin-top: 10px;
-        height: 60px;
+      > h4 {
+        width: 60%;
+        border-bottom: 2px solid #dbb89a;
+        display: grid;
+        place-items: center;
+        box-sizing: border-box;
+        margin: 0 auto;
+      }
+      > span {
+        display: grid;
+        place-items: center;
+      }
+      > .chefPic {
+        /* border: 1px solid red; */
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        img {
+          width: 230px;
+          height: 230px;
+          border-radius: 100%;
+          @media (max-width: 1080px) {
+            width: 160px;
+            height: 160px;
+          }
+          @media (max-width: 767px) {
+            width: 180px;
+            height: 180px;
+          }
+          @media (max-width: 430px) {
+            width: 240px;
+            height: 240px;
+          }
+        }
       }
     }
   }
-  > .bestChefBox:nth-child(1) {
-    margin-left: 0;
-  }
 `;
 
-export const RatingStar = styled.div`
+export const ChefStar = styled.div`
   background-color: pink;
   width: 60%;
-  height: 20px;
+  height: 100%;
   margin: 0 auto;
-  margin-top: 10px;
+  display: grid;
+  font-size: 18px;
+  place-items: center;
+  margin-top: -10px;
 `;
 
 export const MainSection4Wrap = styled.div`
   display: grid;
-  padding: 0 200px;
-  @media (max-width: 1400px) {
-    padding: 0 100px;
-  }
-  @media (max-width: 1079px) {
-    padding: 0;
-    width: 850px;
-    margin: 0 auto;
-  }
-  @media (max-width: 850px) {
-    width: 70%;
-  }
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
 `;
 
 export const BeChefWrap = styled.div`
   background-color: #fff;
   border-radius: 20px;
   display: flex;
-  background-color: #ddd;
-
   > #beChefBackground {
     width: 100%;
     background-image: url(${mainBeChefImg});
@@ -316,13 +279,13 @@ export const BeChefWrap = styled.div`
       width: 400px;
       text-align: left;
       padding-left: 50px;
-      @media (max-width: 850px) {
-        width: 450px;
+      @media (max-width: 767px) {
+        width: 100%;
       }
       > h3 {
         font-size: 30px;
         height: 50px;
-        @media (max-width: 850px) {
+        @media (max-width: 767px) {
           font-size: 25px;
         }
       }
@@ -330,7 +293,7 @@ export const BeChefWrap = styled.div`
         font-size: 18px;
         height: 100px;
         line-height: 30px;
-        @media (max-width: 850px) {
+        @media (max-width: 767px) {
           font-size: 15px;
         }
       }

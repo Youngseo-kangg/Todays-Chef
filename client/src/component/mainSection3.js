@@ -3,7 +3,9 @@ import {
   BestOfChefsWrap,
   BestChefBox,
   RatingStar,
+  ChefStar,
 } from '../styled/styleMain';
+import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 
 function MainSection3() {
   return (
@@ -11,53 +13,47 @@ function MainSection3() {
       <MainSection3Wrap>
         <h3>각 요리별 최고의 셰프를 알아보고 경험해보세요.</h3>
         <BestOfChefsWrap>
-          <div className='bestChefBox'>
-            <h4 className='bestChefCuisine'>한식</h4>
-            <div className='bestChefPicture'>셰프 이미지</div>
-            <div className='bestChefDesc'>
-              <span className='chefName'>셰프 이름</span>
-              <div className='ratingStar'>
-                <span>4.9</span>
-                <RatingStar></RatingStar>
+          <ul>
+            <li className='chef'>
+              <div className='bestCuisine'>한식</div>
+              <div className='chefPic'>
+                <img src={basic_profile} alt='셰프 사진' />
               </div>
-            </div>
-          </div>
+              <h4>김코딩 셰프</h4>
+              <span>4.9</span>
+              <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
+            </li>
+            <li className='chef'>
+              <div className='bestCuisine'>일식</div>
+              <div className='chefPic'>
+                <img src={basic_profile} alt='셰프 사진' />
+              </div>
+              <h4>박코딩 셰프</h4>
 
-          <div className='bestChefBox'>
-            <h4 className='bestChefCuisine'>일식</h4>
-            <div className='bestChefPicture'>셰프 이미지</div>
-            <div className='bestChefDesc'>
-              <span className='chefName'>셰프 이름</span>
-              <div className='ratingStar'>
-                <span>4.7</span>
-                <RatingStar></RatingStar>
+              <span>4.9</span>
+              <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
+            </li>
+            <li className='chef'>
+              <div className='bestCuisine'>중식</div>
+              <div className='chefPic'>
+                <img src={basic_profile} alt='셰프 사진' />
               </div>
-            </div>
-          </div>
+              <h4>이코딩 셰프</h4>
 
-          <div className='bestChefBox'>
-            <h4 className='bestChefCuisine'>중식</h4>
-            <div className='bestChefPicture'>셰프 이미지</div>
-            <div className='bestChefDesc'>
-              <span className='chefName'>셰프 이름</span>
-              <div className='ratingStar'>
-                <span>4.5</span>
-                <RatingStar></RatingStar>
+              <span>4.9</span>
+              <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
+            </li>
+            <li className='chef'>
+              <div className='bestCuisine'>양식</div>
+              <div className='chefPic'>
+                <img src={basic_profile} alt='셰프 사진' />
               </div>
-            </div>
-          </div>
+              <h4>최코딩 셰프</h4>
 
-          <div className='bestChefBox'>
-            <h4 className='bestChefCuisine'>양식</h4>
-            <div className='bestChefPicture'>셰프 이미지</div>
-            <div className='bestChefDesc'>
-              <span className='chefName'>셰프 이름</span>
-              <div className='ratingStar'>
-                <span>4.8</span>
-                <RatingStar></RatingStar>
-              </div>
-            </div>
-          </div>
+              <span>4.9</span>
+              <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
+            </li>
+          </ul>
         </BestOfChefsWrap>
       </MainSection3Wrap>
     </>
