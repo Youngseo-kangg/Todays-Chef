@@ -15,16 +15,18 @@ function ChefAllCourse() {
           </ul>
           <div className='coursePrice'>
             <table>
-              <tr>
-                <th>2인</th>
-                <th>4인</th>
-                <th>6인</th>
-              </tr>
-              <tr>
-                <td>000000원</td>
-                <td>000000원</td>
-                <td>000000원</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th>2인</th>
+                  <th>4인</th>
+                  <th>6인</th>
+                </tr>
+                <tr>
+                  <td>000000원</td>
+                  <td>000000원</td>
+                  <td>000000원</td>
+                </tr>
+              </tbody>
             </table>
           </div>
           <div className='courseInfoMore'>
@@ -43,16 +45,18 @@ function ChefAllCourse() {
           </ul>
           <div className='coursePrice'>
             <table>
-              <tr>
-                <th>2인</th>
-                <th>4인</th>
-                <th>6인</th>
-              </tr>
-              <tr>
-                <td>000000원</td>
-                <td>000000원</td>
-                <td>000000원</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th>2인</th>
+                  <th>4인</th>
+                  <th>6인</th>
+                </tr>
+                <tr>
+                  <td>000000원</td>
+                  <td>000000원</td>
+                  <td>000000원</td>
+                </tr>
+              </tbody>
             </table>
           </div>
           <div className='courseInfoMore'>
@@ -71,16 +75,18 @@ function ChefAllCourse() {
           </ul>
           <div className='coursePrice'>
             <table>
-              <tr>
-                <th>2인</th>
-                <th>4인</th>
-                <th>6인</th>
-              </tr>
-              <tr>
-                <td>000000원</td>
-                <td>000000원</td>
-                <td>000000원</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th>2인</th>
+                  <th>4인</th>
+                  <th>6인</th>
+                </tr>
+                <tr>
+                  <td>000000원</td>
+                  <td>000000원</td>
+                  <td>000000원</td>
+                </tr>
+              </tbody>
             </table>
           </div>
           <div className='courseInfoMore'>
