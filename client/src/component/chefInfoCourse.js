@@ -1,6 +1,14 @@
 import { ChefAllCourseInfo } from '../styled/styleChefInfo';
+import axios from 'axios';
+
+require('dotenv').config();
+axios.defaults.withCredentials = true;
 
 function ChefAllCourse() {
+  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  // 셰프가 작성한 코스 받아오기
+  // 받아서 .courseName 렌더하기
+
   return (
     <ChefAllCourseInfo>
       <ul id='courseWrap'>

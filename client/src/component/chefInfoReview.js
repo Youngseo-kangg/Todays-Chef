@@ -1,8 +1,15 @@
 import { ChefAllReviewInfo } from '../styled/styleChefInfo';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
-import { ChefStar } from '../styled/styleFindChef';
+import axios from 'axios';
+
+require('dotenv').config();
+axios.defaults.withCredentials = true;
 
 function ChefAllReview() {
+  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  // axios로 셰프에 달린 리뷰 받아오기
+  // 받아온 리뷰로 .userReview 렌더링하기
+
   return (
     <ChefAllReviewInfo>
       <div id='chefReviewWrap'>

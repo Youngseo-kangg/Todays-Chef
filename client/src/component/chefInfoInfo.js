@@ -1,7 +1,15 @@
 import { ChefAllInformation } from '../styled/styleChefInfo';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
+import axios from 'axios';
+
+require('dotenv').config();
+axios.defaults.withCredentials = true;
 
 function ChefInfoDesc() {
+  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  // axios로 셰프 개인정보 요청하기
+  // 받아온 개인정보로 #chefName, #chefImg, #chefsGreeting,... 채워주기
+
   return (
     <ChefAllInformation>
       <div id='chefInfoAll'>
