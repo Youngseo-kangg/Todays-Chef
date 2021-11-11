@@ -239,6 +239,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
+
           rating: 4.5,
           createdAt: new Date()
             .toISOString()
