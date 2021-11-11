@@ -191,20 +191,17 @@ export const ChefAllCourseInfo = styled.section`
 export const CourseItem = styled.li`
   width: 100%;
   display: grid;
-  grid-template-rows: 40px 200px 100px 90px;
+  grid-template-rows: 40px 200px 100px 50px 50px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  :nth-child(3n) {
-    margin-right: 0px;
-  }
   @media screen and (max-width: 767px) {
     width: 100%;
     /* height: calc(100% / 3 - 20px); */
-    grid-template-rows: 40px 150px 100px 90px;
+    grid-template-rows: 40px 150px 100px 50px 50px;
   }
   @media screen and (max-width: 420px) {
     width: 100%;
     /* height: calc(100% / 3 - 20px); */
-    grid-template-rows: 40px 250px 100px 90px;
+    grid-template-rows: 40px 250px 100px 50px 50px;
   }
   > .courseName {
     display: grid;
@@ -249,6 +246,25 @@ export const CourseItem = styled.li`
     .pricePerOne:before,
     .maxMinPerson:before {
       content: '- ';
+    }
+  }
+  > .courseResBtn {
+    display: grid;
+    place-items: center;
+    > a {
+      display: block;
+      width: 100px;
+      height: 35px;
+      line-height: 35px;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.3s;
+      :hover {
+        color: #fff;
+        background-color: #603224;
+      }
     }
   }
 `;
