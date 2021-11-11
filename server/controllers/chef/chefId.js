@@ -43,7 +43,12 @@ module.exports = {
         where: { id: test },
       });
     }
-    res.json(chefReview);
+
+    res.json({
+      chefInfo,
+      findCourse,
+      chefReview,
+    });
   },
 };
 

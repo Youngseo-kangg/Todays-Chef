@@ -6,8 +6,6 @@ import koreanFood from '../todaysChefIMG/foodKorean.png';
 import japaneseFood from '../todaysChefIMG/foodJapanese.png';
 import italianFood from '../todaysChefIMG/foodItalian.png';
 import chineseFood from '../todaysChefIMG/foodChinese.png';
-import { useDispatch, useSelector } from 'react-redux';
-import { login, userStatus } from '../features/user/user';
 import {
   FindChefGrid,
   SelectCuisine,
@@ -24,14 +22,13 @@ axios.defaults.withCredentials = true;
 function FindChef() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const history = useHistory();
-  const dispatch = useDispatch();
   const [selected, setSelected] = useState('한식'); // select 선택값
   const [chefData, setChefData] = useState([]);
   const [dataLength, setDataLength] = useState({
-    start: 0,
+    start: 0, // 시작점
+    groups: [0, 7], // 작은 묶음 (1,2,3,4,5,....)
     end: 7,
   });
-  const userInfo = useSelector(userStatus);
 
   const handleSelected = (event) => {
     setSelected(event.target.value); // select값 업데이트
@@ -43,21 +40,14 @@ function FindChef() {
       const result = await axios.get(
         `${url}/chef/${encodeSelected}?startNum=0&endNum=7`
       ); // axios 요청
-      // 1. axios 응답에 새로운 accessToken이 있는 경우 redux 업데이트
       console.log('응답: ', result);
-      if (result.accessToken) {
-        dispatch(
-          login({
-            ...userInfo.userInfo,
-            accessToken: result.data.accessToken,
-          })
-        );
-      }
+
       setChefData(result.data.data); // 2. result값으로 chefData 없데이트
-      // setDataLength({
-      //   start:,
-      //   end: result.data.data.length,
-      // }); // 3. result값으로 dataLength 업데이트
+      setDataLength({
+        ...dataLength,
+        groups: [0, 7], // !! 수정 필요
+        end: result.data.length,
+      }); // 3. result값으로 dataLength 업데이트
     } catch (err) {
       console.log(err);
     }
@@ -124,14 +114,16 @@ function FindChef() {
                   <li
                     className='chef'
                     key={el.id}
-                    onClick={() => history.push('/chefInfo')}
+                    onClick={() => history.push(`/chef?chefId=${el.id}`)}
                   >
                     <div className='chefPic'>
                       <img src={basic_profile} alt='셰프 사진' />{' '}
                       {/* img파일 지정하고 나면 basic_profile 없애고 랜더링 해주기 */}
                     </div>
                     <h3>
-                      <Link to='/chefInfo'>{el.chefName} 셰프</Link>
+                      <Link to={`/chef?chefId=${el.id}`}>
+                        {el.chefName} 셰프
+                      </Link>
                     </h3>
                     <span>{el.rating}</span>
                     <ChefStar>⭐⭐⭐⭐⭐</ChefStar>

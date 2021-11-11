@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import ChefAllInfo from '../component/chefInfoInfo';
 import ChefAllCourse from '../component/chefInfoCourse';
 import ChefAllReview from '../component/chefInfoReview';
@@ -11,12 +11,41 @@ import {
   ChefWrapBox,
 } from '../styled/styleChefInfo';
 
+require('dotenv').config();
+axios.defaults.withCredentials = true;
+
 function ChefInfo() {
+  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const [chefInfoIdx, setChefInfoIdx] = useState(0);
+  const query = window.location.search.split('=')[1]; // chefId=~~에서 '='뒤 텍스트 가져오기
+  const [chefInfo, setChefInfo] = useState({
+    chefIntro: {},
+    chefCourse: [],
+    chefReview: [],
+  }); // 셰프 정보 담아두기
   const [magnifyPic, setMagnifyPic] = useState({
     picState: false, // 사진 모달 상태
     picAddress: '', // 사진 저장되어 있는 s3버킷의 주소
   });
+
+  const getChef = async () => {
+    try {
+      const getChefResult = await axios.get(`${url}/chef?chefId=${query}`);
+      console.log('chefInfo에서 받아온 정보들: ', getChefResult.data);
+      setChefInfo({
+        chefIntro: getChefResult.data.chefInfo,
+        chefCourse: getChefResult.data.findCourse,
+        chefReview: getChefResult.data.chefReview,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getChef();
+  }, []); // 들어오자마자 한번만
+
   return (
     <>
       {magnifyPic.picState ? (
@@ -48,10 +77,17 @@ function ChefInfo() {
             </li>
           </ul>
           <ChefWrapBox>
-            {chefInfoIdx === 0 ? <ChefAllInfo /> : null}
-            {chefInfoIdx === 1 ? <ChefAllCourse /> : null}
+            {chefInfoIdx === 0 ? (
+              <ChefAllInfo chefIntro={chefInfo.chefIntro} />
+            ) : null}
+            {chefInfoIdx === 1 ? (
+              <ChefAllCourse chefCourse={chefInfo.chefCourse} />
+            ) : null}
             {chefInfoIdx === 2 ? (
-              <ChefAllReview setMagnifyPic={setMagnifyPic} />
+              <ChefAllReview
+                chefReview={chefInfo.chefReview}
+                setMagnifyPic={setMagnifyPic}
+              />
             ) : null}
           </ChefWrapBox>
           {/* <Link to='/reservation'>예약하러 가기</Link> */}
