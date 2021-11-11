@@ -14,7 +14,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
-          rating: 0,
+          rating: 4.5,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -34,7 +34,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
-          rating: 0,
+          rating: 4.8,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -54,7 +54,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
-          rating: 0,
+          rating: 4.3,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -74,7 +74,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
-          rating: 0,
+          rating: 4.2,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -94,7 +94,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
-          rating: 0,
+          rating: 3,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -115,7 +115,7 @@ module.exports = {
             '이탈리안 프렌치 퓨전요리 전문/2015 WACS 코리아 푸드 트렌드 페어 최우수상/이태리 몽뗌쥬 수석 졸업',
           values:
             '현재 위치에서 자만하지 말고 끊임없이 연구해 한 발자국 더 나아가자.',
-          rating: 0,
+          rating: 4.1,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -136,7 +136,7 @@ module.exports = {
             '이탈리안 프렌치 퓨전요리 전문/2015 WACS 코리아 푸드 트렌드 페어 최우수상/이태리 몽뗌쥬 수석 졸업',
           values:
             '현재 위치에서 자만하지 말고 끊임없이 연구해 한 발자국 더 나아가자.',
-          rating: 0,
+          rating: 3.5,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -157,7 +157,7 @@ module.exports = {
             '이탈리안 프렌치 퓨전요리 전문/2015 WACS 코리아 푸드 트렌드 페어 최우수상/이태리 몽뗌쥬 수석 졸업',
           values:
             '현재 위치에서 자만하지 말고 끊임없이 연구해 한 발자국 더 나아가자.',
-          rating: 0,
+          rating: 4.8,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -178,7 +178,7 @@ module.exports = {
             '이탈리안 프렌치 퓨전요리 전문/2015 WACS 코리아 푸드 트렌드 페어 최우수상/이태리 몽뗌쥬 수석 졸업',
           values:
             '현재 위치에서 자만하지 말고 끊임없이 연구해 한 발자국 더 나아가자.',
-          rating: 0,
+          rating: 4.9,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -198,7 +198,7 @@ module.exports = {
           career:
             '일본 재패니즈 베스트 푸드 대상/나고야 대학 호텔조리과 수석 졸업/호텔 F&B 대학부문 1위 수상/하얏트 호텔 인 재팬 근무',
           values: '천리길도 한 걸음부터',
-          rating: 0,
+          rating: 5,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
