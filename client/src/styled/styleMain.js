@@ -94,7 +94,6 @@ export const MainSection2Wrap = styled.div`
   width: 95%;
   max-width: 1400px;
   margin: 0 auto;
-
   > h3 {
     text-align: left;
     font-size: 23px;

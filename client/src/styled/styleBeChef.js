@@ -140,7 +140,7 @@ export const BeAChefDesc = styled.section`
     height: 80px;
     word-break: keep-all;
     > p {
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: #dbb89a;
       font-size: 16px;
       display: grid;
       place-items: center;
@@ -153,8 +153,7 @@ export const BeAChefDesc = styled.section`
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.3);
-      color: #fff;
+      background-color: #dbb89a;
       font-size: 20px;
       display: grid;
       place-items: center;
@@ -204,7 +203,7 @@ export const BeAChefResumeWrap = styled.section`
     width: 100%;
     height: 100%;
     place-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: #dbb89a;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
@@ -220,9 +219,10 @@ export const BeAChefResumeWrap = styled.section`
       width: 30%;
       min-width: 100px;
       margin: 0 auto;
-      background-color: #dbb89a;
+      background-color: rgba(255, 255, 255, 0.9);
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       border-radius: 5px;
+      cursor: pointer;
       border: none;
       outline: none;
     }
