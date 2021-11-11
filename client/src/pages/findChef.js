@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import koreanFood from '../todaysChefIMG/foodKorean.png';
@@ -17,6 +17,7 @@ import {
 } from '../styled/styleFindChef';
 
 function FindChef() {
+  const history = useHistory();
   const [selected, setSelected] = useState('한식');
   const handleSelected = (event) => {
     if (event.target.value === 'kr') {
@@ -81,7 +82,7 @@ function FindChef() {
 
           <ChefItemList>
             <ul>
-              <li className='chef'>
+              <li className='chef' onClick={() => history.push('/chefInfo')}>
                 <div className='chefPic'>
                   <img src={basic_profile} alt='셰프 사진' />
                 </div>
@@ -91,7 +92,7 @@ function FindChef() {
                 <span>4.9</span>
                 <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
               </li>
-              <li className='chef'>
+              <li className='chef' onClick={() => history.push('/chefInfo')}>
                 <div className='chefPic'>
                   <img src={basic_profile} alt='셰프 사진' />
                 </div>
@@ -102,7 +103,7 @@ function FindChef() {
                 <span>4.9</span>
                 <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
               </li>
-              <li className='chef'>
+              <li className='chef' onClick={() => history.push('/chefInfo')}>
                 <div className='chefPic'>
                   <img src={basic_profile} alt='셰프 사진' />
                 </div>
@@ -113,7 +114,7 @@ function FindChef() {
                 <span>4.9</span>
                 <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
               </li>
-              <li className='chef'>
+              <li className='chef' onClick={() => history.push('/chefInfo')}>
                 <div className='chefPic'>
                   <img src={basic_profile} alt='셰프 사진' />
                 </div>
@@ -124,7 +125,7 @@ function FindChef() {
                 <span>4.9</span>
                 <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
               </li>
-              <li className='chef'>
+              <li className='chef' onClick={() => history.push('/chefInfo')}>
                 <div className='chefPic'>
                   <img src={basic_profile} alt='셰프 사진' />
                 </div>
@@ -135,7 +136,7 @@ function FindChef() {
                 <span>4.9</span>
                 <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
               </li>
-              <li className='chef'>
+              <li className='chef' onClick={() => history.push('/chefInfo')}>
                 <div className='chefPic'>
                   <img src={basic_profile} alt='셰프 사진' />
                 </div>
@@ -146,7 +147,7 @@ function FindChef() {
                 <span>4.9</span>
                 <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
               </li>
-              <li className='chef'>
+              <li className='chef' onClick={() => history.push('/chefInfo')}>
                 <div className='chefPic'>
                   <img src={basic_profile} alt='셰프 사진' />
                 </div>
@@ -157,7 +158,7 @@ function FindChef() {
                 <span>4.9</span>
                 <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
               </li>
-              <li className='chef'>
+              <li className='chef' onClick={() => history.push('/chefInfo')}>
                 <div className='chefPic'>
                   <img src={basic_profile} alt='셰프 사진' />
                 </div>

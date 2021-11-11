@@ -130,3 +130,10 @@ export const LogoutModalBox = styled.div`
     }
   }
 `;
+
+export const PictureModalBox = styled.div`
+  > img {
+    width: 100px;
+    height: 100px;
+  }
+`;

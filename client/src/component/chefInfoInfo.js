@@ -1,4 +1,8 @@
-import { ChefAllInformation } from '../styled/styleChefInfo';
+import {
+  ChefAllInformation,
+  ChefImgWrap,
+  ChefTextWrap,
+} from '../styled/styleChefInfo';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import axios from 'axios';
 
@@ -13,16 +17,16 @@ function ChefInfoDesc() {
   return (
     <ChefAllInformation>
       <div id='chefInfoAll'>
-        <div id='chefImgWrap'>
+        <ChefImgWrap>
           <div id='chefName'>
             <h2>김코딩 셰프</h2>
           </div>
           <div id='chefImg'>
             <img src={basic_profile} alt='셰프 사진' />
           </div>
-        </div>
+        </ChefImgWrap>
 
-        <div id='chefTextWrap'>
+        <ChefTextWrap>
           <div id='chefsGreeting'>
             <h3>Greetings</h3>
             <p>셰프의 인삿말</p>
@@ -35,7 +39,7 @@ function ChefInfoDesc() {
             <h3>chefsMindset</h3>
             <p>셰프의 가치관</p>
           </div>
-        </div>
+        </ChefTextWrap>
       </div>
     </ChefAllInformation>
   );
