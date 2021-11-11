@@ -72,6 +72,18 @@ export const Navbar = styled.nav`
     position: relative;
     padding: 0px 10px;
     box-sizing: border-box;
+    #myMenuSmallWrap {
+      display: none;
+      width: 100%;
+      height: calc(100vh - 80px);
+      position: absolute;
+      left: 0;
+      background-color: #dbb89a;
+      &.showMyMenu {
+        display: grid;
+        place-items: center;
+      }
+    }
   }
 `;
 
@@ -166,40 +178,58 @@ export const Mymenu = styled.ul`
 `;
 
 export const MymenuSmall = styled.ul`
-  display: none;
   width: 100%;
-  height: 100vh;
-  position: absolute;
-  background-color: #dbb89a;
-  transition: all 0.3s;
-  left: 0;
-  &.showMyMenu {
-    position: absolute;
+  height: 510px;
+  display: grid;
+  grid-template-rows: 190px 80px 80px 80px 80px;
+  @media (max-width: 430px) {
+    height: 350px;
+    grid-template-rows: 190px 30px 30px 30px 30px;
+  }
+  > li {
+    border-radius: 5px;
     width: 100%;
-    height: calc(100vh - 80px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    > li {
-      border-radius: 5px;
+    height: 80px;
+    line-height: 80px;
+    @media (max-width: 430px) {
+      height: 30px;
+      line-height: 30px;
+    }
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    > a {
+      display: block;
       width: 100%;
-      cursor: pointer;
-      > a {
-        display: block;
-        width: 100%;
-        height: auto;
+      height: 80px;
+      line-height: 80px;
+      @media (max-width: 430px) {
+        height: 30px;
+        line-height: 30px;
       }
     }
-    > li:hover:not(:nth-child(1)) {
-      background-color: #603224;
+  }
+  > li:nth-child(1) {
+    display: grid;
+    height: 190px;
+    grid-template-rows: 40px 150px;
+    > p {
+      line-height: 40px;
     }
   }
+  > li:hover:not(:nth-child(1)) {
+    background-color: #603224;
+  }
+
   img {
     width: 150px;
     height: 150px;
     border-radius: 40px;
-    margin-left: 10px;
     cursor: pointer;
+    /* @media (max-width: 430px) {
+      width: 100px;
+      height: 100px;
+      border-radius: 30px;
+    } */
   }
 `;

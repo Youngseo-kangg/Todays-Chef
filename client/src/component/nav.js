@@ -82,17 +82,22 @@ function Nav({ setIsLogout }) {
                     }
                   ></div>
                 </NavBarIcon>
-                <MymenuSmall className={mymenuState ? 'showMyMenu' : null}>
-                  <li onClick={showMiniMenu}>
-                    <Link to='/findChef'>findChef</Link>
-                  </li>
-                  <li onClick={showMiniMenu}>
-                    <Link to='/beChef'>BeChef</Link>
-                  </li>
-                  <li onClick={showMiniMenu}>
-                    <Link to='/loginOrSignup'>로그인/회원가입</Link>
-                  </li>
-                </MymenuSmall>
+                <div
+                  id='myMenuSmallWrap'
+                  className={mymenuState ? 'showMyMenu' : null}
+                >
+                  <MymenuSmall>
+                    <li onClick={showMiniMenu}>
+                      <Link to='/findChef'>findChef</Link>
+                    </li>
+                    <li onClick={showMiniMenu}>
+                      <Link to='/beChef'>BeChef</Link>
+                    </li>
+                    <li onClick={showMiniMenu}>
+                      <Link to='/loginOrSignup'>로그인/회원가입</Link>
+                    </li>
+                  </MymenuSmall>
+                </div>
               </li>
             ) : (
               <li>
@@ -103,30 +108,35 @@ function Nav({ setIsLogout }) {
                     }
                   ></div>
                 </NavBarIcon>
-                <MymenuSmall className={mymenuState ? 'showMyMenu' : null}>
-                  <li>
-                    <p>안녕하세요, {userInfo.nickname}님!</p>
-                    <img src={basic_profile} alt='user profile' />
-                  </li>
-                  <li onClick={showMiniMenu}>
-                    <Link to='/findChef'>findChef</Link>
-                  </li>
-                  <li onClick={showMiniMenu}>
-                    <Link to='/beChef'>BeChef</Link>
-                  </li>
-                  <li onClick={showMiniMenu}>
-                    <Link to='/mypage'>mypage</Link>
-                  </li>
-                  <li
-                    onClick={() => {
-                      showMiniMenu();
-                      setIsLogout(true);
-                      // dispatch(logout());
-                    }}
-                  >
-                    Logout
-                  </li>
-                </MymenuSmall>
+                <div
+                  id='myMenuSmallWrap'
+                  className={mymenuState ? 'showMyMenu' : null}
+                >
+                  <MymenuSmall>
+                    <li>
+                      <p>안녕하세요, {userInfo.nickname}님!</p>
+                      <img src={basic_profile} alt='user profile' />
+                    </li>
+                    <li onClick={showMiniMenu}>
+                      <Link to='/findChef'>findChef</Link>
+                    </li>
+                    <li onClick={showMiniMenu}>
+                      <Link to='/beChef'>BeChef</Link>
+                    </li>
+                    <li onClick={showMiniMenu}>
+                      <Link to='/mypage'>mypage</Link>
+                    </li>
+                    <li
+                      onClick={() => {
+                        showMiniMenu();
+                        setIsLogout(true);
+                        // dispatch(logout());
+                      }}
+                    >
+                      Logout
+                    </li>
+                  </MymenuSmall>
+                </div>
               </li>
             )}
           </ul>
