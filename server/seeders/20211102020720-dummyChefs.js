@@ -14,7 +14,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
-          rating: 4.5,
+          rating: 0,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -34,7 +34,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
-          rating: 4.8,
+          rating: 0,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -54,7 +54,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
-          rating: 4.3,
+          rating: 0,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -74,7 +74,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
-          rating: 4.2,
+          rating: 0,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -94,7 +94,7 @@ module.exports = {
           career:
             '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
           values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
-          rating: 3,
+          rating: 0,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -115,7 +115,7 @@ module.exports = {
             '이탈리안 프렌치 퓨전요리 전문/2015 WACS 코리아 푸드 트렌드 페어 최우수상/이태리 몽뗌쥬 수석 졸업',
           values:
             '현재 위치에서 자만하지 말고 끊임없이 연구해 한 발자국 더 나아가자.',
-          rating: 4.1,
+          rating: 0,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -136,7 +136,7 @@ module.exports = {
             '이탈리안 프렌치 퓨전요리 전문/2015 WACS 코리아 푸드 트렌드 페어 최우수상/이태리 몽뗌쥬 수석 졸업',
           values:
             '현재 위치에서 자만하지 말고 끊임없이 연구해 한 발자국 더 나아가자.',
-          rating: 3.5,
+          rating: 0,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -157,7 +157,7 @@ module.exports = {
             '이탈리안 프렌치 퓨전요리 전문/2015 WACS 코리아 푸드 트렌드 페어 최우수상/이태리 몽뗌쥬 수석 졸업',
           values:
             '현재 위치에서 자만하지 말고 끊임없이 연구해 한 발자국 더 나아가자.',
-          rating: 4.8,
+          rating: 0,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -178,7 +178,7 @@ module.exports = {
             '이탈리안 프렌치 퓨전요리 전문/2015 WACS 코리아 푸드 트렌드 페어 최우수상/이태리 몽뗌쥬 수석 졸업',
           values:
             '현재 위치에서 자만하지 말고 끊임없이 연구해 한 발자국 더 나아가자.',
-          rating: 4.9,
+          rating: 0,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -198,7 +198,7 @@ module.exports = {
           career:
             '일본 재패니즈 베스트 푸드 대상/나고야 대학 호텔조리과 수석 졸업/호텔 F&B 대학부문 1위 수상/하얏트 호텔 인 재팬 근무',
           values: '천리길도 한 걸음부터',
-          rating: 5,
+          rating: 0,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -208,6 +208,125 @@ module.exports = {
             .replace(/T/, ' ')
             .replace(/\..+/, ''),
           chUserId: 13,
+        },
+        {
+          chefName: '방한식',
+          cuisine: '한식',
+          chefImg: '',
+          greeting:
+            '한식으로 건강한 건강식을 만드는 김한식 셰프입니다. 영양소를 고루고루 갖춘 식사로 하루한끼를 여러분께 제공할 자신이 있습니다. 맛과 건강 모두 챙기기 위해 수많은 연구를 하였으며, 그것을 한식으로 녹여냈습니다.',
+          career:
+            '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
+          values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
+          rating: 0,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          chUserId: 14,
+        },
+        {
+          chefName: '강한식',
+          cuisine: '한식',
+          chefImg: '',
+          greeting:
+            '한식으로 건강한 건강식을 만드는 김한식 셰프입니다. 영양소를 고루고루 갖춘 식사로 하루한끼를 여러분께 제공할 자신이 있습니다. 맛과 건강 모두 챙기기 위해 수많은 연구를 하였으며, 그것을 한식으로 녹여냈습니다.',
+          career:
+            '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
+          values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
+          rating: 0,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          chUserId: 15,
+        },
+        {
+          chefName: '민한식',
+          cuisine: '한식',
+          chefImg: '',
+          greeting:
+            '한식으로 건강한 건강식을 만드는 김한식 셰프입니다. 영양소를 고루고루 갖춘 식사로 하루한끼를 여러분께 제공할 자신이 있습니다. 맛과 건강 모두 챙기기 위해 수많은 연구를 하였으며, 그것을 한식으로 녹여냈습니다.',
+          career:
+            '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
+          values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
+          rating: 0,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          chUserId: 16,
+        },
+        {
+          chefName: '정한식',
+          cuisine: '한식',
+          chefImg: '',
+          greeting:
+            '한식으로 건강한 건강식을 만드는 김한식 셰프입니다. 영양소를 고루고루 갖춘 식사로 하루한끼를 여러분께 제공할 자신이 있습니다. 맛과 건강 모두 챙기기 위해 수많은 연구를 하였으며, 그것을 한식으로 녹여냈습니다.',
+          career:
+            '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
+          values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
+          rating: 0,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          chUserId: 17,
+        },
+        {
+          chefName: '남궁한식',
+          cuisine: '한식',
+          chefImg: '',
+          greeting:
+            '한식으로 건강한 건강식을 만드는 김한식 셰프입니다. 영양소를 고루고루 갖춘 식사로 하루한끼를 여러분께 제공할 자신이 있습니다. 맛과 건강 모두 챙기기 위해 수많은 연구를 하였으며, 그것을 한식으로 녹여냈습니다.',
+          career:
+            '신라호텔 출신/세계요리대회 개인부문 대상/한국 역대 최대규모 건강식 캠페인 총지배인',
+          values: '음식은 하나의 작품이자, 하나의 행복이자, 하나의 치료이다.',
+          rating: 0,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          chUserId: 18,
+        },
+        {
+          chefName: '전중식',
+          cuisine: '중식',
+          chefImg: '',
+          greeting:
+            '호불호가 갈리는 향신료를 줄여 한국인 입맛에 맞는 중식을 선보이는 전중식 셰프입니다.',
+          career: '중국 대사관 음식 접대 다수/2020 세계요리대회 개인부문 대상',
+          values: '모두가 좋아할 수 있는 음식이 최고의 음식이다.',
+          rating: 0,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          chUserId: 19,
         },
       ],
       {}
