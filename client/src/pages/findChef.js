@@ -54,10 +54,10 @@ function FindChef() {
         );
       }
       setChefData(result.data.data); // 2. result값으로 chefData 없데이트
-      setDataLength({
-        ...dataLength,
-        end: result.data.data.length,
-      }); // 3. result값으로 dataLength 업데이트
+      // setDataLength({
+      //   start:,
+      //   end: result.data.data.length,
+      // }); // 3. result값으로 dataLength 업데이트
     } catch (err) {
       console.log(err);
     }
@@ -66,7 +66,6 @@ function FindChef() {
   useEffect(() => {
     window.scrollTo(0, 0); // 가장 위로 올리기
     getChefList(); // 데이터값 가져오기
-    console.log('useEffect안에 chefData: ', chefData);
   }, [selected]); // 로드 되자마자 + select값 변경 될때 마다 리렌더링
 
   return (
