@@ -1,4 +1,9 @@
-import { ChefAllReviewInfo } from '../styled/styleChefInfo';
+import {
+  ChefAllReviewInfo,
+  ReviewWrap,
+  ReviewPagenation,
+  UserReview,
+} from '../styled/styleChefInfo';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import axios from 'axios';
 
@@ -13,8 +18,8 @@ function ChefAllReview() {
   return (
     <ChefAllReviewInfo>
       <div id='chefReviewWrap'>
-        <ul id='reviewWrap'>
-          <li className='userReview'>
+        <ReviewWrap>
+          <UserReview>
             <div className='userProfile'>
               <img src={basic_profile} alt='유저 사진' />
               <h2 className='userNickname'>XXX님</h2>
@@ -27,11 +32,10 @@ function ChefAllReview() {
               </p>
             </div>
             <div className='reviewPicture'>
-              <img src={basic_profile} alt='코스 사진' />
-              <img src={basic_profile} alt='코스 사진' />
+              <p>등록한 사진이 없습니다.</p>
             </div>
-          </li>
-          <li className='userReview'>
+          </UserReview>
+          <UserReview>
             <div className='userProfile'>
               <img src={basic_profile} alt='유저 사진' />
               <h2 className='userNickname'>XXX님</h2>
@@ -44,11 +48,14 @@ function ChefAllReview() {
               </p>
             </div>
             <div className='reviewPicture'>
-              <img src={basic_profile} alt='코스 사진' />
-              <img src={basic_profile} alt='코스 사진' />
+              <div className='reviewPictureFrame'>
+                <div className='reviewPicture'>
+                  <img src={basic_profile} alt='코스 사진' />
+                </div>
+              </div>
             </div>
-          </li>
-          <li className='userReview'>
+          </UserReview>
+          <UserReview>
             <div className='userProfile'>
               <img src={basic_profile} alt='유저 사진' />
               <h2 className='userNickname'>XXX님</h2>
@@ -61,11 +68,17 @@ function ChefAllReview() {
               </p>
             </div>
             <div className='reviewPicture'>
-              <img src={basic_profile} alt='코스 사진' />
-              <img src={basic_profile} alt='코스 사진' />
+              <div className='reviewPictureFrame'>
+                <div className='reviewPicture'>
+                  <img src={basic_profile} alt='코스 사진' />
+                </div>
+                <div className='reviewPicture'>
+                  <img src={basic_profile} alt='코스 사진' />
+                </div>
+              </div>
             </div>
-          </li>
-          <li className='userReview'>
+          </UserReview>
+          <UserReview>
             <div src={basic_profile} className='userProfile'>
               <img src={basic_profile} alt='유저 사진' />
               <h2 className='userNickname'>XXX님</h2>
@@ -78,13 +91,22 @@ function ChefAllReview() {
               </p>
             </div>
             <div className='reviewPicture'>
-              <img src={basic_profile} alt='코스 사진' />
-              <img src={basic_profile} alt='코스 사진' />
+              <div className='reviewPictureFrame'>
+                <div className='reviewPicture'>
+                  <img src={basic_profile} alt='코스 사진' />
+                </div>
+                <div className='reviewPicture'>
+                  <img src={basic_profile} alt='코스 사진' />
+                </div>
+                <div className='reviewPicture'>
+                  <img src={basic_profile} alt='코스 사진' />
+                </div>
+              </div>
             </div>
-          </li>
-        </ul>
+          </UserReview>
+        </ReviewWrap>
 
-        <div className='reviewPagenation'>
+        <ReviewPagenation>
           <ul>
             <li>&lt;&lt;</li>
             <li>&lt;</li>
@@ -94,7 +116,7 @@ function ChefAllReview() {
             <li>&gt;</li>
             <li>&gt;&gt;</li>
           </ul>
-        </div>
+        </ReviewPagenation>
       </div>
     </ChefAllReviewInfo>
   );

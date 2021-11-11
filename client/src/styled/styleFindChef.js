@@ -53,7 +53,6 @@ export const SelectCuisine = styled.div`
         border-radius: 10px;
         width: calc(100% / 4 - 20px);
         transition: 0.3s;
-        cursor: pointer;
         @media (max-width: 767px) {
           width: calc(100% / 2 - 10px);
           :nth-child(1),
@@ -101,14 +100,11 @@ export const SelectCuisine = styled.div`
 `;
 
 export const ChefList = styled.section`
-  /* border: 1px solid red; */
   box-sizing: border-box;
   display: grid;
   place-items: center;
 
   #chefListWrap {
-    background-color: red;
-    /* border: 1px solid red; */
     box-sizing: border-box;
     width: 95%;
     max-width: 1400px;
@@ -154,6 +150,7 @@ export const ChefItemList = styled.div`
       /* border: 1px solid blue; */
       box-sizing: border-box;
       width: calc(100% / 4 - 10px);
+      cursor: pointer;
       display: grid;
       grid-template-rows: 300px 1fr 1fr 1fr;
       row-gap: 15px;
