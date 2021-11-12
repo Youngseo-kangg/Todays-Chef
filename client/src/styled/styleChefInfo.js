@@ -160,6 +160,15 @@ export const ChefTextWrap = styled.div`
       font-size: 25px;
       background-color: #dbb89a;
     }
+    p:before {
+      content: ': ';
+    }
+    li:before {
+      content: '- ';
+    }
+    li {
+      margin-bottom: 5px;
+    }
   }
 `;
 
@@ -191,17 +200,17 @@ export const ChefAllCourseInfo = styled.section`
 export const CourseItem = styled.li`
   width: 100%;
   display: grid;
-  grid-template-rows: 40px 200px 100px 50px 50px;
+  grid-template-rows: 40px 1fr 100px 50px 50px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   @media screen and (max-width: 767px) {
     width: 100%;
     /* height: calc(100% / 3 - 20px); */
-    grid-template-rows: 40px 150px 100px 50px 50px;
+    grid-template-rows: 40px 1fr 100px 50px 50px;
   }
   @media screen and (max-width: 420px) {
     width: 100%;
     /* height: calc(100% / 3 - 20px); */
-    grid-template-rows: 40px 250px 100px 50px 50px;
+    grid-template-rows: 40px 1fr 100px 50px 50px;
   }
   > .courseName {
     display: grid;
@@ -214,7 +223,7 @@ export const CourseItem = styled.li`
   }
   > ul {
     text-align: left;
-    padding: 5px;
+    padding: 15px;
     li {
       margin-bottom: 5px;
     }
@@ -342,12 +351,14 @@ export const UserReview = styled.div`
   }
   .userProfile {
     display: grid;
-    grid-template-columns: 80px 2fr 1fr 4fr;
-    img {
-      width: 60px;
-      height: 60px;
-      border-radius: 80px;
-      text-align: center;
+    grid-template-columns: 80px 4fr 1fr 5fr;
+    .userProfileWrap {
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 80px;
+        text-align: center;
+      }
     }
     > * {
       display: grid;
@@ -357,6 +368,7 @@ export const UserReview = styled.div`
   .reviewTextWrap {
     display: grid;
     place-items: center;
+    text-align: left;
     > p {
       width: 95%;
       height: 90%;

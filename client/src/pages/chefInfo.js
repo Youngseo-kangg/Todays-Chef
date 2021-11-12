@@ -19,9 +19,9 @@ function ChefInfo() {
   const [chefInfoIdx, setChefInfoIdx] = useState(0);
   const query = window.location.search.split('=')[1]; // chefId=~~에서 '='뒤 텍스트 가져오기
   const [chefInfo, setChefInfo] = useState({
-    chefIntro: {},
-    chefCourse: [],
-    chefReview: [],
+    info: {},
+    course: [],
+    review: [],
   }); // 셰프 정보 담아두기
   const [magnifyPic, setMagnifyPic] = useState({
     picState: false, // 사진 모달 상태
@@ -33,9 +33,9 @@ function ChefInfo() {
       const getChefResult = await axios.get(`${url}/chef?chefId=${query}`);
       console.log('chefInfo에서 받아온 정보들: ', getChefResult.data);
       setChefInfo({
-        chefIntro: getChefResult.data.chefInfo,
-        chefCourse: getChefResult.data.findCourse,
-        chefReview: getChefResult.data.chefReview,
+        info: getChefResult.data.data,
+        course: getChefResult.data.chefCourse,
+        review: getChefResult.data.chefReview,
       });
     } catch (err) {
       console.log(err);
@@ -53,7 +53,9 @@ function ChefInfo() {
       ) : null}
       <ChefInfoGrid>
         <ChefInfoDesc>
-          <h2>김코딩 셰프님의 만찬에 오신 것을 환영합니다!</h2>
+          <h2>
+            {chefInfo.info.chefName} 셰프님의 만찬에 오신 것을 환영합니다!
+          </h2>
         </ChefInfoDesc>
         <ChefInformation>
           <ul id='chefInfoOrder'>
@@ -78,14 +80,14 @@ function ChefInfo() {
           </ul>
           <ChefWrapBox>
             {chefInfoIdx === 0 ? (
-              <ChefAllInfo chefIntro={chefInfo.chefIntro} />
+              <ChefAllInfo chefInfo={chefInfo.info} />
             ) : null}
             {chefInfoIdx === 1 ? (
-              <ChefAllCourse chefCourse={chefInfo.chefCourse} />
+              <ChefAllCourse chefCourse={chefInfo.course} />
             ) : null}
             {chefInfoIdx === 2 ? (
               <ChefAllReview
-                chefReview={chefInfo.chefReview}
+                chefReview={chefInfo.review}
                 setMagnifyPic={setMagnifyPic}
               />
             ) : null}

@@ -26,8 +26,7 @@ function FindChef() {
   const [chefData, setChefData] = useState([]);
   const [dataLength, setDataLength] = useState({
     start: 0, // 시작점
-    groups: [0, 7], // 작은 묶음 (1,2,3,4,5,....)
-    end: 7,
+    end: 7, // 끝나는 점
   });
 
   const handleSelected = (event) => {
@@ -38,7 +37,7 @@ function FindChef() {
     try {
       let encodeSelected = encodeURI(encodeURIComponent(selected));
       const result = await axios.get(
-        `${url}/chef/${encodeSelected}?startNum=0&endNum=7`
+        `${url}/chef/${encodeSelected}?startNum=0&endNum=3`
       ); // axios 요청
       console.log('응답: ', result);
 
