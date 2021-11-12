@@ -62,6 +62,16 @@ function Login({ setIsLoginModalOpen }) {
     console.log(error);
   };
 
+  const redirect_uri =
+    process.env.REACT_APP_REDIRECT_URI || `http://localhost:3000`;
+
+  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${redirect_uri}&response_type=code`;
+
+  const handleKakaoLogin = () => {
+    localStorage.setItem('socialType', 'kakao');
+    window.location.assign(KAKAO_LOGIN_URL);
+  };
+
   // console.log('loginState: ', loginState);
   // const userInfo = useSelector(userStatus);
   // console.log('redux store 값: ', userInfo);
@@ -112,7 +122,7 @@ function Login({ setIsLoginModalOpen }) {
       <div id='socialLogin'>
         <p>간편 로그인/회원가입</p>
         <ul>
-          <li>
+          <li onClick={handleKakaoLogin}>
             <FontAwesomeIcon icon={faComment} />
           </li>
           <li>
