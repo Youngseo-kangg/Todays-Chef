@@ -2,12 +2,15 @@ import './App.css';
 import Main from './pages/main';
 import Nav from './component/nav';
 import FindChef from './pages/findChef';
+import BeChef from './pages/beChef';
 import ChefInfo from './pages/chefInfo';
 import Reservation from './pages/reservation';
 import Mypage from './pages/mypage';
 import LoginOrSignup from './pages/loginOrSignup';
 import Footer from './component/footer';
+import LogoutModal from './modal/logoutModal';
 
+import { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -27,12 +30,15 @@ function App() {
   //       console.log('err', url);
   //     });
   // };
+  const [isLogout, setIsLogout] = useState(false);
+
   return (
     <BrowserRouter>
       <div className='App'>
         {/* <button onClick={test}>click</button> */}
+        {isLogout ? <LogoutModal setIsLogout={setIsLogout} /> : null}
         <Switch>
-          <Nav />
+          <Nav setIsLogout={setIsLogout} />
         </Switch>
 
         <Route exact path='/'>
@@ -41,7 +47,10 @@ function App() {
         <Route path='/findChef'>
           <FindChef />
         </Route>
-        <Route path='/chefInfo'>
+        <Route path='/beChef'>
+          <BeChef />
+        </Route>
+        <Route path='/chef'>
           <ChefInfo />
         </Route>
         <Route path='/reservation'>

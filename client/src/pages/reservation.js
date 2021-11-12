@@ -1,9 +1,41 @@
-import { ReservationGrid } from '../styled/styleReservation';
+import { useState } from 'react';
+import ReservationNotice from '../component/reservationNotice';
+import ReservationDate from '../component/reservationDate';
+import ReservationInfo from '../component/reservationInfo';
+import ReservationPayment from '../component/reservationPayment';
+import ReservationDone from '../component/reservationDone';
+import {
+  ReservationGrid,
+  ReservationTitle,
+  ReservationGraph,
+  ReservationDesc,
+} from '../styled/styleReservation';
 
 function Reservation() {
+  const [makeReservation, setMakeReservation] = useState(0);
   return (
     <ReservationGrid>
-      <p>this is Reservation</p>
+      <ReservationTitle>this is Reservation</ReservationTitle>
+      <ReservationGraph>
+        <div id='reservationProgress'></div>
+      </ReservationGraph>
+      <ReservationDesc>
+        {makeReservation === 0 ? (
+          <ReservationNotice setMakeReservation={setMakeReservation} />
+        ) : null}
+        {makeReservation === 1 ? (
+          <ReservationDate setMakeReservation={setMakeReservation} />
+        ) : null}
+        {makeReservation === 2 ? (
+          <ReservationInfo setMakeReservation={setMakeReservation} />
+        ) : null}
+        {makeReservation === 3 ? (
+          <ReservationPayment setMakeReservation={setMakeReservation} />
+        ) : null}
+        {makeReservation === 4 ? (
+          <ReservationDone setMakeReservation={setMakeReservation} />
+        ) : null}
+      </ReservationDesc>
     </ReservationGrid>
   );
 }
