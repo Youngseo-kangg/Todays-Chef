@@ -50,7 +50,7 @@ function App() {
         <Route path='/beChef'>
           <BeChef />
         </Route>
-        <Route path='/chefInfo'>
+        <Route path='/chef'>
           <ChefInfo />
         </Route>
         <Route path='/reservation'>

@@ -32,7 +32,6 @@ module.exports = {
       // 셰프 코스 보낼 것만 보내기 위함
 
       const chefReview = [];
-
       for (let i = 0; i < findReview.length; i++) {
         delete findReview[i].dataValues.rvChefId;
         delete findReview[i].dataValues.createdAt;
