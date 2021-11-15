@@ -59,34 +59,24 @@ export const ReservationDesc = styled.section`
   }
 `;
 
-export const ReservNotice = styled.div`
+export const ReservationWrap = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: 50px 1fr 50px;
 `;
-
+export const ReservNotice = styled.div`
+  background-color: pink;
+`;
 export const ReservDate = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 50px 1fr 50px;
+  background-color: pink;
 `;
 export const ReservInfo = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 50px 1fr 50px;
+  background-color: pink;
 `;
 export const ReservPayment = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 50px 1fr 50px;
+  background-color: pink;
 `;
 export const ReservDone = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 50px 1fr 50px;
+  background-color: pink;
 `;

@@ -1,12 +1,12 @@
-import { ReservPayment } from '../styled/styleReservation';
+import { ReservationWrap, ReservPayment } from '../styled/styleReservation';
 
 function ReservationPayment({ setMakeReservation }) {
   return (
-    <ReservPayment>
+    <ReservationWrap>
       <button onClick={() => setMakeReservation(2)}>&lt;</button>
-      <div>this is reservationPayment(4단계)</div>
+      <ReservPayment>this is reservationPayment(4단계)</ReservPayment>
       <button onClick={() => setMakeReservation(4)}>&gt;</button>
-    </ReservPayment>
+    </ReservationWrap>
   );
 }
 
