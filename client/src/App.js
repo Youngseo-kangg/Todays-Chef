@@ -13,6 +13,7 @@ import LogoutModal from './modal/logoutModal';
 import { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -30,6 +31,15 @@ function App() {
   //       console.log('err', url);
   //     });
   // };
+  useEffect(() => {
+    if (
+      window.location.href === 'https://www.todayschef.click' ||
+      window.location.href === 'http://www.todayschef.click' ||
+      window.location.href === 'http://todayschef.click'
+    ) {
+      window.location.href = 'https://todayschef.click';
+    }
+  }, []);
   const [isLogout, setIsLogout] = useState(false);
 
   return (
