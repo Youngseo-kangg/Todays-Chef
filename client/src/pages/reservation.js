@@ -16,22 +16,32 @@ function Reservation() {
   return (
     <ReservationGrid>
       <ReservationTitle>this is Reservation</ReservationTitle>
-      <ReservationGraph>
-        <div id='reservationProgress'></div>
+      <ReservationGraph width={makeReservation}>
+        <div id='reservationProgress'>
+          <div id='reservationBar'></div>
+        </div>
       </ReservationGraph>
+
       <ReservationDesc>
         {makeReservation === 0 ? (
           <ReservationNotice setMakeReservation={setMakeReservation} />
         ) : null}
-        {makeReservation === 1 ? (
-          <ReservationDate setMakeReservation={setMakeReservation} />
+
+        {makeReservation === 1 || makeReservation === 2 ? (
+          <form>
+            {makeReservation === 1 ? (
+              <ReservationDate setMakeReservation={setMakeReservation} />
+            ) : null}
+            {makeReservation === 2 ? (
+              <ReservationInfo setMakeReservation={setMakeReservation} />
+            ) : null}
+          </form>
         ) : null}
-        {makeReservation === 2 ? (
-          <ReservationInfo setMakeReservation={setMakeReservation} />
-        ) : null}
+
         {makeReservation === 3 ? (
           <ReservationPayment setMakeReservation={setMakeReservation} />
         ) : null}
+
         {makeReservation === 4 ? (
           <ReservationDone setMakeReservation={setMakeReservation} />
         ) : null}

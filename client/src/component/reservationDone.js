@@ -1,12 +1,12 @@
-import { ReservDone } from '../styled/styleReservation';
+import { ReservationWrap, ReservDone } from '../styled/styleReservation';
 
 function ReservationDone({ setMakeReservation }) {
   return (
-    <ReservDone>
+    <ReservationWrap>
       <button onClick={() => setMakeReservation(3)}>&lt;</button>
-      <div>this is reservationDone(5단계)</div>
+      <ReservDone>this is reservationDone(5단계)</ReservDone>
       <button>&gt;</button>
-    </ReservDone>
+    </ReservationWrap>
   );
 }
 

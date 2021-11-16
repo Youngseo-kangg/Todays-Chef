@@ -10,7 +10,6 @@ require('dotenv').config();
 axios.defaults.withCredentials = true;
 
 function ChefInfoDesc({ chefInfo }) {
-  console.log(chefInfo);
   return (
     <ChefAllInformation>
       <div id='chefInfoAll'>
