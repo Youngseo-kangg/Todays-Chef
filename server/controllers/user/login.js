@@ -26,13 +26,13 @@ module.exports = {
           delete userInfo.dataValues.createdAt;
           delete userInfo.dataValues.updatedAt;
 
-          // const accessToken = basicAccessToken(userInfo.dataValues);
+          const accessToken = basicAccessToken(userInfo.dataValues);
           // console.log('accessToken', accessToken);
           // const refreshToken = basicRefreshToken(userInfo.dataValues);
           // console.log('refreshToken', refreshToken);
 
           // sendRefreshToken(res, refreshToken);
-          res.status(200).json({ userInfo, message: 'ok' });
+          res.status(200).json({ accessToken, userInfo, message: 'ok' });
         }
       }
     }
