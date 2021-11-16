@@ -56,7 +56,9 @@ module.exports = {
       // 셰프 리뷰 보낼 것만 보내기 위함
 
       if (req.query.startNum && req.query.endNum) {
-        res.status(200).json({ data: chefReview });
+        res
+          .status(200)
+          .json({ data: chefReview.slice(startSlice, endSlice + 1) });
       } else if (!startSlice || !endSlice) {
         res.status(200).json({
           data: chefInfo,
