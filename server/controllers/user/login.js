@@ -31,8 +31,8 @@ module.exports = {
           // const refreshToken = basicRefreshToken(userInfo.dataValues);
           // console.log('refreshToken', refreshToken);
 
-          sendRefreshToken(res, refreshToken);
-          res.status(200).json({ accessToken, userInfo, message: 'ok' });
+          // sendRefreshToken(res, refreshToken);
+          res.status(200).json({ userInfo, message: 'ok' });
         }
       }
     }
