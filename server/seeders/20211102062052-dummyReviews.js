@@ -6,7 +6,7 @@ module.exports = {
       'reviews',
       [
         {
-          rating: 5,
+          rating: '5',
           eval: '무척 맛있고 고급스러웠음',
           rvImg: '',
           rvDate: new Date()
@@ -26,7 +26,7 @@ module.exports = {
           rvReservationId: 1,
         },
         {
-          rating: 4,
+          rating: '4',
           eval: '맛은 있었지만 뭔가 아쉬운 느낌은 있었어요. 건강한 음식이라 조금 밍밍한 맛이랄까?',
           rvImg: '',
           rvDate: new Date()

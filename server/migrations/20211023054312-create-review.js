@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       rating: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       eval: {
         type: Sequelize.STRING,
