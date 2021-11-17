@@ -21,11 +21,9 @@ module.exports = {
 
     if (findEmail && !findNickname) {
       res.status(400).json({ message: 'same email' });
-    } else if (!findEmail && findNickname) {
-      res.status(400).json({ message: 'same nickname' });
     } else if (findNickname && findEmail) {
       res.status(400).json({ message: 'invalid User' });
-    } else if (!findNickname && !findEmail) {
+    } else if ((!findNickname && !findEmail) || (!findEmail && findNickname)) {
       res.status(200).json({ message: 'ok' });
 
       await user.create({
