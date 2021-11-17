@@ -24,6 +24,8 @@ axios.defaults.withCredentials = true;
 function App() {
   const dispatch = useDispatch();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // 로그인 모달창 상태
+  const [isLoginErrorModalOpen, setIsLoginErrorModalOpen] = useState(false); // 로그인 에러 모당창 상태
+  const [isServerError, setIsServerError] = useState(false);
 
   const [isLogout, setIsLogout] = useState(false);
 
@@ -64,9 +66,10 @@ function App() {
       );
     } catch (err) {
       if ((err.response.data.message = 'You Already Signed up')) {
-        alert('이미 존재하는 유저입니다');
+        setIsLoginErrorModalOpen(true);
       } else {
-        alert('죄송합니다. 다시 로그인 해주세요.');
+        setIsServerError(true);
+        setIsLoginErrorModalOpen(true);
       }
     }
   };
@@ -102,6 +105,10 @@ function App() {
           <LoginOrSignup
             isLoginModalOpen={isLoginModalOpen}
             setIsLoginModalOpen={setIsLoginModalOpen}
+            setIsLoginErrorModalOpen={setIsLoginErrorModalOpen}
+            isLoginErrorModalOpen={isLoginErrorModalOpen}
+            isServerError={isServerError}
+            setIsServerError={setIsServerError}
           />
         </Route>
 

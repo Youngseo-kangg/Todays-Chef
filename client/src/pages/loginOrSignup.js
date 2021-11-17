@@ -1,7 +1,9 @@
 import Login from '../component/login';
 import LoginModal from '../modal/loginModal';
 import SignupModal from '../modal/signupModal';
+import LoginErrorModal from '../modal/loginErrorModal';
 import Signup from '../component/signup';
+
 import { useState, useEffect, useMemo } from 'react';
 import { throttle } from 'lodash';
 import {
@@ -11,7 +13,14 @@ import {
   LoginOrSignupSmallContainer,
 } from '../styled/styleLoginOrSignup';
 
-function LoginOrSignup({ isLoginModalOpen, setIsLoginModalOpen }) {
+function LoginOrSignup({
+  isLoginModalOpen,
+  setIsLoginModalOpen,
+  isLoginErrorModalOpen,
+  setIsLoginErrorModalOpen,
+  isServerError,
+  setIsServerError,
+}) {
   const [loginOrSignupComp, setloginOrSignupComp] = useState(false); // 큰 창에서 animation 구현
   const [smallComp, setSmallComp] = useState(false); // 작은 창인지 확인
   const [smallCompPart, setSmallCompPart] = useState(false); // 작은 창에서 뭘 보여줄지 결정
@@ -52,6 +61,13 @@ function LoginOrSignup({ isLoginModalOpen, setIsLoginModalOpen }) {
     <>
       {isLoginModalOpen ? (
         <LoginModal setIsLoginModalOpen={setIsLoginModalOpen} />
+      ) : null}
+      {isLoginErrorModalOpen ? (
+        <LoginErrorModal
+          setIsLoginErrorModalOpen={setIsLoginErrorModalOpen}
+          setIsServerError={setIsServerError}
+          isServerError={isServerError}
+        />
       ) : null}
       {isSignUpModalOpen ? (
         <SignupModal setIsSignUpModalOpen={setIsSignUpModalOpen} />
