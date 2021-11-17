@@ -192,6 +192,9 @@ export const ReservDateAndInfo = styled.div`
       outline: none;
       border: none;
     }
+    #reservMainAddress {
+      cursor: pointer;
+    }
   }
 `;
 

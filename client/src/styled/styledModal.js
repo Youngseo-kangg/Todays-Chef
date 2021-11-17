@@ -6,9 +6,11 @@ export const ModalBackground = styled.div`
   height: 100vh;
   position: fixed;
   z-index: 99999;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  display: grid;
+  place-items: center;
 `;
 
 export const ModalBox = styled.div`
@@ -136,4 +138,8 @@ export const PictureModalBox = styled.div`
     width: 100px;
     height: 100px;
   }
+`;
+
+export const DaumPostCodeWrapper = styled.div`
+  width: 600px;
 `;

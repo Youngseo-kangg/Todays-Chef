@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import AddressModal from '../modal/addressModal';
 import ReservationNotice from '../component/reservationNotice';
 import ReservationDate from '../component/reservationDate';
 import ReservationInfo from '../component/reservationInfo';
@@ -33,7 +34,8 @@ function Reservation() {
         setMinutes(new Date(today.setDate(today.getDate() + 2)), 0),
         13
       ),
-      reservLocation: '',
+      reservMainAddress: '',
+      reservSubAddress: '',
       reservPeople: 2,
       reservMobile: '',
       reservFire: 1,
@@ -50,50 +52,62 @@ function Reservation() {
   const onError = (error) => {
     console.log('onSubmit에서 error: ', error);
   };
-
+  const [searchAddress, setSearchAddress] = useState(false); // 모달 키고 끌 상태
+  const [address, setAddress] = useState(''); // 실제 주소 값
   return (
-    <ReservationGrid>
-      <ReservationTitle>
-        <h2>예약 페이지</h2>
-      </ReservationTitle>
-      <ReservationGraph width={makeReservation}>
-        <div id='reservationProgress'>
-          <div id='reservationBar'></div>
-        </div>
-      </ReservationGraph>
+    <>
+      {searchAddress === true ? (
+        <AddressModal
+          setSearchAddress={setSearchAddress}
+          setAddress={setAddress}
+        />
+      ) : null}
+      <ReservationGrid>
+        <ReservationTitle>
+          <h2>예약 페이지</h2>
+        </ReservationTitle>
+        <ReservationGraph width={makeReservation}>
+          <div id='reservationProgress'>
+            <div id='reservationBar'></div>
+          </div>
+        </ReservationGraph>
 
-      <ReservationDesc>
-        {makeReservation === 0 ? (
-          <ReservationNotice setMakeReservation={setMakeReservation} />
-        ) : null}
+        <ReservationDesc>
+          {makeReservation === 0 ? (
+            <ReservationNotice setMakeReservation={setMakeReservation} />
+          ) : null}
 
-        {makeReservation === 1 || makeReservation === 2 ? (
-          <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <ReservationDate
-              makeReservation={makeReservation}
-              setMakeReservation={setMakeReservation}
-              register={register}
-              control={control}
-              errors={errors}
-            />
-            <ReservationInfo
-              makeReservation={makeReservation}
-              setMakeReservation={setMakeReservation}
-              register={register}
-              errors={errors}
-              handleSubmit={handleSubmit}
-            />
-          </form>
-        ) : null}
-        {makeReservation === 3 ? (
-          <ReservationPayment setMakeReservation={setMakeReservation} />
-        ) : null}
+          {makeReservation === 1 || makeReservation === 2 ? (
+            <form onSubmit={handleSubmit(onSubmit, onError)}>
+              <ReservationDate
+                makeReservation={makeReservation}
+                setMakeReservation={setMakeReservation}
+                register={register}
+                control={control}
+                errors={errors}
+                searchAddress={searchAddress}
+                setSearchAddress={setSearchAddress}
+                address={address}
+              />
+              <ReservationInfo
+                makeReservation={makeReservation}
+                setMakeReservation={setMakeReservation}
+                register={register}
+                errors={errors}
+                handleSubmit={handleSubmit}
+              />
+            </form>
+          ) : null}
+          {makeReservation === 3 ? (
+            <ReservationPayment setMakeReservation={setMakeReservation} />
+          ) : null}
 
-        {makeReservation === 4 ? (
-          <ReservationDone setMakeReservation={setMakeReservation} />
-        ) : null}
-      </ReservationDesc>
-    </ReservationGrid>
+          {makeReservation === 4 ? (
+            <ReservationDone setMakeReservation={setMakeReservation} />
+          ) : null}
+        </ReservationDesc>
+      </ReservationGrid>
+    </>
   );
 }
 
