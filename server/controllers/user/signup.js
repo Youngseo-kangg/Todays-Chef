@@ -6,11 +6,9 @@ dotenv.config();
 module.exports = {
   post: async (req, res) => {
     const newUserData = req.body;
-    console.log('newUserData: ', newUserData);
     const { email, password, nickname } = newUserData;
 
     const encryptedPw = encryptPwd(password);
-    console.log('encryptedPw: ', encryptedPw);
 
     const findNickname = await user.findOne({
       where: { nickname },

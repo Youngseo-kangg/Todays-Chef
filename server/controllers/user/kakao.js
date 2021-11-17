@@ -38,17 +38,41 @@ module.exports = {
     });
 
     if (findUser) {
-      // 이미 회원가입을 했을 때
-      // if(findUser.dataValues)
-      res.status(400).json({ message: 'You already Signed up' });
+      // 이미 회원가입이 일반가입으로 되어있을 때
+      if (!findUser.dataValues.isOauth) {
+        res.status(400).json({ message: 'You already Signed up' });
+      }
+      const userInfo = findUser.dataValues;
+      delete userInfo.password;
+      delete userInfo.updatedAt;
+      delete userInfo.createdAt;
+
+      const accessToken = basicAccessToken(userInfo);
+      const refreshToken = basicRefreshToken(userInfo);
+
+      sendRefreshToken(res, refreshToken);
+      res.status(200).json({ accessToken: accessToken, userInfo: userInfo });
     } else {
       const newUserData = await user.create({
         email: userData.data.kakao_account.email,
         nickname: userData.data.kakao_account.profile.nickname,
         userImg: userData.data.kakao_account.profile.profile_image_url,
+        isChef: false,
+        isOauth: true,
       });
+
+      const userInfo = newUserData.dataValues;
+      delete userInfo.password;
+      delete userInfo.updatedAt;
+      delete userInfo.createdAt;
+
+      const accessToken = basicAccessToken(userInfo);
+      const refreshToken = basicRefreshToken(userInfo);
+
+      sendRefreshToken(res, refreshToken);
+      res.status(201).json({ accessToken: accessToken, userInfo: userInfo });
     }
 
-    res.status(200).json({ message: 'kakaoLogin' });
+    // res.status(200).json({ message: 'kakaoLogin' });
   },
 };
