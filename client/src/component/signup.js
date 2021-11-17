@@ -42,9 +42,6 @@ function Signup({ setIsSignUpModalOpen }) {
       } else if (err.response.data.message === 'same email') {
         setIsErrorSignup(true);
         setErrorMsg('이미 존재하는 이메일 입니다.');
-      } else if (err.response.data.message === 'same nickname') {
-        setIsErrorSignup(true);
-        setErrorMsg('이미 존재하는 별명 입니다.');
       }
     }
   };
