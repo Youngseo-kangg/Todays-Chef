@@ -22,7 +22,7 @@ axios.defaults.withCredentials = true;
 function FindChef() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const history = useHistory();
-  const [selected, setSelected] = useState('한식'); // select 선택값
+  const [selected, setSelected] = useState('한식'); // select 선택값 -> 최신순, 별점순
   const [chefData, setChefData] = useState([]);
   const [chefsPerPage, setChefsPerPage] = useState({
     start: 0,
@@ -31,9 +31,9 @@ function FindChef() {
     length: 0,
   }); // 몇개를 가져올지
 
-  const handleSelected = (event) => {
-    setSelected(event.target.value); // select값 업데이트
-  }; // select에서 선택하는대로 어떤 퀴진 셰프인지 변경 + 데이터 새로 요청
+  const handleSelected = (cuisine) => {
+    setSelected(cuisine); // select값 업데이트
+  }; // select에서 선택하는대로 값 변경 + 요청하기
 
   console.log('chefsPerPage: ', chefsPerPage);
   console.log('chefData: ', chefData);
@@ -92,25 +92,37 @@ function FindChef() {
         <div id='cuisineChoiceWrap'>
           <ul>
             <li>
-              <div className='cuisineChoice'>
+              <div
+                className='cuisineChoice'
+                onClick={() => handleSelected('한식')}
+              >
                 <img src={koreanFood} alt='한식' />
                 <h2>한식</h2>
               </div>
             </li>
             <li>
-              <div className='cuisineChoice'>
+              <div
+                className='cuisineChoice'
+                onClick={() => handleSelected('일식')}
+              >
                 <img src={japaneseFood} alt='일식' />
                 <h2>일식</h2>
               </div>
             </li>
             <li>
-              <div className='cuisineChoice'>
+              <div
+                className='cuisineChoice'
+                onClick={() => handleSelected('중식')}
+              >
                 <img src={chineseFood} alt='중식' />
                 <h2>중식</h2>
               </div>
             </li>
             <li>
-              <div className='cuisineChoice'>
+              <div
+                className='cuisineChoice'
+                onClick={() => handleSelected('양식')}
+              >
                 <img src={italianFood} alt='양식' />
                 <h2>양식</h2>
               </div>
@@ -123,16 +135,6 @@ function FindChef() {
         <div id='chefListWrap'>
           <ChefListTitleWrap>
             <h2>{selected} 셰프</h2>
-            <select
-              name='findChefCuisine'
-              id='findChefCuisine'
-              onChange={handleSelected}
-            >
-              <option value='한식'>한식</option>
-              <option value='일식'>일식</option>
-              <option value='중식'>중식</option>
-              <option value='양식'>양식</option>
-            </select>
           </ChefListTitleWrap>
 
           <ChefItemList>

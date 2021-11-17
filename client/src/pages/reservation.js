@@ -15,7 +15,9 @@ function Reservation() {
   const [makeReservation, setMakeReservation] = useState(0);
   return (
     <ReservationGrid>
-      <ReservationTitle>this is Reservation</ReservationTitle>
+      <ReservationTitle>
+        <h2>예약 페이지</h2>
+      </ReservationTitle>
       <ReservationGraph width={makeReservation}>
         <div id='reservationProgress'>
           <div id='reservationBar'></div>

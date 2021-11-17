@@ -3,8 +3,8 @@ import {
   ReviewWrap,
   ReviewPagenation,
   UserReview,
+  UserReviewNone,
 } from '../styled/styleChefInfo';
-import { useState } from 'react';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import axios from 'axios';
 
@@ -23,43 +23,51 @@ function ChefAllReview({ chefReview, setMagnifyPic }) {
     <>
       <ChefAllReviewInfo>
         <div id='chefReviewWrap'>
-          <ReviewWrap>
-            {chefReview.map((el, idx) => {
-              return (
-                <UserReview key={idx}>
-                  <div className='userProfile'>
-                    <div className='userProfileWrap'>
-                      <img src={basic_profile} alt='유저 사진' />
-                    </div>
-                    <h2 className='userNickname'>{el.nickname}님</h2>
-                    <span>{el.rating}</span>
-                    <div>⭐⭐⭐⭐⭐</div>
-                  </div>
-                  <div className='reviewTextWrap'>
-                    <p className='reviewText'>{el.eval}</p>
-                  </div>
-                  <div className='reviewPicture'>
-                    {el.rvImg.length === 0 ? (
-                      <p>등록한 사진이 없습니다.</p>
-                    ) : (
-                      <div className='reviewPictureFrame'>
-                        {el.rvImg.map((ele) => {
-                          return (
-                            <div
-                              className='reviewPicture'
-                              onClick={() => showPicture(ele)}
-                            >
-                              <img src={ele} alt='코스 사진' />
-                            </div>
-                          );
-                        })}
+          {chefReview.length === 0 ? (
+            <UserReviewNone>
+              <p>아직 등록된 리뷰가 없습니다.</p>
+            </UserReviewNone>
+          ) : (
+            <>
+              <ReviewWrap>
+                {chefReview.map((el, idx) => {
+                  return (
+                    <UserReview key={idx}>
+                      <div className='userProfile'>
+                        <div className='userProfileWrap'>
+                          <img src={basic_profile} alt='유저 사진' />
+                        </div>
+                        <h2 className='userNickname'>{el.nickname}님</h2>
+                        <span>{el.rating}</span>
+                        <div>⭐⭐⭐⭐⭐</div>
                       </div>
-                    )}
-                  </div>
-                </UserReview>
-              );
-            })}
-          </ReviewWrap>
+                      <div className='reviewTextWrap'>
+                        <p className='reviewText'>{el.eval}</p>
+                      </div>
+                      <div className='reviewPicture'>
+                        {el.rvImg.length === 0 ? (
+                          <p>등록한 사진이 없습니다.</p>
+                        ) : (
+                          <div className='reviewPictureFrame'>
+                            {el.rvImg.map((ele) => {
+                              return (
+                                <div
+                                  className='reviewPicture'
+                                  onClick={() => showPicture(ele)}
+                                >
+                                  <img src={ele} alt='코스 사진' />
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    </UserReview>
+                  );
+                })}
+              </ReviewWrap>
+            </>
+          )}
 
           <ReviewPagenation>
             <ul>

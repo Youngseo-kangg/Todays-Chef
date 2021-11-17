@@ -24,11 +24,11 @@ function ChefInfoDesc({ chefInfo }) {
 
         <ChefTextWrap>
           <div id='chefsGreeting'>
-            <h3>Greetings</h3>
+            <h3>셰프의 인삿말</h3>
             <p>{chefInfo.greeting}</p>
           </div>
           <div id='chefsCareer'>
-            <h3>Careers</h3>
+            <h3>셰프 경력</h3>
             <ul>
               {(chefInfo.career || '').split('/').map((el) => {
                 return <li key={el}>{el}</li>;
@@ -36,7 +36,7 @@ function ChefInfoDesc({ chefInfo }) {
             </ul>
           </div>
           <div id='chefsMindset'>
-            <h3>chefsMindset</h3>
+            <h3>셰프의 가치관</h3>
             <p>{chefInfo.values}</p>
           </div>
         </ChefTextWrap>
