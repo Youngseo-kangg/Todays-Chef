@@ -38,8 +38,27 @@ function App() {
       window.location.href === 'http://todayschef.click'
     ) {
       window.location.href = 'https://todayschef.click';
+    } // https와 http로 들어갔을 때 redirect 시켜주기
+
+    const authorizationCode = new URL(window.location.href).searchParams.get(
+      'code'
+    );
+    if (authorizationCode) {
+      console.log(authorizationCode);
+      kakaoSocialLogin(authorizationCode);
     }
+    window.onbeforeunload = function pushRefresh() {
+      window.scrollTo(0, 0);
+    };
   }, []);
+
+  const kakaoSocialLogin = (authorizationCode) => {
+    const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+    axios.post(`${url}/user/kakao`, {
+      authorizationCode: authorizationCode,
+    });
+  };
+
   const [isLogout, setIsLogout] = useState(false);
 
   return (
