@@ -10,6 +10,9 @@ import LoginOrSignup from './pages/loginOrSignup';
 import Footer from './component/footer';
 import LogoutModal from './modal/logoutModal';
 
+import { login } from './features/user/user';
+
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -19,18 +22,11 @@ require('dotenv').config();
 axios.defaults.withCredentials = true;
 
 function App() {
-  // const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
-  // const test = () => {
-  //   axios
-  //     .get(`${url}`)
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       console.log('err', url);
-  //     });
-  // };
+  const dispatch = useDispatch();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // 로그인 모달창 상태
+
+  const [isLogout, setIsLogout] = useState(false);
+
   useEffect(() => {
     if (
       window.location.href === 'https://www.todayschef.click' ||
@@ -52,14 +48,28 @@ function App() {
     };
   }, []);
 
-  const kakaoSocialLogin = (authorizationCode) => {
+  const kakaoSocialLogin = async (authorizationCode) => {
     const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
-    axios.post(`${url}/user/kakao`, {
-      authorizationCode: authorizationCode,
-    });
-  };
+    try {
+      let userResult = await axios.post(`${url}/user/kakao`, {
+        authorizationCode: authorizationCode,
+      });
+      setIsLoginModalOpen(true);
 
-  const [isLogout, setIsLogout] = useState(false);
+      dispatch(
+        login({
+          ...userResult.data.userInfo,
+          accessToken: userResult.data.accessToken,
+        })
+      );
+    } catch (err) {
+      if ((err.response.data.message = 'You Already Signed up')) {
+        alert('이미 존재하는 유저입니다');
+      } else {
+        alert('죄송합니다. 다시 로그인 해주세요.');
+      }
+    }
+  };
 
   return (
     <BrowserRouter>
@@ -89,7 +99,10 @@ function App() {
           <Mypage />
         </Route>
         <Route path='/loginOrSignup'>
-          <LoginOrSignup />
+          <LoginOrSignup
+            isLoginModalOpen={isLoginModalOpen}
+            setIsLoginModalOpen={setIsLoginModalOpen}
+          />
         </Route>
 
         <Footer />

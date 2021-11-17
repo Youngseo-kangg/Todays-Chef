@@ -11,7 +11,7 @@ import {
   LoginOrSignupSmallContainer,
 } from '../styled/styleLoginOrSignup';
 
-function LoginOrSignup() {
+function LoginOrSignup({ isLoginModalOpen, setIsLoginModalOpen }) {
   const [loginOrSignupComp, setloginOrSignupComp] = useState(false); // 큰 창에서 animation 구현
   const [smallComp, setSmallComp] = useState(false); // 작은 창인지 확인
   const [smallCompPart, setSmallCompPart] = useState(false); // 작은 창에서 뭘 보여줄지 결정
@@ -19,7 +19,6 @@ function LoginOrSignup() {
     setloginOrSignupComp(!loginOrSignupComp);
   }; // menuList에서 몇번째 내용이 보여져야 할지 지정해주는 함수
 
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // 로그인 모달창 상태
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false); // 회원가입 모달창 상태
 
   useEffect(() => {
