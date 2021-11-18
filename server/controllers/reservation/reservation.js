@@ -1,7 +1,10 @@
 const { reservation } = require('../../models');
-const { chef } = require('../../models');
-const { course } = require('../../models');
-const { isAuthorized } = require('../token/accessToken');
+const { course, chef, user } = require('../../models');
+const { isAuthorized, basicAccessToken } = require('../token/accessToken');
+const {
+  sendRefreshToken,
+  refreshAuthorized,
+} = require('../token/refreshToken');
 
 module.exports = {
   // accessToken 받아와서 기한이 만료 됐는지 안 됐는지 확인 후 예약할 수 있게끔 만들어주기
@@ -21,8 +24,12 @@ module.exports = {
       rsCourseId,
     } = req.body;
 
-    console.log(isAuthorized(req));
-    if (isAuthorized(req)) {
+    const accessVerify = isAuthorized(req);
+    const refreshVerify = refreshAuthorized(req);
+
+    // console.log(refreshVerify);
+
+    if (accessVerify) {
       await reservation.create({
         people: people,
         allergy: allergy,
@@ -39,7 +46,16 @@ module.exports = {
       });
       res.status(200).json({ message: 'ok' });
     } else {
-      res.status();
+      if (refreshVerify) {
+        // accessToken은 만료 됐지만 refreshToken은 존재할 때
+        delete refreshVerify.iat;
+        delete refreshVerify.exp;
+        const accessToken = basicAccessToken(refreshVerify);
+        res.status(201).json({ message: 'ok', accessToken: accessToken });
+      } else {
+        // token이 둘 다 만료 됐을 때
+        res.status(401).json({ message: 'Send new login request' });
+      }
     }
   },
 
