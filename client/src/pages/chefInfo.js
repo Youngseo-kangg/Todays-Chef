@@ -31,7 +31,7 @@ function ChefInfo() {
   const getChef = async () => {
     try {
       const getChefResult = await axios.get(`${url}/chef?chefId=${query}`);
-      console.log('chefInfo에서 받아온 정보들: ', getChefResult.data);
+      // console.log('chefInfo에서 받아온 정보들: ', getChefResult.data);
       setChefInfo({
         info: getChefResult.data.data,
         course: getChefResult.data.chefCourse,
@@ -41,7 +41,7 @@ function ChefInfo() {
       console.log(err);
     }
   };
-  console.log(chefInfo);
+  // console.log(chefInfo);
   useEffect(() => {
     getChef();
   }, []); // 들어오자마자 한번만

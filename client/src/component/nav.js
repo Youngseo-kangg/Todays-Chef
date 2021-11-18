@@ -112,7 +112,7 @@ function Nav({ setIsLogout }) {
                   id='myMenuSmallWrap'
                   className={mymenuState ? 'showMyMenu' : null}
                 >
-                  <MymenuSmall>
+                  <MymenuSmall id='loginState'>
                     <li>
                       <p>안녕하세요, {userInfo.nickname}님!</p>
                       <img src={basic_profile} alt='user profile' />
