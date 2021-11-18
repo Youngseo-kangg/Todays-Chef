@@ -21,7 +21,7 @@ function ChefInfo() {
   const [chefInfo, setChefInfo] = useState({
     info: {},
     course: [],
-    review: [],
+    reviewLength: 0,
   }); // 셰프 정보 담아두기
   const [magnifyPic, setMagnifyPic] = useState({
     picState: false, // 사진 모달 상태
@@ -35,13 +35,13 @@ function ChefInfo() {
       setChefInfo({
         info: getChefResult.data.data,
         course: getChefResult.data.chefCourse,
-        review: getChefResult.data.chefReview,
+        reviewLength: getChefResult.data.chefReviewLength,
       });
     } catch (err) {
       console.log(err);
     }
   };
-
+  console.log(chefInfo);
   useEffect(() => {
     getChef();
   }, []); // 들어오자마자 한번만
@@ -87,7 +87,8 @@ function ChefInfo() {
             ) : null}
             {chefInfoIdx === 2 ? (
               <ChefAllReview
-                chefReview={chefInfo.review}
+                reviewLength={chefInfo.reviewLength}
+                query={query}
                 setMagnifyPic={setMagnifyPic}
               />
             ) : null}

@@ -35,17 +35,14 @@ function FindChef() {
     setSelected(cuisine); // select값 업데이트
   }; // select에서 선택하는대로 값 변경 + 요청하기
 
-  console.log('chefsPerPage: ', chefsPerPage);
-  console.log('chefData: ', chefData);
-
   const getChefList = async () => {
     try {
       let encodeSelected = encodeURI(encodeURIComponent(selected));
       const result = await axios.get(
         `${url}/chef/${encodeSelected}?startNum=0&endNum=3`
       ); // axios 요청 (무조건 처음엔 0~3개만)
-
       setChefData(result.data.data); // 2. result값으로 chefData 없데이트
+
       let newArr = [];
       for (let i = 0; i < result.data.length; i += 3) {
         newArr.push(i); // 3씩 끊은 수 들어가게
@@ -167,7 +164,9 @@ function FindChef() {
             <ul>
               {chefsPerPage.array.map((el, idx) => {
                 return (
-                  <li onClick={() => getChefListMore(el, el + 3)}>{idx + 1}</li>
+                  <li key={idx} onClick={() => getChefListMore(el, el + 3)}>
+                    {idx + 1}
+                  </li>
                 );
               })}
             </ul>
