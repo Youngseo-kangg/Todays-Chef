@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { SignupFormWrap } from '../styled/styledSignup';
 import { useForm } from 'react-hook-form';
 
@@ -23,9 +23,11 @@ function Signup({ setIsSignUpModalOpen }) {
       signupNickname: '',
       signupEmail: '',
       signupPassword: '',
+      signupRePassword: '',
     },
   });
-
+  const signupPassword = useRef({});
+  signupPassword.current = watch('signupPassword', '');
   const onSubmit = async (data) => {
     // console.log('onSubmit: ', data);
     try {
@@ -108,6 +110,29 @@ function Signup({ setIsSignUpModalOpen }) {
           />
           {errors.signupPassword && (
             <span className='loginError'>{errors.signupPassword.message}</span>
+          )}
+          <input
+            type='password'
+            placeholder='비밀번호 재입력'
+            name='signupRePassword'
+            id='signupRePassword'
+            {...register('signupRePassword', {
+              required: '비밀번호 재입력이 필요합니다.',
+              validate: (value) =>
+                value === signupPassword.current ||
+                '비밀번호가 일치하지 않습니다.',
+              pattern: {
+                value:
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                message:
+                  '대문자, 특수문자, 숫자를 포함하여 8자 이상이여야 합니다.',
+              },
+            })}
+          />
+          {errors.signupRePassword && (
+            <span className='loginError'>
+              {errors.signupRePassword.message}
+            </span>
           )}
           <button>회원가입</button>
         </form>

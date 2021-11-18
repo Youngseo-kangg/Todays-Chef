@@ -191,9 +191,13 @@ function ReservationDate({
                 <input
                   type='text'
                   name='reservMobile'
-                  placeholder='핸드폰 번호'
+                  placeholder='핸드폰 번호 (ex. 01012345678)'
                   {...register('reservMobile', {
                     required: '핸드폰 번호 입력이 필요합니다.',
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: '숫자로만 입력해주세요.',
+                    },
                   })}
                 />
               </div>

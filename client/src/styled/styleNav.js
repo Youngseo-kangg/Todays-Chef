@@ -179,12 +179,32 @@ export const Mymenu = styled.ul`
 
 export const MymenuSmall = styled.ul`
   width: 100%;
-  height: 510px;
+  height: auto;
   display: grid;
-  grid-template-rows: 190px 80px 80px 80px 80px;
+  grid-template-rows: 80px 80px 80px;
+  grid-auto-rows: 80px;
   @media (max-width: 430px) {
-    height: 350px;
-    grid-template-rows: 190px 30px 30px 30px 30px;
+    height: auto;
+    grid-template-rows: 40px 40px 40px;
+    grid-auto-rows: 40px;
+  }
+  &#loginState {
+    grid-template-rows: 190px 80px 80px 80px 80px;
+    @media (max-width: 430px) {
+      height: 350px;
+      grid-template-rows: 190px 40px 40px 40px 40px;
+    }
+    li:nth-child(1) {
+      display: grid;
+      height: 190px;
+      grid-template-rows: 40px 150px;
+      > p {
+        line-height: 40px;
+      }
+    }
+    li:hover:not(:nth-child(1)) {
+      background-color: #603224;
+    }
   }
   > li {
     border-radius: 5px;
@@ -192,8 +212,8 @@ export const MymenuSmall = styled.ul`
     height: 80px;
     line-height: 80px;
     @media (max-width: 430px) {
-      height: 30px;
-      line-height: 30px;
+      height: 40px;
+      line-height: 40px;
     }
     cursor: pointer;
     display: grid;
@@ -204,21 +224,10 @@ export const MymenuSmall = styled.ul`
       height: 80px;
       line-height: 80px;
       @media (max-width: 430px) {
-        height: 30px;
-        line-height: 30px;
+        height: 40px;
+        line-height: 40px;
       }
     }
-  }
-  > li:nth-child(1) {
-    display: grid;
-    height: 190px;
-    grid-template-rows: 40px 150px;
-    > p {
-      line-height: 40px;
-    }
-  }
-  > li:hover:not(:nth-child(1)) {
-    background-color: #603224;
   }
 
   img {
