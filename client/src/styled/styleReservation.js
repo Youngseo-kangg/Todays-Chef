@@ -79,7 +79,15 @@ export const ReservationWrap = styled.div`
     cursor: pointer;
     transition: all 0.2s;
   }
-  button:hover {
+  .arrow {
+    display: grid;
+    place-items: center;
+    font-size: 45px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  button:hover,
+  .arrow:hover {
     color: #fff;
   }
   > .reservScheduleAndInfo {

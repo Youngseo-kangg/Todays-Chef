@@ -18,6 +18,7 @@ function ReservationDate({
   searchAddress,
   address,
   addressErr,
+  titleInfo,
 }) {
   const months = [
     '1월',
@@ -39,7 +40,9 @@ function ReservationDate({
   return (
     <>
       <ReservationWrap className={makeReservation === 1 ? null : 'none'}>
-        <div onClick={() => setMakeReservation(0)}>&lt;</div>
+        <div className='arrow' onClick={() => setMakeReservation(0)}>
+          &lt;
+        </div>
         <div className='reservScheduleAndInfo'>
           <ReservDateAndInfo>
             <h2>1. 일정 및 개인정보 작성</h2>
@@ -170,12 +173,19 @@ function ReservationDate({
                   name='reservPeople'
                   render={({ field }) => (
                     <select
-                      defaultValue='2'
+                      defaultValue={titleInfo.course.peopleMin}
                       onChange={(e) => field.onChange(e)}
                     >
-                      <option value='2'>2명</option>
-                      <option value='3'>3명</option>
-                      <option value='4'>4명</option>
+                      {[
+                        titleInfo.course.peopleMin,
+                        titleInfo.course.peopleMax,
+                      ].map((el, idx) => {
+                        return (
+                          <option value={el} key={idx}>
+                            {el}명
+                          </option>
+                        );
+                      })}
                     </select>
                   )}
                 />
@@ -211,7 +221,9 @@ function ReservationDate({
             </div>
           </ReservDateAndInfo>
         </div>
-        <div onClick={() => setMakeReservation(2)}>&gt;</div>
+        <div className='arrow' onClick={() => setMakeReservation(2)}>
+          &gt;
+        </div>
       </ReservationWrap>
     </>
   );

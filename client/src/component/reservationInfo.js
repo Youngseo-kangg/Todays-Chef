@@ -7,10 +7,11 @@ function ReservationInfo({
   errors,
   addressErr,
 }) {
-  console.log(addressErr);
   return (
     <ReservationWrap className={makeReservation === 2 ? null : 'none'}>
-      <div onClick={() => setMakeReservation(1)}>&lt;</div>
+      <div className='arrow' onClick={() => setMakeReservation(1)}>
+        &lt;
+      </div>
       <div className='reservScheduleAndInfo'>
         <ReservDateAndInfo id='reservInfo'>
           <h2>2. 세부 정보 작성</h2>
