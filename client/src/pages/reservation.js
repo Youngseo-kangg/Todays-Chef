@@ -34,32 +34,46 @@ function Reservation() {
         setMinutes(new Date(today.setDate(today.getDate() + 2)), 0),
         13
       ),
-      reservMainAddress: '',
       reservSubAddress: '',
       reservPeople: 2,
       reservMobile: '',
-      reservFire: 1,
+      reservFire: 2,
       reservOven: false,
       reservAllergy: '',
       reservComment: '',
     },
   });
   const onSubmit = (data) => {
-    console.log('reservation에서 onSubmit: ', data);
-    // axios 요청 들어갈 예정
+    if (address.length === 0) {
+      // 작성한 내용이 없을 때
+      console.log('submit은 작동했으나 막았음');
+      setMakeReservation(2);
+      return false;
+    }
+    let newData = {
+      ...data,
+      reservMainAddress: address,
+    };
+    console.log('새로만든 newData: ', newData); // 억지로 만들기
+    // TODO : axios 요청 들어갈 예정
     setMakeReservation(3); // 다음 페이지로 넘겨주기
   };
+
   const onError = (error) => {
     console.log('onSubmit에서 error: ', error);
   };
+
   const [searchAddress, setSearchAddress] = useState(false); // 모달 키고 끌 상태
   const [address, setAddress] = useState(''); // 실제 주소 값
+  const [addressErr, setAddressErr] = useState(address ? true : false);
+
   return (
     <>
       {searchAddress === true ? (
         <AddressModal
           setSearchAddress={setSearchAddress}
           setAddress={setAddress}
+          setAddressErr={setAddressErr}
         />
       ) : null}
       <ReservationGrid>
@@ -88,6 +102,8 @@ function Reservation() {
                 searchAddress={searchAddress}
                 setSearchAddress={setSearchAddress}
                 address={address}
+                setAddressErr={setAddressErr}
+                addressErr={addressErr}
               />
               <ReservationInfo
                 makeReservation={makeReservation}
@@ -95,6 +111,7 @@ function Reservation() {
                 register={register}
                 errors={errors}
                 handleSubmit={handleSubmit}
+                addressErr={addressErr}
               />
             </form>
           ) : null}

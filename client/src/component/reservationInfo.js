@@ -5,10 +5,12 @@ function ReservationInfo({
   setMakeReservation,
   register,
   errors,
+  addressErr,
 }) {
+  console.log(addressErr);
   return (
     <ReservationWrap className={makeReservation === 2 ? null : 'none'}>
-      <button onClick={() => setMakeReservation(1)}>&lt;</button>
+      <div onClick={() => setMakeReservation(1)}>&lt;</div>
       <div className='reservScheduleAndInfo'>
         <ReservDateAndInfo id='reservInfo'>
           <h2>2. 세부 정보 작성</h2>
@@ -17,6 +19,7 @@ function ReservationInfo({
               <label htmlFor='reservFire'>화구 갯수</label>
               <select
                 name='reservFire'
+                selected='1개'
                 {...register('reservFire', {
                   validate: (value) =>
                     value === '1' ? '화구는 최소 2개 이상이여야 합니다.' : null,
@@ -63,9 +66,13 @@ function ReservationInfo({
               />
             </div>
           </div>
+          {Object.keys(errors).length > 0 || !addressErr ? (
+            <div className='reservInputWrap'>
+              <span className='reservAlert'>작성 내용을 확인해주세요.</span>
+            </div>
+          ) : null}
         </ReservDateAndInfo>
       </div>
-
       <button type='submit'>&gt;</button>
     </ReservationWrap>
   );

@@ -139,6 +139,7 @@ export const ReservDateAndInfo = styled.div`
   &#reservInfo {
     min-height: 300px;
     grid-template-rows: 25px 50px 50px 50px 1fr;
+    grid-auto-rows: 50px;
   }
   @media screen and (max-width: 767px) {
     width: 100%;

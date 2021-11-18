@@ -17,6 +17,7 @@ function ReservationDate({
   setSearchAddress,
   searchAddress,
   address,
+  addressErr,
 }) {
   const months = [
     '1월',
@@ -38,7 +39,7 @@ function ReservationDate({
   return (
     <>
       <ReservationWrap className={makeReservation === 1 ? null : 'none'}>
-        <button onClick={() => setMakeReservation(0)}>&lt;</button>
+        <div onClick={() => setMakeReservation(0)}>&lt;</div>
         <div className='reservScheduleAndInfo'>
           <ReservDateAndInfo>
             <h2>1. 일정 및 개인정보 작성</h2>
@@ -131,23 +132,15 @@ function ReservationDate({
                 <input
                   type='text'
                   name='reservMainAddress'
-                  placeholder='주소'
-                  value={address}
+                  placeholder='주소를 입력해주세요.'
+                  defaultValue={address}
                   onClick={() => setSearchAddress(true)}
                   id='reservMainAddress'
-                  {...register('reservMainAddress', {
-                    validate: (value) =>
-                      value.length === 0
-                        ? '주소 검색 및 입력이 필요합니다.'
-                        : null,
-                  })}
                 />
               </div>
-              {errors.reservMainAddress && (
-                <span className='reservAlert'>
-                  {errors.reservMainAddress.message}
-                </span>
-              )}
+              {!addressErr ? (
+                <span className='reservAlert'>주소 입력이 필요합니다.</span>
+              ) : null}
             </div>
 
             <div className='reservInputWrap'>
@@ -172,11 +165,20 @@ function ReservationDate({
             <div className='reservInputWrap'>
               <div className='reservInput'>
                 <label htmlFor='reservPeople'>인원</label>
-                <select name='reservPeople' {...register('reservPeople')}>
-                  <option value='2'>2명</option>
-                  <option value='3'>3명</option>
-                  <option value='4'>4명</option>
-                </select>
+                <Controller
+                  control={control}
+                  name='reservPeople'
+                  render={({ field }) => (
+                    <select
+                      defaultValue='2'
+                      onChange={(e) => field.onChange(e)}
+                    >
+                      <option value='2'>2명</option>
+                      <option value='3'>3명</option>
+                      <option value='4'>4명</option>
+                    </select>
+                  )}
+                />
               </div>
               {errors.reservPeople && (
                 <span className='reservAlert'>
@@ -209,7 +211,7 @@ function ReservationDate({
             </div>
           </ReservDateAndInfo>
         </div>
-        <button onClick={() => setMakeReservation(2)}>&gt;</button>
+        <div onClick={() => setMakeReservation(2)}>&gt;</div>
       </ReservationWrap>
     </>
   );
