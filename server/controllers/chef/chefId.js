@@ -38,7 +38,6 @@ module.exports = {
 
       const chefReview = [];
       for (let i = 0; i < findReview.length; i++) {
-        delete findReview[i].dataValues.rvChefId;
         delete findReview[i].dataValues.createdAt;
         delete findReview[i].dataValues.updatedAt;
 
