@@ -59,26 +59,19 @@ function ReservationDate({
                       withPortal
                       placeholderText='날짜를 선택해주세요.'
                       locale={ko}
+                      timeIntervals={60}
                       selected={field.value}
                       onChange={(e) => field.onChange(e)}
                       minDate={new Date()}
                       includeTimes={[
                         setHours(setMinutes(new Date(), 0), 12),
-                        setHours(setMinutes(new Date(), 30), 12),
                         setHours(setMinutes(new Date(), 0), 13),
-                        setHours(setMinutes(new Date(), 30), 13),
                         setHours(setMinutes(new Date(), 0), 14),
-                        setHours(setMinutes(new Date(), 30), 14),
                         setHours(setMinutes(new Date(), 0), 15),
-                        setHours(setMinutes(new Date(), 30), 15),
                         setHours(setMinutes(new Date(), 0), 16),
-                        setHours(setMinutes(new Date(), 30), 16),
                         setHours(setMinutes(new Date(), 0), 17),
-                        setHours(setMinutes(new Date(), 30), 17),
                         setHours(setMinutes(new Date(), 0), 18),
-                        setHours(setMinutes(new Date(), 30), 18),
                         setHours(setMinutes(new Date(), 0), 19),
-                        setHours(setMinutes(new Date(), 30), 19),
                       ]}
                       excludeDates={[new Date(), subDays(new Date(), -1)]}
                       dateFormat={dateFormat}

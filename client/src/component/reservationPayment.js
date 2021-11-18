@@ -19,9 +19,7 @@ function ReservationPayment({
   console.log(userInfo);
   console.log({
     rsDate: format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss'),
-    rsTime: `${getHours(newData.reservDateAndTime)}:${getMinutes(
-      newData.reservDateAndTime
-    )}`,
+    rsTime: String(getHours(newData.reservDateAndTime)),
     location: `${newData.reservMainAddress} ${newData.reservSubAddress}`,
     people: Number(newData.reservPeople),
     mobile: newData.reservMobile,
