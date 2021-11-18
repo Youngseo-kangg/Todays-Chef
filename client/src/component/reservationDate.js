@@ -210,6 +210,10 @@ function ReservationDate({
                       value: /^[0-9]+$/,
                       message: '숫자로만 입력해주세요.',
                     },
+                    pattern: {
+                      value: /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/,
+                      message: '양식에 맞지 않는 전화번호 입니다.',
+                    },
                   })}
                 />
               </div>
