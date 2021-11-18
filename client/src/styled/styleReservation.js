@@ -69,6 +69,9 @@ export const ReservationWrap = styled.div`
   display: grid;
   grid-template-columns: 50px 1fr 50px;
   background: url(${basic_background}) center;
+  &.none {
+    display: none;
+  }
   button {
     display: block;
     background-color: transparent;
@@ -128,13 +131,14 @@ export const ReservDateAndInfo = styled.div`
   border-radius: 10px;
   padding: 20px;
   display: grid;
-  grid-template-rows: 25px 30px 30px 30px;
+  grid-template-rows: 25px 1fr 1fr 1fr 1fr;
   grid-auto-rows: 1fr;
   row-gap: 15px;
   word-break: keep-all;
   background-color: rgba(255, 255, 255, 0.6);
   &#reservInfo {
     min-height: 300px;
+    grid-template-rows: 25px 50px 50px 50px 1fr;
   }
   @media screen and (max-width: 767px) {
     width: 100%;
@@ -145,12 +149,16 @@ export const ReservDateAndInfo = styled.div`
   }
   .reservInputWrap {
     width: 100%;
-    height: 30px;
-    padding: 0px 5px;
+    height: 50px;
     display: grid;
     place-items: center;
     &.large {
       height: 80px;
+    }
+    .reservAlert {
+      height: 20px;
+      line-height: 20px;
+      color: red;
     }
     @media screen and (max-width: 420px) {
       height: 70px;
@@ -183,6 +191,9 @@ export const ReservDateAndInfo = styled.div`
       height: 80px;
       outline: none;
       border: none;
+    }
+    #reservMainAddress {
+      cursor: pointer;
     }
   }
 `;
