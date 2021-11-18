@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { userStatus } from '../features/user/user';
 import { ReservationWrap, ReservPayment } from '../styled/styleReservation';
-import { getYear, getMonth, getHours, getMinutes } from 'date-fns';
+import { format, getHours, getMinutes } from 'date-fns';
 
 import axios from 'axios';
 require('dotenv').config();
@@ -16,6 +16,23 @@ function ReservationPayment({
   console.log('payment에서 프롭스로 받아온 newData: ', newData);
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userInfo = useSelector(userStatus);
+  console.log(userInfo);
+  console.log({
+    rsDate: format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss'),
+    rsTime: `${getHours(newData.reservDateAndTime)}:${getMinutes(
+      newData.reservDateAndTime
+    )}`,
+    location: `${newData.reservMainAddress} ${newData.reservSubAddress}`,
+    people: Number(newData.reservPeople),
+    mobile: newData.reservMobile,
+    isOven: newData.reservOven,
+    burner: newData.reservFire,
+    rsCourseId: Number(queryCourseId),
+    rsUserId: Number(userInfo.userId),
+    messageToChef: newData.Comment || '',
+    rsChefId: Number(queryChefId),
+    allergy: newData.reservAllergy,
+  });
   const makeReservation = async () => {
     let reservation = await axios.post(
       `${url}/reservation`,
@@ -28,12 +45,12 @@ function ReservationPayment({
           newData.reservDateAndTime
         )}`,
         location: `${newData.reservMainAddress} ${newData.reservSubAddress}`,
-        people: newData.reservPeople,
+        people: Number(newData.reservPeople),
         mobile: newData.reservMobile,
         isOven: newData.reservOven,
         burner: newData.reservFire,
         rsCourseId: Number(queryCourseId),
-        rsUserId: null,
+        rsUserId: Number(userInfo.id),
         messageToChef: newData.Comment,
         rsChefId: Number(queryChefId),
         allergy: newData.reservAllergy,
