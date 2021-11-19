@@ -67,9 +67,16 @@ function Login({ setIsLoginModalOpen }) {
 
   const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${redirect_uri}&response_type=code`;
 
+  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${redirect_uri}&response_type=code&scope=profile email&access_type=offline`;
+
   const handleKakaoLogin = () => {
     localStorage.setItem('socialType', 'kakao');
     window.location.assign(KAKAO_LOGIN_URL);
+  };
+
+  const handleGoogleLogin = () => {
+    localStorage.setItem('socialType', 'google');
+    window.location.assign(GOOGLE_LOGIN_URL);
   };
 
   // console.log('loginState: ', loginState);

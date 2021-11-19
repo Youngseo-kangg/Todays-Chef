@@ -43,17 +43,19 @@ function App() {
     );
     if (authorizationCode) {
       console.log(authorizationCode);
-      kakaoSocialLogin(authorizationCode);
+      socialLoginAccessToken(authorizationCode);
     }
     window.onbeforeunload = function pushRefresh() {
       window.scrollTo(0, 0);
     };
   }, []);
 
-  const kakaoSocialLogin = async (authorizationCode) => {
+  const socialLoginAccessToken = async (authorizationCode) => {
     const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+    const socialType = localStorage.getItem('socialType');
+
     try {
-      let userResult = await axios.post(`${url}/user/kakao`, {
+      let userResult = await axios.post(`${url}/user/${socialType}`, {
         authorizationCode: authorizationCode,
       });
       setIsLoginModalOpen(true);
@@ -64,6 +66,7 @@ function App() {
           accessToken: userResult.data.accessToken,
         })
       );
+      localStorage.removeItem('socialType');
     } catch (err) {
       if ((err.response.data.message = 'You Already Signed up')) {
         setIsLoginErrorModalOpen(true);
