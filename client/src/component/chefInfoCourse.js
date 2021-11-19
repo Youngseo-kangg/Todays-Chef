@@ -5,7 +5,7 @@ import axios from 'axios';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function ChefAllCourse({ chefCourse }) {
+function ChefAllCourse({ chefCourse, query }) {
   console.log('chefCourse: ', chefCourse);
   return (
     <ChefAllCourseInfo>
@@ -47,8 +47,9 @@ function ChefAllCourse({ chefCourse }) {
                 </p>
               </div>
               <div className='courseResBtn'>
-                {/* <Link to={`/reservation?chefId=${chefId}&reservationId=${reservationId}`}>예약하기</Link> */}
-                <Link to='/reservation'>예약하기</Link>
+                <Link to={`/reservation?chefId=${query}&courseId=${el.id}`}>
+                  예약하기
+                </Link>
               </div>
             </CourseItem>
           );

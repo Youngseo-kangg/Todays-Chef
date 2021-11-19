@@ -17,6 +17,8 @@ function ReservationDate({
   setSearchAddress,
   searchAddress,
   address,
+  addressErr,
+  titleInfo,
 }) {
   const months = [
     '1월',
@@ -38,7 +40,9 @@ function ReservationDate({
   return (
     <>
       <ReservationWrap className={makeReservation === 1 ? null : 'none'}>
-        <button onClick={() => setMakeReservation(0)}>&lt;</button>
+        <div className='arrow' onClick={() => setMakeReservation(0)}>
+          &lt;
+        </div>
         <div className='reservScheduleAndInfo'>
           <ReservDateAndInfo>
             <h2>1. 일정 및 개인정보 작성</h2>
@@ -55,26 +59,19 @@ function ReservationDate({
                       withPortal
                       placeholderText='날짜를 선택해주세요.'
                       locale={ko}
+                      timeIntervals={60}
                       selected={field.value}
                       onChange={(e) => field.onChange(e)}
                       minDate={new Date()}
                       includeTimes={[
                         setHours(setMinutes(new Date(), 0), 12),
-                        setHours(setMinutes(new Date(), 30), 12),
                         setHours(setMinutes(new Date(), 0), 13),
-                        setHours(setMinutes(new Date(), 30), 13),
                         setHours(setMinutes(new Date(), 0), 14),
-                        setHours(setMinutes(new Date(), 30), 14),
                         setHours(setMinutes(new Date(), 0), 15),
-                        setHours(setMinutes(new Date(), 30), 15),
                         setHours(setMinutes(new Date(), 0), 16),
-                        setHours(setMinutes(new Date(), 30), 16),
                         setHours(setMinutes(new Date(), 0), 17),
-                        setHours(setMinutes(new Date(), 30), 17),
                         setHours(setMinutes(new Date(), 0), 18),
-                        setHours(setMinutes(new Date(), 30), 18),
                         setHours(setMinutes(new Date(), 0), 19),
-                        setHours(setMinutes(new Date(), 30), 19),
                       ]}
                       excludeDates={[new Date(), subDays(new Date(), -1)]}
                       dateFormat={dateFormat}
@@ -131,23 +128,15 @@ function ReservationDate({
                 <input
                   type='text'
                   name='reservMainAddress'
-                  placeholder='주소'
-                  value={address}
+                  placeholder='주소를 입력해주세요.'
+                  defaultValue={address}
                   onClick={() => setSearchAddress(true)}
                   id='reservMainAddress'
-                  {...register('reservMainAddress', {
-                    validate: (value) =>
-                      value.length === 0
-                        ? '주소 검색 및 입력이 필요합니다.'
-                        : null,
-                  })}
                 />
               </div>
-              {errors.reservMainAddress && (
-                <span className='reservAlert'>
-                  {errors.reservMainAddress.message}
-                </span>
-              )}
+              {!addressErr ? (
+                <span className='reservAlert'>주소 입력이 필요합니다.</span>
+              ) : null}
             </div>
 
             <div className='reservInputWrap'>
@@ -172,11 +161,27 @@ function ReservationDate({
             <div className='reservInputWrap'>
               <div className='reservInput'>
                 <label htmlFor='reservPeople'>인원</label>
-                <select name='reservPeople' {...register('reservPeople')}>
-                  <option value='2'>2명</option>
-                  <option value='3'>3명</option>
-                  <option value='4'>4명</option>
-                </select>
+                <Controller
+                  control={control}
+                  name='reservPeople'
+                  render={({ field }) => (
+                    <select
+                      defaultValue={titleInfo.course.peopleMin}
+                      onChange={(e) => field.onChange(e)}
+                    >
+                      {[
+                        titleInfo.course.peopleMin,
+                        titleInfo.course.peopleMax,
+                      ].map((el, idx) => {
+                        return (
+                          <option value={el} key={idx}>
+                            {el}명
+                          </option>
+                        );
+                      })}
+                    </select>
+                  )}
+                />
               </div>
               {errors.reservPeople && (
                 <span className='reservAlert'>
@@ -191,12 +196,16 @@ function ReservationDate({
                 <input
                   type='text'
                   name='reservMobile'
-                  placeholder='핸드폰 번호 (ex. 01012345678)'
+                  placeholder='핸드폰 번호 (ex. 010-1234-5678)'
                   {...register('reservMobile', {
                     required: '핸드폰 번호 입력이 필요합니다.',
                     pattern: {
                       value: /^[0-9]+$/,
                       message: '숫자로만 입력해주세요.',
+                    },
+                    pattern: {
+                      value: /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/,
+                      message: '양식에 맞지 않는 전화번호 입니다.',
                     },
                   })}
                 />
@@ -209,7 +218,9 @@ function ReservationDate({
             </div>
           </ReservDateAndInfo>
         </div>
-        <button onClick={() => setMakeReservation(2)}>&gt;</button>
+        <div className='arrow' onClick={() => setMakeReservation(2)}>
+          &gt;
+        </div>
       </ReservationWrap>
     </>
   );

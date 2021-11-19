@@ -83,7 +83,7 @@ function ChefInfo() {
               <ChefAllInfo chefInfo={chefInfo.info} />
             ) : null}
             {chefInfoIdx === 1 ? (
-              <ChefAllCourse chefCourse={chefInfo.course} />
+              <ChefAllCourse chefCourse={chefInfo.course} query={query} />
             ) : null}
             {chefInfoIdx === 2 ? (
               <ChefAllReview

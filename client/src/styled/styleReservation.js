@@ -79,7 +79,15 @@ export const ReservationWrap = styled.div`
     cursor: pointer;
     transition: all 0.2s;
   }
-  button:hover {
+  .arrow {
+    display: grid;
+    place-items: center;
+    font-size: 45px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  button:hover,
+  .arrow:hover {
     color: #fff;
   }
   > .reservScheduleAndInfo {
@@ -139,6 +147,7 @@ export const ReservDateAndInfo = styled.div`
   &#reservInfo {
     min-height: 300px;
     grid-template-rows: 25px 50px 50px 50px 1fr;
+    grid-auto-rows: 50px;
   }
   @media screen and (max-width: 767px) {
     width: 100%;

@@ -24,7 +24,7 @@ module.exports = {
 
       const chefCourse = [];
       for (let i = 0; i < findCourse.length; i++) {
-        delete findCourse[i].dataValues.id;
+        // delete findCourse[i].dataValues.id;
         delete findCourse[i].dataValues.coChefId;
         delete findCourse[i].dataValues.createdAt;
         delete findCourse[i].dataValues.updatedAt;
