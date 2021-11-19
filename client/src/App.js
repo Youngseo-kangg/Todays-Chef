@@ -55,7 +55,6 @@ function App() {
     const socialType = localStorage.getItem('socialType');
 
     try {
-      console.log('aaa', socialType);
       let userResult = await axios.post(`${url}/user/${socialType}`, {
         authorizationCode: authorizationCode,
       });
@@ -69,6 +68,7 @@ function App() {
       );
       localStorage.removeItem('socialType');
     } catch (err) {
+      console.log(err.response);
       if ((err.response.data.message = 'You Already Signed up')) {
         setIsLoginErrorModalOpen(true);
       } else {
