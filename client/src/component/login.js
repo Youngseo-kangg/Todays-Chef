@@ -132,7 +132,7 @@ function Login({ setIsLoginModalOpen }) {
           <li onClick={handleKakaoLogin}>
             <FontAwesomeIcon icon={faComment} />
           </li>
-          <li>
+          <li onClick={handleGoogleLogin}>
             <FontAwesomeIcon icon={faGoogle} />
           </li>
         </ul>

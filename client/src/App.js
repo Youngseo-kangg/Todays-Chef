@@ -55,6 +55,7 @@ function App() {
     const socialType = localStorage.getItem('socialType');
 
     try {
+      console.log('aaa', socialType);
       let userResult = await axios.post(`${url}/user/${socialType}`, {
         authorizationCode: authorizationCode,
       });
