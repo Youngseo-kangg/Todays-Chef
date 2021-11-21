@@ -6,6 +6,7 @@ import BeChef from './pages/beChef';
 import ChefInfo from './pages/chefInfo';
 import Reservation from './pages/reservation';
 import Mypage from './pages/mypage';
+import Adminpage from './pages/adminpage';
 import LoginOrSignup from './pages/loginOrSignup';
 import Footer from './component/footer';
 import LogoutModal from './modal/logoutModal';
@@ -104,6 +105,9 @@ function App() {
         </Route>
         <Route path='/mypage'>
           <Mypage />
+        </Route>
+        <Route path='/admin'>
+          <Adminpage />
         </Route>
         <Route path='/loginOrSignup'>
           <LoginOrSignup
