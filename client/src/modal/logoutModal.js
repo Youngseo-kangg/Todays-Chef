@@ -1,14 +1,16 @@
 import { ModalBackground, LogoutModalBox } from '../styled/styledModal';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { closeLogoutModal } from '../features/user/modal';
 import { logout, userStatus } from '../features/user/user';
 import axios from 'axios';
 
-function LogoutModal({ setIsLogout }) {
+function LogoutModal() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const dispatch = useDispatch();
-
   const userInfo = useSelector(userStatus);
+  // const modalState = useSelector(modalStatus);
+  // console.log('LogoutModal에서 modalStatus: ', modalState);
 
   const clickOk = () => {
     axios
@@ -17,13 +19,15 @@ function LogoutModal({ setIsLogout }) {
       })
       .then(() => {
         dispatch(logout());
-        setIsLogout(false);
+        dispatch(closeLogoutModal());
+        // setIsLogout(false);
         window.location.replace('/');
       });
   };
 
   const cancelLogout = () => {
-    setIsLogout(false);
+    // setIsLogout(false);
+    dispatch(closeLogoutModal());
   };
 
   return (

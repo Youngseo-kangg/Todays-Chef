@@ -2,11 +2,13 @@ import axios from 'axios';
 import { useState, useRef } from 'react';
 import { SignupFormWrap } from '../styled/styledSignup';
 import { useForm } from 'react-hook-form';
+import { openSignUpModal } from '../features/user/modal';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function Signup({ setIsSignUpModalOpen }) {
+// function Signup({ setIsSignUpModalOpen }) {
+function Signup() {
   const [isErrorSignup, setIsErrorSignup] = useState(false);
   const [isUser, setIsUser] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -31,12 +33,13 @@ function Signup({ setIsSignUpModalOpen }) {
   const onSubmit = async (data) => {
     // console.log('onSubmit: ', data);
     try {
-      let signupResult = await axios.post(`${url}/user/signup`, {
+      await axios.post(`${url}/user/signup`, {
         email: data.signupEmail,
         password: data.signupPassword,
         nickname: data.signupNickname,
       });
-      setIsSignUpModalOpen(true);
+      // setIsSignUpModalOpen(true);
+      dispatchEvent(openSignUpModal());
     } catch (err) {
       if (err.response.data.message === 'invalid User') {
         setIsErrorSignup(true);
@@ -51,10 +54,6 @@ function Signup({ setIsSignUpModalOpen }) {
   const onError = (error) => {
     console.log(error);
   };
-
-  // const axiosErrorMessage = () => {
-  //   setIsErrorSignup(true);
-  // };
 
   return (
     <SignupFormWrap>

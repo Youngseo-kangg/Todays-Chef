@@ -11,10 +11,15 @@ import LoginOrSignup from './pages/loginOrSignup';
 import Footer from './component/footer';
 import LogoutModal from './modal/logoutModal';
 
+import {
+  openLoginModal,
+  openLoginErrorModal,
+  setServerErrorTrue,
+  modalStatus,
+} from './features/user/modal';
+import { useSelector, useDispatch } from 'react-redux';
 import { login } from './features/user/user';
 
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -24,11 +29,13 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch();
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // 로그인 모달창 상태
-  const [isLoginErrorModalOpen, setIsLoginErrorModalOpen] = useState(false); // 로그인 에러 모당창 상태
-  const [isServerError, setIsServerError] = useState(false);
+  // const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // 로그인 모달창 상태
+  // const [isLoginErrorModalOpen, setIsLoginErrorModalOpen] = useState(false); // 로그인 에러 모당창 상태
+  // const [isServerError, setIsServerError] = useState(false);
+  // const [isLogout, setIsLogout] = useState(false);
 
-  const [isLogout, setIsLogout] = useState(false);
+  const modalState = useSelector(modalStatus);
+  console.log('App.js에서 modalStatus: ', modalState);
 
   useEffect(() => {
     if (
@@ -59,7 +66,8 @@ function App() {
       let userResult = await axios.post(`${url}/user/${socialType}`, {
         authorizationCode: authorizationCode,
       });
-      setIsLoginModalOpen(true);
+      dispatch(openLoginModal());
+      // setIsLoginModalOpen(true);
 
       dispatch(
         login({
@@ -71,10 +79,13 @@ function App() {
     } catch (err) {
       console.log(err.response);
       if ((err.response.data.message = 'You Already Signed up')) {
-        setIsLoginErrorModalOpen(true);
+        dispatch(openLoginErrorModal());
+        // setIsLoginErrorModalOpen(true);
       } else {
-        setIsServerError(true);
-        setIsLoginErrorModalOpen(true);
+        // setIsServerError(true);
+        // setIsLoginErrorModalOpen(true);
+        dispatch(setServerErrorTrue());
+        dispatch(openLoginErrorModal());
       }
     }
   };
@@ -83,9 +94,9 @@ function App() {
     <BrowserRouter>
       <div className='App'>
         {/* <button onClick={test}>click</button> */}
-        {isLogout ? <LogoutModal setIsLogout={setIsLogout} /> : null}
+        {modalState.isLogoutModalOpen ? <LogoutModal /> : null}
         <Switch>
-          <Nav setIsLogout={setIsLogout} />
+          <Nav />
         </Switch>
 
         <Route exact path='/'>
@@ -111,12 +122,12 @@ function App() {
         </Route>
         <Route path='/loginOrSignup'>
           <LoginOrSignup
-            isLoginModalOpen={isLoginModalOpen}
-            setIsLoginModalOpen={setIsLoginModalOpen}
-            setIsLoginErrorModalOpen={setIsLoginErrorModalOpen}
-            isLoginErrorModalOpen={isLoginErrorModalOpen}
-            isServerError={isServerError}
-            setIsServerError={setIsServerError}
+          // isLoginModalOpen={isLoginModalOpen}
+          // setIsLoginModalOpen={setIsLoginModalOpen}
+          // setIsLoginErrorModalOpen={setIsLoginErrorModalOpen}
+          // isLoginErrorModalOpen={isLoginErrorModalOpen}
+          // isServerError={isServerError}
+          // setIsServerError={setIsServerError}
           />
         </Route>
 
