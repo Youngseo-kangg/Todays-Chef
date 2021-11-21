@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import { SignupFormWrap } from '../styled/styledSignup';
 import { useForm } from 'react-hook-form';
 import { openSignUpModal } from '../features/user/modal';
+import { useDispatch } from 'react-redux';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -12,7 +13,7 @@ function Signup() {
   const [isErrorSignup, setIsErrorSignup] = useState(false);
   const [isUser, setIsUser] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-
+  const dispatch = useDispatch();
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
@@ -33,13 +34,13 @@ function Signup() {
   const onSubmit = async (data) => {
     // console.log('onSubmit: ', data);
     try {
-      await axios.post(`${url}/user/signup`, {
+      const result = await axios.post(`${url}/user/signup`, {
         email: data.signupEmail,
         password: data.signupPassword,
         nickname: data.signupNickname,
       });
       // setIsSignUpModalOpen(true);
-      dispatchEvent(openSignUpModal());
+      dispatch(openSignUpModal());
     } catch (err) {
       if (err.response.data.message === 'invalid User') {
         setIsErrorSignup(true);

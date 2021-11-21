@@ -8,7 +8,7 @@ function SignupModal() {
   const dispatch = useDispatch();
   const clickOk = () => {
     // setIsSignUpModalOpen(false);
-    dispatch(closeSignUpModal);
+    dispatch(closeSignUpModal());
     window.location.replace('/loginOrSignup');
   };
 
