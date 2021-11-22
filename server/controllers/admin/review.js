@@ -2,9 +2,10 @@ const { review, chef, user } = require('../../models');
 
 module.exports = {
   get: async (req, res) => {
+    const cuisine = decodeURI(decodeURIComponent(req.params.cuisine));
     const reqCuisine = req.params.cuisine;
     const findAllReview = await review.findAll();
-    const sendReviewsData = [];
+    const allReviewsData = [];
 
     for (let i = 0; i < findAllReview.length; i++) {
       // 리뷰쓴 사람들 이름과 cuisine 종류 찾아서 붙이기
@@ -23,8 +24,12 @@ module.exports = {
       delete findAllReview[i].dataValues.rvChefId;
       delete findAllReview[i].dataValues.updatedAt;
 
-      sendReviewsData.push(findAllReview[i].dataValues);
+      allReviewsData.push(findAllReview[i].dataValues);
     }
+
+    const filterReviewsData = allReviewsData.filter(
+      (el) => el.cuisine === cuisine
+    );
 
     const startSlice = Number(req.query.startNum);
     const endSlice = Number(req.query.endNum);
@@ -32,8 +37,8 @@ module.exports = {
     if (req.query.startNum && req.query.endNum) {
       res.status(200).json({
         message: 'ok',
-        length: sendReviewsData.length,
-        data: sendReviewsData.slice(startSlice, endSlice + 1),
+        length: filterReviewsData.length,
+        data: filterReviewsData.slice(startSlice, endSlice + 1),
       });
     } else if (!req.query.startNum || !req.query.endNum) {
       res.status(400).json({ message: 'undefined review' });

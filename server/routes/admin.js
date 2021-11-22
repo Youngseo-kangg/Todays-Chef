@@ -2,6 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { adminController, chefController } = require('../controllers');
 
-router.get('/review', adminController.review.get);
+router.get('/review/:cuisine', adminController.review.get);
 
 module.exports = router;
