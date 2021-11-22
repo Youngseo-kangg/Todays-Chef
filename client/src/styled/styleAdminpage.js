@@ -116,6 +116,9 @@ export const AdminReview = styled.article`
         background-color: transparent;
         color: #fff;
         border-bottom: 2px solid #fff;
+        > option {
+          background-color: rgba(96, 50, 36, 0.5);
+        }
       }
     }
   }
