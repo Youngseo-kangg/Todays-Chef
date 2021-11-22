@@ -1,4 +1,4 @@
-const { review, chef, user } = require('../../models');
+const { review, chef, user, course, reservation } = require('../../models');
 
 module.exports = {
   get: async (req, res) => {
@@ -31,5 +31,22 @@ module.exports = {
     } else if (!req.query.startNum || !req.query.endNum) {
       res.status(400).json({ message: 'undefined chef' });
     }
+  },
+
+  delete: async (req, res) => {
+    // user 정보 삭제, chef 정보 삭제, 예약 정보 삭제, 리뷰 정보 삭제
+    const findChefId = await chef.findOne({ id: req.body.id });
+    const userId = findChefId.dataValues.chUserId;
+
+    await review.destroy({ where: { rvChefId: req.body.id }, force: true });
+    await reservation.destroy({
+      where: { rsChefId: req.body.id },
+      force: true,
+    });
+    await course.destroy({ where: { coChefId: req.body.id }, force: true });
+    await chef.destroy({ where: { id: req.body.id }, force: true });
+    await user.destroy({ where: { id: userId }, force: true });
+
+    res.status(200).json({ message: 'ok' });
   },
 };
