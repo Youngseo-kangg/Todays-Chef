@@ -12,11 +12,13 @@ import {
 } from 'redux-persist';
 
 import userReducer from '../features/user/user';
+import modalReducer from '../features/user/modal';
 import reviewReducer from '../features/review/review';
 import reservationReducer from '../features/reservation/reservation';
 
 const reducers = combineReducers({
   user: userReducer,
+  modal: modalReducer,
   review: reviewReducer,
   reservation: reservationReducer,
 });
@@ -24,7 +26,7 @@ const reducers = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'modal'],
   blacklist: ['review', 'reservation'],
 };
 

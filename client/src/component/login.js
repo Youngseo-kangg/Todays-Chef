@@ -4,14 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, userStatus } from '../features/user/user';
+import {
+  openLoginErrorModal,
+  openLoginModal,
+  setServerErrorTrue,
+} from '../features/user/modal';
+import { login } from '../features/user/user';
 import { LoginFormWrap } from '../styled/styledLogin';
 import { useForm } from 'react-hook-form';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function Login({ setIsLoginModalOpen }) {
+// function Login({ setIsLoginModalOpen }) {
+function Login() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
@@ -47,13 +53,17 @@ function Login({ setIsLoginModalOpen }) {
             accessToken: loginResult.data.accessToken,
           })
         );
-        setIsLoginModalOpen(true);
+        // setIsLoginModalOpen(true);
+        dispatch(openLoginModal());
       }
     } catch (err) {
-      console.log(err.response.data.message);
-      if (err.response.data.message === 'Invalid User') {
+      if (err.message === 'Network Error') {
+        dispatch(setServerErrorTrue());
+        dispatch(openLoginErrorModal());
+      } else if (err.response.data.message === 'Invalid User') {
         // alert('로그인에 실패하였습니다.');
-        setIsErrorLogin(true);
+        // setIsErrorLogin(true);
+        dispatch(openLoginErrorModal());
       }
     }
   };

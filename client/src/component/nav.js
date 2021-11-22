@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
+import { openLogoutModal } from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, userStatus } from '../features/user/user';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
@@ -12,7 +13,7 @@ import {
   NavBarIcon,
 } from '../styled/styleNav';
 
-function Nav({ setIsLogout }) {
+function Nav() {
   const userInfo = useSelector(userStatus); // user의 상태
   const dispatch = useDispatch();
   const [mymenuState, setMymenuState] = useState(false); // 세부메뉴 보일지 말지
@@ -129,8 +130,8 @@ function Nav({ setIsLogout }) {
                     <li
                       onClick={() => {
                         showMiniMenu();
-                        setIsLogout(true);
-                        // dispatch(logout());
+                        // setIsLogout(true);
+                        dispatch(openLogoutModal());
                       }}
                     >
                       Logout
@@ -176,8 +177,9 @@ function Nav({ setIsLogout }) {
                   <li
                     onClick={() => {
                       showMiniMenu();
+                      dispatch(openLogoutModal());
                       // dispatch(logout());
-                      setIsLogout(true);
+                      // setIsLogout(true);
                     }}
                   >
                     Logout
