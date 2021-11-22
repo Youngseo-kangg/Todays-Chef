@@ -1,4 +1,4 @@
-import { AdminReview } from '../styled/styleAdminpage';
+import { AdminReviewAndChef } from '../styled/styleAdminpage';
 import { PagenationList } from '../styled/styleFindChef';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
@@ -16,6 +16,7 @@ function AdminpageReview() {
     array: [],
     length: 0,
   });
+  const [updateAdminReview, setUpdateAdminReview] = useState(false);
 
   const getAdminReview = async () => {
     try {
@@ -61,21 +62,28 @@ function AdminpageReview() {
     }
   };
 
-  const deleteReview = (e, id) => {
-    e.preventDefault();
-    console.log(id);
+  const deleteReview = async (id) => {
+    try {
+      // console.log(id);
+      await axios.delete(`${url}/admin/review`, {
+        id: id,
+      });
+      setUpdateAdminReview(!updateAdminReview);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
     getAdminReview();
-  }, [adminCuisine]);
+  }, [adminCuisine, updateAdminReview]);
 
   return (
-    <AdminReview>
+    <AdminReviewAndChef>
       <div id='adminReviewFilterWrap'>
         <div id='adminReviewFilter'>
           <select
-            id='adminCuisineFilter'
+            id='adminReviewCuisineFilter'
             onChange={(e) => setAdminCuisine(e.target.value)}
           >
             <option value='한식'>한식</option>
@@ -98,9 +106,7 @@ function AdminpageReview() {
                     <p>{format(new Date(el.createdAt), 'yyyy-MM-dd')}</p>
                     <p>{el.nickname}</p>
                     <p>{el.rating}</p>
-                    <button onClick={(e) => deleteReview(e, el.id)}>
-                      삭제
-                    </button>
+                    <button onClick={() => deleteReview(el.id)}>삭제</button>
                   </div>
                   <p>{el.eval}</p>
                 </li>
@@ -121,7 +127,7 @@ function AdminpageReview() {
           })}
         </ul>
       </PagenationList>
-    </AdminReview>
+    </AdminReviewAndChef>
   );
 }
 
