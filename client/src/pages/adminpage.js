@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdminpageBechef from '../component/adminpageBechef';
 import AdminpageReview from '../component/adminpageReview';
 import AdminpageChef from '../component/adminpageChef';
 import { AdminpageGrid } from '../styled/styleAdminpage';
+import { userStatus } from '../features/user/user';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 function Adminpage() {
+  const history = useHistory();
+  const userState = useSelector(userStatus);
   const adminpageMenuList = {
     0: <AdminpageBechef />,
     1: <AdminpageReview />,
@@ -14,6 +19,12 @@ function Adminpage() {
   const changeAdminMenu = (index) => {
     setAdminpageMenu(index);
   }; // menuList에서 몇번째 내용이 보여져야 할지 지정해주는 함수
+
+  useEffect(() => {
+    if (userState.nickname !== '김코딩') {
+      history.push('/');
+    }
+  }, []);
 
   return (
     <AdminpageGrid>
