@@ -62,6 +62,7 @@ export const AdminpageGrid = styled.article`
 export const AdminPageContent = styled.div`
   width: 100%;
   height: 100%;
+  min-height: 500px;
   padding: 15px;
   display: grid;
   place-items: center;
@@ -146,18 +147,32 @@ export const AdminReview = styled.article`
       li {
         display: grid;
         row-gap: 5px;
-        grid-template-rows: 30px 120px;
+        grid-template-rows: 40px 120px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         > .adminReviewInfo {
           display: flex;
           align-items: center;
           justify-content: space-around;
+          button {
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
+          }
         }
         > p {
           display: grid;
           place-items: center start;
           padding: 15px;
         }
+      }
+      li.noAdminReviewContent {
+        width: 100%;
+        grid-template-rows: none;
+        height: 150px;
+        display: grid;
+        place-items: center;
       }
     }
   }
