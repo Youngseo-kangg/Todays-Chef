@@ -3,7 +3,7 @@ import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
 import { openLogoutModal } from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, userStatus } from '../features/user/user';
+import { userStatus } from '../features/user/user';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import {
   NavbarWrap,
@@ -15,6 +15,7 @@ import {
 
 function Nav() {
   const userInfo = useSelector(userStatus); // user의 상태
+  console.log('userInfo: ', userInfo);
   const dispatch = useDispatch();
   const [mymenuState, setMymenuState] = useState(false); // 세부메뉴 보일지 말지
   const [transNav, setTransNav] = useState(false); // nav 투명에서 색상 변경
@@ -46,18 +47,20 @@ function Nav() {
     []
   );
 
-  useEffect(() => {
+  const initialHandleScreen = () => {
     if (window.innerWidth < 768) {
       setTransScreen(true);
     } else {
       setTransScreen(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
+    window.addEventListener('onload', initialHandleScreen);
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScreen);
     return () => {
+      window.removeEventListener('onload', initialHandleScreen);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScreen);
     };
@@ -116,7 +119,12 @@ function Nav() {
                   <MymenuSmall id='loginState'>
                     <li>
                       <p>안녕하세요, {userInfo.nickname}님!</p>
-                      <img src={basic_profile} alt='user profile' />
+                      <img
+                        src={
+                          userInfo.userImg ? userInfo.userImg : basic_profile
+                        }
+                        alt='user profile'
+                      />
                     </li>
                     <li onClick={showMiniMenu}>
                       <Link to='/findChef'>findChef</Link>
@@ -168,7 +176,10 @@ function Nav() {
               <li>
                 <div className='afterLogin' onClick={showMiniMenu}>
                   <p>안녕하세요, {userInfo.nickname}님!</p>
-                  <img src={basic_profile} alt='user profile' />
+                  <img
+                    src={userInfo.userImg ? userInfo.userImg : basic_profile}
+                    alt='user profile'
+                  />
                 </div>
                 <Mymenu className={mymenuState ? 'showMyMenu' : null}>
                   <li onClick={showMiniMenu}>

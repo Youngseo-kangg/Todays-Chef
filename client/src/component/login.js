@@ -43,8 +43,7 @@ function Login() {
         email: data.loginEmail,
         password: data.loginPassword,
       });
-      console.log('login 완료', loginResult.data.message);
-
+      // console.log('login 완료', loginResult.data.message);
       if (loginResult.data.message === 'ok') {
         console.log('login 완료', loginResult);
         dispatch(

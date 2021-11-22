@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   userId: -1,
   nickname: '',
+  userImg: '',
   email: '',
   isChef: false,
   isOauth: false,
@@ -16,6 +17,7 @@ export const userSlice = createSlice({
     login: (state, action) => {
       state.userId = action.payload.id;
       state.nickname = action.payload.nickname;
+      state.userImg = action.payload.userImg;
       state.email = action.payload.email;
       state.isChef = action.payload.isChef;
       state.isOauth = action.payload.isOauth;
@@ -24,6 +26,7 @@ export const userSlice = createSlice({
     updateAccessToken: (state, action) => {
       state.userId = action.payload.id;
       state.nickname = action.payload.nickname;
+      state.userImg = action.payload.userImg;
       state.email = action.payload.email;
       state.isChef = action.payload.isChef;
       state.isOauth = action.payload.isOauth;
@@ -32,6 +35,7 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.userId = -1;
       state.nickname = '';
+      state.userImg = '';
       state.email = '';
       state.isChef = false;
       state.isOauth = false;

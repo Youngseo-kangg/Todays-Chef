@@ -222,7 +222,6 @@ export const ChefStar = styled.div`
 `;
 
 export const PagenationList = styled.div`
-  border: 1px solid red;
   max-width: 1400px;
   width: 100%;
   height: 100%;

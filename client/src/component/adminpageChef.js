@@ -1,5 +1,7 @@
+import { AdminChef } from '../styled/styleAdminpage';
+
 function AdminpageChef() {
-  return <p>this is AdminpageChef</p>;
+  return <AdminChef>this is AdminpageChef</AdminChef>;
 }
 
 export default AdminpageChef;

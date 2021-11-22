@@ -1,5 +1,7 @@
+import { AdminBechef } from '../styled/styleAdminpage';
+
 function AdminpageBechef() {
-  return <p>this is AdminpageBechef</p>;
+  return <AdminBechef>this is AdminpageBechef</AdminBechef>;
 }
 
 export default AdminpageBechef;
