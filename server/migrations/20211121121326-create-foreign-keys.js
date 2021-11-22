@@ -7,6 +7,8 @@ module.exports = {
     await queryInterface.addColumn('reviews', 'rvUserId', Sequelize.INTEGER);
     await queryInterface.addColumn('reviews', 'rvChefId', Sequelize.INTEGER);
     await queryInterface.addColumn('courses', 'coChefId', Sequelize.INTEGER);
+    await queryInterface.addColumn('bechefs', 'bcUserId', Sequelize.INTEGER);
+
     await queryInterface.addColumn(
       'reservations',
       'rsUserId',
@@ -124,6 +126,18 @@ module.exports = {
       onDelete: 'cascade',
       onUpdate: 'cascade',
     });
+
+    await queryInterface.addConstraint('bechefs', {
+      fields: ['bcUserId'],
+      type: 'foreign key',
+      name: 'bcUserIdFK',
+      references: {
+        table: 'users',
+        field: 'id',
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    });
   },
   down: async (queryInterface, Sequelize) => {
     // 만든 foreign key 지워주기
@@ -135,6 +149,7 @@ module.exports = {
     await queryInterface.removeConstraint('reservations', 'rsUserIdFK');
     await queryInterface.removeConstraint('reservations', 'rsChefIdFK');
     await queryInterface.removeConstraint('reservations', 'rsCourseIdFK');
+    await queryInterface.removeConstraint('bechefs', 'bcUserIdFK');
     // 만든 column 지워주기
     await queryInterface.removeColumn('chefs', 'chUserId');
     await queryInterface.removeColumn('reviews', 'rvUserId');
@@ -144,5 +159,6 @@ module.exports = {
     await queryInterface.removeColumn('reservations', 'rsUserId');
     await queryInterface.removeColumn('reservations', 'rsChefId');
     await queryInterface.removeColumn('reservations', 'rsCourseId');
+    await queryInterface.removeColumn('bechefs', 'bcUserId');
   },
 };
