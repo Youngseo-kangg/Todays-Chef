@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import AdminpageBechef from '../component/adminpageBechef';
 import AdminpageReview from '../component/adminpageReview';
 import AdminpageChef from '../component/adminpageChef';
-import { AdminpageGrid } from '../styled/styleAdminpage';
+import { AdminpageGrid, AdminPageContent } from '../styled/styleAdminpage';
 import { userStatus } from '../features/user/user';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -49,7 +49,7 @@ function Adminpage() {
             셰프 관리
           </li>
         </ul>
-        <div id='adminPageContent'>{adminpageMenuList[adminpageMenu]}</div>
+        <AdminPageContent>{adminpageMenuList[adminpageMenu]}</AdminPageContent>
       </div>
     </AdminpageGrid>
   );

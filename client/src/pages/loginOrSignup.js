@@ -17,8 +17,6 @@ import {
 
 function LoginOrSignup() {
   const modalState = useSelector(modalStatus);
-  console.log('App.js에서 modalStatus: ', modalState);
-
   const [loginOrSignupComp, setloginOrSignupComp] = useState(false); // 큰 창에서 animation 구현
   const [smallComp, setSmallComp] = useState(false); // 작은 창인지 확인
   const [smallCompPart, setSmallCompPart] = useState(false); // 작은 창에서 뭘 보여줄지 결정
