@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AdminReviewAndChef } from '../styled/styleAdminpage';
+import { AdminContent } from '../styled/styleAdminpage';
 import { PagenationList } from '../styled/styleFindChef';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import axios from 'axios';
@@ -79,7 +79,7 @@ function AdminpageChef() {
   }, [adminCuisine, updateAdminChef]);
 
   return (
-    <AdminReviewAndChef>
+    <AdminContent>
       <div id='adminChefFilterWrap'>
         <div id='adminChefFilter'>
           <select
@@ -141,7 +141,7 @@ function AdminpageChef() {
           })}
         </ul>
       </PagenationList>
-    </AdminReviewAndChef>
+    </AdminContent>
   );
 }
 

@@ -1,4 +1,4 @@
-import { AdminReviewAndChef } from '../styled/styleAdminpage';
+import { AdminContent } from '../styled/styleAdminpage';
 import { PagenationList } from '../styled/styleFindChef';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
@@ -79,7 +79,7 @@ function AdminpageReview() {
   }, [adminCuisine, updateAdminReview]);
 
   return (
-    <AdminReviewAndChef>
+    <AdminContent>
       <div id='adminReviewFilterWrap'>
         <div id='adminReviewFilter'>
           <select
@@ -127,7 +127,7 @@ function AdminpageReview() {
           })}
         </ul>
       </PagenationList>
-    </AdminReviewAndChef>
+    </AdminContent>
   );
 }
 

@@ -91,7 +91,7 @@ export const AdminChef = styled.article`
   min-height: 800px;
 `;
 
-export const AdminReviewAndChef = styled.article`
+export const AdminContent = styled.article`
   width: 90%;
   height: 100%;
   display: grid;
@@ -125,7 +125,8 @@ export const AdminReviewAndChef = styled.article`
     }
   }
   > #adminReviewContentWrap,
-  #adminChefContentWrap {
+  #adminChefContentWrap,
+  #adminBechefContentWrap {
     display: grid;
     grid-template-rows: 25px 1fr;
     row-gap: 20px;
@@ -147,10 +148,10 @@ export const AdminReviewAndChef = styled.article`
     }
     > ul {
       display: grid;
-      grid-template-rows: repeat(3, 1fr);
+      grid-template-rows: 1fr;
       row-gap: 12px;
       grid-auto-rows: 1fr;
-      li {
+      li.adminReviewContent {
         display: grid;
         row-gap: 5px;
         grid-template-rows: 40px 1fr;
@@ -180,6 +181,7 @@ export const AdminReviewAndChef = styled.article`
       }
       li.adminChefContent {
         grid-template-rows: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         > .adminChefInfo {
           display: grid;
           grid-template-columns: 150px 5fr 1fr 1fr;
@@ -204,13 +206,58 @@ export const AdminReviewAndChef = styled.article`
           }
         }
       }
+      li.adminBechefContent {
+        height: 50px;
+        grid-template-rows: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        > * {
+          display: grid;
+          place-items: center;
+        }
+        > .adminBechefInfo {
+          width: 100%;
+          height: 100%;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          @media (max-width: 1080px) {
+            grid-template-columns: 1fr 1fr 2fr;
+          }
+          @media (max-width: 540px) {
+            /* grid-template-columns: 1fr 1fr, 1fr;
+            grid-template-rows: repeat(2, 1fr); */
+          }
+          .adminBechefBtnWrap {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            button {
+              width: 50px;
+              height: 30px;
+              background-color: rgba(255, 255, 255, 0.3);
+              color: #fff;
+              padding: 8px;
+              font-size: 14px;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+            button:nth-of-type(1) {
+              width: 60px;
+              padding: 0px;
+            }
+          }
+        }
+      }
       li.noAdminReviewContent,
-      li.noAdminChefContent {
+      li.noAdminChefContent,
+      li.noAdminBechefContent {
         width: 100%;
         grid-template-rows: none;
         height: 150px;
         display: grid;
         place-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       }
     }
   }

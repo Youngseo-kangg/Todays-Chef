@@ -1,7 +1,154 @@
-import { AdminBechef } from '../styled/styleAdminpage';
+import { AdminContent } from '../styled/styleAdminpage';
+import { PagenationList } from '../styled/styleFindChef';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+require('dotenv').config();
+axios.defaults.withCredentials = true;
 
 function AdminpageBechef() {
-  return <AdminBechef>this is AdminpageBechef</AdminBechef>;
+  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  const [adminCuisine, setAdminCuisine] = useState('한식');
+  const [adminBechef, setAdminBechef] = useState([]);
+  const [adminBechefPerPage, setAdminBechefPerPage] = useState({
+    start: 0,
+    end: 4,
+    array: [],
+    length: 0,
+  });
+  const [updateAdminBechef, setUpdateAdminBechef] = useState(false);
+
+  const getAdminBechef = async () => {
+    try {
+      let encodeSelected = encodeURI(encodeURIComponent(adminCuisine));
+      let result = await axios.get(
+        `${url}/admin/review/${encodeSelected}?startNum=0&endNum=4`
+      );
+      // console.log(result);
+      setAdminBechef(result.data.data);
+      let newArr = [];
+      for (let i = 0; i < result.data.length; i += 4) {
+        newArr.push(i); // 4씩 끊은 수 들어가게
+      }
+      setAdminBechefPerPage({
+        ...adminBechefPerPage,
+        array: newArr,
+        length: result.data.length,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAdminBechefMore = async (start, end) => {
+    try {
+      let encodeSelected = encodeURI(encodeURIComponent(adminCuisine));
+      let result = await axios.get(
+        `${url}/admin/review/${encodeSelected}?startNum=${start}&endNum=${end}`
+      );
+      setAdminBechef(result.data.data);
+      let newArr = [];
+      for (let i = 0; i < result.data.length; i += 4) {
+        newArr.push(i); // 4씩 끊은 수 들어가게
+      }
+      setAdminBechefPerPage({
+        ...adminBechefPerPage,
+        array: newArr,
+        length: result.data.length,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const declineBechef = async (id) => {
+    try {
+      // console.log(id);
+      await axios.delete(`${url}/admin/review`, {
+        id: id,
+      });
+      setUpdateAdminBechef(!updateAdminBechef);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const acceptBechef = async (id) => {
+    try {
+      console.log(id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    // getAdminBechef();
+  }, [adminCuisine, updateAdminBechef]);
+
+  return (
+    <AdminContent>
+      <div id='adminReviewFilterWrap'>
+        <div id='adminReviewFilter'>
+          <select
+            id='adminReviewCuisineFilter'
+            onChange={(e) => setAdminCuisine(e.target.value)}
+          >
+            <option value='한식'>한식</option>
+            <option value='일식'>일식</option>
+            <option value='양식'>양식</option>
+            <option value='중식'>중식</option>
+          </select>
+        </div>
+      </div>
+
+      <div id='adminBechefContentWrap'>
+        <h2>{adminCuisine} 셰프 지원자 리스트</h2>
+        <ul>
+          {adminBechef.length === 0 ? (
+            <li className='noAdminBechefContent'>셰프 지원자가 없습니다.</li>
+          ) : (
+            adminBechef.map((el, idx) => {
+              return (
+                <li key={idx} className='adminBechefContent'>
+                  <div className='adminBechefInfo'>
+                    {/* 
+                    <p>{el.nickname}</p>
+                    <button>다운로드 받기</button>
+                    <button onClick={() => declineBechef(el.id)}>거부</button> 
+                    <button onClick={() => acceptBechef(el.id)}>승인</button>
+                    */}
+                  </div>
+                  {/* <p>{el.eval}</p> */}
+                </li>
+              );
+            })
+          )}
+          <li className='adminBechefContent'>
+            <div className='adminBechefInfo'>
+              <p>지원자 이름</p>
+              <p>퀴진</p>
+              <div className='adminBechefBtnWrap'>
+                <button>다운로드</button>
+                <button onClick={() => declineBechef(1)}>거부</button>
+                <button onClick={() => acceptBechef(1)}>승인</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <PagenationList>
+        <ul>
+          {adminBechefPerPage.array.map((el, idx) => {
+            return (
+              <li key={idx} onClick={() => getAdminBechefMore(el, el + 4)}>
+                {idx + 1}
+              </li>
+            );
+          })}
+        </ul>
+      </PagenationList>
+    </AdminContent>
+  );
 }
 
 export default AdminpageBechef;
