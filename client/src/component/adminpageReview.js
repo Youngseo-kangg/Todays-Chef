@@ -60,6 +60,12 @@ function AdminpageReview() {
       console.log(err);
     }
   };
+
+  const deleteReview = (e, id) => {
+    e.preventDefault();
+    console.log(id);
+  };
+
   useEffect(() => {
     getAdminReview();
   }, [adminCuisine]);
@@ -92,7 +98,9 @@ function AdminpageReview() {
                     <p>{format(new Date(el.createdAt), 'yyyy-MM-dd')}</p>
                     <p>{el.nickname}</p>
                     <p>{el.rating}</p>
-                    <button>삭제</button>
+                    <button onClick={(e) => deleteReview(e, el.id)}>
+                      삭제
+                    </button>
                   </div>
                   <p>{el.eval}</p>
                 </li>

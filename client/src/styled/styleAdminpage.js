@@ -141,13 +141,13 @@ export const AdminReview = styled.article`
     }
     > ul {
       display: grid;
-      grid-template-rows: 1fr;
+      grid-template-rows: repeat(3, 1fr);
       row-gap: 12px;
       grid-auto-rows: 1fr;
       li {
         display: grid;
         row-gap: 5px;
-        grid-template-rows: 40px 120px;
+        grid-template-rows: 40px 1fr;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         > .adminReviewInfo {
           display: flex;
@@ -165,6 +165,10 @@ export const AdminReview = styled.article`
           display: grid;
           place-items: center start;
           padding: 15px;
+          min-height: 150px;
+          @media (max-width: 420px) {
+            padding: 5px;
+          }
         }
       }
       li.noAdminReviewContent {
