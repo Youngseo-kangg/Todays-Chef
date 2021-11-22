@@ -4,7 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { openLoginErrorModal, openLoginModal } from '../features/user/modal';
+import {
+  openLoginErrorModal,
+  openLoginModal,
+  setServerErrorTrue,
+} from '../features/user/modal';
 import { login } from '../features/user/user';
 import { LoginFormWrap } from '../styled/styledLogin';
 import { useForm } from 'react-hook-form';
@@ -53,8 +57,10 @@ function Login() {
         dispatch(openLoginModal());
       }
     } catch (err) {
-      console.log(err.response.data.message);
-      if (err.response.data.message === 'Invalid User') {
+      if (err.message === 'Network Error') {
+        dispatch(setServerErrorTrue());
+        dispatch(openLoginErrorModal());
+      } else if (err.response.data.message === 'Invalid User') {
         // alert('로그인에 실패하였습니다.');
         // setIsErrorLogin(true);
         dispatch(openLoginErrorModal());
