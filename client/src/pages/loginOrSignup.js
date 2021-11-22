@@ -15,16 +15,7 @@ import {
   LoginOrSignupSmallContainer,
 } from '../styled/styleLoginOrSignup';
 
-function LoginOrSignup(
-  {
-    // isLoginModalOpen,
-    // setIsLoginModalOpen,
-    // isLoginErrorModalOpen,
-    // setIsLoginErrorModalOpen,
-    // isServerError,
-    // setIsServerError,
-  }
-) {
+function LoginOrSignup() {
   const modalState = useSelector(modalStatus);
   console.log('App.js에서 modalStatus: ', modalState);
 
@@ -36,13 +27,21 @@ function LoginOrSignup(
   }; // menuList에서 몇번째 내용이 보여져야 할지 지정해주는 함수
   // const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false); // 회원가입 모달창 상태
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   if (window.innerWidth < 421) {
+  //     setSmallComp(true);
+  //   } else {
+  //     setSmallComp(false);
+  //   }
+  // }, []);
+
+  const initialHandleSmallComp = () => {
     if (window.innerWidth < 421) {
       setSmallComp(true);
     } else {
       setSmallComp(false);
     }
-  }, []);
+  };
 
   const handleSmallComp = useMemo(
     () =>
@@ -57,10 +56,10 @@ function LoginOrSignup(
   );
 
   useEffect(() => {
-    window.addEventListener('onload', handleSmallComp);
+    window.addEventListener('onload', initialHandleSmallComp);
     window.addEventListener('resize', handleSmallComp);
     return () => {
-      window.removeEventListener('onload', handleSmallComp);
+      window.removeEventListener('onload', initialHandleSmallComp);
       window.removeEventListener('resize', handleSmallComp);
     };
   }, [handleSmallComp]);
