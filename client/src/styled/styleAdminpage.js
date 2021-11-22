@@ -150,15 +150,16 @@ export const AdminReview = styled.article`
         grid-template-rows: 40px 1fr;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         > .adminReviewInfo {
-          display: flex;
-          align-items: center;
-          justify-content: space-around;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          place-items: center;
           button {
             background-color: rgba(255, 255, 255, 0.3);
             color: #fff;
             padding: 8px;
             font-size: 14px;
             border-radius: 5px;
+            cursor: pointer;
           }
         }
         > p {

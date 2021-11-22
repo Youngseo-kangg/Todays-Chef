@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useHistory } from 'react';
 import axios from 'axios';
 import AddressModal from '../modal/addressModal';
 import ReservationNotice from '../component/reservationNotice';
@@ -6,12 +6,19 @@ import ReservationDate from '../component/reservationDate';
 import ReservationInfo from '../component/reservationInfo';
 import ReservationPayment from '../component/reservationPayment';
 import ReservationDone from '../component/reservationDone';
+import ReservDeclinedModal from '../modal/reservDeclinedModal';
 import {
   ReservationGrid,
   ReservationTitle,
   ReservationGraph,
   ReservationDesc,
 } from '../styled/styleReservation';
+import { userStatus } from '../features/user/user';
+import {
+  openReservDeclinedModalOpen,
+  modalStatus,
+} from '../features/user/modal';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { setHours, setMinutes } from 'date-fns';
 require('dotenv').config();
@@ -20,6 +27,9 @@ axios.defaults.withCredentials = true;
 function Reservation() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   let today = new Date(); //오늘
+  const dispatch = useDispatch();
+  const userState = useSelector(userStatus);
+  const modalState = useSelector(modalStatus);
   const [newData, setNewData] = useState({});
   const [makeReservation, setMakeReservation] = useState(0);
   const {
@@ -76,17 +86,25 @@ function Reservation() {
   const queryCourseId = querys[1].split('=')[1];
 
   useEffect(() => {
-    axios
-      .get(`${url}/reservation?chefId=${queryChefId}&courseId=${queryCourseId}`)
-      .then((data) => {
-        setTitleInfo({
-          chefName: data.data.data.chefName,
-          course: data.data.data.course,
+    if (userState.userId === -1 && !modalState.isReservDeclinedModalOpen) {
+      dispatch(openReservDeclinedModalOpen());
+    } else {
+      axios
+        .get(
+          `${url}/reservation?chefId=${queryChefId}&courseId=${queryCourseId}`
+        )
+        .then((data) => {
+          setTitleInfo({
+            chefName: data.data.data.chefName,
+            course: data.data.data.course,
+          });
         });
-      });
+    }
   }, []);
+
   return (
     <>
+      {modalState.isReservDeclinedModalOpen ? <ReservDeclinedModal /> : null}
       {searchAddress === true ? (
         <AddressModal
           setSearchAddress={setSearchAddress}
