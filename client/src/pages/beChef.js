@@ -23,6 +23,7 @@ function BeAChef() {
   const [textIdx, setTextIdx] = useState(0); // beChefText 몇번째 보여줄지 정하는 state
   const [cuisine, setCuisine] = useState('kr'); // cuisine
   const [resumeName, setResumeName] = useState(''); // resume 파일 이름
+  const [resumePdf, setResumePdf] = useState({}); // resume 파일 자체
 
   let textIdxMinus = () => {
     if (textIdx === 0) {
@@ -45,18 +46,33 @@ function BeAChef() {
     formData.append('file', event.target.files[0]);
     // 로컬에서 선택한 pdf파일의 제목을 input에 보여주기
     setResumeName(event.target.files[0].name);
+    // resume 파일 업뎃
+    setResumePdf(formData);
+
+    // FormData의 key 확인
+    for (let key of formData.keys()) {
+      console.log(key);
+    }
+    // FormData의 value 확인
+    for (let value of formData.values()) {
+      console.log(value);
+    }
   };
 
   const sendResumeToServer = async () => {
     try {
       let submitResult = await axios.post(
         `${url}/chef`,
+        resumePdf,
+        // {
+        //   cuisine: cuisine,
+        //   document: resumePdf,
+        // },
         {
-          header: { authorization: `bearer ${userInfo.accessToken}` },
-        },
-        {
-          cuisine: cuisine,
-          document: '', // s3주소 필요
+          headers: {
+            authorization: `bearer ${userInfo.accessToken}`,
+            'Content-Type': 'multipart/form-data',
+          },
         }
       );
     } catch (err) {

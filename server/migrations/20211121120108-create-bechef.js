@@ -8,9 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      cuisine: {
-        type: Sequelize.STRING,
-      },
       pdfAdress: {
         type: Sequelize.STRING,
       },
