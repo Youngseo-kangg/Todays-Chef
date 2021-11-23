@@ -7,7 +7,7 @@ axios.defaults.withCredentials = true;
 
 function AdminpageBechef() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
-  const [adminCuisine, setAdminCuisine] = useState('한식');
+  const [adminDuedate, setAdminDuedate] = useState('week');
   const [adminBechef, setAdminBechef] = useState([]);
   const [adminBechefPerPage, setAdminBechefPerPage] = useState({
     start: 0,
@@ -19,9 +19,8 @@ function AdminpageBechef() {
 
   const getAdminBechef = async () => {
     try {
-      let encodeSelected = encodeURI(encodeURIComponent(adminCuisine));
       let result = await axios.get(
-        `${url}/admin/review/${encodeSelected}?startNum=0&endNum=4`
+        `${url}/admin/review/${adminDuedate}?startNum=0&endNum=4`
       );
       // console.log(result);
       setAdminBechef(result.data.data);
@@ -41,9 +40,8 @@ function AdminpageBechef() {
 
   const getAdminBechefMore = async (start, end) => {
     try {
-      let encodeSelected = encodeURI(encodeURIComponent(adminCuisine));
       let result = await axios.get(
-        `${url}/admin/review/${encodeSelected}?startNum=${start}&endNum=${end}`
+        `${url}/admin/review/${adminDuedate}?startNum=${start}&endNum=${end}`
       );
       setAdminBechef(result.data.data);
       let newArr = [];
@@ -82,7 +80,7 @@ function AdminpageBechef() {
 
   useEffect(() => {
     getAdminBechef();
-  }, [adminCuisine, updateAdminBechef]);
+  }, [adminDuedate, updateAdminBechef]);
 
   return (
     <AdminContent>
@@ -90,18 +88,18 @@ function AdminpageBechef() {
         <div id='adminReviewFilter'>
           <select
             id='adminReviewCuisineFilter'
-            onChange={(e) => setAdminCuisine(e.target.value)}
+            onChange={(e) => setAdminDuedate(e.target.value)}
           >
-            <option value='한식'>한식</option>
-            <option value='일식'>일식</option>
-            <option value='양식'>양식</option>
-            <option value='중식'>중식</option>
+            <option value='week'>1주일</option>
+            <option value='month'>1개월</option>
+            <option value='months'>3개월</option>
+            <option value='all'>전체 기간</option>
           </select>
         </div>
       </div>
 
       <div id='adminBechefContentWrap'>
-        <h2>{adminCuisine} 셰프 지원자 리스트</h2>
+        <h2>셰프 지원자 리스트</h2>
         <ul>
           {adminBechef.length === 0 ? (
             <li className='noAdminBechefContent'>셰프 지원자가 없습니다.</li>

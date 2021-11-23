@@ -183,8 +183,16 @@ export const AdminContent = styled.article`
         grid-template-rows: none;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         > .adminChefInfo {
+          width: 100%;
+          height: 100%;
           display: grid;
-          grid-template-columns: 150px 5fr 1fr 1fr;
+          grid-template-columns: 130px 5fr 1fr 1fr;
+          @media (max-width: 767px) {
+            grid-template-columns: 100px 2fr 1fr 1fr;
+          }
+          @media (max-width: 420px) {
+            grid-template-columns: 50px 2fr 1fr 1fr;
+          }
           > * {
             display: grid;
             place-items: center;
@@ -200,9 +208,17 @@ export const AdminContent = styled.article`
             cursor: pointer;
           }
           .adminChefPicWrap > img {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             border-radius: 10px;
+            @media (max-width: 767px) {
+              width: 100px;
+              height: 100px;
+            }
+            @media (max-width: 420px) {
+              width: 50px;
+              height: 50px;
+            }
           }
         }
       }

@@ -21,7 +21,6 @@ function BeAChef() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userInfo = useSelector(userStatus);
   const [textIdx, setTextIdx] = useState(0); // beChefText 몇번째 보여줄지 정하는 state
-  const [cuisine, setCuisine] = useState('kr'); // cuisine
   const [resumeName, setResumeName] = useState(''); // resume 파일 이름
   const [resumePdf, setResumePdf] = useState({}); // resume 파일 자체
 
@@ -134,16 +133,6 @@ function BeAChef() {
         <div id='resumeFormWrap'>
           <div id='resumeForm'>
             <form>
-              <select
-                name='resumeCuisine'
-                id='resumeCuisine'
-                onChange={(e) => setCuisine(e.target.value)}
-              >
-                <option value='kr'>한식</option>
-                <option value='jp'>일식</option>
-                <option value='ch'>중식</option>
-                <option value='eu'>양식</option>
-              </select>
               <div id='resumeFileWrap'>
                 <input
                   id='resumeFileName'
