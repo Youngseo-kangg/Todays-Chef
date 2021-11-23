@@ -63,7 +63,7 @@ function AdminpageBechef() {
   const declineBechef = async (id) => {
     try {
       // console.log(id);
-      await axios.delete(`${url}/admin/review`, {
+      await axios.post(`${url}/admin/review`, {
         id: id,
       });
       setUpdateAdminBechef(!updateAdminBechef);
@@ -81,7 +81,7 @@ function AdminpageBechef() {
   };
 
   useEffect(() => {
-    // getAdminBechef();
+    getAdminBechef();
   }, [adminCuisine, updateAdminBechef]);
 
   return (

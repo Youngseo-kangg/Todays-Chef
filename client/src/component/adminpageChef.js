@@ -64,8 +64,8 @@ function AdminpageChef() {
 
   const deleteChef = async (id) => {
     try {
-      // console.log(id);
-      await axios.delete(`${url}/admin/chef`, {
+      console.log('chef delete id: ', id);
+      await axios.post(`${url}/admin/chef`, {
         id: id,
       });
       setUpdateAdminChef(!updateAdminChef);

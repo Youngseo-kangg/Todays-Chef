@@ -45,7 +45,7 @@ module.exports = {
     }
   },
 
-  delete: async (req, res) => {
+  post: async (req, res) => {
     console.log(req.body);
     await review.destroy({ where: { id: req.body.id }, force: true });
     res.status(200).json({ message: 'ok' });

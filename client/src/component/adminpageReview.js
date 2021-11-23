@@ -64,8 +64,8 @@ function AdminpageReview() {
 
   const deleteReview = async (id) => {
     try {
-      // console.log(id);
-      await axios.delete(`${url}/admin/review`, {
+      console.log(id);
+      await axios.post(`${url}/admin/review`, {
         id: id,
       });
       setUpdateAdminReview(!updateAdminReview);
