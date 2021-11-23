@@ -69,7 +69,7 @@ function BeAChef() {
         //   document: resumePdf,
         // },
         {
-          header: {
+          headers: {
             authorization: `bearer ${userInfo.accessToken}`,
             'Content-Type': 'multipart/form-data',
           },

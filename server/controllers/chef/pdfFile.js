@@ -5,7 +5,6 @@ const { refreshAuthorized } = require('../token/refreshToken');
 module.exports = {
   post: async (req, res) => {
     const accessVerify = isAuthorized(req);
-    console.log('bbb', req.body);
     // accessToken 만료
     if (!accessVerify) {
       const refreshVerify = refreshAuthorized(req);
