@@ -33,7 +33,7 @@ module.exports = {
     }
   },
 
-  delete: async (req, res) => {
+  post: async (req, res) => {
     // user 정보 삭제, chef 정보 삭제, 예약 정보 삭제, 리뷰 정보 삭제
     const findChefId = await chef.findOne({ id: req.body.id });
     const userId = findChefId.dataValues.chUserId;
