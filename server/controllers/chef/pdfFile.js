@@ -18,7 +18,7 @@ module.exports = {
         delete refreshVerify.exp;
         const accessToken = basicAccessToken(refreshVerify);
         // isSubmit true로 바꿔주는 작업
-        console.log('aaaaaa', req.file);
+        console.log('aaaaaa', req.file.location);
         res.status(201).json({ accessToken, message: 'ok' });
       }
     } // accessToken 유효
