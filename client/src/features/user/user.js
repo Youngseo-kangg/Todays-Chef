@@ -7,6 +7,8 @@ const initialState = {
   email: '',
   isChef: false,
   isOauth: false,
+  isSubmit: false,
+  isAdmin: false,
   accessToken: null,
 };
 
@@ -21,15 +23,11 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.isChef = action.payload.isChef;
       state.isOauth = action.payload.isOauth;
+      state.isSubmit = action.payload.isSubmit;
+      state.isAdmin = action.payload.isAdmin;
       state.accessToken = action.payload.accessToken;
     },
     updateAccessToken: (state, action) => {
-      state.userId = action.payload.id;
-      state.nickname = action.payload.nickname;
-      state.userImg = action.payload.userImg;
-      state.email = action.payload.email;
-      state.isChef = action.payload.isChef;
-      state.isOauth = action.payload.isOauth;
       state.accessToken = action.payload.accessToken;
     },
     logout: (state) => {
@@ -39,6 +37,8 @@ export const userSlice = createSlice({
       state.email = '';
       state.isChef = false;
       state.isOauth = false;
+      state.isSubmit = false;
+      state.isAdmin = false;
       state.accessToken = null;
     },
   },

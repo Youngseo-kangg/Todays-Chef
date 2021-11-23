@@ -15,7 +15,6 @@ import {
 
 function Nav() {
   const userInfo = useSelector(userStatus); // user의 상태
-  console.log('userInfo: ', userInfo);
   const dispatch = useDispatch();
   const [mymenuState, setMymenuState] = useState(false); // 세부메뉴 보일지 말지
   const [transNav, setTransNav] = useState(false); // nav 투명에서 색상 변경

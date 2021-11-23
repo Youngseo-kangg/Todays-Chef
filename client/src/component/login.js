@@ -44,6 +44,7 @@ function Login() {
         password: data.loginPassword,
       });
       // console.log('login 완료', loginResult.data.message);
+      console.log(loginResult.data.userInfo);
       if (loginResult.data.message === 'ok') {
         console.log('login 완료', loginResult);
         dispatch(

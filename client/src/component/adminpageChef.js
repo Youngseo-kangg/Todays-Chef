@@ -105,28 +105,19 @@ function AdminpageChef() {
               return (
                 <li key={idx} className='adminChefContent'>
                   <div className='adminChefInfo'>
-                    <img alt='셰프 사진' />
+                    <div className='adminChefPicWrap'>
+                      <img src={basic_profile} alt='셰프 사진' />
+                    </div>
                     <p>{el.chefName}</p>
                     <p>{el.rating}</p>
-                    <button onClick={() => deleteChef(el.id)}>삭제</button>
+                    <div className='adminChefBtnWrap'>
+                      <button onClick={() => deleteChef(el.id)}>삭제</button>
+                    </div>
                   </div>
-                  <p>{el.eval}</p>
                 </li>
               );
             })
           )}
-          <li className='adminChefContent'>
-            <div className='adminChefInfo'>
-              <div className='adminChefPicWrap'>
-                <img src={basic_profile} alt='셰프 사진' />
-              </div>
-              <p>셰프 이름</p>
-              <p>4</p>
-              <div className='adminChefBtnWrap'>
-                <button onClick={() => deleteChef(1)}>삭제</button>
-              </div>
-            </div>
-          </li>
         </ul>
       </div>
 

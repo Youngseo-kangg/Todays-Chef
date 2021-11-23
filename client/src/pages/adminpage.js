@@ -21,7 +21,7 @@ function Adminpage() {
   }; // menuList에서 몇번째 내용이 보여져야 할지 지정해주는 함수
 
   useEffect(() => {
-    if (userState.nickname !== '김코딩') {
+    if (!userState.isAdmin) {
       history.push('/');
     }
   }, []);
