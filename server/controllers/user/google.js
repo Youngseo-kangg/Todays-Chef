@@ -59,8 +59,8 @@ module.exports = {
       delete userInfo.dataValues.updatedAt;
       delete userInfo.dataValues.createdAt;
 
-      const accessToken = basicAccessToken(userInfo);
-      const refreshToken = basicRefreshToken(userInfo);
+      const accessToken = basicAccessToken(userInfo.dataValues);
+      const refreshToken = basicRefreshToken(userInfo.dataValues);
 
       sendRefreshToken(res, refreshToken);
       res.status(201).json({ accessToken: accessToken, userInfo: userInfo });
