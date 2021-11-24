@@ -1,11 +1,14 @@
-import { ReservationWrap, ReservDone } from '../styled/styleReservation';
+import { ReservationWrap, ReservNotice } from '../styled/styleReservation';
 
 function ReservationDone({ setMakeReservation }) {
   return (
-    <ReservationWrap>
-      <button onClick={() => setMakeReservation(3)}>&lt;</button>
-      <ReservDone>this is reservationDone(5단계)</ReservDone>
-      <button>&gt;</button>
+    <ReservationWrap id='reservDone'>
+      <ReservNotice>
+        <div id='reservDoneNotice'>
+          <h3>예약이 완료되었습니다.</h3>
+          <p>변경은 마이페이지에서 가능합니다.</p>
+        </div>
+      </ReservNotice>
     </ReservationWrap>
   );
 }
