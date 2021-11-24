@@ -20,11 +20,44 @@ module.exports = {
 
         // isSubmit true로 바꿔주는 작업
         console.log('aaaaaa', req.file.location);
+        console.log('bbbbb', refreshVerify);
+
+        await user.update(
+          {
+            isSubmit: true,
+          },
+          {
+            where: { id: refreshVerify.id },
+          }
+        );
+
+        await bechef.create({
+          pdfAdress: req.file.location,
+          bcUserId: refreshVerify.id,
+        });
+
         res.status(201).json({ accessToken, message: 'ok' });
       }
     } // accessToken 유효
     else {
       // isSubmit true로 바꿔주는 작업
+      console.log('aaaaaa', req.file.location);
+      console.log('ccccc', typeof accessVerify.id);
+
+      await user.update(
+        {
+          isSubmit: true,
+        },
+        {
+          where: { id: accessVerify.id },
+        }
+      );
+
+      await bechef.create({
+        pdfAdress: req.file.location,
+        bcUserId: accessVerify.id,
+      });
+
       res.status(200).json({ message: 'ok' });
     }
   },

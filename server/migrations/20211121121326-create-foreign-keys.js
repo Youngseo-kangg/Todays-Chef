@@ -7,7 +7,6 @@ module.exports = {
     await queryInterface.addColumn('reviews', 'rvUserId', Sequelize.INTEGER);
     await queryInterface.addColumn('reviews', 'rvChefId', Sequelize.INTEGER);
     await queryInterface.addColumn('courses', 'coChefId', Sequelize.INTEGER);
-    await queryInterface.addColumn('bechefs', 'bcUserId', Sequelize.INTEGER);
 
     await queryInterface.addColumn(
       'reservations',
@@ -30,6 +29,8 @@ module.exports = {
       'rvReservationId',
       Sequelize.INTEGER
     );
+
+    await queryInterface.addColumn('bechefs', 'bcUserId', Sequelize.INTEGER);
 
     // foreign key 만들어주기
     await queryInterface.addConstraint('chefs', {

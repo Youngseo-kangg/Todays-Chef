@@ -62,6 +62,8 @@ module.exports = {
           userImg: userData.data.kakao_account.profile.profile_image_url,
           isChef: false,
           isOauth: true,
+          isAdmin: false,
+          isSubmit: false,
         });
 
         const userInfo = newUserData.dataValues;
