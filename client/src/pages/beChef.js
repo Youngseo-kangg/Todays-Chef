@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { userStatus } from '../features/user/user';
+import {
+  sumbitBechef,
+  updateAccessToken,
+  userStatus,
+} from '../features/user/user';
 import {
   BeAChefGrid,
   BeAChefIntro,
@@ -18,6 +22,7 @@ function BeAChef() {
     '고객 개개인에게 최적화한 파인다이닝 서비스 경험을 쌓을 수 있습니다.',
     '이력서를 등록하고 24시간 후 고객센터에서 셰프 선정 여부를 안내해 드립니다.',
   ];
+  const dispatch = useDispatch();
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userState = useSelector(userStatus);
   const [textIdx, setTextIdx] = useState(0); // beChefText 몇번째 보여줄지 정하는 state
@@ -73,20 +78,20 @@ function BeAChef() {
       } else if (userState.isAdmin) {
         setErrorMsg('관리자는 제출할 수 없습니다.');
       } else {
-        let submitResult = await axios.post(
-          `${url}/chef`,
-          resumePdf,
-          // {
-          //   cuisine: cuisine,
-          //   document: resumePdf,
-          // },
-          {
-            headers: {
-              authorization: `bearer ${userState.accessToken}`,
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
+        let submitResult = await axios.post(`${url}/chef`, resumePdf, {
+          headers: {
+            authorization: `bearer ${userState.accessToken}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        // 만약 응답에 새로운 accessToken이 있다면 그걸로 업데이트 해주기
+        if (submitResult.data.accessToken) {
+          dispatch(
+            updateAccessToken({ accessToken: submitResult.data.accessToken })
+          );
+        }
+        // dispatch로 submit 바꿔주기
+        dispatch(sumbitBechef());
       }
     } catch (err) {
       console.log(err);

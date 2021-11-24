@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { userStatus } from '../features/user/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateAccessToken, userStatus } from '../features/user/user';
 import { ReservationWrap, ReservPayment } from '../styled/styleReservation';
 import { format, getHours, getMinutes } from 'date-fns';
 
@@ -14,27 +14,28 @@ function ReservationPayment({
   queryChefId,
   queryCourseId,
 }) {
-  console.log('payment에서 프롭스로 받아온 newData: ', newData);
+  // console.log('payment에서 프롭스로 받아온 newData: ', newData);
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userState = useSelector(userStatus);
+  const dispatch = useDispatch();
   // console.log(userState);
-  console.log({
-    rsDate: new Date(format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss')),
-    rsTime: `${getHours(newData.reservDateAndTime)}:${format(
-      newData.reservDateAndTime,
-      'mm'
-    )}`,
-    location: `${newData.reservMainAddress} ${newData.reservSubAddress}`,
-    people: Number(newData.reservPeople),
-    mobile: newData.reservMobile,
-    isOven: newData.reservOven,
-    burner: newData.reservFire,
-    rsCourseId: Number(queryCourseId),
-    rsUserId: Number(userState.userId),
-    messageToChef: newData.Comment || '',
-    rsChefId: Number(queryChefId),
-    allergy: newData.reservAllergy,
-  });
+  // console.log({
+  //   rsDate: new Date(format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss')),
+  //   rsTime: `${getHours(newData.reservDateAndTime)}:${format(
+  //     newData.reservDateAndTime,
+  //     'mm'
+  //   )}`,
+  //   location: `${newData.reservMainAddress} ${newData.reservSubAddress}`,
+  //   people: Number(newData.reservPeople),
+  //   mobile: newData.reservMobile,
+  //   isOven: newData.reservOven,
+  //   burner: newData.reservFire,
+  //   rsCourseId: Number(queryCourseId),
+  //   rsUserId: Number(userState.userId),
+  //   messageToChef: newData.Comment || '',
+  //   rsChefId: Number(queryChefId),
+  //   allergy: newData.reservAllergy,
+  // });
 
   const makeReservation = async () => {
     try {
@@ -63,7 +64,11 @@ function ReservationPayment({
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      console.log(reservation);
+      if (reservation.data.accessToken) {
+        dispatch(
+          updateAccessToken({ accessToken: reservation.data.accessToken })
+        );
+      }
     } catch (err) {
       console.log(err);
     }
