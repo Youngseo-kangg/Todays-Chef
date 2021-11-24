@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   bechef.init(
     {
-      cuisine: DataTypes.STRING,
       pdfAdress: DataTypes.STRING,
     },
     {
