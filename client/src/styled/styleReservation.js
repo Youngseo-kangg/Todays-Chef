@@ -105,20 +105,16 @@ export const ReservationWrap = styled.div`
 export const ReservNotice = styled.div`
   display: grid;
   place-items: center;
-  width: 600px;
-  height: 150px;
   #reservDoneNotice {
     display: grid;
-    grid-template-rows: 40px 1fr;
-    width: 100%;
-    height: 100%;
+    grid-template-rows: 60px 1fr;
+    width: 600px;
+    height: 150px;
     word-break: keep-all;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     h3 {
       font-size: 25px;
-      line-height: 30px;
-      padding-bottom: 5px;
       border-bottom: 2px solid #fff;
     }
     > * {
@@ -128,7 +124,7 @@ export const ReservNotice = styled.div`
   }
   > #reservationNotice {
     width: 600px;
-    height: 30%;
+    height: auto;
     min-height: 260px;
     word-break: keep-all;
     padding: 10px;
