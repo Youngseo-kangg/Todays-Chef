@@ -1,12 +1,21 @@
 import { AdminContent } from '../styled/styleAdminpage';
 import { PagenationList } from '../styled/styleFindChef';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateAccessToken, logout, userStatus } from '../features/user/user';
+import {
+  openLoginErrorModal,
+  setServerErrorTrue,
+} from '../features/user/modal';
+
 import axios from 'axios';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
 function AdminpageBechef() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  const userState = useSelector(userStatus);
+  const dispatch = useDispatch();
   const [adminDuedate, setAdminDuedate] = useState('week');
   const [adminBechef, setAdminBechef] = useState([]);
   const [adminBechefPerPage, setAdminBechefPerPage] = useState({
@@ -20,9 +29,19 @@ function AdminpageBechef() {
   const getAdminBechef = async () => {
     try {
       let result = await axios.get(
-        `${url}/admin/review/${adminDuedate}?startNum=0&endNum=4`
+        `${url}/admin/bechef/${adminDuedate}?startNum=0&endNum=4`,
+        {
+          headers: { authorization: `Bearer ${userState.accessToken}` },
+        }
       );
       // console.log(result);
+      if (result.data.accessToken) {
+        dispatch(
+          updateAccessToken({
+            accessToken: result.data.accessToken,
+          })
+        );
+      }
       setAdminBechef(result.data.data);
       let newArr = [];
       for (let i = 0; i < result.data.length; i += 4) {
@@ -35,14 +54,31 @@ function AdminpageBechef() {
       });
     } catch (err) {
       console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(setServerErrorTrue());
+        dispatch(openLoginErrorModal());
+      } else if (err.response.data.message === 'Send new login request') {
+        dispatch(logout()); // 로그아웃 처리 해버리기
+        dispatch(openLoginErrorModal()); // 로그인 에러 모달 띄우기
+      }
     }
   };
 
   const getAdminBechefMore = async (start, end) => {
     try {
       let result = await axios.get(
-        `${url}/admin/review/${adminDuedate}?startNum=${start}&endNum=${end}`
+        `${url}/admin/bechef/${adminDuedate}?startNum=${start}&endNum=${end}`,
+        {
+          headers: { authorization: `Bearer ${userState.accessToken}` },
+        }
       );
+      if (result.data.accessToken) {
+        dispatch(
+          updateAccessToken({
+            accessToken: result.data.accessToken,
+          })
+        );
+      }
       setAdminBechef(result.data.data);
       let newArr = [];
       for (let i = 0; i < result.data.length; i += 4) {
@@ -55,16 +91,19 @@ function AdminpageBechef() {
       });
     } catch (err) {
       console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(setServerErrorTrue());
+        dispatch(openLoginErrorModal());
+      } else if (err.response.data.message === 'Send new login request') {
+        dispatch(logout()); // 로그아웃 처리 해버리기
+        dispatch(openLoginErrorModal()); // 로그인 에러 모달 띄우기
+      }
     }
   };
 
   const declineBechef = async (id) => {
     try {
-      // console.log(id);
-      await axios.post(`${url}/admin/review`, {
-        id: id,
-      });
-      setUpdateAdminBechef(!updateAdminBechef);
+      console.log(id);
     } catch (err) {
       console.log(err);
     }
@@ -72,9 +111,32 @@ function AdminpageBechef() {
 
   const acceptBechef = async (id) => {
     try {
-      console.log(id);
+      let result = await axios.post(
+        `${url}/admin/bechef`,
+        {
+          id: id,
+        },
+        {
+          headers: { authorization: `Bearer ${userState.accessToken}` },
+        }
+      );
+      console.log(result);
+      if (result.data.accessToken) {
+        dispatch(
+          updateAccessToken({
+            accessToken: result.data.accessToken,
+          })
+        );
+      }
     } catch (err) {
       console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(setServerErrorTrue());
+        dispatch(openLoginErrorModal());
+      } else if (err.response.data.message === 'Send new login request') {
+        dispatch(logout()); // 로그아웃 처리 해버리기
+        dispatch(openLoginErrorModal()); // 로그인 에러 모달 띄우기
+      }
     }
   };
 
@@ -108,29 +170,17 @@ function AdminpageBechef() {
               return (
                 <li key={idx} className='adminBechefContent'>
                   <div className='adminBechefInfo'>
-                    {/* 
-                    <p>{el.nickname}</p>
-                    <button>다운로드 받기</button>
-                    <button onClick={() => declineBechef(el.id)}>거부</button> 
-                    <button onClick={() => acceptBechef(el.id)}>승인</button>
-                    */}
+                    <p>{el.id}</p>
+                    <div className='adminBechefBtnWrap'>
+                      <button>다운로드</button>
+                      <button onClick={() => declineBechef(el.id)}>거부</button>
+                      <button onClick={() => acceptBechef(el.id)}>승인</button>
+                    </div>
                   </div>
-                  {/* <p>{el.eval}</p> */}
                 </li>
               );
             })
           )}
-          <li className='adminBechefContent'>
-            <div className='adminBechefInfo'>
-              <p>지원자 이름</p>
-              <p>퀴진</p>
-              <div className='adminBechefBtnWrap'>
-                <button>다운로드</button>
-                <button onClick={() => declineBechef(1)}>거부</button>
-                <button onClick={() => acceptBechef(1)}>승인</button>
-              </div>
-            </div>
-          </li>
         </ul>
       </div>
 

@@ -223,9 +223,12 @@ export const AdminContent = styled.article`
         }
       }
       li.adminBechefContent {
-        height: 50px;
+        height: 60px;
         grid-template-rows: none;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        @media (max-width: 420px) {
+          height: 80px;
+        }
         > * {
           display: grid;
           place-items: center;
@@ -234,13 +237,15 @@ export const AdminContent = styled.article`
           width: 100%;
           height: 100%;
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          @media (max-width: 1080px) {
-            grid-template-columns: 1fr 1fr 2fr;
+          grid-template-columns: repeat(2, 1fr);
+          @media (max-width: 420px) {
+            grid-template-columns: none;
+            grid-template-rows: repeat(2, 1fr);
           }
-          @media (max-width: 540px) {
-            /* grid-template-columns: 1fr 1fr, 1fr;
-            grid-template-rows: repeat(2, 1fr); */
+          p {
+            height: 30px;
+            display: grid;
+            place-items: center;
           }
           .adminBechefBtnWrap {
             width: 100%;

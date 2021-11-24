@@ -30,6 +30,9 @@ export const userSlice = createSlice({
     updateAccessToken: (state, action) => {
       state.accessToken = action.payload.accessToken;
     },
+    sumbitBechef: (state) => {
+      state.isSubmit = true;
+    },
     logout: (state) => {
       state.userId = -1;
       state.nickname = '';
@@ -44,6 +47,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, updateAccessToken, sumbitBechef } =
+  userSlice.actions;
 export const userStatus = (state) => state.user;
 export default userSlice.reducer;
