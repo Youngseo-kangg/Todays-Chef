@@ -5,7 +5,6 @@ const { refreshAuthorized } = require('../token/refreshToken');
 module.exports = {
   post: async (req, res) => {
     const accessVerify = isAuthorized(req);
-    console.log('accessVer', accessVerify);
     // accessToken 만료
     if (!accessVerify) {
       const refreshVerify = refreshAuthorized(req);
@@ -19,9 +18,6 @@ module.exports = {
         const accessToken = basicAccessToken(refreshVerify);
 
         // isSubmit true로 바꿔주는 작업
-        console.log('aaaaaa', req.file.location);
-        console.log('bbbbb', refreshVerify);
-
         await user.update(
           {
             isSubmit: true,
@@ -41,9 +37,6 @@ module.exports = {
     } // accessToken 유효
     else {
       // isSubmit true로 바꿔주는 작업
-      console.log('aaaaaa', req.file.location);
-      console.log('ccccc', typeof accessVerify.id);
-
       await user.update(
         {
           isSubmit: true,
