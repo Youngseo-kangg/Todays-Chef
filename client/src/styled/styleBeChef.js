@@ -11,6 +11,7 @@ export const BeAChefGrid = styled.article`
   grid-template-rows: 90vh 761px 300px;
   grid-row-gap: 200px;
   min-width: 280px;
+  background: rgba(96, 50, 36, 0.5);
   @media (max-width: 767px) {
     grid-template-rows: 90vh 726px 300px;
     grid-row-gap: 150px;
@@ -142,7 +143,8 @@ export const BeAChefDesc = styled.section`
     height: 80px;
     word-break: keep-all;
     > p {
-      background-color: #dbb89a;
+      background-color: rgba(96, 50, 36, 0.5);
+      color: #fff;
       font-size: 16px;
       display: grid;
       place-items: center;
@@ -155,7 +157,8 @@ export const BeAChefDesc = styled.section`
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: #dbb89a;
+      background-color: rgba(96, 50, 36, 0.5);
+      color: #fff;
       font-size: 20px;
       display: grid;
       place-items: center;
@@ -207,7 +210,7 @@ export const BeAChefResumeWrap = styled.section`
     width: 100%;
     height: 100%;
     place-items: center;
-    background-color: #dbb89a;
+    background-color: rgba(96, 50, 36, 0.5);
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
@@ -215,10 +218,10 @@ export const BeAChefResumeWrap = styled.section`
   #resumeForm {
     /* border: 1px solid red; */
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 40px;
     grid-row-gap: 20px;
     width: 60%;
-    height: 50%;
+    height: auto;
     > #submitBtn {
       width: 30%;
       min-width: 100px;
@@ -234,14 +237,21 @@ export const BeAChefResumeWrap = styled.section`
       display: block;
       width: 100%;
       height: 100%;
-      background-color: rgba(255, 255, 255, 0.3);
       border-radius: 5px;
       display: grid;
-      grid-template-rows: 100%;
+      /* grid-template-rows: 100%; */
+      grid-template-rows: 50px;
+      row-gap: 5px;
+      grid-auto-rows: 20px;
       > input {
         height: 100%;
       }
-
+      > p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+      }
       #resumeFileWrap {
         display: grid;
         grid-template-columns: 3fr 1fr;

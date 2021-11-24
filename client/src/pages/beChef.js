@@ -19,10 +19,11 @@ function BeAChef() {
     '이력서를 등록하고 24시간 후 고객센터에서 셰프 선정 여부를 안내해 드립니다.',
   ];
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
-  const userInfo = useSelector(userStatus);
+  const userState = useSelector(userStatus);
   const [textIdx, setTextIdx] = useState(0); // beChefText 몇번째 보여줄지 정하는 state
   const [resumeName, setResumeName] = useState(''); // resume 파일 이름
   const [resumePdf, setResumePdf] = useState({}); // resume 파일 자체
+  const [errorMsg, setErrorMsg] = useState('');
 
   let textIdxMinus = () => {
     if (textIdx === 0) {
@@ -43,6 +44,7 @@ function BeAChef() {
     // formData에 파일 붙여주기
     let formData = new FormData();
     formData.append('file', event.target.files[0]);
+    setErrorMsg(''); // 에러메세지 초기화
     // 로컬에서 선택한 pdf파일의 제목을 input에 보여주기
     setResumeName(event.target.files[0].name);
     // resume 파일 업뎃
@@ -52,28 +54,40 @@ function BeAChef() {
     for (let key of formData.keys()) {
       console.log(key);
     }
-    // FormData의 value 확인
+    //FormData의 value 확인
     for (let value of formData.values()) {
-      console.log(value);
+      console.log(value.name);
     }
   };
 
   const sendResumeToServer = async () => {
     try {
-      let submitResult = await axios.post(
-        `${url}/chef`,
-        resumePdf,
-        // {
-        //   cuisine: cuisine,
-        //   document: resumePdf,
-        // },
-        {
-          headers: {
-            authorization: `bearer ${userInfo.accessToken}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
+      if (resumeName === '') {
+        setErrorMsg('파일을 업로드 해주세요.');
+      } else if (resumeName.split('.')[1] !== 'pdf') {
+        setErrorMsg('pdf형식이 아닙니다.');
+      } else if (userState.userId === -1) {
+        setErrorMsg('로그인 상태에서만 제출이 가능합니다.');
+      } else if (userState.isSubmit) {
+        setErrorMsg('이미 제출한 상태입니다.');
+      } else if (userState.isAdmin) {
+        setErrorMsg('관리자는 제출할 수 없습니다.');
+      } else {
+        let submitResult = await axios.post(
+          `${url}/chef`,
+          resumePdf,
+          // {
+          //   cuisine: cuisine,
+          //   document: resumePdf,
+          // },
+          {
+            headers: {
+              authorization: `bearer ${userState.accessToken}`,
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+      }
     } catch (err) {
       console.log(err);
     }
@@ -149,6 +163,7 @@ function BeAChef() {
                   onChange={attachResume}
                 />
               </div>
+              {errorMsg ? <p>{errorMsg}</p> : null}
             </form>
             <button id='submitBtn' onClick={sendResumeToServer}>
               제출
