@@ -18,7 +18,7 @@ import {
   modalStatus,
 } from './features/user/modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { login } from './features/user/user';
+import { login, userStatus } from './features/user/user';
 
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -35,7 +35,8 @@ function App() {
   // const [isLogout, setIsLogout] = useState(false);
 
   const modalState = useSelector(modalStatus);
-  console.log('App.js에서 modalStatus: ', modalState);
+  const userState = useSelector(userStatus);
+  // console.log('App.js에서 userStatus: ', userState);
 
   useEffect(() => {
     if (
