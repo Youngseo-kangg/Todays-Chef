@@ -72,6 +72,10 @@ export const ReservationWrap = styled.div`
   &.none {
     display: none;
   }
+  &#reservDone {
+    grid-template-columns: none;
+    place-items: center;
+  }
   button {
     display: block;
     background-color: transparent;
@@ -101,6 +105,27 @@ export const ReservationWrap = styled.div`
 export const ReservNotice = styled.div`
   display: grid;
   place-items: center;
+  width: 600px;
+  height: 150px;
+  #reservDoneNotice {
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    width: 100%;
+    height: 100%;
+    word-break: keep-all;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    h3 {
+      font-size: 25px;
+      line-height: 30px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #fff;
+    }
+    > * {
+      display: grid;
+      place-items: center;
+    }
+  }
   > #reservationNotice {
     width: 600px;
     height: 30%;
