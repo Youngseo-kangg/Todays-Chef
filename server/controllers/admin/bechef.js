@@ -28,6 +28,7 @@ module.exports = {
     for (let i = 0; i < allDataBeChef.length; i++) {
       let dataDay = allDataBeChef[i].dataValues.createdAt;
       delete allDataBeChef[i].dataValues.updatedAt;
+      delete allDataBeChef[i].dataValues.bcUserId;
 
       if (filterDate === 'week') {
         if (findWeek <= dataDay && dataDay <= new Date()) {
