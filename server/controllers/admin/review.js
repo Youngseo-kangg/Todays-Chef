@@ -1,4 +1,6 @@
 const { review, chef, user } = require('../../models');
+const { isAuthorized, basicAccessToken } = require('../token/accessToken');
+const { refreshAuthorized } = require('../token/refreshToken');
 
 module.exports = {
   get: async (req, res) => {
@@ -6,6 +8,8 @@ module.exports = {
     const reqCuisine = req.params.cuisine;
     const findAllReview = await review.findAll();
     const allReviewsData = [];
+
+    const accessVerify = isAuthorized(req);
 
     for (let i = 0; i < findAllReview.length; i++) {
       // 리뷰쓴 사람들 이름과 cuisine 종류 찾아서 붙이기
@@ -34,20 +38,55 @@ module.exports = {
     const startSlice = Number(req.query.startNum);
     const endSlice = Number(req.query.endNum);
 
-    if (req.query.startNum && req.query.endNum) {
-      res.status(200).json({
-        message: 'ok',
-        length: filterReviewsData.length,
-        data: filterReviewsData.slice(startSlice, endSlice + 1),
-      });
-    } else if (!req.query.startNum || !req.query.endNum) {
-      res.status(400).json({ message: 'undefined review' });
+    if (!accessVerify) {
+      const refreshVerify = refreshAuthorized(req);
+      if (!refreshVerify) {
+        res.status(401).json({ message: 'Send new Login Request' });
+      } else {
+        delete refreshVerify.exp;
+        const accessToken = basicAccessToken(refreshVerify);
+
+        if (req.query.startNum && req.query.endNum) {
+          res.status(201).json({
+            accessToken,
+            message: 'ok',
+            length: filterReviewsData.length,
+            data: filterReviewsData.slice(startSlice, endSlice + 1),
+          });
+        } else if (!req.query.startNum || !req.query.endNum) {
+          res.status(400).json({ message: 'undefined review' });
+        }
+      }
+    } else {
+      if (req.query.startNum && req.query.endNum) {
+        res.status(200).json({
+          message: 'ok',
+          length: filterReviewsData.length,
+          data: filterReviewsData.slice(startSlice, endSlice + 1),
+        });
+      } else if (!req.query.startNum || !req.query.endNum) {
+        res.status(400).json({ message: 'undefined review' });
+      }
     }
   },
 
   post: async (req, res) => {
-    console.log(req.body);
-    await review.destroy({ where: { id: req.body.id }, force: true });
-    res.status(200).json({ message: 'ok' });
+    const accessVerify = isAuthorized(req);
+
+    if (!accessVerify) {
+      const refreshVerify = refreshAuthorized(req);
+      if (!refreshVerify) {
+        res.status(401).json({ message: 'Send new Login Request' });
+      } else {
+        delete refreshVerify.exp;
+        const accessToken = basicAccessToken(refreshVerify);
+
+        await review.destroy({ where: { id: req.body.id }, force: true });
+        res.status(201).json({ accessToken, message: 'ok' });
+      }
+    } else {
+      await review.destroy({ where: { id: req.body.id }, force: true });
+      res.status(200).json({ message: 'ok' });
+    }
   },
 };
