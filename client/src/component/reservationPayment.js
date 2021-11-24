@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { userStatus } from '../features/user/user';
 import { ReservationWrap, ReservPayment } from '../styled/styleReservation';
@@ -15,46 +16,64 @@ function ReservationPayment({
 }) {
   console.log('payment에서 프롭스로 받아온 newData: ', newData);
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
-  const userInfo = useSelector(userStatus);
-  console.log(userInfo);
+  const userState = useSelector(userStatus);
+  // console.log(userState);
   console.log({
-    rsDate: format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss'),
-    rsTime: String(getHours(newData.reservDateAndTime)),
+    rsDate: new Date(format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss')),
+    rsTime: `${getHours(newData.reservDateAndTime)}:${format(
+      newData.reservDateAndTime,
+      'mm'
+    )}`,
     location: `${newData.reservMainAddress} ${newData.reservSubAddress}`,
     people: Number(newData.reservPeople),
     mobile: newData.reservMobile,
     isOven: newData.reservOven,
     burner: newData.reservFire,
     rsCourseId: Number(queryCourseId),
-    rsUserId: Number(userInfo.userId),
+    rsUserId: Number(userState.userId),
     messageToChef: newData.Comment || '',
     rsChefId: Number(queryChefId),
     allergy: newData.reservAllergy,
   });
+
   const makeReservation = async () => {
-    let reservation = await axios.post(
-      `${url}/reservation`,
-      {
-        header: { authorization: `Bearer ${userInfo.accessToken}` },
-      },
-      {
-        rsDate: new Date(newData.reservDateAndTime),
-        rsTime: `${getHours(newData.reservDateAndTime)}:${getMinutes(
-          newData.reservDateAndTime
-        )}`,
-        location: `${newData.reservMainAddress} ${newData.reservSubAddress}`,
-        people: Number(newData.reservPeople),
-        mobile: newData.reservMobile,
-        isOven: newData.reservOven,
-        burner: newData.reservFire,
-        rsCourseId: Number(queryCourseId),
-        rsUserId: Number(userInfo.id),
-        messageToChef: newData.Comment,
-        rsChefId: Number(queryChefId),
-        allergy: newData.reservAllergy,
-      }
-    );
+    try {
+      let reservation = await axios.post(
+        `${url}/reservation`,
+        {
+          rsDate: new Date(
+            format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss')
+          ),
+          rsTime: `${getHours(newData.reservDateAndTime)}:${format(
+            newData.reservDateAndTime,
+            'mm'
+          )}`,
+          location: `${newData.reservMainAddress} ${newData.reservSubAddress}`,
+          people: Number(newData.reservPeople),
+          mobile: newData.reservMobile,
+          isOven: newData.reservOven,
+          burner: newData.reservFire,
+          rsCourseId: Number(queryCourseId),
+          rsUserId: Number(userState.userId),
+          messageToChef: newData.Comment,
+          rsChefId: Number(queryChefId),
+          allergy: newData.reservAllergy,
+        },
+        {
+          headers: { authorization: `Bearer ${userState.accessToken}` },
+        }
+      );
+      console.log(reservation);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  useEffect(() => {
+    // 실제 결제 프로세스 일어나야 함
+    makeReservation(); // reservation 테이블에 예약 추가
+  }, []);
+
   return (
     <ReservationWrap>
       <button>&lt;</button>
