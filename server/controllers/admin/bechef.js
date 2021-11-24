@@ -17,6 +17,8 @@ module.exports = {
     );
 
     const filterDate = req.params.date;
+    const startSlice = Number(req.query.startNum);
+    const endSlice = Number(req.query.endNum);
 
     for (let i = 0; i < allDataBeChef.length; i++) {
       let dataDay = allDataBeChef[i].dataValues.createdAt;
@@ -39,8 +41,34 @@ module.exports = {
       }
     }
 
-    console.log(allFilterArr);
-
-    res.status(200).json({ message: 'bechef ready' });
+    if (req.query.startNum && req.query.endNum) {
+      if (filterDate === 'week') {
+        res.status(200).json({
+          message: 'ok',
+          length: weekFilterArr.length,
+          data: weekFilterArr.slice(startSlice, endSlice + 1),
+        });
+      } else if (filterDate === 'month') {
+        res.status(200).json({
+          message: 'ok',
+          length: monthFilterArr.length,
+          data: monthFilterArr.slice(startSlice, endSlice + 1),
+        });
+      } else if (filterDate === 'months') {
+        res.status(200).json({
+          message: 'ok',
+          length: monthsFilterArr.length,
+          data: monthsFilterArr.slice(startSlice, endSlice + 1),
+        });
+      } else if (filterDate === 'all') {
+        res.status(200).json({
+          message: 'ok',
+          length: allFilterArr.length,
+          data: allFilterArr.slice(startSlice, endSlice + 1),
+        });
+      }
+    } else if (!req.query.startNum || !req.query.endNum) {
+      res.status(400).json({ message: 'undefined bechef' });
+    }
   },
 };
