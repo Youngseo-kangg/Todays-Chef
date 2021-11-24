@@ -1,10 +1,11 @@
-const { bechef } = require('../../models');
+const { bechef, user } = require('../../models');
 const { isAuthorized, basicAccessToken } = require('../token/accessToken');
 const { refreshAuthorized } = require('../token/refreshToken');
 
 module.exports = {
   post: async (req, res) => {
     const accessVerify = isAuthorized(req);
+    console.log('accessVer', accessVerify);
     // accessToken 만료
     if (!accessVerify) {
       const refreshVerify = refreshAuthorized(req);
@@ -16,6 +17,7 @@ module.exports = {
       else {
         delete refreshVerify.exp;
         const accessToken = basicAccessToken(refreshVerify);
+
         // isSubmit true로 바꿔주는 작업
         console.log('aaaaaa', req.file.location);
         res.status(201).json({ accessToken, message: 'ok' });
