@@ -51,6 +51,8 @@ module.exports = {
         userImg: googleUserPic,
         isChef: false,
         isOauth: true,
+        isAdmin: false,
+        isSubmit: false,
       });
 
       delete userInfo.dataValues.password;

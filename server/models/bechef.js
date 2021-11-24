@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   bechef.init(
     {
       pdfAdress: DataTypes.STRING,
+      bcUserId: DataTypes.INTEGER,
     },
     {
       sequelize,
