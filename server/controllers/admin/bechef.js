@@ -1,7 +1,12 @@
 const { bechef } = require('../../models');
+const { isAuthorized, basicAccessToken } = require('../token/accessToken');
+const { refreshAuthorized } = require('../token/refreshToken');
 
 module.exports = {
   get: async (req, res) => {
+    const accessVerify = isAuthorized(req);
+    console.log('accessVer', accessVerify);
+
     const allDataBeChef = await bechef.findAll();
     let weekFilterArr = [];
     let monthFilterArr = [];
@@ -41,34 +46,82 @@ module.exports = {
       }
     }
 
-    if (req.query.startNum && req.query.endNum) {
-      if (filterDate === 'week') {
-        res.status(200).json({
-          message: 'ok',
-          length: weekFilterArr.length,
-          data: weekFilterArr.slice(startSlice, endSlice + 1),
-        });
-      } else if (filterDate === 'month') {
-        res.status(200).json({
-          message: 'ok',
-          length: monthFilterArr.length,
-          data: monthFilterArr.slice(startSlice, endSlice + 1),
-        });
-      } else if (filterDate === 'months') {
-        res.status(200).json({
-          message: 'ok',
-          length: monthsFilterArr.length,
-          data: monthsFilterArr.slice(startSlice, endSlice + 1),
-        });
-      } else if (filterDate === 'all') {
-        res.status(200).json({
-          message: 'ok',
-          length: allFilterArr.length,
-          data: allFilterArr.slice(startSlice, endSlice + 1),
-        });
+    // accessToken 만료
+    if (!accessVerify) {
+      const refreshVerify = refreshAuthorized(req);
+      if (!refreshVerify) {
+        // refreshToken 까지 만료 됐을 때
+        res.status(401).json({ message: 'Send new Login Request' });
+      } else {
+        // refreshToken 유효
+        delete refreshVerify.exp;
+        const accessToken = basicAccessToken(refreshVerify);
+
+        if (req.query.startNum && req.query.endNum) {
+          if (filterDate === 'week') {
+            res.status(201).json({
+              accessToken,
+              message: 'ok',
+              length: weekFilterArr.length,
+              data: weekFilterArr.slice(startSlice, endSlice + 1),
+            });
+          } else if (filterDate === 'month') {
+            res.status(201).json({
+              accessToken,
+              message: 'ok',
+              length: monthFilterArr.length,
+              data: monthFilterArr.slice(startSlice, endSlice + 1),
+            });
+          } else if (filterDate === 'months') {
+            res.status(201).json({
+              accessToken,
+              message: 'ok',
+              length: monthsFilterArr.length,
+              data: monthsFilterArr.slice(startSlice, endSlice + 1),
+            });
+          } else if (filterDate === 'all') {
+            res.status(201).json({
+              accessToken,
+              message: 'ok',
+              length: allFilterArr.length,
+              data: allFilterArr.slice(startSlice, endSlice + 1),
+            });
+          }
+        } else if (!req.query.startNum || !req.query.endNum) {
+          res.status(400).json({ message: 'undefined bechef' });
+        }
       }
-    } else if (!req.query.startNum || !req.query.endNum) {
-      res.status(400).json({ message: 'undefined bechef' });
+    } else {
+      // accessToken 유효
+      if (req.query.startNum && req.query.endNum) {
+        if (filterDate === 'week') {
+          res.status(200).json({
+            message: 'ok',
+            length: weekFilterArr.length,
+            data: weekFilterArr.slice(startSlice, endSlice + 1),
+          });
+        } else if (filterDate === 'month') {
+          res.status(200).json({
+            message: 'ok',
+            length: monthFilterArr.length,
+            data: monthFilterArr.slice(startSlice, endSlice + 1),
+          });
+        } else if (filterDate === 'months') {
+          res.status(200).json({
+            message: 'ok',
+            length: monthsFilterArr.length,
+            data: monthsFilterArr.slice(startSlice, endSlice + 1),
+          });
+        } else if (filterDate === 'all') {
+          res.status(200).json({
+            message: 'ok',
+            length: allFilterArr.length,
+            data: allFilterArr.slice(startSlice, endSlice + 1),
+          });
+        }
+      } else if (!req.query.startNum || !req.query.endNum) {
+        res.status(400).json({ message: 'undefined bechef' });
+      }
     }
   },
 };
