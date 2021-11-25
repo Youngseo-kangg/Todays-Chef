@@ -1,5 +1,7 @@
+import { MypageContent } from '../styled/styleMypage';
+
 function MypageReservation() {
-  return <p>this is MypageReservation</p>;
+  return <MypageContent>this is MypageReservation</MypageContent>;
 }
 
 export default MypageReservation;

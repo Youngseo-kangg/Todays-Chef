@@ -1,5 +1,7 @@
+import { MypageContent } from '../styled/styleMypage';
+
 function MypageChefEdit() {
-  return <p>this is MypageChefEdit</p>;
+  return <MypageContent>this is MypageChefEdit</MypageContent>;
 }
 
 export default MypageChefEdit;

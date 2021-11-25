@@ -78,19 +78,6 @@ export const AdminPageContent = styled.div`
     border-bottom-right-radius: 10px;
   }
 `;
-export const AdminBechef = styled.article`
-  width: 100%;
-  height: 100%;
-  border: 1px solid red;
-  min-height: 800px;
-`;
-
-export const AdminChef = styled.article`
-  width: 100%;
-  height: 100%;
-  border: 1px solid red;
-  min-height: 800px;
-`;
 
 export const AdminContent = styled.article`
   width: 90%;

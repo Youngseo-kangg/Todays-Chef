@@ -1,5 +1,7 @@
+import { MypageContent } from '../styled/styleMypage';
+
 function MypageReview() {
-  return <p>this is MypageReview</p>;
+  return <MypageContent>this is MypageReview</MypageContent>;
 }
 
 export default MypageReview;
