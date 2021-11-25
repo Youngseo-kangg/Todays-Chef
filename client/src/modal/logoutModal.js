@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   closeLogoutModal,
   setServerErrorTrue,
-  openLogoutErrorModal,
-  openIsNeedReLoginModalOpen,
+  openServerErrorModal,
+  openIsNeedReLoginModal,
 } from '../features/user/modal';
 import { logout, userStatus } from '../features/user/user';
 import axios from 'axios';
@@ -30,10 +30,10 @@ function LogoutModal() {
       if (err.message === 'Network Error') {
         dispatch(closeLogoutModal()); // 로그아웃 모달 닫기
         // dispatch(setServerErrorTrue()); // 서버 에러 지정 -> 딱히 서버 에러로 나눌 필요는 없긴 함
-        dispatch(openLogoutErrorModal()); // 서버 에러 모달 열기
+        dispatch(openServerErrorModal()); // 서버 에러 모달 열기
       } else if (err.response.data.message === 'Send new login request') {
         dispatch(closeLogoutModal()); // 로그아웃 모달 닫기
-        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };

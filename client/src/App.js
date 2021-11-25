@@ -10,7 +10,7 @@ import Adminpage from './pages/adminpage';
 import LoginOrSignup from './pages/loginOrSignup';
 import Footer from './component/footer';
 import LogoutModal from './modal/logoutModal';
-import LogoutErrorModal from './modal/logoutErrorModal';
+import ServerErrorModal from './modal/serverErrorModal';
 import {
   openLoginModal,
   openLoginErrorModal,
@@ -99,7 +99,7 @@ function App() {
       <div className='App'>
         {/* <button onClick={test}>click</button> */}
         {modalState.isLogoutModalOpen ? <LogoutModal /> : null}
-        {modalState.isLogoutErrorModalOpen ? <LogoutErrorModal /> : null}
+        {modalState.isServerErrorModalOpen ? <ServerErrorModal /> : null}
         <Switch>
           <Nav />
         </Switch>

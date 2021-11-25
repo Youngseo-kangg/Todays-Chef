@@ -3,7 +3,7 @@ import { PagenationList } from '../styled/styleFindChef';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAccessToken, userStatus } from '../features/user/user';
-import { openIsNeedReLoginModalOpen } from '../features/user/modal';
+import { openIsNeedReLoginModal } from '../features/user/modal';
 import {
   openLoginErrorModal,
   setServerErrorTrue,
@@ -59,7 +59,7 @@ function AdminpageBechef() {
         dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };
@@ -95,7 +95,7 @@ function AdminpageBechef() {
         dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };
@@ -125,7 +125,7 @@ function AdminpageBechef() {
         dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };

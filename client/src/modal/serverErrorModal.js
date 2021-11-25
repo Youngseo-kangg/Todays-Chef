@@ -2,19 +2,16 @@ import { ModalBackground, ModalBox } from '../styled/styledModal';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setServerErrorFalse,
-  closeLogoutErrorModal,
+  closeServerErrorModal,
   modalStatus,
 } from '../features/user/modal';
 
 // function LoginErrorModal({ setIsLoginErrorModalOpen, isServerError }) {
-function LoginErrorModal() {
+function ServerErrorModal() {
   const modalState = useSelector(modalStatus);
   const dispatch = useDispatch();
   const clickOk = () => {
-    if (modalState.isServerError) {
-      dispatch(setServerErrorFalse());
-    }
-    dispatch(closeLogoutErrorModal());
+    dispatch(closeServerErrorModal());
     window.location.replace('/');
   };
 
@@ -22,7 +19,7 @@ function LoginErrorModal() {
     <>
       <ModalBackground>
         <ModalBox>
-          <span>로그아웃 실패</span>
+          <span>서버 실패</span>
           <div id='loginDesc'>
             <p>
               죄송합니다. <br />
@@ -38,4 +35,4 @@ function LoginErrorModal() {
   );
 }
 
-export default LoginErrorModal;
+export default ServerErrorModal;

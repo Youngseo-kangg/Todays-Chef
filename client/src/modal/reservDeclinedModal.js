@@ -1,13 +1,13 @@
 import { ModalBackground, ModalBox } from '../styled/styledModal';
 import { useDispatch } from 'react-redux';
-import { closeReservDeclinedModalOpen } from '../features/user/modal';
+import { closeReservDeclinedModal } from '../features/user/modal';
 import { useState } from 'react';
 
 // function LoginModal({ setIsLoginModalOpen }) {
 function ReservDeclinedModal() {
   const dispatch = useDispatch();
   const clickOk = () => {
-    dispatch(closeReservDeclinedModalOpen());
+    dispatch(closeReservDeclinedModal());
     window.location.replace('/findChef');
   };
 

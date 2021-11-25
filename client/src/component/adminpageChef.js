@@ -7,7 +7,7 @@ import { updateAccessToken, logout, userStatus } from '../features/user/user';
 import {
   openLoginErrorModal,
   setServerErrorTrue,
-  openIsNeedReLoginModalOpen,
+  openIsNeedReLoginModal,
 } from '../features/user/modal';
 
 import axios from 'axios';
@@ -61,7 +61,7 @@ function AdminpageChef() {
         dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };
@@ -99,7 +99,7 @@ function AdminpageChef() {
         dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };
@@ -129,7 +129,7 @@ function AdminpageChef() {
         dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };

@@ -1,12 +1,12 @@
 import { ModalBackground, ModalBox } from '../styled/styledModal';
 import { useDispatch } from 'react-redux';
 import { logout } from '../features/user/user';
-import { closeIsNeedReLoginModalOpen } from '../features/user/modal';
+import { closeIsNeedReLoginModal } from '../features/user/modal';
 
 function NeedReLoginModal() {
   const dispatch = useDispatch();
   const clickOk = () => {
-    dispatch(closeIsNeedReLoginModalOpen()); // 모달 끄기
+    dispatch(closeIsNeedReLoginModal()); // 모달 끄기
     dispatch(logout()); // 로그아웃 처리
     window.location.replace('/');
   };

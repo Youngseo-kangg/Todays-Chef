@@ -14,10 +14,7 @@ import {
   ReservationDesc,
 } from '../styled/styleReservation';
 import { userStatus } from '../features/user/user';
-import {
-  openReservDeclinedModalOpen,
-  modalStatus,
-} from '../features/user/modal';
+import { openReservDeclinedModal, modalStatus } from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { setHours, setMinutes } from 'date-fns';
@@ -87,7 +84,7 @@ function Reservation() {
 
   useEffect(() => {
     if (userState.userId === -1 && !modalState.isReservDeclinedModalOpen) {
-      dispatch(openReservDeclinedModalOpen());
+      dispatch(openReservDeclinedModal());
     } else {
       axios
         .get(
