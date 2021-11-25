@@ -17,7 +17,7 @@ function SubmitCompleteModal() {
           <div id='loginDesc'>
             <p>
               제출이 완료되었습니다. <br />
-              24~72시간 이내에 승인/거부가 완료될 예정입니다.
+              72시간 이내에 결과를 안내해 드리겠습니다.
             </p>
           </div>
           <div id='confirmBtn'>
