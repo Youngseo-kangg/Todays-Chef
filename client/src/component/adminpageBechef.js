@@ -2,7 +2,8 @@ import { AdminContent } from '../styled/styleAdminpage';
 import { PagenationList } from '../styled/styleFindChef';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateAccessToken, logout, userStatus } from '../features/user/user';
+import { updateAccessToken, userStatus } from '../features/user/user';
+import { openIsNeedReLoginModalOpen } from '../features/user/modal';
 import {
   openLoginErrorModal,
   setServerErrorTrue,
@@ -58,8 +59,7 @@ function AdminpageBechef() {
         dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(logout()); // 로그아웃 처리 해버리기
-        dispatch(openLoginErrorModal()); // 로그인 에러 모달 띄우기
+        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };
@@ -95,24 +95,15 @@ function AdminpageBechef() {
         dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(logout()); // 로그아웃 처리 해버리기
-        dispatch(openLoginErrorModal()); // 로그인 에러 모달 띄우기
+        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };
 
   const declineBechef = async (id) => {
     try {
-      console.log(id);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const acceptBechef = async (id) => {
-    try {
       let result = await axios.post(
-        `${url}/admin/bechef`,
+        `${url}/admin/bechef/refuse`,
         {
           id: id,
         },
@@ -134,7 +125,36 @@ function AdminpageBechef() {
         dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(logout()); // 로그아웃 처리 해버리기
+        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
+      }
+    }
+  };
+
+  const acceptBechef = async (id) => {
+    try {
+      let result = await axios.post(
+        `${url}/admin/bechef/confirm`,
+        {
+          id: id,
+        },
+        {
+          headers: { authorization: `Bearer ${userState.accessToken}` },
+        }
+      );
+      console.log(result);
+      if (result.data.accessToken) {
+        dispatch(
+          updateAccessToken({
+            accessToken: result.data.accessToken,
+          })
+        );
+      }
+    } catch (err) {
+      console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(setServerErrorTrue());
+        dispatch(openLoginErrorModal());
+      } else if (err.response.data.message === 'Send new login request') {
         dispatch(openLoginErrorModal()); // 로그인 에러 모달 띄우기
       }
     }
@@ -145,57 +165,63 @@ function AdminpageBechef() {
   }, [adminDuedate, updateAdminBechef]);
 
   return (
-    <AdminContent>
-      <div id='adminReviewFilterWrap'>
-        <div id='adminReviewFilter'>
-          <select
-            id='adminReviewCuisineFilter'
-            onChange={(e) => setAdminDuedate(e.target.value)}
-          >
-            <option value='week'>1주일</option>
-            <option value='month'>1개월</option>
-            <option value='months'>3개월</option>
-            <option value='all'>전체 기간</option>
-          </select>
+    <>
+      <AdminContent>
+        <div id='adminReviewFilterWrap'>
+          <div id='adminReviewFilter'>
+            <select
+              id='adminReviewCuisineFilter'
+              onChange={(e) => setAdminDuedate(e.target.value)}
+            >
+              <option value='week'>1주일</option>
+              <option value='month'>1개월</option>
+              <option value='months'>3개월</option>
+              <option value='all'>전체 기간</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div id='adminBechefContentWrap'>
-        <h2>셰프 지원자 리스트</h2>
-        <ul>
-          {adminBechef.length === 0 ? (
-            <li className='noAdminBechefContent'>셰프 지원자가 없습니다.</li>
-          ) : (
-            adminBechef.map((el, idx) => {
-              return (
-                <li key={idx} className='adminBechefContent'>
-                  <div className='adminBechefInfo'>
-                    <p>{el.id}</p>
-                    <div className='adminBechefBtnWrap'>
-                      <button>다운로드</button>
-                      <button onClick={() => declineBechef(el.id)}>거부</button>
-                      <button onClick={() => acceptBechef(el.id)}>승인</button>
+        <div id='adminBechefContentWrap'>
+          <h2>셰프 지원자 리스트</h2>
+          <ul>
+            {adminBechef.length === 0 ? (
+              <li className='noAdminBechefContent'>셰프 지원자가 없습니다.</li>
+            ) : (
+              adminBechef.map((el, idx) => {
+                return (
+                  <li key={idx} className='adminBechefContent'>
+                    <div className='adminBechefInfo'>
+                      <p>{el.id}</p>
+                      <div className='adminBechefBtnWrap'>
+                        <button>다운로드</button>
+                        <button onClick={() => declineBechef(el.id)}>
+                          거부
+                        </button>
+                        <button onClick={() => acceptBechef(el.id)}>
+                          승인
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  </li>
+                );
+              })
+            )}
+          </ul>
+        </div>
+
+        <PagenationList>
+          <ul>
+            {adminBechefPerPage.array.map((el, idx) => {
+              return (
+                <li key={idx} onClick={() => getAdminBechefMore(el, el + 4)}>
+                  {idx + 1}
                 </li>
               );
-            })
-          )}
-        </ul>
-      </div>
-
-      <PagenationList>
-        <ul>
-          {adminBechefPerPage.array.map((el, idx) => {
-            return (
-              <li key={idx} onClick={() => getAdminBechefMore(el, el + 4)}>
-                {idx + 1}
-              </li>
-            );
-          })}
-        </ul>
-      </PagenationList>
-    </AdminContent>
+            })}
+          </ul>
+        </PagenationList>
+      </AdminContent>
+    </>
   );
 }
 

@@ -1,7 +1,12 @@
 import { ModalBackground, LogoutModalBox } from '../styled/styledModal';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { closeLogoutModal } from '../features/user/modal';
+import {
+  closeLogoutModal,
+  setServerErrorTrue,
+  openLogoutErrorModal,
+  openIsNeedReLoginModalOpen,
+} from '../features/user/modal';
 import { logout, userStatus } from '../features/user/user';
 import axios from 'axios';
 
@@ -12,17 +17,25 @@ function LogoutModal() {
   // const modalState = useSelector(modalStatus);
   // console.log('LogoutModal에서 modalStatus: ', modalState);
 
-  const clickOk = () => {
-    axios
-      .get(`${url}/user/logout`, {
+  const clickOk = async () => {
+    try {
+      let result = await axios.get(`${url}/user/logout`, {
         headers: { authorization: `Bearer ${userInfo.accessToken}}` },
-      })
-      .then(() => {
-        dispatch(logout());
-        dispatch(closeLogoutModal());
-        // setIsLogout(false);
-        window.location.replace('/');
       });
+      dispatch(logout());
+      dispatch(closeLogoutModal());
+      window.location.replace('/');
+    } catch (err) {
+      console.log(err.message);
+      if (err.message === 'Network Error') {
+        dispatch(closeLogoutModal()); // 로그아웃 모달 닫기
+        // dispatch(setServerErrorTrue()); // 서버 에러 지정 -> 딱히 서버 에러로 나눌 필요는 없긴 함
+        dispatch(openLogoutErrorModal()); // 서버 에러 모달 열기
+      } else if (err.response.data.message === 'Send new login request') {
+        dispatch(closeLogoutModal()); // 로그아웃 모달 닫기
+        dispatch(openIsNeedReLoginModalOpen()); // 재로그인 필요하다는 모달 띄우기
+      }
+    }
   };
 
   const cancelLogout = () => {

@@ -10,7 +10,7 @@ import Adminpage from './pages/adminpage';
 import LoginOrSignup from './pages/loginOrSignup';
 import Footer from './component/footer';
 import LogoutModal from './modal/logoutModal';
-
+import LogoutErrorModal from './modal/logoutErrorModal';
 import {
   openLoginModal,
   openLoginErrorModal,
@@ -79,7 +79,10 @@ function App() {
       localStorage.removeItem('socialType');
     } catch (err) {
       console.log(err.response);
-      if ((err.response.data.message = 'You Already Signed up')) {
+      if (err.message === 'Network Error') {
+        dispatch(setServerErrorTrue());
+        dispatch(openLoginErrorModal());
+      } else if ((err.response.data.message = 'You Already Signed up')) {
         dispatch(openLoginErrorModal());
         // setIsLoginErrorModalOpen(true);
       } else {
@@ -96,6 +99,7 @@ function App() {
       <div className='App'>
         {/* <button onClick={test}>click</button> */}
         {modalState.isLogoutModalOpen ? <LogoutModal /> : null}
+        {modalState.isLogoutErrorModalOpen ? <LogoutErrorModal /> : null}
         <Switch>
           <Nav />
         </Switch>
