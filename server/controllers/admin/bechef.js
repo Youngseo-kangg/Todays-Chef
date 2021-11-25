@@ -5,7 +5,6 @@ const { refreshAuthorized } = require('../token/refreshToken');
 module.exports = {
   get: async (req, res) => {
     const accessVerify = isAuthorized(req);
-    console.log('accessVer', accessVerify);
 
     const allDataBeChef = await bechef.findAll();
     let weekFilterArr = [];
