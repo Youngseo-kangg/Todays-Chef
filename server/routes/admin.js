@@ -10,7 +10,6 @@ router.post('/chef', adminController.chef.post);
 
 router.get('/bechef/:date', adminController.bechef.get);
 
-router.post('/bechef/confirm', adminController.bechefConfirm.post);
-router.post('/bechef/refuse', adminController.bechefRefuse.post);
+router.post('/bechef/:isConfirm', adminController.bechefConfirm.post);
 
 module.exports = router;
