@@ -10,6 +10,7 @@ export const AdminpageGrid = styled.article`
     width: 90%;
     max-width: 1400px;
     height: auto;
+    min-height: 100vh;
     padding: 80px 0 50px;
     display: grid;
     grid-template-columns: 80px 1fr;
@@ -222,7 +223,7 @@ export const AdminContent = styled.article`
         }
       }
       li.adminBechefContent {
-        height: 60px;
+        height: auto;
         grid-template-rows: none;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         @media (max-width: 420px) {

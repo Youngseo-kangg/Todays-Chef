@@ -415,7 +415,7 @@ export const UserReview = styled.div`
   }
 `;
 
-export const UserReviewNone = styled.div`
+export const ChefInfoNone = styled.div`
   width: 100%;
   height: 300px;
   display: grid;
