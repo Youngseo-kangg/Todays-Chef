@@ -188,7 +188,7 @@ function AdminpageBechef() {
                 return (
                   <li key={idx} className='adminBechefContent'>
                     <div className='adminBechefInfo'>
-                      <p>{el.id}</p>
+                      <p>{el.nickname}</p>
                       <div className='adminBechefBtnWrap'>
                         <button onClick={() => console.log(el.id)}>
                           다운로드
