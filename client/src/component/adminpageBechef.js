@@ -40,6 +40,7 @@ function AdminpageBechef() {
           })
         );
       }
+      console.log(result.data);
       setAdminBechef(result.data.data);
       let newArr = [];
       for (let i = 0; i < result.data.length; i += 4) {
@@ -68,6 +69,7 @@ function AdminpageBechef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
+      console.log(result.data);
       if (result.data.accessToken) {
         dispatch(
           updateAccessToken({
@@ -114,6 +116,7 @@ function AdminpageBechef() {
           })
         );
       }
+      setUpdateAdminBechef(!updateAdminBechef);
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
@@ -143,6 +146,7 @@ function AdminpageBechef() {
           })
         );
       }
+      setUpdateAdminBechef(!updateAdminBechef);
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
@@ -186,7 +190,9 @@ function AdminpageBechef() {
                     <div className='adminBechefInfo'>
                       <p>{el.id}</p>
                       <div className='adminBechefBtnWrap'>
-                        <button>다운로드</button>
+                        <button onClick={() => console.log(el.id)}>
+                          다운로드
+                        </button>
                         <button onClick={() => declineBechef(el.id)}>
                           거부
                         </button>

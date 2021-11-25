@@ -9,6 +9,7 @@ const initialState = {
   isLogoutModalOpen: false, // 로그아웃 모달창 상태
   isReservDeclinedModalOpen: false, // 로그인 상태 아닌데 예약하려고 하는 상태
   isNeedReLoginModalOpen: false, // 재로그인이 필요하다고 알려주는 상태
+  isSubmitCompleteModalOpen: true, // 제출 완료 되었다는 모달
 };
 
 export const modalSlice = createSlice({
@@ -63,6 +64,12 @@ export const modalSlice = createSlice({
     closeIsNeedReLoginModal: (state) => {
       state.isNeedReLoginModalOpen = false;
     },
+    openIsSubmitCompleteModal: (state) => {
+      state.isSubmitCompleteModalOpen = true;
+    },
+    closeIsSubmitCompleteModal: (state) => {
+      state.isSubmitCompleteModalOpen = false;
+    },
   },
 });
 
@@ -83,6 +90,8 @@ export const {
   closeReservDeclinedModal,
   openIsNeedReLoginModal,
   closeIsNeedReLoginModal,
+  openIsSubmitCompleteModal,
+  closeIsSubmitCompleteModal,
 } = modalSlice.actions;
 export const modalStatus = (state) => state.modal;
 export default modalSlice.reducer;

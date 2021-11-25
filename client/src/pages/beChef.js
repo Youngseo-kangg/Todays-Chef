@@ -6,6 +6,7 @@ import {
   updateAccessToken,
   userStatus,
 } from '../features/user/user';
+import { openIsSubmitCompleteModal } from '../features/user/modal';
 import {
   BeAChefGrid,
   BeAChefIntro,
@@ -90,8 +91,8 @@ function BeAChef() {
             updateAccessToken({ accessToken: submitResult.data.accessToken })
           );
         }
-        // dispatch로 submit 바꿔주기
-        dispatch(sumbitBechef());
+        dispatch(sumbitBechef()); // dispatch로 submit 바꿔주기
+        dispatch(openIsSubmitCompleteModal()); // submit 완료했다는 모달 띄워주기
       }
     } catch (err) {
       console.log(err);

@@ -166,7 +166,7 @@ function Nav() {
                   <Link to='/findChef'>findChef</Link>
                 </li>
                 {userInfo.isAdmin ? (
-                  <li onClick={showMiniMenu}>
+                  <li onClick={() => window.scrollTo(0, 0)}>
                     <Link to='/admin'>관리자</Link>
                   </li>
                 ) : null}
