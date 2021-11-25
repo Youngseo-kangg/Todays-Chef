@@ -8,7 +8,6 @@ import {
   openLoginErrorModal,
   openServerErrorModal,
   openLoginModal,
-  setServerErrorTrue,
 } from '../features/user/modal';
 import { login } from '../features/user/user';
 import { LoginFormWrap } from '../styled/styledLogin';
@@ -59,7 +58,6 @@ function Login() {
       }
     } catch (err) {
       if (err.message === 'Network Error') {
-        dispatch(setServerErrorTrue());
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Invalid User') {
         dispatch(openLoginErrorModal());

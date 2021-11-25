@@ -4,10 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAccessToken, userStatus } from '../features/user/user';
 import { openIsNeedReLoginModal } from '../features/user/modal';
-import {
-  openLoginErrorModal,
-  setServerErrorTrue,
-} from '../features/user/modal';
+import { openServerErrorModal } from '../features/user/modal';
 
 import axios from 'axios';
 require('dotenv').config();
@@ -56,8 +53,7 @@ function AdminpageBechef() {
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
-        dispatch(setServerErrorTrue());
-        dispatch(openLoginErrorModal());
+        dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
         dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
@@ -92,8 +88,7 @@ function AdminpageBechef() {
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
-        dispatch(setServerErrorTrue());
-        dispatch(openLoginErrorModal());
+        dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
         dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
@@ -122,8 +117,7 @@ function AdminpageBechef() {
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
-        dispatch(setServerErrorTrue());
-        dispatch(openLoginErrorModal());
+        dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
         dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
@@ -152,10 +146,9 @@ function AdminpageBechef() {
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
-        dispatch(setServerErrorTrue());
-        dispatch(openLoginErrorModal());
+        dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(openLoginErrorModal()); // 로그인 에러 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 로그인 에러 모달 띄우기
       }
     }
   };

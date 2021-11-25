@@ -39,12 +39,6 @@ export const modalSlice = createSlice({
     closeSignUpModal: (state) => {
       state.isSignUpModalOpen = false;
     },
-    setServerErrorTrue: (state) => {
-      state.isServerError = true;
-    },
-    setServerErrorFalse: (state) => {
-      state.isServerError = false;
-    },
     openServerErrorModal: (state) => {
       state.isServerErrorModalOpen = true;
     },
@@ -81,8 +75,6 @@ export const {
   closeLogoutErrorModal,
   openSignUpModal,
   closeSignUpModal,
-  setServerErrorTrue,
-  setServerErrorFalse,
   openServerErrorModal,
   closeServerErrorModal,
   openLogoutModal,

@@ -14,7 +14,6 @@ import ServerErrorModal from './modal/serverErrorModal';
 import {
   openLoginModal,
   openLoginErrorModal,
-  setServerErrorTrue,
   modalStatus,
 } from './features/user/modal';
 import { useSelector, useDispatch } from 'react-redux';
@@ -80,7 +79,6 @@ function App() {
     } catch (err) {
       console.log(err.response);
       if (err.message === 'Network Error') {
-        dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       } else if ((err.response.data.message = 'You Already Signed up')) {
         dispatch(openLoginErrorModal());
@@ -88,7 +86,6 @@ function App() {
       } else {
         // setIsServerError(true);
         // setIsLoginErrorModalOpen(true);
-        dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       }
     }
