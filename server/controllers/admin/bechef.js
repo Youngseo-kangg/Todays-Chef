@@ -1,4 +1,4 @@
-const { bechef } = require('../../models');
+const { bechef, user, chef } = require('../../models');
 const { isAuthorized, basicAccessToken } = require('../token/accessToken');
 const { refreshAuthorized } = require('../token/refreshToken');
 
@@ -26,8 +26,14 @@ module.exports = {
 
     for (let i = 0; i < allDataBeChef.length; i++) {
       let dataDay = allDataBeChef[i].dataValues.createdAt;
+      const findUser = await user.findOne({
+        where: { id: allDataBeChef[i].dataValues.bcUserId },
+      });
+
       delete allDataBeChef[i].dataValues.updatedAt;
       delete allDataBeChef[i].dataValues.bcUserId;
+
+      allDataBeChef[i].dataValues.nickname = findUser.dataValues.nickname;
 
       if (filterDate === 'week') {
         if (findWeek <= dataDay && dataDay <= new Date()) {
