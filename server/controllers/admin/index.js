@@ -2,6 +2,5 @@ module.exports = {
   review: require('./review'),
   chef: require('./chef'),
   bechef: require('./bechef'),
-  bechefConfirm: require('./bechefConfirm'),
-  bechefRefuse: require('./bechefRefuse'),
+  bechefConfirm: require('./bechefIsConfirm'),
 };

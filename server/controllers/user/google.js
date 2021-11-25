@@ -74,6 +74,7 @@ module.exports = {
         const accessToken = basicAccessToken(userUsingEmail.dataValues);
         const refreshToken = basicRefreshToken(userUsingEmail.dataValues);
         sendRefreshToken(res, refreshToken);
+        console.log(accessToken);
         res.status(200).json({ accessToken, userInfo: userUsingEmail });
       } else {
         res.status(400).json({ message: 'You Already Signed up' });
