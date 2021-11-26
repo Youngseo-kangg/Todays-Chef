@@ -288,17 +288,21 @@ export const MypageEditContent = styled.div`
     width: 100%;
     height: auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 300px 1fr;
     row-gap: 20px;
     @media (max-width: 767px) {
+      height: 100%;
       grid-template-columns: none;
       grid-template-rows: 300px 1fr;
     }
     #mypageInfoPic {
+      display: grid;
+      grid-template-rows: 250px 50px;
+      place-items: center;
       img {
-        width: 250px;
-        height: 250px;
-        border-radius: 10px;
+        width: 230px;
+        height: 230px;
+        border-radius: 5px;
       }
       #image_uploads {
         opacity: 0;
@@ -316,32 +320,39 @@ export const MypageEditContent = styled.div`
       }
     }
 
-    form {
+    #myInfoDetail {
       display: grid;
       place-items: center;
-      grid-template-rows: repeat(4, 40px);
-      row-gap: 10px;
-      .myInfoDetailWrap {
+      form {
         width: 100%;
-        height: 100%;
+        height: auto;
         display: grid;
         place-items: center;
-        grid-template-columns: 150px 1fr;
-        > input {
-          width: 90%;
+        grid-template-rows: repeat(4, 40px);
+        row-gap: 10px;
+        .myInfoDetailWrap {
+          width: 100%;
           height: 100%;
-          background-color: transparent;
-          border-bottom: 2px solid #fff;
+          display: grid;
+          place-items: center;
+          grid-template-columns: 150px 1fr;
+          > input {
+            width: 90%;
+            height: 100%;
+            background-color: transparent;
+            border-bottom: 2px solid #fff;
+          }
         }
-      }
-      > button {
-        background-color: rgba(255, 255, 255, 0.3);
-        color: #fff;
-        width: 100px;
-        padding: 8px;
-        font-size: 14px;
-        border-radius: 5px;
-        cursor: pointer;
+
+        > button {
+          background-color: rgba(255, 255, 255, 0.3);
+          color: #fff;
+          width: 100px;
+          padding: 8px;
+          font-size: 14px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
       }
     }
   }

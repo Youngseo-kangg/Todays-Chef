@@ -6,7 +6,9 @@ function MypageEdit() {
     <MypageEditContent>
       <div id='mypageEditContentWrap'>
         <div id='mypageInfoPic'>
-          <img src={basic_profile} alt='유저 사진' />
+          <div id='mypageInfoPicWrap'>
+            <img src={basic_profile} alt='유저 사진' />
+          </div>
           <label htmlFor='image' id='mypageInfpPicBtn'>
             사진 업로드
           </label>
