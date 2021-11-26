@@ -1,5 +1,4 @@
-const { reservation } = require('../../models');
-const { course, chef, user } = require('../../models');
+const { reservation, course, chef, user, review } = require('../../models');
 const { isAuthorized, basicAccessToken } = require('../token/accessToken');
 const {
   sendRefreshToken,
@@ -30,7 +29,7 @@ module.exports = {
     // console.log(refreshVerify);
 
     if (accessVerify) {
-      await reservation.create({
+      const makeReservation = await reservation.create({
         people: people,
         allergy: allergy,
         location: location,
@@ -43,6 +42,15 @@ module.exports = {
         rsUserId: rsUserId,
         rsChefId: rsChefId,
         rsCourseId: rsCourseId,
+      });
+
+      await review.create({
+        rating: '',
+        eval: '',
+        rvImg: '',
+        rvUserId: rsUserId,
+        rvChefId: rsChefId,
+        rvReservationId: makeReservation.dataValues.id,
       });
       res.status(200).json({ message: 'ok' });
     } else {
