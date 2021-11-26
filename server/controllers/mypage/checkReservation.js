@@ -41,4 +41,8 @@ module.exports = {
       res.status(200).json({ message: 'ok', data: sendDataArr });
     }
   },
+
+  post: async (req, res) => {
+    res.status(200).json({ message: 'cancel ready ok' });
+  },
 };
