@@ -77,6 +77,7 @@ export const MyPageContent = styled.div`
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    padding: 5px;
   }
 `;
 
@@ -84,8 +85,178 @@ export const MypageContent = styled.article`
   width: 90%;
   height: 100%;
   display: grid;
-  /* grid-template-rows: 40px 1fr 16px; */
-  grid-template-rows: 1fr;
-  row-gap: 20px;
+  place-items: center;
   border: 1px solid red;
+`;
+
+export const MypageReservContent = styled.div`
+  display: grid;
+  grid-template-rows: 50px 1fr 60px;
+  row-gap: 20px;
+  width: 100%;
+  height: 100%;
+  @media (max-width: 420px) {
+    grid-template-rows: 50px 1fr 110px;
+  }
+  > #myReservationTitleWrap {
+    display: grid;
+    place-items: center;
+    #myReservationTitle {
+      display: grid;
+      grid-template-columns: 45px 1fr 45px;
+      column-gap: 10px;
+      width: 100%;
+      height: 100%;
+      > * {
+        display: grid;
+        place-items: center;
+      }
+      > #myReservationMonth > h2 {
+        display: grid;
+        place-items: center;
+        width: 100px;
+        height: 100%;
+        border-bottom: 2px solid #fff;
+      }
+    }
+  }
+  > #myReservationCalanderWrap {
+    display: grid;
+    place-items: center;
+  }
+  > #myReservationInfo {
+    display: grid;
+    place-items: center;
+    grid-template-columns: 100px 1fr 100px;
+    column-gap: 10px;
+    @media (max-width: 420px) {
+      grid-template-columns: none;
+      grid-template-rows: 30px 30px 50px;
+    }
+    #deleteReserve {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      > button {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+`;
+
+export const MyReservCalander = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  > * {
+    width: 100%;
+    height: 100%;
+    border: 1px solid red;
+  }
+`;
+
+export const MypageReviewContent = styled.div`
+  display: grid;
+  grid-template-rows: 350px 1fr;
+  row-gap: 20px;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  @media (max-width: 420px) {
+    grid-template-rows: 400px 1fr;
+  }
+  #myRecentComment {
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    row-gap: 10px;
+    width: 100%;
+    > #myRecentCommentTitle {
+      display: grid;
+      place-items: center;
+      > h2 {
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        border-bottom: 2px solid #fff;
+        @media (max-width: 420px) {
+          width: 100%;
+        }
+      }
+    }
+    > #myRecentReview {
+      display: grid;
+      grid-template-rows: 60px 1fr;
+      row-gap: 10px;
+      > #myRecentReviewExtra {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        place-items: center;
+        column-gap: 10px;
+        #myRecentCommentStar {
+          border: 1px solid red;
+        }
+        #myRecentCommentPic {
+          width: 100%;
+          height: 100%;
+          display: grid;
+          grid-template-columns: 1fr 100px;
+          column-gap: 10px;
+          place-items: center;
+          .myRecentReviewBtn {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+            > button {
+              background-color: rgba(255, 255, 255, 0.3);
+              color: #fff;
+              padding: 8px;
+              font-size: 14px;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      > #myRecentReviewContent {
+        display: grid;
+        grid-template-rows: 140px 60px;
+        row-gap: 10px;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        textarea {
+          width: 100%;
+          height: 100%;
+          border-radius: 5px;
+          border: none;
+          background-color: rgba(255, 255, 255, 0.7);
+          outline: none;
+          color: #fff;
+        }
+        .myRecentReviewBtn {
+          width: 100%;
+          height: 100%;
+          display: grid;
+          place-items: center;
+          > button {
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
 `;
