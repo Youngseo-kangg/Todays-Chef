@@ -61,7 +61,7 @@ export const MypageGrid = styled.article`
   }
 `;
 
-export const MyPageContent = styled.div`
+export const MyPageContent = styled.article`
   width: 100%;
   height: 100%;
   min-height: 500px;
@@ -79,14 +79,6 @@ export const MyPageContent = styled.div`
     border-bottom-right-radius: 10px;
     padding: 5px;
   }
-`;
-
-export const MypageContent = styled.article`
-  width: 90%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  border: 1px solid red;
 `;
 
 export const MypageReservContent = styled.div`
@@ -169,9 +161,9 @@ export const MypageReviewContent = styled.div`
   place-items: center;
   width: 100%;
   height: 100%;
-  @media (max-width: 420px) {
+  /* @media (max-width: 420px) {
     grid-template-rows: 400px 1fr;
-  }
+  } */
   #myRecentComment {
     display: grid;
     grid-template-rows: 60px 1fr;
@@ -269,6 +261,7 @@ export const MypageReviewContent = styled.div`
       height: 100%;
       display: grid;
       grid-template-rows: 1fr 30px;
+      row-gap: 10px;
       #myComments {
         display: grid;
         grid-template-rows: repeat(4, 1fr);
@@ -280,6 +273,75 @@ export const MypageReviewContent = styled.div`
           background-color: #dbb89a;
           border-radius: 5px;
         }
+      }
+    }
+  }
+`;
+
+export const MypageEditContent = styled.div`
+  border: 1px solid red;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  #mypageEditContentWrap {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+    @media (max-width: 767px) {
+      grid-template-columns: none;
+      grid-template-rows: 300px 1fr;
+    }
+    #mypageInfoPic {
+      img {
+        width: 250px;
+        height: 250px;
+        border-radius: 10px;
+      }
+      #image_uploads {
+        opacity: 0;
+      }
+      #mypageInfpPicBtn {
+        display: block;
+        background-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+        width: 100px;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 5px;
+        margin: 0 auto;
+        cursor: pointer;
+      }
+    }
+
+    form {
+      display: grid;
+      place-items: center;
+      grid-template-rows: repeat(4, 40px);
+      row-gap: 10px;
+      .myInfoDetailWrap {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        grid-template-columns: 150px 1fr;
+        > input {
+          width: 90%;
+          height: 100%;
+          background-color: transparent;
+          border-bottom: 2px solid #fff;
+        }
+      }
+      > button {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+        width: 100px;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
       }
     }
   }

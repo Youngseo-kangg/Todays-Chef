@@ -1,7 +1,43 @@
-import { MypageContent } from '../styled/styleMypage';
+import { MypageEditContent } from '../styled/styleMypage';
+import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 
 function MypageEdit() {
-  return <MypageContent>this is MypageEdit</MypageContent>;
+  return (
+    <MypageEditContent>
+      <div id='mypageEditContentWrap'>
+        <div id='mypageInfoPic'>
+          <img src={basic_profile} alt='유저 사진' />
+          <label htmlFor='image' id='mypageInfpPicBtn'>
+            사진 업로드
+          </label>
+          <input
+            type='file'
+            id='image_uploads'
+            name='image'
+            accept='image/*'
+          ></input>
+        </div>
+
+        <div id='myInfoDetail'>
+          <form>
+            <div className='myInfoDetailWrap'>
+              <label htmlFor='myInfoDetailNickname'>이름</label>
+              <input type='text' name='myInfoDetailNickname' />
+            </div>
+            <div className='myInfoDetailWrap'>
+              <label htmlFor='myInfoDetailPassword'>비밀번호</label>
+              <input type='password' name='myInfoDetailPassword' />
+            </div>
+            <div className='myInfoDetailWrap'>
+              <label htmlFor='myInfoDetailNewPassword'>새로운 비밀번호</label>
+              <input type='password' name='myInfoDetailNewPassword' />
+            </div>
+            <button type='submit'>수정</button>
+          </form>
+        </div>
+      </div>
+    </MypageEditContent>
+  );
 }
 
 export default MypageEdit;
