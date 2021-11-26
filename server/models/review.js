@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       eval: DataTypes.STRING,
       rvImg: DataTypes.STRING,
       rvChefId: DataTypes.INTEGER,
+      rvReservationId: DataTypes.INTEGER,
     },
     {
       sequelize,
