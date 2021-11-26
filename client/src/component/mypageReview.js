@@ -1,4 +1,5 @@
 import { MypageReviewContent } from '../styled/styleMypage';
+import { PagenationList } from '../styled/styleFindChef';
 
 function MypageReview() {
   return (
@@ -27,23 +28,33 @@ function MypageReview() {
       </div>
 
       <div id='myCommentList'>
-        <ul>
-          <li>
-            <p>2021-01-01</p>
-            <p>김한식</p>
-            <p>코스 이름</p>
-          </li>
-          <li>
-            <p>2021-01-01</p>
-            <p>김한식</p>
-            <p>코스 이름</p>
-          </li>
-          <li>
-            <p>2021-01-01</p>
-            <p>김한식</p>
-            <p>코스 이름</p>
-          </li>
-        </ul>
+        <div id='myCommentListWrap'>
+          <ul id='myComments'>
+            <li>
+              <p>2021-01-01</p>
+              <p>김한식</p>
+              <p>코스 이름</p>
+            </li>
+            <li>
+              <p>2021-01-01</p>
+              <p>김한식</p>
+              <p>코스 이름</p>
+            </li>
+            <li>
+              <p>2021-01-01</p>
+              <p>김한식</p>
+              <p>코스 이름</p>
+            </li>
+          </ul>
+
+          <PagenationList>
+            <ul>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+            </ul>
+          </PagenationList>
+        </div>
       </div>
     </MypageReviewContent>
   );

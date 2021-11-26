@@ -259,4 +259,28 @@ export const MypageReviewContent = styled.div`
       }
     }
   }
+  > #myCommentList {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    > #myCommentListWrap {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-rows: 1fr 30px;
+      #myComments {
+        display: grid;
+        grid-template-rows: repeat(4, 1fr);
+        row-gap: 10px;
+        > li {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          background-color: #dbb89a;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
 `;
