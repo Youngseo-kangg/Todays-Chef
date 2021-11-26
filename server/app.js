@@ -23,11 +23,13 @@ const userRouter = require('./routes/user');
 const chefRouter = require('./routes/chef');
 const reservationRouter = require('./routes/reservation');
 const adminRouter = require('./routes/admin');
+const mypageRouter = require('./routes/mypage');
 
 app.use('/user', userRouter);
 app.use('/chef', chefRouter);
 app.use('/reservation', reservationRouter);
 app.use('/admin', adminRouter);
+app.use('/mypage', mypageRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello Server!');

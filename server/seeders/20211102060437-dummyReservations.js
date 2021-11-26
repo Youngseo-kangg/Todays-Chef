@@ -25,6 +25,7 @@ module.exports = {
             .replace(/\..+/, ''),
           rsUserId: 1,
           rsChefId: 1,
+          rsCourseId: 1,
         },
         {
           people: 4,
@@ -46,6 +47,7 @@ module.exports = {
             .replace(/\..+/, ''),
           rsUserId: 2,
           rsChefId: 1,
+          rsCourseId: 1,
         },
       ],
       {}
