@@ -134,6 +134,11 @@ function Nav() {
                     <li onClick={showMiniMenu}>
                       <Link to='/mypage'>mypage</Link>
                     </li>
+                    {userInfo.isAdmin ? (
+                      <li onClick={showMiniMenu}>
+                        <Link to='/admin'>관리자</Link>
+                      </li>
+                    ) : null}
                     <li
                       onClick={() => {
                         showMiniMenu();
@@ -160,6 +165,11 @@ function Nav() {
                 <li onClick={() => window.scrollTo(0, 0)}>
                   <Link to='/findChef'>findChef</Link>
                 </li>
+                {userInfo.isAdmin ? (
+                  <li onClick={() => window.scrollTo(0, 0)}>
+                    <Link to='/admin'>관리자</Link>
+                  </li>
+                ) : null}
               </ul>
             </li>
             <li onClick={() => window.scrollTo(0, 0)}>

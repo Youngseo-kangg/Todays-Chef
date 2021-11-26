@@ -10,11 +10,10 @@ import Adminpage from './pages/adminpage';
 import LoginOrSignup from './pages/loginOrSignup';
 import Footer from './component/footer';
 import LogoutModal from './modal/logoutModal';
-
+import ServerErrorModal from './modal/serverErrorModal';
 import {
   openLoginModal,
   openLoginErrorModal,
-  setServerErrorTrue,
   modalStatus,
 } from './features/user/modal';
 import { useSelector, useDispatch } from 'react-redux';
@@ -79,13 +78,14 @@ function App() {
       localStorage.removeItem('socialType');
     } catch (err) {
       console.log(err.response);
-      if ((err.response.data.message = 'You Already Signed up')) {
+      if (err.message === 'Network Error') {
+        dispatch(openLoginErrorModal());
+      } else if ((err.response.data.message = 'You Already Signed up')) {
         dispatch(openLoginErrorModal());
         // setIsLoginErrorModalOpen(true);
       } else {
         // setIsServerError(true);
         // setIsLoginErrorModalOpen(true);
-        dispatch(setServerErrorTrue());
         dispatch(openLoginErrorModal());
       }
     }
@@ -96,6 +96,7 @@ function App() {
       <div className='App'>
         {/* <button onClick={test}>click</button> */}
         {modalState.isLogoutModalOpen ? <LogoutModal /> : null}
+        {modalState.isServerErrorModalOpen ? <ServerErrorModal /> : null}
         <Switch>
           <Nav />
         </Switch>

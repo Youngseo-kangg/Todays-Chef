@@ -5,8 +5,8 @@ import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateAccessToken, logout, userStatus } from '../features/user/user';
 import {
-  openLoginErrorModal,
-  setServerErrorTrue,
+  openServerErrorModal,
+  openIsNeedReLoginModal,
 } from '../features/user/modal';
 
 import axios from 'axios';
@@ -57,11 +57,9 @@ function AdminpageChef() {
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
-        dispatch(setServerErrorTrue());
-        dispatch(openLoginErrorModal());
+        dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(logout()); // 로그아웃 처리 해버리기
-        dispatch(openLoginErrorModal()); // 로그인 에러 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };
@@ -96,11 +94,9 @@ function AdminpageChef() {
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
-        dispatch(setServerErrorTrue());
-        dispatch(openLoginErrorModal());
+        dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(logout()); // 로그아웃 처리 해버리기
-        dispatch(openLoginErrorModal()); // 로그인 에러 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };
@@ -127,11 +123,9 @@ function AdminpageChef() {
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
-        dispatch(setServerErrorTrue());
-        dispatch(openLoginErrorModal());
+        dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
-        dispatch(logout()); // 로그아웃 처리 해버리기
-        dispatch(openLoginErrorModal()); // 로그인 에러 모달 띄우기
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
       }
     }
   };

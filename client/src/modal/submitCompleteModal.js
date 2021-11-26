@@ -1,23 +1,24 @@
 import { ModalBackground, ModalBox } from '../styled/styledModal';
 import { useDispatch } from 'react-redux';
-import { closeReservDeclinedModal } from '../features/user/modal';
-import { useState } from 'react';
+import { closeIsSubmitCompleteModal } from '../features/user/modal';
 
 // function LoginModal({ setIsLoginModalOpen }) {
-function ReservDeclinedModal() {
+function SubmitCompleteModal() {
   const dispatch = useDispatch();
   const clickOk = () => {
-    dispatch(closeReservDeclinedModal());
-    window.location.replace('/findChef');
+    dispatch(closeIsSubmitCompleteModal());
   };
 
   return (
     <>
       <ModalBackground>
         <ModalBox>
-          <span>로그인 필요</span>
+          <span>제출 완료</span>
           <div id='loginDesc'>
-            <p>로그인 후 예약이 가능합니다.</p>
+            <p>
+              제출이 완료되었습니다. <br />
+              72시간 이내에 결과를 안내해 드리겠습니다.
+            </p>
           </div>
           <div id='confirmBtn'>
             <button onClick={clickOk}>확인</button>
@@ -28,4 +29,4 @@ function ReservDeclinedModal() {
   );
 }
 
-export default ReservDeclinedModal;
+export default SubmitCompleteModal;

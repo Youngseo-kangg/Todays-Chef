@@ -6,12 +6,14 @@ import {
   updateAccessToken,
   userStatus,
 } from '../features/user/user';
+import { openIsSubmitCompleteModal, modalStatus } from '../features/user/modal';
 import {
   BeAChefGrid,
   BeAChefIntro,
   BeAChefDesc,
   BeAChefResumeWrap,
 } from '../styled/styleBeChef';
+import SubmitCompleteModal from '../modal/submitCompleteModal';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -25,6 +27,7 @@ function BeAChef() {
   const dispatch = useDispatch();
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userState = useSelector(userStatus);
+  const modalState = useSelector(modalStatus);
   const [textIdx, setTextIdx] = useState(0); // beChefText 몇번째 보여줄지 정하는 state
   const [resumeName, setResumeName] = useState(''); // resume 파일 이름
   const [resumePdf, setResumePdf] = useState({}); // resume 파일 자체
@@ -90,8 +93,8 @@ function BeAChef() {
             updateAccessToken({ accessToken: submitResult.data.accessToken })
           );
         }
-        // dispatch로 submit 바꿔주기
-        dispatch(sumbitBechef());
+        dispatch(sumbitBechef()); // dispatch로 submit 바꿔주기
+        dispatch(openIsSubmitCompleteModal()); // submit 완료했다는 모달 띄워주기
       }
     } catch (err) {
       console.log(err);
@@ -99,84 +102,87 @@ function BeAChef() {
   };
 
   return (
-    <BeAChefGrid>
-      <BeAChefIntro>
-        <div id='beChefSlogan'>
-          <div id='beChefSloganText'>
-            <h3>레스토랑에서 고객의 식탁으로</h3>
-            <p>다양한 고객을 만나고 경험을 쌓고,</p>
-            <p>다채로운 미식 체험을 제공해 보세요.</p>
+    <>
+      {modalState.isSubmitCompleteModalOpen ? <SubmitCompleteModal /> : null}
+      <BeAChefGrid>
+        <BeAChefIntro>
+          <div id='beChefSlogan'>
+            <div id='beChefSloganText'>
+              <h3>레스토랑에서 고객의 식탁으로</h3>
+              <p>다양한 고객을 만나고 경험을 쌓고,</p>
+              <p>다채로운 미식 체험을 제공해 보세요.</p>
+            </div>
           </div>
-        </div>
-      </BeAChefIntro>
-      <BeAChefDesc>
-        <div id='beChefDescTitleWrap'>
-          <h3 id='beChefDescTitle'>Todays chef의 셰프가 되어보세요.</h3>
-        </div>
+        </BeAChefIntro>
+        <BeAChefDesc>
+          <div id='beChefDescTitleWrap'>
+            <h3 id='beChefDescTitle'>Todays chef의 셰프가 되어보세요.</h3>
+          </div>
 
-        <div id='beChefDescWrap'>
-          <section id='beChefDesc'>
-            <div className='beChefDescImg' onClick={() => setTextIdx(0)}>
-              <span className={textIdx === 0 ? 'imgActive' : null}></span>
-            </div>
-            <div className='beChefDescImg' onClick={() => setTextIdx(1)}>
-              <span className={textIdx === 1 ? 'imgActive' : null}></span>
-            </div>
-            <div className='beChefDescImg' onClick={() => setTextIdx(2)}>
-              <span className={textIdx === 2 ? 'imgActive' : null}></span>
-            </div>
-          </section>
-        </div>
-
-        <div id='beChefDescTextWrap'>
-          <section id='beChefDescText'>
-            <div className='beChefDescArrow' onClick={textIdxMinus}>
-              &lt;
-            </div>
-            <p>{beChefText[textIdx]}</p>
-            <div className='beChefDescArrow' onClick={textIdxPlus}>
-              &gt;
-            </div>
-          </section>
-        </div>
-      </BeAChefDesc>
-
-      <BeAChefResumeWrap>
-        <div id='resumeTitleWrap'>
-          <h3 id='resumeTitle'>셰프 신청 하기</h3>
-        </div>
-        <p>
-          자유 형식의 이력서, 자기소개서 및 경력증빙서류를 하나의 pdf로 제출해
-          주시면 됩니다.
-        </p>
-        <div id='resumeFormWrap'>
-          <div id='resumeForm'>
-            <form>
-              <div id='resumeFileWrap'>
-                <input
-                  id='resumeFileName'
-                  value={resumeName}
-                  placeholder='첨부파일'
-                  readOnly
-                />
-                <label htmlFor='resumeFile'>업로드</label>
-                <input
-                  type='file'
-                  id='resumeFile'
-                  style={{ display: 'none' }}
-                  name='resumeFile'
-                  onChange={attachResume}
-                />
+          <div id='beChefDescWrap'>
+            <section id='beChefDesc'>
+              <div className='beChefDescImg' onClick={() => setTextIdx(0)}>
+                <span className={textIdx === 0 ? 'imgActive' : null}></span>
               </div>
-              {errorMsg ? <p>{errorMsg}</p> : null}
-            </form>
-            <button id='submitBtn' onClick={sendResumeToServer}>
-              제출
-            </button>
+              <div className='beChefDescImg' onClick={() => setTextIdx(1)}>
+                <span className={textIdx === 1 ? 'imgActive' : null}></span>
+              </div>
+              <div className='beChefDescImg' onClick={() => setTextIdx(2)}>
+                <span className={textIdx === 2 ? 'imgActive' : null}></span>
+              </div>
+            </section>
           </div>
-        </div>
-      </BeAChefResumeWrap>
-    </BeAChefGrid>
+
+          <div id='beChefDescTextWrap'>
+            <section id='beChefDescText'>
+              <div className='beChefDescArrow' onClick={textIdxMinus}>
+                &lt;
+              </div>
+              <p>{beChefText[textIdx]}</p>
+              <div className='beChefDescArrow' onClick={textIdxPlus}>
+                &gt;
+              </div>
+            </section>
+          </div>
+        </BeAChefDesc>
+
+        <BeAChefResumeWrap>
+          <div id='resumeTitleWrap'>
+            <h3 id='resumeTitle'>셰프 신청 하기</h3>
+          </div>
+          <p>
+            자유 형식의 이력서, 자기소개서 및 경력증빙서류를 하나의 pdf로 제출해
+            주시면 됩니다.
+          </p>
+          <div id='resumeFormWrap'>
+            <div id='resumeForm'>
+              <form>
+                <div id='resumeFileWrap'>
+                  <input
+                    id='resumeFileName'
+                    value={resumeName}
+                    placeholder='첨부파일'
+                    readOnly
+                  />
+                  <label htmlFor='resumeFile'>업로드</label>
+                  <input
+                    type='file'
+                    id='resumeFile'
+                    style={{ display: 'none' }}
+                    name='resumeFile'
+                    onChange={attachResume}
+                  />
+                </div>
+                {errorMsg ? <p>{errorMsg}</p> : null}
+              </form>
+              <button id='submitBtn' onClick={sendResumeToServer}>
+                제출
+              </button>
+            </div>
+          </div>
+        </BeAChefResumeWrap>
+      </BeAChefGrid>
+    </>
   );
 }
 

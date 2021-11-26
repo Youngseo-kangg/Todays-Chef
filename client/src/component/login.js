@@ -6,8 +6,8 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   openLoginErrorModal,
+  openServerErrorModal,
   openLoginModal,
-  setServerErrorTrue,
 } from '../features/user/modal';
 import { login } from '../features/user/user';
 import { LoginFormWrap } from '../styled/styledLogin';
@@ -58,11 +58,10 @@ function Login() {
       }
     } catch (err) {
       if (err.message === 'Network Error') {
-        dispatch(setServerErrorTrue());
-        dispatch(openLoginErrorModal());
+        dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Invalid User') {
-        // alert('로그인에 실패하였습니다.');
-        // setIsErrorLogin(true);
+        dispatch(openLoginErrorModal());
+      } else if (err.response.data.message === 'You Already Signed up') {
         dispatch(openLoginErrorModal());
       }
     }

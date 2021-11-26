@@ -10,6 +10,7 @@ export const AdminpageGrid = styled.article`
     width: 90%;
     max-width: 1400px;
     height: auto;
+    min-height: 100vh;
     padding: 80px 0 50px;
     display: grid;
     grid-template-columns: 80px 1fr;
@@ -77,19 +78,6 @@ export const AdminPageContent = styled.div`
     border-bottom-right-radius: 10px;
   }
 `;
-export const AdminBechef = styled.article`
-  width: 100%;
-  height: 100%;
-  border: 1px solid red;
-  min-height: 800px;
-`;
-
-export const AdminChef = styled.article`
-  width: 100%;
-  height: 100%;
-  border: 1px solid red;
-  min-height: 800px;
-`;
 
 export const AdminContent = styled.article`
   width: 90%;
@@ -148,9 +136,8 @@ export const AdminContent = styled.article`
     }
     > ul {
       display: grid;
-      grid-template-rows: 1fr;
+      grid-template-rows: repeat(5, 1fr);
       row-gap: 12px;
-      grid-auto-rows: 1fr;
       li.adminReviewContent {
         display: grid;
         row-gap: 5px;
@@ -223,11 +210,11 @@ export const AdminContent = styled.article`
         }
       }
       li.adminBechefContent {
-        height: 60px;
+        height: auto;
         grid-template-rows: none;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         @media (max-width: 420px) {
-          height: 80px;
+          height: 70px;
         }
         > * {
           display: grid;
@@ -258,10 +245,12 @@ export const AdminContent = styled.article`
               height: 30px;
               background-color: rgba(255, 255, 255, 0.3);
               color: #fff;
-              padding: 8px;
               font-size: 14px;
               border-radius: 5px;
               cursor: pointer;
+              @media (max-width: 420px) {
+                height: 25px;
+              }
             }
             button:nth-of-type(1) {
               width: 60px;

@@ -1,34 +1,29 @@
 import { ModalBackground, ModalBox } from '../styled/styledModal';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  closeLoginErrorModal,
   setServerErrorFalse,
+  closeServerErrorModal,
   modalStatus,
 } from '../features/user/modal';
-import { useState } from 'react';
 
 // function LoginErrorModal({ setIsLoginErrorModalOpen, isServerError }) {
-function LoginErrorModal() {
+function ServerErrorModal() {
+  const modalState = useSelector(modalStatus);
   const dispatch = useDispatch();
   const clickOk = () => {
-    // setIsLoginErrorModalOpen(false);
-    // if (modalState.isServerError) {
-    //   dispatch(setServerErrorFalse());
-    // }
-    dispatch(closeLoginErrorModal());
-    window.location.replace('/loginOrSignup');
+    dispatch(closeServerErrorModal());
+    window.location.replace('/');
   };
 
   return (
     <>
       <ModalBackground>
         <ModalBox>
-          <span>로그인 실패</span>
+          <span>서버 실패</span>
           <div id='loginDesc'>
             <p>
-              이미 가입되어 있거나, <br />
-              잘못된 정보입니다. <br />
-              다시 시도해보세요.
+              죄송합니다. <br />
+              잠시 후에 다시 시도해주세요.
             </p>
           </div>
           <div id='confirmBtn'>
@@ -40,4 +35,4 @@ function LoginErrorModal() {
   );
 }
 
-export default LoginErrorModal;
+export default ServerErrorModal;

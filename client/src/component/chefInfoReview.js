@@ -3,7 +3,7 @@ import {
   ReviewWrap,
   ReviewPagenation,
   UserReview,
-  UserReviewNone,
+  ChefInfoNone,
 } from '../styled/styleChefInfo';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import axios from 'axios';
@@ -66,13 +66,13 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
   return (
     <>
       <ChefAllReviewInfo>
-        <div id='chefReviewWrap'>
-          {reviewLength === 0 ? (
-            <UserReviewNone>
-              <p>아직 등록된 리뷰가 없습니다.</p>
-            </UserReviewNone>
-          ) : (
-            <>
+        {reviewLength === 0 ? (
+          <ChefInfoNone>
+            <p>아직 등록된 리뷰가 없습니다.</p>
+          </ChefInfoNone>
+        ) : (
+          <>
+            <div id='chefReviewWrap'>
               <ReviewWrap>
                 {reviewData.map((el, idx) => {
                   return (
@@ -110,21 +110,21 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
                   );
                 })}
               </ReviewWrap>
-            </>
-          )}
+            </div>
 
-          <ReviewPagenation>
-            <ul>
-              {reviewsPerPage.array.map((el, idx) => {
-                return (
-                  <li key={idx} onClick={() => getReviewMore(el, el + 3)}>
-                    {idx + 1}
-                  </li>
-                );
-              })}
-            </ul>
-          </ReviewPagenation>
-        </div>
+            <ReviewPagenation>
+              <ul>
+                {reviewsPerPage.array.map((el, idx) => {
+                  return (
+                    <li key={idx} onClick={() => getReviewMore(el, el + 3)}>
+                      {idx + 1}
+                    </li>
+                  );
+                })}
+              </ul>
+            </ReviewPagenation>
+          </>
+        )}
       </ChefAllReviewInfo>
     </>
   );

@@ -4,9 +4,12 @@ const initialState = {
   isLoginModalOpen: false, // 로그인 관련 모달창 상태
   isSignUpModalOpen: false, // 회원가입 관련 모달창 상태
   isLoginErrorModalOpen: false, // 로그인 에러 모달창 상태
-  isServerError: false, // 서버 에러 표시 상태
+  isLogoutErrorModalOpen: false, // 로그아웃 에러 모달창 상태
+  isServerErrorModalOpen: false, // 서버 에러 모달창 상태
   isLogoutModalOpen: false, // 로그아웃 모달창 상태
   isReservDeclinedModalOpen: false, // 로그인 상태 아닌데 예약하려고 하는 상태
+  isNeedReLoginModalOpen: false, // 재로그인이 필요하다고 알려주는 상태
+  isSubmitCompleteModalOpen: false, // 제출 완료 되었다는 모달
 };
 
 export const modalSlice = createSlice({
@@ -25,17 +28,23 @@ export const modalSlice = createSlice({
     closeLoginErrorModal: (state) => {
       state.isLoginErrorModalOpen = false;
     },
+    openLogoutErrorModal: (state) => {
+      state.isLogoutErrorModalOpen = true;
+    },
+    closeLogoutErrorModal: (state) => {
+      state.isLogoutErrorModalOpen = false;
+    },
     openSignUpModal: (state) => {
       state.isSignUpModalOpen = true;
     },
     closeSignUpModal: (state) => {
       state.isSignUpModalOpen = false;
     },
-    setServerErrorTrue: (state) => {
-      state.isServerError = true;
+    openServerErrorModal: (state) => {
+      state.isServerErrorModalOpen = true;
     },
-    setServerErrorFalse: (state) => {
-      state.isServerError = false;
+    closeServerErrorModal: (state) => {
+      state.isServerErrorModalOpen = false;
     },
     openLogoutModal: (state) => {
       state.isLogoutModalOpen = true;
@@ -43,11 +52,23 @@ export const modalSlice = createSlice({
     closeLogoutModal: (state) => {
       state.isLogoutModalOpen = false;
     },
-    openReservDeclinedModalOpen: (state) => {
+    openReservDeclinedModal: (state) => {
       state.isReservDeclinedModalOpen = true;
     },
-    closeReservDeclinedModalOpen: (state) => {
+    closeReservDeclinedModal: (state) => {
       state.isReservDeclinedModalOpen = false;
+    },
+    openIsNeedReLoginModal: (state) => {
+      state.isNeedReLoginModalOpen = true;
+    },
+    closeIsNeedReLoginModal: (state) => {
+      state.isNeedReLoginModalOpen = false;
+    },
+    openIsSubmitCompleteModal: (state) => {
+      state.isSubmitCompleteModalOpen = true;
+    },
+    closeIsSubmitCompleteModal: (state) => {
+      state.isSubmitCompleteModalOpen = false;
     },
   },
 });
@@ -57,14 +78,20 @@ export const {
   closeLoginModal,
   openLoginErrorModal,
   closeLoginErrorModal,
+  openLogoutErrorModal,
+  closeLogoutErrorModal,
   openSignUpModal,
   closeSignUpModal,
-  setServerErrorTrue,
-  setServerErrorFalse,
+  openServerErrorModal,
+  closeServerErrorModal,
   openLogoutModal,
   closeLogoutModal,
-  openReservDeclinedModalOpen,
-  closeReservDeclinedModalOpen,
+  openReservDeclinedModal,
+  closeReservDeclinedModal,
+  openIsNeedReLoginModal,
+  closeIsNeedReLoginModal,
+  openIsSubmitCompleteModal,
+  closeIsSubmitCompleteModal,
 } = modalSlice.actions;
 export const modalStatus = (state) => state.modal;
 export default modalSlice.reducer;
