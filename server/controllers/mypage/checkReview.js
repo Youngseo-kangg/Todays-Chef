@@ -8,7 +8,6 @@ const {
 module.exports = {
   get: async (req, res) => {
     const accessVerify = isAuthorized(req);
-    const refreshVerify = refreshAuthorized(req);
 
     const findReservation = await reservation.findAll({
       where: { rsUserId: accessVerify.id },
@@ -75,6 +74,26 @@ module.exports = {
       }
     } else {
       res.status(200).json({ message: 'ok', data: sendDataArr });
+    }
+  },
+
+  patch: async (req, res) => {
+    const accessVerify = isAuthorized(req);
+    const { rating, eval, rvImg, id } = req.body;
+
+    if (!accessVerify) {
+      const refreshVerify = refreshAuthorized(req);
+      if(!refreshVerify){
+        res.status(401).json({ message: 'Send new Login Request' });
+      }else{
+        delete refreshVerify.exp;
+        const accessToken = basicAccessToken(refreshVerify);
+        await review.update({rating : rating, eval : eval, rvImg : rvImg}, { where: { id: id } });
+        res.status(201).json({ accessToken , message: 'ok' });
+      }
+    }else{
+      await review.update({rating : rating, eval : eval, rvImg : rvImg}, { where: { id: id } });
+      res.status(200).json({ message: 'ok' });
     }
   },
 };
