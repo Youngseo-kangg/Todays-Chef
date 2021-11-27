@@ -8,7 +8,7 @@ router.post('/user/reservation', mypageController.checkReservation.post);
 router.get('/user/review', mypageController.checkReview.get);
 router.patch('/user/review', mypageController.checkReview.patch);
 
-router.post('/user', mypageController.userInfo.post);
-router.delete('/user', mypageController.userInfo.delete);
+router.post('/user/:id', mypageController.userInfo.post);
+router.delete('/user/:id', mypageController.userInfo.delete);
 
 module.exports = router;
