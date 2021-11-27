@@ -2,6 +2,7 @@ import { AdminContent } from '../styled/styleAdminpage';
 import { PagenationList } from '../styled/styleFindChef';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { updateAccessToken, userStatus } from '../features/user/user';
 import { openIsNeedReLoginModal } from '../features/user/modal';
 import { openServerErrorModal } from '../features/user/modal';
@@ -109,7 +110,7 @@ function AdminpageBechef() {
         }
       );
       console.log(result);
-      if (result.data.accessToken) {
+      if (result.accessToken) {
         dispatch(
           updateAccessToken({
             accessToken: result.data.accessToken,
@@ -139,7 +140,7 @@ function AdminpageBechef() {
         }
       );
       console.log(result);
-      if (result.data.accessToken) {
+      if (result.accessToken) {
         dispatch(
           updateAccessToken({
             accessToken: result.data.accessToken,
@@ -190,8 +191,8 @@ function AdminpageBechef() {
                     <div className='adminBechefInfo'>
                       <p>{el.nickname}</p>
                       <div className='adminBechefBtnWrap'>
-                        <button onClick={() => console.log(el.id)}>
-                          다운로드
+                        <button onClick={() => window.open(`${el.pdfAdress}`)}>
+                          파일 보기
                         </button>
                         <button onClick={() => declineBechef(el.id)}>
                           거부

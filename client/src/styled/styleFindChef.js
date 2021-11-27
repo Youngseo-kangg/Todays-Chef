@@ -234,6 +234,8 @@ export const PagenationList = styled.div`
     justify-content: space-evenly;
     > li {
       cursor: pointer;
+      display: grid;
+      place-items: center;
     }
   }
 `;
