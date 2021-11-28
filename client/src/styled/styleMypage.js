@@ -279,7 +279,6 @@ export const MypageReviewContent = styled.div`
 `;
 
 export const MypageEditContent = styled.div`
-  border: 1px solid red;
   width: 100%;
   height: 100%;
   display: grid;
@@ -306,6 +305,7 @@ export const MypageEditContent = styled.div`
       }
       #image_uploads {
         opacity: 0;
+        position: absolute;
       }
       #mypageInfpPicBtn {
         display: block;
@@ -336,6 +336,10 @@ export const MypageEditContent = styled.div`
           display: grid;
           place-items: center;
           grid-template-columns: 150px 1fr;
+          word-break: keep-all;
+          @media (max-width: 420px) {
+            grid-template-columns: 70px 1fr;
+          }
           > input {
             width: 90%;
             height: 100%;
@@ -343,15 +347,19 @@ export const MypageEditContent = styled.div`
             border-bottom: 2px solid #fff;
           }
         }
-
-        > button {
-          background-color: rgba(255, 255, 255, 0.3);
-          color: #fff;
-          width: 100px;
-          padding: 8px;
-          font-size: 14px;
-          border-radius: 5px;
-          cursor: pointer;
+        #myInfoDetailBtnWrap {
+          width: 220px;
+          display: flex;
+          justify-content: space-evenly;
+          > button {
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            width: 100px;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
         }
       }
     }

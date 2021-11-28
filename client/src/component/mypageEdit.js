@@ -34,7 +34,10 @@ function MypageEdit() {
               <label htmlFor='myInfoDetailNewPassword'>새로운 비밀번호</label>
               <input type='password' name='myInfoDetailNewPassword' />
             </div>
-            <button type='submit'>수정</button>
+            <div id='myInfoDetailBtnWrap'>
+              <button type='submit'>수정</button>
+              <button>탈퇴하기</button>
+            </div>
           </form>
         </div>
       </div>
