@@ -161,9 +161,6 @@ export const MypageReviewContent = styled.div`
   place-items: center;
   width: 100%;
   height: 100%;
-  /* @media (max-width: 420px) {
-    grid-template-rows: 400px 1fr;
-  } */
   #myRecentComment {
     display: grid;
     grid-template-rows: 60px 1fr;
@@ -360,6 +357,217 @@ export const MypageEditContent = styled.div`
             border-radius: 5px;
             cursor: pointer;
           }
+        }
+      }
+    }
+  }
+`;
+
+export const MypageChefEditContent = styled.div`
+  display: grid;
+  place-items: center;
+  grid-template-rows: 350px 1fr;
+  row-gap: 50px;
+  width: 100%;
+  height: 100%;
+  @media (max-width: 420px) {
+  }
+  > #chefEditIntro {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    grid-template-columns: 300px 1fr;
+    row-gap: 10px;
+    column-gap: 10px;
+    h2 {
+      grid-column: 1/3;
+      grid-row: 1/1;
+      font-size: 25px;
+      display: grid;
+      place-items: center left;
+    }
+    #chefEditIntroPic {
+      display: grid;
+      place-items: center;
+      img {
+        width: 250px;
+        height: 250px;
+        border-radius: 5px;
+      }
+      button {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+        width: 100px;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+    #chefEditIntroText {
+      display: grid;
+      place-items: center;
+      grid-template-rows: repeat(3, 1fr);
+      row-gap: 20px;
+      .chefEditInfoWrap {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        grid-template-columns: 50px 1fr;
+        column-gap: 10px;
+        textarea {
+          width: 100%;
+          height: 100%;
+          border-radius: 5px;
+          border: none;
+          outline: none;
+          background-color: rgba(255, 255, 255, 0.3);
+          color: #fff;
+        }
+      }
+    }
+  }
+  > #chefEditInfo {
+    width: 100%;
+    height: auto;
+    display: grid;
+    place-items: center;
+    #chefCourseInfo {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-rows: 40px 250px 1fr 50px;
+      row-gap: 10px;
+      h2 {
+        font-size: 25px;
+        display: grid;
+        place-items: center left;
+      }
+      #chefCourseInfoFormWrap {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        grid-template-rows: 1fr 30px;
+        row-gap: 10px;
+        background-color: #603224;
+        padding: 10px;
+        border-radius: 5px;
+        #chefCourseInfoForm {
+          width: 100%;
+          height: 100%;
+          display: grid;
+          place-items: center;
+          grid-template-rows: 40px 40px 1fr;
+          grid-template-columns: 1fr 1fr;
+          row-gap: 10px;
+          column-gap: 10px;
+          .chefCourseInfoFormItem {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+            grid-template-columns: 100px 1fr;
+            column-gap: 10px;
+            > input {
+              width: 100%;
+              height: 100%;
+              color: #fff;
+              border-radius: 5px;
+              border: none;
+              outline: none;
+            }
+          }
+          textarea {
+            width: 100%;
+            height: 100%;
+            grid-column: 1 / 3;
+            grid-row: 3 / 4;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+          }
+        }
+        button {
+          background-color: rgba(255, 255, 255, 0.3);
+          color: #fff;
+          width: 100px;
+          padding: 8px;
+          font-size: 14px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
+
+      #chefCourseInfoDataWrap {
+        height: auto;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-auto-rows: 1fr;
+        row-gap: 20px;
+        .chefCourseInfoData {
+          height: 230px;
+          display: grid;
+          grid-template-rows: 40px 40px 40px 1fr;
+          row-gap: 5px;
+          column-gap: 10px;
+          grid-template-columns: 1fr 1fr;
+          background-color: #dbb89a;
+          color: #000;
+          border-radius: 5px;
+          .chefCourseInfoItem {
+            display: grid;
+            place-items: center;
+            grid-template-columns: 70px 1fr;
+            column-gap: 10px;
+            p {
+              width: 100%;
+              height: 100%;
+              border-radius: 5px;
+              border: none;
+              outline: none;
+              display: grid;
+              place-items: center;
+            }
+          }
+          .chefCourseInfoItemDesc {
+            grid-column: 1 / 3;
+            grid-row: 4 / 5;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            border: none;
+            outline: none;
+          }
+          .chefCourseInfoBtn {
+            grid-column: 1 / 3;
+            grid-row: 1 / 1;
+            display: grid;
+            place-items: center right;
+            > button {
+              background-color: rgba(255, 255, 255, 0.3);
+
+              width: 100px;
+              padding: 8px;
+              font-size: 14px;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      #chefCourseSaveBtn {
+        > button {
+          background-color: rgba(255, 255, 255, 0.3);
+          color: #fff;
+          width: 100px;
+          padding: 8px;
+          font-size: 14px;
+          border-radius: 5px;
+          cursor: pointer;
         }
       }
     }
