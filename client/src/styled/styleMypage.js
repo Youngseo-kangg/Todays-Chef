@@ -110,6 +110,9 @@ export const MypageReservContent = styled.div`
         height: 100%;
         border-bottom: 2px solid #fff;
       }
+      > .myReservationArrow {
+        cursor: pointer;
+      }
     }
   }
   > #myReservationCalanderWrap {
@@ -147,10 +150,42 @@ export const MyReservCalander = styled.div`
   height: 100%;
   display: grid;
   place-items: center;
-  > * {
+  > #myReservationCalander {
     width: 100%;
     height: 100%;
-    border: 1px solid red;
+    display: grid;
+    grid-template-rows: 25px 1fr;
+    grid-auto-rows: 1fr;
+    #weekDay {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      > .dayName {
+        display: grid;
+        place-items: center;
+      }
+    }
+    .calanderWeek {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      .calanderDay {
+        background-color: transparent;
+        cursor: pointer;
+        transition: all 0.3s;
+        &.thisMonth {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+        :hover {
+          background-color: #dbb89a;
+        }
+      }
+      .reservedDate {
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        margin: 0 auto;
+        background-color: #603224;
+      }
+    }
   }
 `;
 

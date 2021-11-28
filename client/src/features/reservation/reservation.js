@@ -9,7 +9,9 @@ export const reservationSlice = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
     },
-    getReservation: (state) => {},
+    getReservation: (state, action) => {
+      state = [...action.payload.reservationData];
+    },
   },
 });
 
