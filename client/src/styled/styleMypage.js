@@ -174,7 +174,10 @@ export const MyReservCalander = styled.div`
         &.thisMonth {
           background-color: rgba(255, 255, 255, 0.1);
         }
-        :hover {
+        &#today {
+          background-color: #603224;
+        }
+        &:hover {
           background-color: #dbb89a;
         }
       }

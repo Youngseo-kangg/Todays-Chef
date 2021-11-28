@@ -11,10 +11,13 @@ import {
   addMonths,
   subMonths,
   format,
-  getMonth,
+  isAfter,
+  isBefore,
+  getDate,
 } from 'date-fns';
 import { useSelector } from 'react-redux';
 import { reservationStatus } from '../features/reservation/reservation';
+import getMonth from 'date-fns/getMonth';
 
 function MypageReservation() {
   const reservationState = useSelector(reservationStatus);
@@ -66,15 +69,25 @@ function MypageReservation() {
   // console.log('tm(): ', tm()); // 58줄의 다음달,...
 
   const month = takeMonth(); // 달 구하는 함수 자체
+  const today = new Date(); // 지금
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
-  console.log(selectedDate);
   const data = takeMonth(currentDate)();
+
   const nextMonth = () => {
-    setCurrentDate(addMonths(currentDate, 1));
+    if (addMonths(currentDate, 1) < addMonths(today, 3)) {
+      setCurrentDate(addMonths(currentDate, 1));
+    }
   };
   const prevMonth = () => {
-    setCurrentDate(subMonths(currentDate, 1));
+    if (
+      isBefore(today, subMonths(currentDate, 1)) ||
+      getMonth(today) === getMonth(subMonths(currentDate, 1))
+    ) {
+      console.log(isBefore(today, subMonths(currentDate, 1)));
+      console.log(getMonth(today) === getMonth(subMonths(currentDate, 1)));
+      setCurrentDate(subMonths(currentDate, 1));
+    }
   };
 
   return (
@@ -96,8 +109,10 @@ function MypageReservation() {
         <MyReservCalander>
           <div id='myReservationCalander'>
             <div id='weekDay'>
-              {weekDays.map((day) => (
-                <div className='dayName'>{day}</div>
+              {weekDays.map((day, idx) => (
+                <div className='dayName' key={idx}>
+                  {day}
+                </div>
               ))}
             </div>
             {data.map((week, index) => (
@@ -105,14 +120,28 @@ function MypageReservation() {
                 {week.map((day) => (
                   <div
                     className={
-                      getMonth(day) !== getMonth(currentDate)
+                      isAfter(today, day)
                         ? 'calanderDay'
                         : 'calanderDay thisMonth'
                     }
-                    onClick={() => setSelectedDate(day)}
+                    id={
+                      format(day, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd')
+                        ? 'today'
+                        : null
+                    }
+                    onClick={
+                      isAfter(day, today) ||
+                      format(day, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd')
+                        ? () => setSelectedDate(day)
+                        : null
+                    }
                     key={day}
                   >
-                    <div>{format(day, 'dd')}</div>
+                    <div>
+                      {getDate(day) === 1
+                        ? format(day, 'MM/dd')
+                        : format(day, 'dd')}
+                    </div>
                     {reservationState.includes(day) ? (
                       <span className='reservedDate'></span>
                     ) : null}
