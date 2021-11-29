@@ -8,23 +8,3 @@ router.get('/', chefController.chefId.get);
 router.post('/', upload.single('file'), chefController.pdfFile.post);
 
 module.exports = router;
-
-
-{
-    "data" : {
-        {
-            "chefInfo" : {
-
-            },
-            "courseInfo" : [
-                {
-                
-                },
-                {
-                
-                }
-            ]
-        }
-    },
-    "message" : "ok"
-}
