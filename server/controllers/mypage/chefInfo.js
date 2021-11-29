@@ -19,6 +19,7 @@ module.exports = {
       } else {
         delete refreshVerify.exp;
         const accessToken = basicAccessToken(refreshVerify);
+
         if (req.body.chefName) {
           await chef.update(
             {
@@ -31,11 +32,13 @@ module.exports = {
             },
             { where: { id: req.query.id } }
           );
+          res.status(201).json({ accessToken, message: 'ok' });
         } else {
-          const findCourse = await course.findOne({
-            where: { coChefId: req.query.id },
+          // console.log(createCourse);
+          const findSameCoure = await course.findOne({
+            where: { courseName: data.courseName },
           });
-          if (!findCourse) {
+          if (!findSameCoure) {
             await course.create({
               courseName: data.courseName,
               peopleMax: data.peopleMax,
@@ -44,9 +47,12 @@ module.exports = {
               courseDesc: data.courseDesc,
               coChefId: req.query.id,
             });
+
+            res.status(201).json({ accessToken, message: 'ok' });
+          } else {
+            res.status(400).json({ message: 'Already same course' });
           }
         }
-        res.status(201).json({ accessToken, message: 'ok' });
       }
     } else {
       if (req.body.chefName) {
@@ -61,11 +67,13 @@ module.exports = {
           },
           { where: { id: req.query.id } }
         );
+        res.status(200).json({ message: 'ok' });
       } else {
-        const findCourse = await course.findOne({
-          where: { coChefId: req.query.id },
+        // console.log(createCourse);
+        const findSameCoure = await course.findOne({
+          where: { courseName: data.courseName },
         });
-        if (!findCourse) {
+        if (!findSameCoure) {
           await course.create({
             courseName: data.courseName,
             peopleMax: data.peopleMax,
@@ -74,9 +82,12 @@ module.exports = {
             courseDesc: data.courseDesc,
             coChefId: req.query.id,
           });
+
+          res.status(200).json({ message: 'ok' });
+        } else {
+          res.status(400).json({ message: 'Already same course' });
         }
       }
-      res.status(200).json({ message: 'ok' });
     }
   },
   patch: async (req, res) => {
