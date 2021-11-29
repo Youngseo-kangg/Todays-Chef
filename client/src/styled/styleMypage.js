@@ -94,7 +94,7 @@ export const MypageReservContent = styled.div`
   width: 100%;
   height: 100%;
   @media (max-width: 420px) {
-    grid-template-rows: 50px 1fr 110px;
+    grid-template-rows: 50px 1fr 130px;
   }
   > #myReservationTitleWrap {
     display: grid;
@@ -141,7 +141,7 @@ export const MypageReservContent = styled.div`
     column-gap: 10px;
     @media (max-width: 420px) {
       grid-template-columns: none;
-      grid-template-rows: 30px 30px 50px;
+      grid-template-rows: 40px 40px 50px;
     }
     #deleteReserve {
       width: 100%;
@@ -337,17 +337,61 @@ export const MypageEditContent = styled.div`
     width: 100%;
     height: auto;
     display: grid;
-    grid-template-columns: 300px 1fr;
-    row-gap: 20px;
+    place-items: center;
+    max-width: 900px;
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: 250px 1fr;
+    row-gap: 10px;
+    background-color: #dbb89a;
+    border-radius: 5px;
+    padding: 15px;
     @media (max-width: 767px) {
       height: 100%;
       grid-template-columns: none;
-      grid-template-rows: 300px 1fr;
+      grid-template-rows: 50px 280px 1fr;
     }
-    #mypageInfoPic {
+    @media (max-width: 420px) {
+      padding: 15px 0px;
+    }
+    #mypageEditTitle {
+      grid-row: 1/1;
+      grid-column: 1/3;
       display: grid;
-      grid-template-rows: 250px 50px;
+      place-items: center left;
+      width: 100%;
+      height: 100%;
+      h2 {
+        width: 280px;
+        display: grid;
+        place-items: center left;
+        font-size: 25px;
+        height: 100%;
+        border-bottom: 2px solid #fff;
+        text-align: left;
+        @media (max-width: 420px) {
+          width: 100%;
+          place-items: center;
+          font-size: 20px;
+        }
+      }
+      @media (max-width: 420px) {
+        width: 240px;
+        place-items: center;
+        font-size: 20px;
+      }
+    }
+
+    #mypageInfoPic {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-rows: 250px 30px;
       place-items: center;
+      word-break: keep-all;
+      @media (max-width: 767px) {
+        grid-row: 2/2;
+        grid-column: 1/3;
+      }
       img {
         width: 230px;
         height: 230px;
@@ -373,7 +417,13 @@ export const MypageEditContent = styled.div`
     #myInfoDetail {
       display: grid;
       place-items: center;
-      form {
+      width: 100%;
+      height: 100%;
+      @media (max-width: 767px) {
+        grid-row: 3/3;
+        grid-column: 1/3;
+      }
+      #myInfoDetailContent {
         width: 100%;
         height: auto;
         display: grid;
@@ -385,26 +435,50 @@ export const MypageEditContent = styled.div`
           height: 100%;
           display: grid;
           place-items: center;
-          grid-template-columns: 150px 1fr;
+          grid-template-columns: 130px 1fr 100px;
+          column-gap: 10px;
           word-break: keep-all;
+          @media (max-width: 1080px) {
+            grid-template-columns: 90px 1fr 80px;
+          }
           @media (max-width: 420px) {
-            grid-template-columns: 70px 1fr;
+            grid-template-columns: 70px 1fr 70px;
           }
           > input {
             width: 90%;
             height: 100%;
             background-color: transparent;
             border-bottom: 2px solid #fff;
+            @media (max-width: 420px) {
+              width: 100%;
+            }
           }
-        }
-        #myInfoDetailBtnWrap {
-          width: 220px;
-          display: flex;
-          justify-content: space-evenly;
           > button {
             background-color: rgba(255, 255, 255, 0.3);
             color: #fff;
-            width: 100px;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+        }
+        #myInfoDetailBtnWrap {
+          width: 350px;
+          height: 100%;
+          display: grid;
+          grid-template-columns: 1fr 70px;
+          column-gap: 10px;
+          @media (max-width: 420px) {
+            width: 100%;
+          }
+          > p {
+            display: grid;
+            place-items: center;
+            word-break: keep-all;
+          }
+          > button {
+            background-color: rgba(255, 0, 0, 0.7);
+            color: #fff;
             padding: 8px;
             font-size: 14px;
             border-radius: 5px;
