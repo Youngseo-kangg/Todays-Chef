@@ -28,7 +28,7 @@ function Nav() {
       throttle(() => {
         // ~420까지는 100vh, 420~으로는 90vh이상일때 변경해주기
         // const nextTabnavOn = window.scrollY > window.innerHeight - 140;
-        const nextTabnavOn = window.scrollY > 80;
+        const nextTabnavOn = window.scrollY > 70;
         if (nextTabnavOn !== transNav) setTransNav(nextTabnavOn);
       }, 300),
     [transNav]
@@ -46,20 +46,18 @@ function Nav() {
     []
   );
 
-  const initialHandleScreen = () => {
+  useEffect(() => {
     if (window.innerWidth < 768) {
       setTransScreen(true);
     } else {
       setTransScreen(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    window.addEventListener('onload', initialHandleScreen);
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScreen);
     return () => {
-      window.removeEventListener('onload', initialHandleScreen);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScreen);
     };
