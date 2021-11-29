@@ -21,6 +21,10 @@ import getMonth from 'date-fns/getMonth';
 
 function MypageReservation() {
   const reservationState = useSelector(reservationStatus);
+  // TODO: 1. load 되자마자 서버에 get 요청해서 reservation 데이터 다 가져오고, redux reservation 업데이트
+  // TODO: 2. 가져온 reservation 데이터 시간 locale:ko로 맞춰서 보여주기 (동그라미로 표시)
+  // TODO: 3. 예약 취소 가능하도록 서버에 delete 요청 보내는 함수 구현하기
+
   // TODO: 달력만들기
   // 달력 만들기는 https://www.youtube.com/watch?v=mfG4BVCRkEQ 를 참고했음
   const weekDays = ['일', '월', '화', '수', '목', '금', '토'];

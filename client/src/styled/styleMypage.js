@@ -17,12 +17,13 @@ export const MypageGrid = styled.article`
     min-width: 280px;
     font-size: 16px;
     @media (max-width: 767px) {
-      padding: 60px 0 50px;
+      padding: 70px 0 50px;
       grid-template-columns: none;
       grid-template-rows: 50px 1fr;
       font-size: 14px;
     }
     @media (max-width: 420px) {
+      padding: 60px 0 50px;
       width: 100%;
     }
     > ul {

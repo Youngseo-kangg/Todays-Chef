@@ -2,6 +2,11 @@ import { MypageReviewContent } from '../styled/styleMypage';
 import { PagenationList } from '../styled/styleFindChef';
 
 function MypageReview() {
+  // TODO: 1. load 되자마자 서버에 get 요청해서 review 데이터 다 가져오고, redux review 업데이트
+  // TODO: 2. review에서 예약날짜 이후 + 1주일 지나기 전 이라면 리뷰 쓸 수 있도록 구현하기
+  // TODO: 3. review에서 예약날짜 이전 + 1주일 후라면 리뷰 쓸 수 없도록 구현하기
+  // TODO: 4. 목록에서 리뷰를 클릭하면 #myRecentReview에 리뷰 내용 뜨도록 만들기 (상태값으로 input 또는 div 뜨게)
+
   return (
     <MypageReviewContent>
       <div id='mypageReviewTitle'>

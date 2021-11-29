@@ -7,7 +7,10 @@ import { chefStatus } from '../features/chef/chef';
 function MypageEdit() {
   const userState = useSelector(userStatus);
   const chefState = useSelector(chefStatus);
-  console.log(userState.userImg);
+  // TODO: 1. load 되자마자 서버에 get 요청해서 개인 데이터 다 가져오고, redux user 업데이트
+  // TODO: 2. 사진 업데이트, 닉네임 변경, 비밀번호 변경, 회원 탈퇴 + 유효성 검사 + 필요한 modal, redux modal 업데이트
+  // TODO: 2-1. 셰프의 경우 탈퇴 안되고 admin한테 연락 가게 만들기 + 고객의 경우 가장 가까운 예약 날짜까지 1주일 이상 남아있으면 탈퇴 가능하지만 그 이하로 남아있으면 탈퇴 안된다고 모달 띄우기
+
   return (
     <MypageEditContent>
       <div id='mypageEditContentWrap'>

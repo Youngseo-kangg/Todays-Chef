@@ -2,6 +2,11 @@ import { MypageChefEditContent } from '../styled/styleMypage';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 
 function MypageChefEdit() {
+  // TODO: 1. load 되자마자 서버에 get 요청해서 chef 데이터 다 가져오고, redux chef 업데이트
+  // TODO: 2. 자기소개 부분 수정 구현하기 + 유효성 검사
+  // TODO: 3. 코스 소개 정보 입력 + 유효성 검사 + 서버에 저장하고 아래에 #chefCourseInfo로 렌더 되서 뜨도록 하기 + 필요한 modal, redux modal 업데이트
+  // TODO: 4. #chefCourseInfo로 렌더된 코스 정보 -> 수정, 삭제 구현하기 + 필요한 modal, redux modal 업데이트
+
   return (
     <MypageChefEditContent>
       <div id='chefEditIntro'>
