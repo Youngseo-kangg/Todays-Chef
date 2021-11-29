@@ -12,6 +12,6 @@ router.patch('/review/user', mypageController.checkReview.patch);
 router.post('/:id', mypageController.userInfo.post);
 router.delete('/:id', mypageController.userInfo.delete);
 
-router.get('chef/reservation', mypageController.chefReservation.get);
+router.get('/reservation/chef', mypageController.chefReservation.get);
 
 module.exports = router;
