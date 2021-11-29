@@ -7,8 +7,9 @@ module.exports = {
   get: async (req, res) => {
     const accessVerify = isAuthorized(req);
     const findReservation = await reservation.findAll({
-      where: { rsUserId: accessVerify.id },
+      where: { rsUserId: req.query.id },
     });
+
     const sendDataArr = [];
 
     // console.log(findReservation);

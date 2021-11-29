@@ -10,7 +10,7 @@ module.exports = {
     const accessVerify = isAuthorized(req);
 
     const findReservation = await reservation.findAll({
-      where: { rsUserId: accessVerify.id },
+      where: { rsUserId: req.query.id },
     });
 
     const findMonth = new Date(new Date().setMonth(new Date().getMonth() - 1));
