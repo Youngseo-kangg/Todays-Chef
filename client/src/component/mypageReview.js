@@ -14,7 +14,7 @@ function MypageReview() {
             <div id='myRecentCommentPic'>
               <div>사진 사진 사진</div>
               <div className='myRecentReviewBtn'>
-                <button>사진 업로드</button>
+                <input type='file' multiple />
               </div>
             </div>
           </div>
