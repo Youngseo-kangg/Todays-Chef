@@ -683,7 +683,7 @@ export const MypageChefEditContent = styled.div`
         grid-template-rows: 1fr 30px;
         row-gap: 10px;
         background-color: #603224;
-        color: #603224;
+        color: #fff;
         padding: 10px;
         border-radius: 5px;
         #chefCourseInfoForm {
