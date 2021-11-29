@@ -6,30 +6,49 @@ function MypageChefEdit() {
     <MypageChefEditContent>
       <div id='chefEditIntro'>
         <h2>셰프 자기소개 수정</h2>
+        <div id='chefEditIntroSaveBtn'>
+          <button>저장하기</button>
+        </div>
         <div id='chefEditIntroPic'>
           <img src={basic_profile} alt='셰프 사진' />
-          <button>사진 업로드</button>
+          <label htmlFor='chefPicUpload'>사진 업로드</label>
+          <input type='file' name='chefPicUpload' id='chefPicUpload' />
         </div>
         <div id='chefEditIntroText'>
+          <p>줄바꿈은 띄어쓰기 없이 '/'로 표시 바랍니다. </p>
+          <div className='chefEditInfoWrap'>
+            <label htmlFor='chefEditInfoChefname'>셰프 이름</label>
+            <input
+              type='text'
+              name='chefEditInfoChefname'
+              placeholder='셰프 이름을 입력해주세요.'
+            />
+            <select>
+              <option value='한식'>한식</option>
+              <option value='일식'>일식</option>
+              <option value='중식'>중식</option>
+              <option value='양식'>양식</option>
+            </select>
+          </div>
           <div className='chefEditInfoWrap'>
             <label htmlFor='chefEditInfoGreeting'>인삿말</label>
             <textarea
               name='chefEditInfoGreeting'
-              placeholder='인삿말을 입력해주세요.'
+              placeholder='인삿말을 입력해주세요. ex)안녕하세요./한식 셰프 김OO입니다.'
             />
           </div>
           <div className='chefEditInfoWrap'>
             <label htmlFor='chefEditInfoCareer'>경력</label>
             <textarea
               name='chefEditInfoCareer'
-              placeholder='경력을 입력해주세요.'
+              placeholder='경력을 입력해주세요. ex)2015.03~ 2017.02 AA호텔 근무/2017.03~ 2018.02 BB호텔 근무'
             />
           </div>
           <div className='chefEditInfoWrap'>
             <label htmlFor='chefEditInfoValues'>가치관</label>
             <textarea
               name='chefEditInfoValues'
-              placeholder='가치관을 입력해주세요.'
+              placeholder='가치관을 입력해주세요. ex)건강하면서도 아름다운 음식을 만들려고 합니다./눈이 즐겁고, 입도 즐거운 미식 코스를 추구합니다.'
             />
           </div>
         </div>
@@ -79,7 +98,10 @@ function MypageChefEdit() {
           <div id='chefCourseInfoDataWrap'>
             <div className='chefCourseInfoData'>
               <div className='chefCourseInfoBtn'>
-                <button>수정하기</button>
+                <div className='chefCourseInfoBtnWrap'>
+                  <button>수정하기</button>
+                  <button>삭제하기</button>
+                </div>
               </div>
               <div className='chefCourseInfoItem'>
                 <h3>코스 이름</h3>
@@ -103,7 +125,10 @@ function MypageChefEdit() {
             </div>
             <div className='chefCourseInfoData'>
               <div className='chefCourseInfoBtn'>
-                <button>수정하기</button>
+                <div className='chefCourseInfoBtnWrap'>
+                  <button>수정하기</button>
+                  <button>삭제하기</button>
+                </div>
               </div>
               <div className='chefCourseInfoItem'>
                 <h3>코스 이름</h3>
@@ -127,10 +152,6 @@ function MypageChefEdit() {
 
               <div className='chefCourseInfoItemDesc'>fdfdfdfdfdd</div>
             </div>
-          </div>
-
-          <div id='chefCourseSaveBtn'>
-            <button>저장하기</button>
           </div>
         </div>
       </div>

@@ -67,6 +67,7 @@ export const MyPageContent = styled.article`
   height: 100%;
   min-height: 500px;
   padding: 15px;
+  box-sizing: border-box;
   display: grid;
   place-items: center;
   background-color: rgba(96, 50, 36, 0.5);
@@ -78,7 +79,10 @@ export const MyPageContent = styled.article`
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    padding: 5px;
+  }
+  @media (max-width: 420px) {
+    padding: 10px 0px;
+    box-sizing: border-box;
   }
 `;
 
@@ -415,36 +419,81 @@ export const MypageEditContent = styled.div`
 export const MypageChefEditContent = styled.div`
   display: grid;
   place-items: center;
-  grid-template-rows: 350px 1fr;
+  grid-template-rows: 380px 1fr;
   row-gap: 50px;
   width: 100%;
   height: 100%;
+  @media (max-width: 1080px) {
+    grid-template-rows: 430px 1fr;
+  }
+  @media (max-width: 767px) {
+    grid-template-rows: 730px 1fr;
+  }
   @media (max-width: 420px) {
+    grid-template-rows: 930px 1fr;
   }
   > #chefEditIntro {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 40px 1fr;
+    grid-template-rows: 50px 1fr;
     grid-template-columns: 300px 1fr;
-    row-gap: 10px;
+    max-width: 1080px;
+    row-gap: 20px;
     column-gap: 10px;
+    @media (max-width: 1080px) {
+      grid-template-columns: 250px 1fr;
+    }
+    @media (max-width: 767px) {
+      grid-template-rows: 50px 280px 1fr;
+      grid-template-columns: 2fr 1fr;
+    }
     h2 {
-      grid-column: 1/3;
-      grid-row: 1/1;
       font-size: 25px;
       display: grid;
       place-items: center left;
+      border-bottom: 2px solid #fff;
+      @media (max-width: 420px) {
+        font-size: 20px;
+      }
+      @media (max-width: 300px) {
+        place-items: center;
+      }
+    }
+    #chefEditIntroSaveBtn {
+      display: grid;
+      place-items: center right;
+      button {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+        width: 100px;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
     }
     #chefEditIntroPic {
       display: grid;
       place-items: center;
+      grid-template-rows: 1fr 30px;
+      row-gap: 20px;
+      @media (max-width: 767px) {
+        grid-row: 2/2;
+        grid-column: 1/3;
+      }
       img {
         width: 250px;
         height: 250px;
         border-radius: 5px;
+        @media (max-width: 1080px) {
+          width: 230px;
+          height: 230px;
+        }
       }
-      button {
+      label {
         background-color: rgba(255, 255, 255, 0.3);
         color: #fff;
         width: 100px;
@@ -453,19 +502,40 @@ export const MypageChefEditContent = styled.div`
         border-radius: 5px;
         cursor: pointer;
       }
+      #chefPicUpload {
+        opacity: 0;
+        position: absolute;
+      }
     }
     #chefEditIntroText {
       display: grid;
       place-items: center;
-      grid-template-rows: repeat(3, 1fr);
-      row-gap: 20px;
+      grid-template-rows: 15px 50px repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
+      row-gap: 10px;
+      @media (max-width: 767px) {
+        grid-row: 3/3;
+        grid-column: 1/3;
+      }
+      p {
+        width: 100%;
+        height: 100%;
+        grid-row: 1/1;
+        grid-column: 1/3;
+        text-align: left;
+        ::before {
+          content: '* ';
+        }
+      }
       .chefEditInfoWrap {
         width: 100%;
         height: 100%;
         display: grid;
         place-items: center;
-        grid-template-columns: 50px 1fr;
+        grid-template-columns: 70px 1fr;
         column-gap: 10px;
+        font-size: 16px;
+        input,
         textarea {
           width: 100%;
           height: 100%;
@@ -474,12 +544,44 @@ export const MypageChefEditContent = styled.div`
           outline: none;
           background-color: rgba(255, 255, 255, 0.3);
           color: #fff;
+          font-size: 16px;
+          font-family: 'Chosunilbo_myungjo', 'ChosunKm';
+        }
+        select {
+          width: 100%;
+          height: 80%;
+          border: none;
+          outline: none;
+          background-color: transparent;
+          border-bottom: 2px solid #fff;
+          color: #fff;
+        }
+        &:nth-child(2) {
+          grid-row: 2/2;
+          grid-column: 1/3;
+          grid-template-columns: 70px 1fr 100px;
+          > input {
+            height: 80%;
+          }
+        }
+        &:nth-last-child(3) {
+          grid-row: 3/3;
+          grid-column: 1/3;
+        }
+        &:nth-last-child(2) {
+          grid-row: 4/4;
+          grid-column: 1/3;
+        }
+        &:nth-last-child(1) {
+          grid-row: 5/5;
+          grid-column: 1/3;
         }
       }
     }
   }
   > #chefEditInfo {
     width: 100%;
+    max-width: 1080px;
     height: auto;
     display: grid;
     place-items: center;
@@ -487,12 +589,17 @@ export const MypageChefEditContent = styled.div`
       width: 100%;
       height: 100%;
       display: grid;
-      grid-template-rows: 40px 250px 1fr 50px;
+      grid-template-rows: 50px 250px 1fr;
       row-gap: 10px;
+      @media (max-width: 420px) {
+        grid-template-rows: 50px 350px 1fr;
+      }
       h2 {
+        width: 280px;
         font-size: 25px;
         display: grid;
         place-items: center left;
+        border-bottom: 2px solid #fff;
       }
       #chefCourseInfoFormWrap {
         width: 100%;
@@ -513,6 +620,10 @@ export const MypageChefEditContent = styled.div`
           grid-template-columns: 1fr 1fr;
           row-gap: 10px;
           column-gap: 10px;
+          @media (max-width: 420px) {
+            grid-template-rows: 40px 40px 40px 40px 1fr;
+            grid-template-columns: 1fr 1fr;
+          }
           .chefCourseInfoFormItem {
             width: 100%;
             height: 100%;
@@ -528,6 +639,26 @@ export const MypageChefEditContent = styled.div`
               border: none;
               outline: none;
             }
+
+            @media (max-width: 420px) {
+              grid-template-columns: 70px 1fr;
+              &:nth-child(1) {
+                grid-row: 1/1;
+                grid-column: 1/3;
+              }
+              &:nth-child(2) {
+                grid-row: 2/2;
+                grid-column: 1/3;
+              }
+              &:nth-child(3) {
+                grid-row: 3/3;
+                grid-column: 1/3;
+              }
+              &:nth-child(4) {
+                grid-row: 4/4;
+                grid-column: 1/3;
+              }
+            }
           }
           textarea {
             width: 100%;
@@ -539,6 +670,10 @@ export const MypageChefEditContent = styled.div`
             border-radius: 5px;
             border: none;
             outline: none;
+            @media (max-width: 420px) {
+              grid-row: 5/5;
+              grid-column: 1/3;
+            }
           }
         }
         button {
@@ -596,19 +731,24 @@ export const MypageChefEditContent = styled.div`
             grid-row: 1 / 1;
             display: grid;
             place-items: center right;
-            > button {
-              background-color: rgba(255, 255, 255, 0.3);
-
-              width: 100px;
-              padding: 8px;
-              font-size: 14px;
-              border-radius: 5px;
-              cursor: pointer;
+            .chefCourseInfoBtnWrap {
+              width: 220px;
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              column-gap: 10px;
+              button {
+                background-color: rgba(255, 255, 255, 0.3);
+                width: 100px;
+                padding: 8px;
+                font-size: 14px;
+                border-radius: 5px;
+                cursor: pointer;
+              }
             }
           }
         }
       }
-      #chefCourseSaveBtn {
+      /* #chefCourseSaveBtn {
         > button {
           background-color: rgba(255, 255, 255, 0.3);
           color: #fff;
@@ -618,7 +758,7 @@ export const MypageChefEditContent = styled.div`
           border-radius: 5px;
           cursor: pointer;
         }
-      }
+      } */
     }
   }
 `;
