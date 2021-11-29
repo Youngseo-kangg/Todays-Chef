@@ -343,6 +343,7 @@ export const MypageEditContent = styled.div`
     grid-template-columns: 250px 1fr;
     row-gap: 10px;
     background-color: #dbb89a;
+    color: #603224;
     border-radius: 5px;
     padding: 15px;
     @media (max-width: 767px) {
@@ -366,7 +367,7 @@ export const MypageEditContent = styled.div`
         place-items: center left;
         font-size: 25px;
         height: 100%;
-        border-bottom: 2px solid #fff;
+        border-bottom: 2px solid #603224;
         text-align: left;
         @media (max-width: 420px) {
           width: 100%;
@@ -404,7 +405,6 @@ export const MypageEditContent = styled.div`
       #mypageInfpPicBtn {
         display: block;
         background-color: rgba(255, 255, 255, 0.3);
-        color: #fff;
         width: 100px;
         padding: 8px;
         font-size: 14px;
@@ -448,14 +448,14 @@ export const MypageEditContent = styled.div`
             width: 90%;
             height: 100%;
             background-color: transparent;
-            border-bottom: 2px solid #fff;
+            border-bottom: 2px solid #603224;
             @media (max-width: 420px) {
               width: 100%;
             }
           }
           > button {
             background-color: rgba(255, 255, 255, 0.3);
-            color: #fff;
+            color: #603224;
             padding: 8px;
             font-size: 14px;
             border-radius: 5px;
@@ -478,7 +478,7 @@ export const MypageEditContent = styled.div`
           }
           > button {
             background-color: rgba(255, 0, 0, 0.7);
-            color: #fff;
+            color: #000;
             padding: 8px;
             font-size: 14px;
             border-radius: 5px;
@@ -683,6 +683,7 @@ export const MypageChefEditContent = styled.div`
         grid-template-rows: 1fr 30px;
         row-gap: 10px;
         background-color: #603224;
+        color: #603224;
         padding: 10px;
         border-radius: 5px;
         #chefCourseInfoForm {
@@ -775,7 +776,7 @@ export const MypageChefEditContent = styled.div`
           column-gap: 10px;
           grid-template-columns: 1fr 1fr;
           background-color: #dbb89a;
-          color: #000;
+          color: #603224;
           border-radius: 5px;
           .chefCourseInfoItem {
             display: grid;
@@ -812,6 +813,7 @@ export const MypageChefEditContent = styled.div`
               column-gap: 10px;
               button {
                 background-color: rgba(255, 255, 255, 0.3);
+                color: #603224;
                 width: 100px;
                 padding: 8px;
                 font-size: 14px;
