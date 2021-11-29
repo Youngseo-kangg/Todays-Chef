@@ -11,12 +11,13 @@ export const MypageGrid = styled.article`
     max-width: 1400px;
     height: auto;
     min-height: 100vh;
-    padding: 80px 0 50px;
+    padding: 70px 0 50px;
     display: grid;
     grid-template-columns: 80px 1fr;
     min-width: 280px;
     font-size: 16px;
     @media (max-width: 767px) {
+      padding: 60px 0 50px;
       grid-template-columns: none;
       grid-template-rows: 50px 1fr;
       font-size: 14px;
@@ -83,6 +84,7 @@ export const MyPageContent = styled.article`
 
 export const MypageReservContent = styled.div`
   display: grid;
+  place-items: center;
   grid-template-rows: 50px 1fr 60px;
   row-gap: 20px;
   width: 100%;
@@ -93,6 +95,9 @@ export const MypageReservContent = styled.div`
   > #myReservationTitleWrap {
     display: grid;
     place-items: center;
+    width: 100%;
+    max-width: 1080px;
+    height: 100%;
     #myReservationTitle {
       display: grid;
       grid-template-columns: 45px 1fr 45px;
@@ -116,10 +121,16 @@ export const MypageReservContent = styled.div`
     }
   }
   > #myReservationCalanderWrap {
+    width: 100%;
+    max-width: 1080px;
+    height: 100%;
     display: grid;
     place-items: center;
   }
   > #myReservationInfo {
+    width: 100%;
+    max-width: 1080px;
+    height: 100%;
     display: grid;
     place-items: center;
     grid-template-columns: 100px 1fr 100px;
