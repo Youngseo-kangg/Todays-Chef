@@ -1,4 +1,4 @@
-const { user, bechef } = require('../../models');
+const { user, bechef, chef } = require('../../models');
 const { isAuthorized, basicAccessToken } = require('../token/accessToken');
 const { refreshAuthorized } = require('../token/refreshToken');
 const { successMail, failMail } = require('../sendMail');
@@ -29,6 +29,16 @@ module.exports = {
             { isSubmit: false, isChef: true },
             { where: { id: findBechef.dataValues.bcUserId } }
           );
+          await chef.create({
+            chefName: '',
+            cuisine: '',
+            chefImg: '',
+            greeting: '',
+            career: '',
+            values: '',
+            rating: '',
+            chUserId: findBechef.dataValues.bcUserId,
+          });
           await bechef.destroy({ where: { id: req.body.id }, force: true });
 
           res.status(201).json({ accessToken, message: 'confirm ok' });
@@ -40,6 +50,16 @@ module.exports = {
           { isSubmit: false, isChef: true },
           { where: { id: findBechef.dataValues.bcUserId } }
         );
+        await chef.create({
+          chefName: '',
+          cuisine: '',
+          chefImg: '',
+          greeting: '',
+          career: '',
+          values: '',
+          rating: '',
+          chUserId: findBechef.dataValues.bcUserId,
+        });
         await bechef.destroy({ where: { id: req.body.id }, force: true });
         res.status(200).json({ message: 'confirm ok' });
       }
