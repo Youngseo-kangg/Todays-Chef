@@ -3,6 +3,10 @@ import { MypageEditContent } from '../styled/styleMypage';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import { userStatus } from '../features/user/user';
 import { chefStatus } from '../features/chef/chef';
+import axios from 'axios';
+
+require('dotenv').config();
+axios.defaults.withCredentials = true;
 
 function MypageEdit() {
   const userState = useSelector(userStatus);

@@ -1,5 +1,9 @@
 import { MypageReviewContent } from '../styled/styleMypage';
 import { PagenationList } from '../styled/styleFindChef';
+import axios from 'axios';
+
+require('dotenv').config();
+axios.defaults.withCredentials = true;
 
 function MypageReview() {
   // TODO: 1. load 되자마자 서버에 get 요청해서 review 데이터 다 가져오고, redux review 업데이트

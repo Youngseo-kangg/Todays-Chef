@@ -1,5 +1,9 @@
 import { MypageChefEditContent } from '../styled/styleMypage';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
+import axios from 'axios';
+
+require('dotenv').config();
+axios.defaults.withCredentials = true;
 
 function MypageChefEdit() {
   // TODO: 1. load 되자마자 서버에 get 요청해서 chef 데이터 다 가져오고, redux chef 업데이트

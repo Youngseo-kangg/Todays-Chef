@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MypageReservContent, MyReservCalander } from '../styled/styleMypage';
+import axios from 'axios';
 import { ko } from 'date-fns/esm/locale';
 import {
   addDays,
@@ -18,6 +19,9 @@ import {
 import { useSelector } from 'react-redux';
 import { reservationStatus } from '../features/reservation/reservation';
 import getMonth from 'date-fns/getMonth';
+
+require('dotenv').config();
+axios.defaults.withCredentials = true;
 
 function MypageReservation() {
   const reservationState = useSelector(reservationStatus);
