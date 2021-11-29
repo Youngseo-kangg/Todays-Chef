@@ -46,20 +46,18 @@ function Nav() {
     []
   );
 
-  const initialHandleScreen = () => {
+  useEffect(() => {
     if (window.innerWidth < 768) {
       setTransScreen(true);
     } else {
       setTransScreen(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    window.addEventListener('onload', initialHandleScreen);
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScreen);
     return () => {
-      window.removeEventListener('onload', initialHandleScreen);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScreen);
     };
