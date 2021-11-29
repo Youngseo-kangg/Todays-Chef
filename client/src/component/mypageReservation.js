@@ -98,7 +98,7 @@ function MypageReservation() {
             &lt;
           </div>
           <div id='myReservationMonth'>
-            <h2>{format(currentDate, 'MM월 yyyy')}</h2>
+            <h2>{format(currentDate, 'yyyy MM월')}</h2>
           </div>
           <div className='myReservationArrow' onClick={nextMonth}>
             &gt;

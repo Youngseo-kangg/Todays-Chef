@@ -115,9 +115,10 @@ export const MypageReservContent = styled.div`
       > #myReservationMonth > h2 {
         display: grid;
         place-items: center;
-        width: 100px;
+        width: 150px;
         height: 100%;
         border-bottom: 2px solid #fff;
+        font-size: 25px;
       }
       > .myReservationArrow {
         cursor: pointer;
@@ -209,39 +210,66 @@ export const MyReservCalander = styled.div`
 
 export const MypageReviewContent = styled.div`
   display: grid;
-  grid-template-rows: 350px 1fr;
+  grid-template-rows: 50px 370px 1fr;
   row-gap: 20px;
   place-items: center;
   width: 100%;
   height: 100%;
+  @media (max-width: 1080px) {
+    grid-template-rows: 50px 450px 1fr;
+  }
+  #mypageReviewTitle {
+    width: 100%;
+    height: 100%;
+    max-width: 1080px;
+    font-size: 25px;
+    > h2 {
+      width: 250px;
+      height: 100%;
+      display: grid;
+      place-items: center left;
+      border-bottom: 2px solid #fff;
+    }
+  }
   #myRecentComment {
     display: grid;
-    grid-template-rows: 60px 1fr;
+    place-items: center;
     row-gap: 10px;
     width: 100%;
-    > #myRecentCommentTitle {
-      display: grid;
-      place-items: center;
-      > h2 {
-        display: grid;
-        place-items: center;
-        width: 100%;
-        height: 100%;
-        border-bottom: 2px solid #fff;
-        @media (max-width: 420px) {
-          width: 100%;
-        }
-      }
-    }
     > #myRecentReview {
+      width: 100%;
+      max-width: 1080px;
+      height: 100%;
       display: grid;
-      grid-template-rows: 60px 1fr;
+      grid-template-rows: 70px 1fr;
       row-gap: 10px;
+      background-color: #603224;
+      border-radius: 5px;
+      @media (max-width: 1080px) {
+        grid-template-rows: 150px 1fr;
+      }
       > #myRecentReviewExtra {
         display: grid;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 350px 100px 1fr;
+        padding: 15px;
+        box-sizing: border-box;
         place-items: center;
         column-gap: 10px;
+        @media (max-width: 1080px) {
+          grid-template-rows: 1fr 1fr;
+          grid-template-columns: 1fr 100px;
+        }
+        #myRecentCommentTitle {
+          width: 100%;
+          height: 100%;
+          display: grid;
+          place-items: center;
+          h3 {
+            padding-bottom: 15px;
+            border-bottom: 2px solid #fff;
+            word-break: keep-all;
+          }
+        }
         #myRecentCommentStar {
           border: 1px solid red;
         }
@@ -252,12 +280,35 @@ export const MypageReviewContent = styled.div`
           grid-template-columns: 1fr 100px;
           column-gap: 10px;
           place-items: center;
+          @media (max-width: 1080px) {
+            grid-row: 2/2;
+            grid-column: 1/3;
+          }
+          #myRecentCommentPicList {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center left;
+            grid-template-rows: 1fr;
+            grid-auto-rows: 1fr;
+            p {
+              width: 100%;
+              font-size: 13px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              text-align: left;
+            }
+            p:before {
+              content: '- ';
+            }
+          }
           .myRecentReviewBtn {
             width: 100%;
             height: 100%;
             display: grid;
             place-items: center;
-            > button {
+            > label {
               background-color: rgba(255, 255, 255, 0.3);
               color: #fff;
               padding: 8px;
@@ -265,24 +316,35 @@ export const MypageReviewContent = styled.div`
               border-radius: 5px;
               cursor: pointer;
             }
+            input {
+              position: absolute;
+              width: 0;
+              height: 0;
+              padding: 0;
+              border: 0;
+            }
           }
         }
       }
       > #myRecentReviewContent {
         display: grid;
-        grid-template-rows: 140px 60px;
+        grid-template-rows: 240px 40px;
         row-gap: 10px;
         place-items: center;
         width: 100%;
         height: 100%;
         textarea {
-          width: 100%;
+          width: calc(100% - 30px);
           height: 100%;
+          padding: 15px;
+          box-sizing: border-box;
           border-radius: 5px;
           border: none;
           background-color: rgba(255, 255, 255, 0.7);
           outline: none;
           color: #fff;
+          font-size: 16px;
+          font-family: 'Chosunilbo_myungjo', 'ChosunKm';
         }
         .myRecentReviewBtn {
           width: 100%;
@@ -308,16 +370,19 @@ export const MypageReviewContent = styled.div`
     place-items: center;
     > #myCommentListWrap {
       width: 100%;
+      max-width: 1080px;
       height: 100%;
       display: grid;
       grid-template-rows: 1fr 30px;
       row-gap: 10px;
       #myComments {
         display: grid;
-        grid-template-rows: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 40px);
         row-gap: 10px;
         > li {
           display: flex;
+          width: 100%;
+          height: 100%;
           justify-content: space-evenly;
           align-items: center;
           background-color: #dbb89a;
@@ -398,11 +463,14 @@ export const MypageEditContent = styled.div`
         height: 230px;
         border-radius: 5px;
       }
-      #image_uploads {
-        opacity: 0;
+      input {
         position: absolute;
+        width: 0;
+        height: 0;
+        padding: 0;
+        border: 0;
       }
-      #mypageInfpPicBtn {
+      #mypageInfoPicBtn {
         display: block;
         background-color: rgba(255, 255, 255, 0.3);
         width: 100px;

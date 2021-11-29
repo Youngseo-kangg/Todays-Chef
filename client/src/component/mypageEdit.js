@@ -12,7 +12,7 @@ function MypageEdit() {
     <MypageEditContent>
       <div id='mypageEditContentWrap'>
         <div id='mypageEditTitle'>
-          <h2>회원정보 수정</h2>
+          <h2>개인 정보 수정</h2>
         </div>
         <div id='mypageInfoPic'>
           <div id='mypageInfoPicWrap'>
@@ -25,12 +25,12 @@ function MypageEdit() {
             <p>셰프 사진 변경은 자기 소개 수정 페이지에서 가능합니다.</p>
           ) : (
             <>
-              <label htmlFor='image' id='mypageInfpPicBtn'>
+              <label htmlFor='image' id='mypageInfoPicBtn'>
                 사진 업로드
               </label>
               <input
                 type='file'
-                id='image_uploads'
+                id='image'
                 name='image'
                 accept='image/*'
               ></input>

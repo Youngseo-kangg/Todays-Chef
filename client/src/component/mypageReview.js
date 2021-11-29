@@ -4,17 +4,26 @@ import { PagenationList } from '../styled/styleFindChef';
 function MypageReview() {
   return (
     <MypageReviewContent>
+      <div id='mypageReviewTitle'>
+        <h2>개인 정보 수정</h2>
+      </div>
+
       <div id='myRecentComment'>
-        <div id='myRecentCommentTitle'>
-          <h2>~~~님의 2021-01-02에 대한 리뷰입니다.</h2>
-        </div>
         <div id='myRecentReview'>
           <div id='myRecentReviewExtra'>
+            <div id='myRecentCommentTitle'>
+              <h3>~~~님의 2021-01-02 예약에 대한 리뷰입니다.</h3>
+            </div>
             <div id='myRecentCommentStar'>⭐⭐⭐⭐⭐</div>
             <div id='myRecentCommentPic'>
-              <div>사진 사진 사진</div>
+              <div id='myRecentCommentPicList'>
+                <p>~~~.jpg</p>
+                <p>~~~.jpg</p>
+                <p>~~~.jpg</p>
+              </div>
               <div className='myRecentReviewBtn'>
-                <input type='file' multiple />
+                <label htmlFor='reviewPic'>사진 업로드</label>
+                <input type='file' name='reviewPic' id='reviewPic' multiple />
               </div>
             </div>
           </div>
