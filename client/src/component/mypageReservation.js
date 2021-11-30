@@ -17,6 +17,7 @@ import {
   isBefore,
   getDate,
   parseISO,
+  subDays,
 } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -220,7 +221,12 @@ function MypageReservation() {
                         ? 'calanderDay'
                         : 'calanderDay thisMonth'
                     }
-                    id={day === today ? 'today' : null}
+                    id={
+                      format(new Date(day), 'yyyy-MM-dd') ===
+                      format(new Date(today), 'yyyy-MM-dd')
+                        ? 'today'
+                        : null
+                    }
                     onClick={() => changeSelected(day)}
                     key={new Date(day)}
                   >
@@ -253,15 +259,19 @@ function MypageReservation() {
               <p>{selectedDateState.location}</p>
             </div>
             <div id='deleteReserve'>
-              <button
-                onClick={() =>
-                  dispatch(
-                    openIsDeleteReservModal({ id: selectedDateState.id })
-                  )
-                }
-              >
-                취소하기
-              </button>
+              {isBefore(new Date(today), subDays(new Date(selectedDate), 7)) ? (
+                <button
+                  onClick={() =>
+                    dispatch(
+                      openIsDeleteReservModal({ id: selectedDateState.id })
+                    )
+                  }
+                >
+                  취소하기
+                </button>
+              ) : (
+                <button>취소 불가</button>
+              )}
             </div>
           </>
         ) : (
