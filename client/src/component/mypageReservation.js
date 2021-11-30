@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MypageReservContent, MyReservCalander } from '../styled/styleMypage';
+import axios from 'axios';
 import { ko } from 'date-fns/esm/locale';
 import {
   addDays,
@@ -15,12 +16,39 @@ import {
   isBefore,
   getDate,
 } from 'date-fns';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reservationStatus } from '../features/reservation/reservation';
+import { updateAccessToken, userStatus } from '../features/user/user';
+import { getReservation } from '../features/reservation/reservation';
 import getMonth from 'date-fns/getMonth';
 
+require('dotenv').config();
+axios.defaults.withCredentials = true;
+
 function MypageReservation() {
+  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  const dispatch = useDispatch();
   const reservationState = useSelector(reservationStatus);
+  const userState = useSelector(userStatus);
+  console.log(reservationState);
+  // TODO: 1. load 되자마자 서버에 get 요청해서 reservation 데이터 다 가져오고, redux reservation 업데이트
+  useEffect(() => {
+    axios
+      .get(`${url}/mypage/reservation/user?id=${userState.userId}`, {
+        headers: { authorization: `bearer ${userState.accessToken}` },
+      })
+      .then((result) => {
+        console.log(result);
+        if (result.data.accessToken) {
+          dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
+        }
+        dispatch(getReservation({ reservationData: result.data.data }));
+      });
+  }, []);
+
+  // TODO: 2. 가져온 reservation 데이터 시간 locale:ko로 맞춰서 보여주기 (동그라미로 표시)
+  // TODO: 3. 예약 취소 가능하도록 서버에 delete 요청 보내는 함수 구현하기
+
   // TODO: 달력만들기
   // 달력 만들기는 https://www.youtube.com/watch?v=mfG4BVCRkEQ 를 참고했음
   const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
@@ -98,7 +126,7 @@ function MypageReservation() {
             &lt;
           </div>
           <div id='myReservationMonth'>
-            <h2>{format(currentDate, 'MM월 yyyy')}</h2>
+            <h2>{format(currentDate, 'yyyy MM월')}</h2>
           </div>
           <div className='myReservationArrow' onClick={nextMonth}>
             &gt;

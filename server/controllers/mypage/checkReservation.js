@@ -1,6 +1,5 @@
 const { chef, reservation } = require('../../models');
-
-const { isAuthorized } = require('../token/accessToken');
+const { basicAccessToken, isAuthorized } = require('../token/accessToken');
 const { refreshAuthorized } = require('../token/refreshToken');
 
 module.exports = {

@@ -5,12 +5,9 @@ export const reservationSlice = createSlice({
   name: 'reservation',
   initialState,
   reducers: {
-    deleteReservation: (state, action) => {
-      state.username = action.payload.username;
-      state.email = action.payload.email;
-    },
+    deleteReservation: (state, action) => {},
     getReservation: (state, action) => {
-      state = [...action.payload.reservationData];
+      state.push(action.payload.reservationData);
     },
   },
 });
