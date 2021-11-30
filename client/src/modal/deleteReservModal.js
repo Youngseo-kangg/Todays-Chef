@@ -20,7 +20,10 @@ function DeleteReservModal() {
   const clickOk = async () => {
     try {
       let result = await axios.post(
-        `${url}/mypage/reservation/user?id=${modalState.isDeleteReservModalOpen}`,
+        `${url}/mypage/reservation/user?id=${userState.userId}`,
+        {
+          id: modalState.isDeleteReservModalOpen,
+        },
         {
           headers: { authorization: `bearer ${userState.accessToken}` },
         }
