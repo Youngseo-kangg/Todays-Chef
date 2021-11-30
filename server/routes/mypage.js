@@ -9,6 +9,12 @@ router.post('/reservation/user', mypageController.checkReservation.post);
 router.get('/review/user', mypageController.checkReview.get);
 router.patch('/review/user', mypageController.checkReview.patch);
 
+router.post(
+  '/review/:id',
+  upload.array('image'),
+  mypageController.arrayImg.post
+);
+
 router.post('/:id', mypageController.userInfo.post);
 router.delete('/:id', mypageController.userInfo.delete);
 
