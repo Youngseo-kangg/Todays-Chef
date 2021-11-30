@@ -9,7 +9,7 @@ export const reservationSlice = createSlice({
   reducers: {
     deleteReservation: (state, action) => {
       // action.payload.id 제외하고 다 두기
-      state.data = state.data.map((el) => el.id !== action.payload.id);
+      state.data = state.data.filter((el) => el.id !== action.payload.id);
     },
     getReservation: (state, action) => {
       state.data = [...action.payload.reservationData];

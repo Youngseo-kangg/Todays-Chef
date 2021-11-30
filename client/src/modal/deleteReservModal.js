@@ -14,9 +14,7 @@ function DeleteReservModal() {
   const dispatch = useDispatch();
   const userState = useSelector(userStatus);
   const modalState = useSelector(modalStatus);
-  // const modalState = useSelector(modalStatus);
-  // console.log('LogoutModal에서 modalStatus: ', modalState);
-  console.log(modalState.isDeleteReservModalOpen);
+
   const clickOk = async () => {
     try {
       let result = await axios.post(
@@ -32,7 +30,7 @@ function DeleteReservModal() {
       if (result.data.accessToken) {
         dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
       }
-      dispatch(deleteReservation(modalState.isDeleteReservModalOpen)); // redux에 보내주기
+      dispatch(deleteReservation({ id: modalState.isDeleteReservModalOpen })); // redux에 보내주기
       dispatch(closeIsDeleteReservModal()); // 모달 끄기
     } catch (err) {
       console.log(err);
