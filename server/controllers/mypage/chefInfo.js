@@ -6,6 +6,29 @@ const {
 } = require('../token/refreshToken');
 
 module.exports = {
+  get: async (req, res) => {
+    const accessVerify = isAuthorized(req);
+    const findChef = await chef.findOne({ where: { id: req.query.id } });
+
+    delete findChef.dataValues.rating;
+    delete findChef.dataValues.createdAt;
+    delete findChef.dataValues.updatedAt;
+
+    if (!accessVerify) {
+      const refreshVerify = refreshAuthorized(req);
+      if (!refreshVerify) {
+        res.status(401).json({ message: 'Send new Login Request' });
+      } else {
+        delete refreshVerify.exp;
+        const accessToken = basicAccessToken(refreshVerify);
+        res
+          .status(201)
+          .json({ accessToken, message: 'ok', data: findChef.dataValues });
+      }
+    } else {
+      res.status(200).json({ message: 'ok', data: findChef.dataValues });
+    }
+  },
   post: async (req, res) => {
     const accessVerify = isAuthorized(req);
     const findChef = await chef.findOne({ where: { id: req.query.id } });

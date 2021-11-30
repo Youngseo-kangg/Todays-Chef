@@ -14,6 +14,7 @@ router.delete('/:id', mypageController.userInfo.delete);
 
 router.get('/reservation/chef', mypageController.chefReservation.get);
 
+router.get('/info/chef', mypageController.chefInfo.get);
 router.post('/info/chef', mypageController.chefInfo.post);
 router.patch('/info/chef', mypageController.chefInfo.patch);
 router.delete('/info/chef', mypageController.chefInfo.delete);
