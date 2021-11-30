@@ -1,27 +1,61 @@
 import { MypageChefEditContent } from '../styled/styleMypage';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import axios from 'axios';
+import { userStatus } from '../features/user/user';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
 function MypageChefEdit() {
+  const userState = useSelector(userStatus);
+  const [userPic, setUserPic] = useState({}); // 유저가 로컬에서 업로드한 프로필 이미지
+  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   // TODO: 1. load 되자마자 서버에 get 요청해서 chef 데이터 다 가져오고, redux chef 업데이트
   // TODO: 2. 자기소개 부분 수정 구현하기 + 유효성 검사
   // TODO: 3. 코스 소개 정보 입력 + 유효성 검사 + 서버에 저장하고 아래에 #chefCourseInfo로 렌더 되서 뜨도록 하기 + 필요한 modal, redux modal 업데이트
   // TODO: 4. #chefCourseInfo로 렌더된 코스 정보 -> 수정, 삭제 구현하기 + 필요한 modal, redux modal 업데이트
+
+  const changeProfileBtn = (event) => {
+    // 로컬에서 선택한 사진 파일을 마이페이지 상에 미리보기로 띄움
+    let formData = new FormData();
+    formData.append('image', event.target.files[0]);
+    setUserPic(formData);
+  };
+
+  const sendImgToServer = async () => {
+    // 선택한 파일을 서버로 axios 요청을 보내 유저 db의 userPic 업데이트
+    try {
+      console.log(userState.userId);
+      const imageRes = await axios.post(
+        `${url}/mypage/image/${userState.userId}`,
+        userPic,
+        {
+          headers: { authorization: `Bearer ${userState.accessToken}` },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <MypageChefEditContent>
       <div id='chefEditIntro'>
         <h2>셰프 자기소개 수정</h2>
         <div id='chefEditIntroSaveBtn'>
-          <button>저장하기</button>
+          <button onClick={sendImgToServer}>저장하기</button>
         </div>
         <div id='chefEditIntroPic'>
           <img src={basic_profile} alt='셰프 사진' />
           <label htmlFor='chefPicUpload'>사진 업로드</label>
-          <input type='file' name='chefPicUpload' id='chefPicUpload' />
+          <input
+            type='file'
+            name='chefPicUpload'
+            id='chefPicUpload'
+            onChange={changeProfileBtn}
+          />
         </div>
         <div id='chefEditIntroText'>
           <p>줄바꿈은 띄어쓰기 없이 '/'로 표시 바랍니다. </p>
