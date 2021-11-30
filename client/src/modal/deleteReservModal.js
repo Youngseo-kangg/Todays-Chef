@@ -25,6 +25,7 @@ function DeleteReservModal() {
           headers: { authorization: `bearer ${userState.accessToken}` },
         }
       ); // 서버에 요청
+      console.log(result);
       if (result.data.accessToken) {
         dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
       }

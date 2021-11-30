@@ -217,7 +217,9 @@ function MypageReservation() {
                 </div>
                 <div id='deleteReserve'>
                   <button
-                    onClick={() => dispatch(openIsDeleteReservModal(el.id))}
+                    onClick={() =>
+                      dispatch(openIsDeleteReservModal({ id: el.id }))
+                    }
                   >
                     취소하기
                   </button>
