@@ -10,6 +10,7 @@ const initialState = {
   isReservDeclinedModalOpen: false, // 로그인 상태 아닌데 예약하려고 하는 상태
   isNeedReLoginModalOpen: false, // 재로그인이 필요하다고 알려주는 상태
   isSubmitCompleteModalOpen: false, // 제출 완료 되었다는 모달
+  isDeleteReservModalOpen: 0, // 예약 삭제 할건지 + 삭제 하는 모달
 };
 
 export const modalSlice = createSlice({
@@ -70,6 +71,12 @@ export const modalSlice = createSlice({
     closeIsSubmitCompleteModal: (state) => {
       state.isSubmitCompleteModalOpen = false;
     },
+    openIsDeleteReservModal: (state, action) => {
+      state.isDeleteReservModalOpen = action.payload.id;
+    },
+    closeIsDeleteReservModal: (state) => {
+      state.isDeleteReservModalOpen = 0;
+    },
   },
 });
 
@@ -92,6 +99,8 @@ export const {
   closeIsNeedReLoginModal,
   openIsSubmitCompleteModal,
   closeIsSubmitCompleteModal,
+  openIsDeleteReservModal,
+  closeIsDeleteReservModal,
 } = modalSlice.actions;
 export const modalStatus = (state) => state.modal;
 export default modalSlice.reducer;

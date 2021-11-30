@@ -1,13 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-const initialState = [];
+const initialState = {
+  data: [],
+};
 
 export const reservationSlice = createSlice({
   name: 'reservation',
   initialState,
   reducers: {
-    deleteReservation: (state, action) => {},
+    deleteReservation: (state, action) => {
+      // action.payload.id 제외하고 다 두기
+      state.data = state.data.map((el) => el.id !== action.payload.id);
+    },
     getReservation: (state, action) => {
-      state.push(action.payload.reservationData);
+      state.data = [...action.payload.reservationData];
     },
   },
 });
