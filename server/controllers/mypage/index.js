@@ -4,4 +4,5 @@ module.exports = {
   userInfo: require('./userInfo'),
   chefReservation: require('./chefReservation'),
   chefInfo: require('./chefInfo'),
+  image: require('./image'),
 };

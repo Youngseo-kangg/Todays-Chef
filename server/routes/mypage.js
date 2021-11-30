@@ -12,6 +12,8 @@ router.patch('/review/user', mypageController.checkReview.patch);
 router.post('/:id', mypageController.userInfo.post);
 router.delete('/:id', mypageController.userInfo.delete);
 
+router.post('/image/:id', upload.single('image'), mypageController.image.post);
+
 router.get('/reservation/chef', mypageController.chefReservation.get);
 
 router.get('/info/chef', mypageController.chefInfo.get);
