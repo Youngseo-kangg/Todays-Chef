@@ -115,7 +115,6 @@ module.exports = {
   },
   patch: async (req, res) => {
     const accessVerify = isAuthorized(req);
-    const findChef = await chef.findOne({ where: { id: req.query.id } });
 
     const data = req.body;
     const { courseName, price, peopleMax, peopleMin, courseDesc, id } = data;
@@ -154,6 +153,27 @@ module.exports = {
     }
   },
   delete: async (req, res) => {
-    res.status(200).json({ message: 'delete ready' });
+    const accessVerify = isAuthorized(req);
+
+    if (!accessVerify) {
+      const refreshVerify = refreshAuthorized(req);
+      if (!refreshVerify) {
+        res.status(401).json({ message: 'Send new Login Request' });
+      } else {
+        delete refreshVerify.exp;
+        const accessToken = basicAccessToken(refreshVerify);
+        await course.destroy({
+          where: { id: req.query.courseId },
+          force: true,
+        });
+        res.status(201).json({ accessToken, message: 'ok' });
+      }
+    } else {
+      await course.destroy({
+        where: { id: req.query.courseId },
+        force: true,
+      });
+      res.status(200).json({ message: 'ok' });
+    }
   },
 };
