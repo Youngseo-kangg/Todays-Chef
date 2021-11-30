@@ -202,7 +202,7 @@ export const MyReservCalander = styled.div`
         width: 10px;
         height: 10px;
         border-radius: 10px;
-        margin: 0 auto;
+        margin: 5px auto 0px;
         background-color: #603224;
       }
     }
