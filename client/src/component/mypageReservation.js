@@ -16,6 +16,8 @@ import {
   isAfter,
   isBefore,
   getDate,
+  parseISO,
+  subDays,
 } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -25,6 +27,7 @@ import {
 import { updateAccessToken, userStatus } from '../features/user/user';
 import { openIsDeleteReservModal } from '../features/user/modal';
 import { getReservation } from '../features/reservation/reservation';
+import { modalStatus } from '../features/user/modal';
 import getMonth from 'date-fns/getMonth';
 
 require('dotenv').config();
@@ -36,30 +39,70 @@ function MypageReservation() {
   const history = useHistory();
   const reservationState = useSelector(reservationStatus);
   const userState = useSelector(userStatus);
+  const modalState = useSelector(modalStatus);
 
-  // TODO: 1. load 되자마자 서버에 get 요청해서 reservation 데이터 다 가져오고, redux reservation 업데이트
+  // 1. load 되자마자 서버에 get 요청해서 reservation 데이터 다 가져오고, redux reservation 업데이트
+  const [selectedDateState, setSelectedDateState] = useState({
+    allergy: '',
+    burner: 0,
+    chefName: '',
+    cuisine: '',
+    id: 0,
+    isOven: false,
+    location: '',
+    messageToChef: null,
+    mobile: '010-0000-0000',
+    people: 0,
+    rsChefId: 0,
+    rsCourseId: 0,
+    rsDate: new Date(),
+    rsTime: '00:00',
+    rsUserId: 0,
+  });
+  console.log(selectedDateState);
+
   useEffect(() => {
-    axios
-      .get(`${url}/mypage/reservation/user?id=${userState.userId}`, {
-        headers: { authorization: `bearer ${userState.accessToken}` },
-      })
-      .then((result) => {
-        console.log(result);
-        if (result.data.accessToken) {
-          dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
-        }
-        dispatch(getReservation({ reservationData: result.data.data }));
-      });
-  }, []);
+    if (modalState.isDeleteReservModalOpen === 0) {
+      axios
+        .get(`${url}/mypage/reservation/user?id=${userState.userId}`, {
+          headers: { authorization: `bearer ${userState.accessToken}` },
+        })
+        .then((result) => {
+          console.log(result);
+          if (result.data.accessToken) {
+            dispatch(
+              updateAccessToken({ accessToken: result.data.accessToken })
+            );
+          }
+          setSelectedDateState({
+            allergy: '',
+            burner: 0,
+            chefName: '',
+            cuisine: '',
+            id: 0,
+            isOven: false,
+            location: '',
+            messageToChef: null,
+            mobile: '010-0000-0000',
+            people: 0,
+            rsChefId: 0,
+            rsCourseId: 0,
+            rsDate: new Date(),
+            rsTime: '00:00',
+            rsUserId: 0,
+          });
+          dispatch(getReservation({ reservationData: result.data.data }));
+        });
+    }
+  }, [modalState.isDeleteReservModalOpen]);
 
-  // TODO: 2. 가져온 reservation 데이터 시간 locale:ko로 맞춰서 보여주기 + 정보 보이기 (동그라미로 표시)
+  // 2. 가져온 reservation 데이터 시간 locale:ko로 맞춰서 보여주기 + 정보 보이기 (동그라미로 표시)
   // TODO: 3. 예약 취소 가능하도록 서버에 delete 요청 보내는 함수 구현하기
+  // TODO: 3-1. 예약 취소는 요청 잘 가는데 axios 요청 후에는 항상 invalid time value 오류가 나옴 & 새로고침 하면 modal 켜진 상태로 나옴.
 
   // TODO: 달력만들기
   // 달력 만들기는 https://www.youtube.com/watch?v=mfG4BVCRkEQ 를 참고했음
   const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
-  // const startDate = startOfWeek(startOfMonth(selectedDate)); // 이번달 시작 날짜
-  // const endDate = endOfWeek(endOfMonth(selectedDate)); // 이번달 마지막 날짜
   // 한주씩 구하는 함수 takeWeek
   const takeWeek = (start = new Date()) => {
     let date = startOfWeek(startOfDay(start)); // a. 주어진 날짜에서 날짜가 시작하는 지점을 찾고 b.그 지점을 사용해서 그 주의 시작날 찾음
@@ -70,9 +113,6 @@ function MypageReservation() {
       return week;
     };
   };
-  // const weekGenerator = takeWeek(); // 함수 찍힘
-  // weekGenerator(); // 11/28~12/04
-  // console.log('weekGenerator(): ', weekGenerator()); // 12/05~12/11 (++1주) ... 해당하는 달이 몇주인지 알아내면 그만큼 반복해서 takeWeek 쓰면 됨
 
   // 한달씩 구하는 함수 takeMonth
   const takeMonth = (start = new Date()) => {
@@ -97,10 +137,6 @@ function MypageReservation() {
       return range;
     };
   };
-  // console.log('takeMonth: ', takeMonth); // 함수 나옴
-  // let tm = takeMonth();
-  // console.log('tm(): ', tm()); // [[첫째주의 첫째날, ...],...,[...마지막 주의 마지막날]]
-  // console.log('tm(): ', tm()); // 58줄의 다음달,...
 
   const month = takeMonth(); // 달 구하는 함수 자체
   const today = new Date(); // 지금
@@ -123,6 +159,33 @@ function MypageReservation() {
       setCurrentDate(subMonths(currentDate, 1));
     }
   };
+  const changeSelected = (day) => {
+    setSelectedDate(day);
+    let index = reservationState.data
+      .map((el) => format(new Date(el.rsDate), 'yyyy-MM-dd'))
+      .indexOf(format(new Date(day), 'yyyy-MM-dd'));
+    if (index !== -1) {
+      setSelectedDateState(reservationState.data[index]);
+    } else {
+      setSelectedDateState({
+        allergy: '',
+        burner: 0,
+        chefName: '',
+        cuisine: '',
+        id: 0,
+        isOven: false,
+        location: '',
+        messageToChef: null,
+        mobile: '010-0000-0000',
+        people: 0,
+        rsChefId: 0,
+        rsCourseId: 0,
+        rsDate: new Date(),
+        rsTime: '00:00',
+        rsUserId: 0,
+      });
+    }
+  };
 
   return (
     <MypageReservContent>
@@ -132,7 +195,7 @@ function MypageReservation() {
             &lt;
           </div>
           <div id='myReservationMonth'>
-            <h2>{format(currentDate, 'yyyy MM월')}</h2>
+            <h2>{format(today, 'yyyy년 MM월')}</h2>
           </div>
           <div className='myReservationArrow' onClick={nextMonth}>
             &gt;
@@ -159,30 +222,25 @@ function MypageReservation() {
                         : 'calanderDay thisMonth'
                     }
                     id={
-                      format(day, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd')
+                      format(new Date(day), 'yyyy-MM-dd') ===
+                      format(new Date(today), 'yyyy-MM-dd')
                         ? 'today'
                         : null
                     }
-                    onClick={
-                      isAfter(day, today) ||
-                      format(day, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd')
-                        ? () => {
-                            setSelectedDate(day); // 날짜 변경
-                          }
-                        : null
-                    }
-                    key={day}
+                    onClick={() => changeSelected(day)}
+                    key={new Date(day)}
                   >
                     <div>
-                      {getDate(day) === 1
-                        ? format(day, 'MM/dd')
-                        : format(day, 'dd')}
+                      {getDate(new Date(day)) === 1
+                        ? format(new Date(day), 'MM/dd')
+                        : format(new Date(day), 'dd')}
                     </div>
-                    {reservationState.data
-                      .map((el) => format(new Date(el.rsDate), 'yyyy-MM-dd'))
-                      .includes(format(day, 'yyyy-MM-dd')) ? (
-                      <div className='reservedDate'></div>
-                    ) : null}
+                    {reservationState.data.map((el) =>
+                      format(new Date(el.rsDate), 'yyyy-MM-dd') ===
+                      format(new Date(day), 'yyyy-MM-dd') ? (
+                        <div className='reservedDate'></div>
+                      ) : null
+                    )}
                   </div>
                 ))}
               </div>
@@ -192,41 +250,30 @@ function MypageReservation() {
       </div>
       <div id='myReservationInfo'>
         <div id='myReservationDate'>{format(selectedDate, 'yyyy-MM-dd')}</div>
-        {reservationState.data
-          .map((el) => format(new Date(el.rsDate), 'yyyy-MM-dd'))
-          .includes(format(selectedDate, 'yyyy-MM-dd')) ? (
-          reservationState.data.map((el) => {
-            return (
-              <>
-                <div id='myReservationData'>
-                  {userState.isChef ? (
-                    <>
-                      <p>예약자, 예약 시간, 예약 인원</p>
-                      <p>예약자 연락처</p>
-                      <p>예약 주소 </p>
-                    </>
-                  ) : (
-                    <>
-                      <p>
-                        {el.chefName}의 코스, {el.rsTime}, {el.people}명
-                      </p>
-                      <p>연락처 : {el.mobile}</p>
-                      <p>예약 주소 : {el.location}</p>
-                    </>
-                  )}
-                </div>
-                <div id='deleteReserve'>
-                  <button
-                    onClick={() =>
-                      dispatch(openIsDeleteReservModal({ id: el.id }))
-                    }
-                  >
-                    취소하기
-                  </button>
-                </div>
-              </>
-            );
-          })
+        {selectedDateState.id !== 0 ? (
+          <>
+            <div id='myReservationData'>
+              <p>
+                {selectedDateState.chefName}의 코스, {selectedDateState.rsTime}
+              </p>
+              <p>{selectedDateState.location}</p>
+            </div>
+            <div id='deleteReserve'>
+              {isBefore(new Date(today), subDays(new Date(selectedDate), 7)) ? (
+                <button
+                  onClick={() =>
+                    dispatch(
+                      openIsDeleteReservModal({ id: selectedDateState.id })
+                    )
+                  }
+                >
+                  취소하기
+                </button>
+              ) : (
+                <button>취소 불가</button>
+              )}
+            </div>
+          </>
         ) : (
           <>
             <div id='myReservationData'>예약 내역이 없습니다.</div>
