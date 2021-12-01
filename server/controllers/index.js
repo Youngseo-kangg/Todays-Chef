@@ -4,4 +4,5 @@ module.exports = {
   reservationController: require('./reservation/index'),
   adminController: require('./admin/index'),
   mypageController: require('./mypage/index'),
+  mainPageController: require('./mainpage/index'),
 };
