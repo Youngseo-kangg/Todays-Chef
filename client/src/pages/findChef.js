@@ -151,8 +151,9 @@ function FindChef() {
                         {el.chefName} 셰프
                       </Link>
                     </h3>
-                    <span>{el.rating}</span>
+
                     <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
+                    <span>{el.rating}</span>
                   </li>
                 );
               })}
