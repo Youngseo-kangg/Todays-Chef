@@ -212,7 +212,6 @@ export const ChefItemList = styled.div`
   }
 `;
 export const ChefStar = styled.div`
-  background-color: pink;
   width: 60%;
   height: 100%;
   margin: 0 auto;
