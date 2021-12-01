@@ -26,7 +26,7 @@ function FindChef() {
   const [chefData, setChefData] = useState([]);
   const [chefsPerPage, setChefsPerPage] = useState({
     start: 0,
-    end: 3,
+    end: 4,
     array: [],
     length: 0,
   }); // 몇개를 가져올지
@@ -39,11 +39,11 @@ function FindChef() {
     try {
       let encodeSelected = encodeURI(encodeURIComponent(selected));
       const result = await axios.get(
-        `${url}/chef/${encodeSelected}?startNum=0&endNum=3`
+        `${url}/chef/${encodeSelected}?startNum=0&endNum=4`
       ); // axios 요청 (무조건 처음엔 0~3개만)
       setChefData(result.data.data); // 2. result값으로 chefData 없데이트
       let newArr = [];
-      for (let i = 0; i < result.data.length; i += 3) {
+      for (let i = 0; i < result.data.length; i += 4) {
         newArr.push(i); // 3씩 끊은 수 들어가게
       }
       setChefsPerPage({
@@ -65,7 +65,7 @@ function FindChef() {
 
       setChefData(result.data.data); // 2. result값으로 chefData 없데이트
       let newArr = [];
-      for (let i = 0; i < result.data.length; i += 3) {
+      for (let i = 0; i < result.data.length; i += 4) {
         newArr.push(i); // 3씩 끊은 수 들어가게
       }
       setChefsPerPage({
@@ -163,7 +163,7 @@ function FindChef() {
             <ul>
               {chefsPerPage.array.map((el, idx) => {
                 return (
-                  <li key={idx} onClick={() => getChefListMore(el, el + 3)}>
+                  <li key={idx} onClick={() => getChefListMore(el, el + 4)}>
                     {idx + 1}
                   </li>
                 );

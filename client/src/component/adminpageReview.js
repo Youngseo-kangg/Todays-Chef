@@ -21,7 +21,7 @@ function AdminpageReview() {
   const [adminReview, setAdminReview] = useState([]);
   const [adminReviewPerPage, setAdminReviewPerPage] = useState({
     start: 0,
-    end: 4,
+    end: 5,
     array: [],
     length: 0,
   });
@@ -31,7 +31,7 @@ function AdminpageReview() {
     try {
       let encodeSelected = encodeURI(encodeURIComponent(adminCuisine));
       let result = await axios.get(
-        `${url}/admin/review/${encodeSelected}?startNum=0&endNum=4`,
+        `${url}/admin/review/${encodeSelected}?startNum=0&endNum=5`,
         {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
@@ -46,7 +46,7 @@ function AdminpageReview() {
         );
       }
       let newArr = [];
-      for (let i = 0; i < result.data.length; i += 4) {
+      for (let i = 0; i < result.data.length; i += 5) {
         newArr.push(i); // 4씩 끊은 수 들어가게
       }
       setAdminReviewPerPage({
@@ -83,7 +83,7 @@ function AdminpageReview() {
       }
       setAdminReview(result.data.data);
       let newArr = [];
-      for (let i = 0; i < result.data.length; i += 4) {
+      for (let i = 0; i < result.data.length; i += 5) {
         newArr.push(i); // 4씩 끊은 수 들어가게
       }
       setAdminReviewPerPage({
@@ -176,7 +176,7 @@ function AdminpageReview() {
         <ul>
           {adminReviewPerPage.array.map((el, idx) => {
             return (
-              <li key={idx} onClick={() => getAdminReviewMore(el, el + 4)}>
+              <li key={idx} onClick={() => getAdminReviewMore(el, el + 5)}>
                 {idx + 1}
               </li>
             );

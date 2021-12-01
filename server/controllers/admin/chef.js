@@ -39,7 +39,7 @@ module.exports = {
             accessToken,
             message: 'ok',
             length: sendChefInfoArr.length,
-            data: sendChefInfoArr.slice(startSlice, endSlice + 1),
+            data: sendChefInfoArr.slice(startSlice, endSlice),
           });
         } else if (!req.query.startNum || !req.query.endNum) {
           res.status(400).json({ message: 'undefined chef' });
@@ -50,7 +50,7 @@ module.exports = {
         res.status(200).json({
           message: 'ok',
           length: sendChefInfoArr.length,
-          data: sendChefInfoArr.slice(startSlice, endSlice + 1),
+          data: sendChefInfoArr.slice(startSlice, endSlice),
         });
       } else if (!req.query.startNum || !req.query.endNum) {
         res.status(400).json({ message: 'undefined chef' });

@@ -12,6 +12,7 @@ import {
 import { login } from '../features/user/user';
 import { LoginFormWrap } from '../styled/styledLogin';
 import { useForm } from 'react-hook-form';
+import { chefLogin } from '../features/chef/chef';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -47,13 +48,17 @@ function Login() {
       console.log(loginResult.data.userInfo);
       if (loginResult.data.message === 'ok') {
         console.log('login 완료', loginResult);
+        if (loginResult.data.userInfo.chefId) {
+          // 셰프라면
+          dispatch(chefLogin(loginResult.data.userInfo.chefId));
+        }
+        delete loginResult.data.userInfo.chefId; // 바로 지우기
         dispatch(
           login({
             ...loginResult.data.userInfo,
             accessToken: loginResult.data.accessToken,
           })
         );
-        // setIsLoginModalOpen(true);
         dispatch(openLoginModal());
       }
     } catch (err) {

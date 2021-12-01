@@ -16,18 +16,15 @@ import {
   isAfter,
   isBefore,
   getDate,
-  parseISO,
   subDays,
 } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  deleteReservation,
-  reservationStatus,
-} from '../features/reservation/reservation';
+import { reservationStatus } from '../features/reservation/reservation';
 import { updateAccessToken, userStatus } from '../features/user/user';
 import { openIsDeleteReservModal } from '../features/user/modal';
 import { getReservation } from '../features/reservation/reservation';
 import { modalStatus } from '../features/user/modal';
+import chefStatus from '../features/chef/chef';
 import getMonth from 'date-fns/getMonth';
 
 require('dotenv').config();
@@ -40,7 +37,7 @@ function MypageReservation() {
   const reservationState = useSelector(reservationStatus);
   const userState = useSelector(userStatus);
   const modalState = useSelector(modalStatus);
-
+  // const chefState = useSelector(chefStatus);
   // 1. load 되자마자 서버에 get 요청해서 reservation 데이터 다 가져오고, redux reservation 업데이트
   const [selectedDateState, setSelectedDateState] = useState({
     allergy: '',
@@ -62,7 +59,7 @@ function MypageReservation() {
   console.log(selectedDateState);
 
   useEffect(() => {
-    if (modalState.isDeleteReservModalOpen === 0) {
+    if (modalState.isDeleteReservModalOpen === 0 && !userState.isChef) {
       axios
         .get(`${url}/mypage/reservation/user?id=${userState.userId}`, {
           headers: { authorization: `bearer ${userState.accessToken}` },
@@ -94,6 +91,38 @@ function MypageReservation() {
           dispatch(getReservation({ reservationData: result.data.data }));
         });
     }
+    // else if (modalState.isDeleteReservModalOpen === 0 && userState.isChef) {
+    //   axios
+    //     .get(`${url}/mypage/reservation/chef?id=${chefState.userId}`, {
+    //       headers: { authorization: `bearer ${userState.accessToken}` },
+    //     })
+    //     .then((result) => {
+    //       console.log(result);
+    //       if (result.data.accessToken) {
+    //         dispatch(
+    //           updateAccessToken({ accessToken: result.data.accessToken })
+    //         );
+    //       }
+    //       setSelectedDateState({
+    //         allergy: '',
+    //         burner: 0,
+    //         chefName: '',
+    //         cuisine: '',
+    //         id: 0,
+    //         isOven: false,
+    //         location: '',
+    //         messageToChef: null,
+    //         mobile: '010-0000-0000',
+    //         people: 0,
+    //         rsChefId: 0,
+    //         rsCourseId: 0,
+    //         rsDate: new Date(),
+    //         rsTime: '00:00',
+    //         rsUserId: 0,
+    //       });
+    //       dispatch(getReservation({ reservationData: result.data.data }));
+    //     });
+    // }
   }, [modalState.isDeleteReservModalOpen]);
 
   // 2. 가져온 reservation 데이터 시간 locale:ko로 맞춰서 보여주기 + 정보 보이기 (동그라미로 표시)
