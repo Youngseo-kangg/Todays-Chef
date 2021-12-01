@@ -69,28 +69,28 @@ module.exports = {
               accessToken,
               message: 'ok',
               length: weekFilterArr.length,
-              data: weekFilterArr.slice(startSlice, endSlice + 1),
+              data: weekFilterArr.slice(startSlice, endSlice),
             });
           } else if (filterDate === 'month') {
             res.status(201).json({
               accessToken,
               message: 'ok',
               length: monthFilterArr.length,
-              data: monthFilterArr.slice(startSlice, endSlice + 1),
+              data: monthFilterArr.slice(startSlice, endSlice),
             });
           } else if (filterDate === 'months') {
             res.status(201).json({
               accessToken,
               message: 'ok',
               length: monthsFilterArr.length,
-              data: monthsFilterArr.slice(startSlice, endSlice + 1),
+              data: monthsFilterArr.slice(startSlice, endSlice),
             });
           } else if (filterDate === 'all') {
             res.status(201).json({
               accessToken,
               message: 'ok',
               length: allFilterArr.length,
-              data: allFilterArr.slice(startSlice, endSlice + 1),
+              data: allFilterArr.slice(startSlice, endSlice),
             });
           }
         } else if (!req.query.startNum || !req.query.endNum) {
@@ -104,25 +104,25 @@ module.exports = {
           res.status(200).json({
             message: 'ok',
             length: weekFilterArr.length,
-            data: weekFilterArr.slice(startSlice, endSlice + 1),
+            data: weekFilterArr.slice(startSlice, endSlice),
           });
         } else if (filterDate === 'month') {
           res.status(200).json({
             message: 'ok',
             length: monthFilterArr.length,
-            data: monthFilterArr.slice(startSlice, endSlice + 1),
+            data: monthFilterArr.slice(startSlice, endSlice),
           });
         } else if (filterDate === 'months') {
           res.status(200).json({
             message: 'ok',
             length: monthsFilterArr.length,
-            data: monthsFilterArr.slice(startSlice, endSlice + 1),
+            data: monthsFilterArr.slice(startSlice, endSlice),
           });
         } else if (filterDate === 'all') {
           res.status(200).json({
             message: 'ok',
             length: allFilterArr.length,
-            data: allFilterArr.slice(startSlice, endSlice + 1),
+            data: allFilterArr.slice(startSlice, endSlice),
           });
         }
       } else if (!req.query.startNum || !req.query.endNum) {

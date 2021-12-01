@@ -21,7 +21,7 @@ function AdminpageChef() {
   const [adminChef, setAdminChef] = useState([]);
   const [adminChefPerPage, setAdminChefPerPage] = useState({
     start: 0,
-    end: 4,
+    end: 5,
     array: [],
     length: 0,
   });
@@ -31,7 +31,7 @@ function AdminpageChef() {
     try {
       let encodeSelected = encodeURI(encodeURIComponent(adminCuisine));
       let result = await axios.get(
-        `${url}/admin/chef/${encodeSelected}?startNum=0&endNum=4`,
+        `${url}/admin/chef/${encodeSelected}?startNum=0&endNum=5`,
         {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
@@ -46,7 +46,7 @@ function AdminpageChef() {
       }
       setAdminChef(result.data.data);
       let newArr = [];
-      for (let i = 0; i < result.data.length; i += 4) {
+      for (let i = 0; i < result.data.length; i += 5) {
         newArr.push(i); // 4씩 끊은 수 들어가게
       }
       setAdminChefPerPage({
@@ -83,7 +83,7 @@ function AdminpageChef() {
       }
       setAdminChef(result.data.data);
       let newArr = [];
-      for (let i = 0; i < result.data.length; i += 4) {
+      for (let i = 0; i < result.data.length; i += 5) {
         newArr.push(i); // 4씩 끊은 수 들어가게
       }
       setAdminChefPerPage({
@@ -181,7 +181,7 @@ function AdminpageChef() {
         <ul>
           {adminChefPerPage.array.map((el, idx) => {
             return (
-              <li key={idx} onClick={() => getAdminChefMore(el, el + 4)}>
+              <li key={idx} onClick={() => getAdminChefMore(el, el + 5)}>
                 {idx + 1}
               </li>
             );

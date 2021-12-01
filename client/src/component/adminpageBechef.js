@@ -19,7 +19,7 @@ function AdminpageBechef() {
   const [adminBechef, setAdminBechef] = useState([]);
   const [adminBechefPerPage, setAdminBechefPerPage] = useState({
     start: 0,
-    end: 4,
+    end: 5,
     array: [],
     length: 0,
   });
@@ -28,7 +28,7 @@ function AdminpageBechef() {
   const getAdminBechef = async () => {
     try {
       let result = await axios.get(
-        `${url}/admin/bechef/${adminDuedate}?startNum=0&endNum=4`,
+        `${url}/admin/bechef/${adminDuedate}?startNum=0&endNum=5`,
         {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
@@ -44,7 +44,7 @@ function AdminpageBechef() {
       console.log(result.data);
       setAdminBechef(result.data.data);
       let newArr = [];
-      for (let i = 0; i < result.data.length; i += 4) {
+      for (let i = 0; i < result.data.length; i += 5) {
         newArr.push(i); // 4씩 끊은 수 들어가게
       }
       setAdminBechefPerPage({
@@ -80,7 +80,7 @@ function AdminpageBechef() {
       }
       setAdminBechef(result.data.data);
       let newArr = [];
-      for (let i = 0; i < result.data.length; i += 4) {
+      for (let i = 0; i < result.data.length; i += 5) {
         newArr.push(i); // 4씩 끊은 수 들어가게
       }
       setAdminBechefPerPage({
@@ -213,7 +213,7 @@ function AdminpageBechef() {
           <ul>
             {adminBechefPerPage.array.map((el, idx) => {
               return (
-                <li key={idx} onClick={() => getAdminBechefMore(el, el + 4)}>
+                <li key={idx} onClick={() => getAdminBechefMore(el, el + 5)}>
                   {idx + 1}
                 </li>
               );

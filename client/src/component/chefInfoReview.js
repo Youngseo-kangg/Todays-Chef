@@ -24,7 +24,7 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
   const [reviewData, setReviewData] = useState([]);
   const [reviewsPerPage, setReviewsPerPage] = useState({
     start: 0,
-    end: 3,
+    end: 4,
     array: [],
     length: reviewLength,
   });
@@ -35,7 +35,7 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
     ); // axios 요청 (무조건 처음엔 0~3개만) .. query는 chefInfo에서 가져온 chefId 숫자
     setReviewData(result.data.data); // 2. result값으로 reviewData 없데이트
     let newArr = [];
-    for (let i = 0; i < result.data.data.length; i += 3) {
+    for (let i = 0; i < result.data.data.length; i += 4) {
       newArr.push(i); // 3씩 끊은 수 들어가게
     }
     setReviewsPerPage({
@@ -50,7 +50,7 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
     ); // axios 요청 (0~3 이후에 번호들) .. query는 chefInfo에서 가져온 chefId 숫자
     setReviewData(result.data.data);
     let newArr = [];
-    for (let i = 0; i < result.data.data.length; i += 3) {
+    for (let i = 0; i < result.data.data.length; i += 4) {
       newArr.push(i); // 3씩 끊은 수 들어가게
     }
     setReviewsPerPage({
@@ -116,7 +116,7 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
               <ul>
                 {reviewsPerPage.array.map((el, idx) => {
                   return (
-                    <li key={idx} onClick={() => getReviewMore(el, el + 3)}>
+                    <li key={idx} onClick={() => getReviewMore(el, el + 4)}>
                       {idx + 1}
                     </li>
                   );

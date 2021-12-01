@@ -30,7 +30,7 @@ module.exports = {
       res.json({
         message: 'ok',
         length: chefAllInfo.length,
-        data: newData.slice(startSlice, endSlice + 1),
+        data: newData.slice(startSlice, endSlice),
       });
     }
   },

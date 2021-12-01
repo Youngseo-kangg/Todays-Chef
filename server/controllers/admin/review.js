@@ -51,7 +51,7 @@ module.exports = {
             accessToken,
             message: 'ok',
             length: filterReviewsData.length,
-            data: filterReviewsData.slice(startSlice, endSlice + 1),
+            data: filterReviewsData.slice(startSlice, endSlice),
           });
         } else if (!req.query.startNum || !req.query.endNum) {
           res.status(400).json({ message: 'undefined review' });
@@ -62,7 +62,7 @@ module.exports = {
         res.status(200).json({
           message: 'ok',
           length: filterReviewsData.length,
-          data: filterReviewsData.slice(startSlice, endSlice + 1),
+          data: filterReviewsData.slice(startSlice, endSlice),
         });
       } else if (!req.query.startNum || !req.query.endNum) {
         res.status(400).json({ message: 'undefined review' });
