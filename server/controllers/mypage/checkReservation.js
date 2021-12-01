@@ -1,4 +1,4 @@
-const { chef, reservation } = require('../../models');
+const { chef, reservation, course } = require('../../models');
 const { basicAccessToken, isAuthorized } = require('../token/accessToken');
 const { refreshAuthorized } = require('../token/refreshToken');
 
@@ -18,6 +18,12 @@ module.exports = {
         where: { id: findReservation[i].dataValues.rsChefId },
       });
 
+      const findCourse = await course.findOne({
+        where: { id: findReservation[i].dataValues.rsCourseId },
+      });
+
+      findReservation[i].dataValues.courseName =
+        findCourse.dataValues.courseName;
       delete findReservation[i].dataValues.createdAt;
       delete findReservation[i].dataValues.updatedAt;
 
