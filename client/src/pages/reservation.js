@@ -14,10 +14,15 @@ import {
   ReservationDesc,
 } from '../styled/styleReservation';
 import { userStatus } from '../features/user/user';
-import { openReservDeclinedModal, modalStatus } from '../features/user/modal';
+import {
+  openReservDeclinedModal,
+  openIsAdminOrChefWarningModal,
+  modalStatus,
+} from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { setHours, setMinutes } from 'date-fns';
+import AdminOrChefWarningModal from '../modal/adminOrChefWarningModal';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
@@ -83,7 +88,12 @@ function Reservation() {
   const queryCourseId = querys[1].split('=')[1];
 
   useEffect(() => {
-    if (userState.userId === -1 && !modalState.isReservDeclinedModalOpen) {
+    if (userState.isChef || userState.isAdmin) {
+      dispatch(openIsAdminOrChefWarningModal());
+    } else if (
+      userState.userId === -1 &&
+      !modalState.isReservDeclinedModalOpen
+    ) {
       dispatch(openReservDeclinedModal());
     } else {
       axios
@@ -102,6 +112,9 @@ function Reservation() {
   return (
     <>
       {modalState.isReservDeclinedModalOpen ? <ReservDeclinedModal /> : null}
+      {modalState.isAdminOrChefWarningModalOpen ? (
+        <AdminOrChefWarningModal />
+      ) : null}
       {searchAddress === true ? (
         <AddressModal
           setSearchAddress={setSearchAddress}
