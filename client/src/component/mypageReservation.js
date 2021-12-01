@@ -43,6 +43,7 @@ function MypageReservation() {
     allergy: '',
     burner: 0,
     chefName: '',
+    courseName: '',
     cuisine: '',
     id: 0,
     isOven: false,
@@ -56,10 +57,8 @@ function MypageReservation() {
     rsTime: '00:00',
     rsUserId: 0,
   });
-  console.log(selectedDateState);
-
   useEffect(() => {
-    if (modalState.isDeleteReservModalOpen === 0 && !userState.isChef) {
+    if (modalState.isDeleteReservModalOpen === 0) {
       axios
         .get(`${url}/mypage/reservation/user?id=${userState.userId}`, {
           headers: { authorization: `bearer ${userState.accessToken}` },
@@ -75,6 +74,7 @@ function MypageReservation() {
             allergy: '',
             burner: 0,
             chefName: '',
+            courseName: '',
             cuisine: '',
             id: 0,
             isOven: false,
@@ -283,7 +283,8 @@ function MypageReservation() {
           <>
             <div id='myReservationData'>
               <p>
-                {selectedDateState.chefName}의 코스, {selectedDateState.rsTime}
+                {selectedDateState.chefName}의 {selectedDateState.courseName}{' '}
+                코스, {selectedDateState.rsTime}
               </p>
               <p>{selectedDateState.location}</p>
             </div>

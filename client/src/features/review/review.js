@@ -1,15 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-const initialState = [];
+const initialState = {
+  data: [],
+};
 
 export const reviewSlice = createSlice({
   name: 'review',
   initialState,
   reducers: {
-    writeReview: (state, action) => {
-      state.username = action.payload.username;
-      state.email = action.payload.email;
+    writeReview: (state, action) => {},
+    getReview: (state, action) => {
+      state.data = action.payload.data;
     },
-    getReview: (state) => {},
   },
 });
 

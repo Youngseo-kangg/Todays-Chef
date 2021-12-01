@@ -18,6 +18,8 @@ export const chefSlice = createSlice({
   reducers: {
     chefLogin: (state, action) => {
       state.chefId = action.payload.chefId;
+    },
+    chefMypage: (state, action) => {
       state.chefName = action.payload.chefName;
       state.cuisine = action.payload.cuisine;
       state.chefImg = action.payload.chefImg;
@@ -41,6 +43,6 @@ export const chefSlice = createSlice({
   },
 });
 
-export const { chefLogin, chefLogout } = chefSlice.actions;
+export const { chefLogin, chefMypage, chefLogout } = chefSlice.actions;
 export const chefStatus = (state) => state.chef;
 export default chefSlice.reducer;
