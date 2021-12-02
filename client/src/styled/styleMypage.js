@@ -211,7 +211,7 @@ export const MyReservCalander = styled.div`
 
 export const MypageReviewContent = styled.div`
   display: grid;
-  grid-template-rows: 50px 370px 1fr;
+  grid-template-rows: 50px 405px 1fr;
   row-gap: 20px;
   place-items: center;
   width: 100%;
@@ -251,8 +251,8 @@ export const MypageReviewContent = styled.div`
       }
       > #myRecentReviewExtra {
         display: grid;
-        grid-template-columns: 350px 100px 1fr;
-        padding: 15px;
+        grid-template-columns: 450px 100px 1fr;
+        padding: 10px;
         box-sizing: border-box;
         place-items: center;
         column-gap: 10px;
@@ -266,8 +266,6 @@ export const MypageReviewContent = styled.div`
           display: grid;
           place-items: center;
           h3 {
-            padding-bottom: 15px;
-            border-bottom: 2px solid #fff;
             word-break: keep-all;
           }
         }
@@ -326,10 +324,14 @@ export const MypageReviewContent = styled.div`
             }
           }
         }
+        #myRecentCommentPic.showReview {
+          grid-template-columns: 1fr;
+        }
       }
       > #myRecentReviewContent {
         display: grid;
         grid-template-rows: 240px 40px;
+        grid-auto-rows: 25px;
         row-gap: 10px;
         place-items: center;
         width: 100%;
@@ -362,6 +364,15 @@ export const MypageReviewContent = styled.div`
           }
         }
       }
+      > #myRecentReviewContent.showReview > div {
+        width: calc(100% - 30px);
+        height: 100%;
+        padding: 15px;
+        grid-template-rows: 280px;
+        background-color: rgba(255, 255, 255, 0.1);
+        text-align: left;
+        border-radius: 5px;
+      }
     }
   }
   > #myCommentList {
@@ -386,8 +397,12 @@ export const MypageReviewContent = styled.div`
           height: 100%;
           justify-content: space-evenly;
           align-items: center;
+          cursor: pointer;
           background-color: #dbb89a;
           border-radius: 5px;
+        }
+        > li:hover {
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
       }
     }
