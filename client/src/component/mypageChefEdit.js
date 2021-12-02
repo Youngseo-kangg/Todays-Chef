@@ -42,6 +42,15 @@ function MypageChefEdit() {
     peopleMax: 0,
     peopleMin: 0,
   });
+  const [isEdit, setIsEdit] = useState(false);
+  const [editIdx, setEditIdx] = useState(0);
+  const [onEdit, setOnEdit] = useState({
+    courseName: chefState.courses[editIdx].courseName,
+    courseDesc: chefState.courses[editIdx].courseDesc,
+    price: chefState.courses[editIdx].price,
+    peopleMax: chefState.courses[editIdx].peopleMax,
+    peopleMin: chefState.courses[editIdx].peopleMin,
+  });
   // TODO: 1. load 되자마자 서버에 get 요청해서 chef 데이터 다 가져오고, redux chef 업데이트
   const getChefInfo = async () => {
     try {
@@ -257,9 +266,18 @@ function MypageChefEdit() {
     }
   };
 
-  const onEditCourse = async () => {
-    console.log('수정');
+  const handleEditInputValue = (key) => (e) => {
+    setOnEdit({
+      ...onEdit,
+      [key]: e.target.value,
+    });
   };
+
+  const onEditCourse = async (idx) => {
+    setIsEdit(true); // 변경상태로 바꿔주기
+    setEditIdx(idx); // 몇번째 고치는건지 알려주기
+  };
+
   const onDeleteCourse = async () => {
     console.log('삭제');
   };
@@ -413,31 +431,92 @@ function MypageChefEdit() {
                   <div key={idx} className='chefCourseInfoData'>
                     <div className='chefCourseInfoBtn'>
                       <div className='chefCourseInfoBtnWrap'>
-                        <button onClick={onEditCourse}>수정하기</button>
-                        <button onClick={onDeleteCourse}>삭제하기</button>
+                        <button
+                          onClick={
+                            isEdit
+                              ? () => setIsEdit(false)
+                              : () => onEditCourse(idx)
+                          }
+                        >
+                          {isEdit && idx === editIdx ? '저장하기' : '수정하기'}
+                        </button>
+                        <button onClick={() => onDeleteCourse(el)}>
+                          삭제하기
+                        </button>
                       </div>
                     </div>
-                    <div className='chefCourseInfoItem'>
-                      <h3>코스 이름</h3>
-                      <p>{el.courseName}</p>
-                    </div>
-                    <div className='chefCourseInfoItem'>
-                      <h3>최소 인원</h3>
-                      <p>{el.peopleMin}</p>
-                    </div>
+                    {isEdit && idx === editIdx ? (
+                      <>
+                        <div className='chefCourseInfoItem'>
+                          <label htmlFor='courseName'>코스 이름</label>
+                          <input
+                            type='text'
+                            name='courseName'
+                            defaultValue={el.courseName}
+                            onChange={handleEditInputValue('courseName')}
+                          />
+                        </div>
+                        <div className='chefCourseInfoItem'>
+                          <label htmlFor='peopleMin'>최소 인원</label>
+                          <input
+                            type='text'
+                            name='peopleMin'
+                            onChange={handleEditInputValue('peopleMin')}
+                            defaultValue={el.peopleMin}
+                          />
+                        </div>
 
-                    <div className='chefCourseInfoItem'>
-                      <h3>최대 인원</h3>
-                      <p>{el.peopleMax}</p>
-                    </div>
-                    <div className='chefCourseInfoItem'>
-                      <h3>코스 가격</h3>
-                      <p>{el.price}</p>
-                    </div>
+                        <div className='chefCourseInfoItem'>
+                          <label htmlFor='peopleMax'>최대 인원</label>
+                          <input
+                            type='text'
+                            name='peopleMax'
+                            onChange={handleEditInputValue('peopleMax')}
+                            defaultValue={el.peopleMax}
+                          />
+                        </div>
+                        <div className='chefCourseInfoItem'>
+                          <label htmlFor='price'>코스 가격</label>
+                          <input
+                            type='text'
+                            name='price'
+                            onChange={handleEditInputValue('price')}
+                            defaultValue={el.price}
+                          />
+                        </div>
 
-                    <div className='chefCourseInfoItemDesc'>
-                      {el.courseDesc}
-                    </div>
+                        <textarea
+                          name='courseDesc'
+                          defaultValue={el.courseDesc}
+                          onChange={handleEditInputValue('courseDesc')}
+                          className='chefCourseInfoItemDesc'
+                        ></textarea>
+                      </>
+                    ) : (
+                      <>
+                        <div className='chefCourseInfoItem'>
+                          <h3>코스 이름</h3>
+                          <p>{el.courseName}</p>
+                        </div>
+                        <div className='chefCourseInfoItem'>
+                          <h3>최소 인원</h3>
+                          <p>{el.peopleMin}</p>
+                        </div>
+
+                        <div className='chefCourseInfoItem'>
+                          <h3>최대 인원</h3>
+                          <p>{el.peopleMax}</p>
+                        </div>
+                        <div className='chefCourseInfoItem'>
+                          <h3>코스 가격</h3>
+                          <p>{el.price}</p>
+                        </div>
+
+                        <div className='chefCourseInfoItemDesc'>
+                          {el.courseDesc}
+                        </div>
+                      </>
+                    )}
                   </div>
                 );
               })
