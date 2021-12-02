@@ -755,10 +755,10 @@ export const MypageChefEditContent = styled.div`
       width: 100%;
       height: 100%;
       display: grid;
-      grid-template-rows: 50px 250px 1fr;
+      grid-template-rows: 50px 300px 1fr;
       row-gap: 10px;
       @media (max-width: 420px) {
-        grid-template-rows: 50px 350px 1fr;
+        grid-template-rows: 50px 450px 1fr;
       }
       h2 {
         width: 280px;
@@ -775,7 +775,6 @@ export const MypageChefEditContent = styled.div`
         grid-template-rows: 1fr 30px;
         row-gap: 10px;
         background-color: #603224;
-        color: #fff;
         padding: 10px;
         border-radius: 5px;
         #chefCourseInfoForm {
@@ -801,7 +800,6 @@ export const MypageChefEditContent = styled.div`
             > input {
               width: 100%;
               height: 100%;
-              color: #fff;
               border-radius: 5px;
               border: none;
               outline: none;
@@ -832,8 +830,6 @@ export const MypageChefEditContent = styled.div`
             height: 100%;
             grid-column: 1 / 3;
             grid-row: 3 / 4;
-            background-color: rgba(255, 255, 255, 0.3);
-            color: #fff;
             border-radius: 5px;
             border: none;
             outline: none;
@@ -860,6 +856,12 @@ export const MypageChefEditContent = styled.div`
         grid-template-rows: 1fr;
         grid-auto-rows: 1fr;
         row-gap: 20px;
+        #noCourseContent {
+          width: 100%;
+          height: 140px;
+          display: grid;
+          place-items: center;
+        }
         .chefCourseInfoData {
           height: 230px;
           display: grid;

@@ -5,7 +5,7 @@ import { userStatus } from '../features/user/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { updateAccessToken } from '../features/user/user';
-import { chefMypage, chefStatus } from '../features/chef/chef';
+import { addCourse, chefMypage, chefStatus } from '../features/chef/chef';
 import {
   openServerErrorModal,
   openIsNeedReLoginModal,
@@ -19,7 +19,8 @@ function MypageChefEdit() {
   const dispatch = useDispatch();
   const userState = useSelector(userStatus);
   const chefState = useSelector(chefStatus);
-  const [errorMsg, setErrorMsg] = useState(''); // 에러메세지
+  const [errorMsg, setErrorMsg] = useState(''); // 자기소개 에러메세지
+  const [courseErrorMsg, setCourseErrorMsg] = useState(''); // 코스 관련 에러메세지
   const [userPic, setUserPic] = useState({}); // 유저가 로컬에서 업로드한 프로필 이미지
   const [update, setUpdate] = useState(false);
   const [preview, setPreview] = useState(''); // 사진 미리보기
@@ -33,6 +34,13 @@ function MypageChefEdit() {
     values: '',
     rating: '',
     chUserId: -1,
+  });
+  const [courseText, setCourseText] = useState({
+    courseName: '',
+    courseDesc: '',
+    price: '',
+    peopleMax: 0,
+    peopleMin: 0,
   });
   // TODO: 1. load 되자마자 서버에 get 요청해서 chef 데이터 다 가져오고, redux chef 업데이트
   const getChefInfo = async () => {
@@ -114,9 +122,17 @@ function MypageChefEdit() {
       ...chefEditText,
       [key]: e.target.value,
     });
-  }; // 입력값 받아오기
+  }; // 자기 소개 입력값 받아오기
 
-  const onSubmit = async () => {
+  const handleCourseInputValue = (key) => (e) => {
+    setCourseErrorMsg(''); // 에러 메세지 초기화
+    setCourseText({
+      ...courseText,
+      [key]: e.target.value,
+    });
+  }; // 코스 입력값 받아오기
+
+  const onSubmitIntro = async () => {
     try {
       // 유효성 검사하기
       console.log(chefEditText);
@@ -170,12 +186,90 @@ function MypageChefEdit() {
     }
   };
 
+  const onSubmitCourse = async () => {
+    try {
+      console.log(courseText);
+      // 유효성검사
+      if (
+        courseText.courseName === '' ||
+        courseText.price === '' ||
+        courseText.peopleMin === '' ||
+        courseText.peopleMax === ''
+      ) {
+        setCourseErrorMsg('모든 항목을 입력해 주세요.');
+      } else if (
+        typeof Number(courseText.peopleMin) !== 'number' ||
+        typeof Number(courseText.peopleMax) !== 'number'
+      ) {
+        setCourseErrorMsg('인원은 숫자로 입력해 주세요.');
+      } else if (
+        courseText.peopleMin.includes('.') ||
+        courseText.peopleMax.includes('.') ||
+        Number(courseText.peopleMin) < 0 ||
+        Number(courseText.peopleMax) < 0 ||
+        Number(courseText.peopleMin) >= Number(courseText.peopleMax)
+      ) {
+        setCourseErrorMsg('인원을 정확히 입력해 주세요.');
+      } else if (
+        !(Number(courseText.peopleMax) - Number(courseText.peopleMin) >= 2)
+      ) {
+        setCourseErrorMsg('최소, 최대 인원은 2 이상 차이가 나야 합니다.');
+      } else {
+        // axios 요청
+        let postResult = await axios.post(
+          `${url}/mypage/info/chef?id=${chefState.chefId}`,
+          {
+            ...courseText,
+            price: Number(courseText.price),
+            peopleMin: Number(courseText.peopleMin),
+            peopleMax: Number(courseText.peopleMax),
+          },
+          {
+            headers: { authorization: `bearer ${userState.accessToken}` },
+          }
+        );
+        if (postResult.data.message === 'ok') {
+          // accessToken 담겨오면 업데이트
+          if (postResult.data.accessToken) {
+            dispatch(updateAccessToken(postResult.data.accessToken));
+          }
+          // redux 업데이트
+          dispatch(addCourse({ data: courseText })); // !! courseId 필요
+          // 모달 띄워서 알려주기
+          dispatch(openSuccessModal({ message: '코스가 추가되었습니다.' }));
+          // 입력창 원상복구
+          setCourseText({
+            courseName: '',
+            courseDesc: '',
+            price: '',
+            peopleMax: 0,
+            peopleMin: 0,
+          });
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      } else if (err.response.data.message === 'Send new Login Request') {
+        dispatch(openIsNeedReLoginModal());
+      }
+    }
+  };
+
+  const onEditCourse = async () => {
+    console.log('수정');
+  };
+  const onDeleteCourse = async () => {
+    console.log('삭제');
+  };
+
   return (
     <MypageChefEditContent>
       <div id='chefEditIntro'>
         <h2>셰프 자기소개 수정</h2>
         <div id='chefEditIntroSaveBtn'>
-          <button onClick={onSubmit}>저장하기</button>
+          <button onClick={onSubmitIntro}>저장하기</button>
         </div>
         <div id='chefEditIntroPic'>
           <img
@@ -262,6 +356,8 @@ function MypageChefEdit() {
                 <input
                   type='text'
                   name='chefCourseName'
+                  value={courseText.courseName}
+                  onChange={handleCourseInputValue('courseName')}
                   placeholder='코스 이름'
                 />
               </div>
@@ -270,6 +366,8 @@ function MypageChefEdit() {
                 <input
                   type='text'
                   name='chefCoursePrice'
+                  value={courseText.price}
+                  onChange={handleCourseInputValue('price')}
                   placeholder='코스 가격'
                 />
               </div>
@@ -278,6 +376,8 @@ function MypageChefEdit() {
                 <input
                   type='text'
                   name='chefCourseMin'
+                  value={courseText.peopleMin}
+                  onChange={handleCourseInputValue('peopleMin')}
                   placeholder='최소 인원'
                 />
               </div>
@@ -286,71 +386,62 @@ function MypageChefEdit() {
                 <input
                   type='text'
                   name='chefCourseMax'
+                  value={courseText.peopleMax}
+                  onChange={handleCourseInputValue('peopleMax')}
                   placeholder='최대 인원'
                 />
               </div>
-              <textarea name='chefCourseDesc' placeholder='코스 설명' />
+              <textarea
+                name='chefCourseDesc'
+                value={courseText.courseDesc}
+                onChange={handleCourseInputValue('courseDesc')}
+                placeholder='코스 설명 ex)감자 수프/angus beef를 사용한 수제 햄버거와 맥앤치즈/유기농 딸기 퓨레를 곁들인 바닐라빈 아이스크림'
+              />
             </div>
-            <button id='chefCourseInfoAdd'>추가하기</button>
+            {courseErrorMsg ? <p>{courseErrorMsg}</p> : null}
+            <button id='chefCourseInfoAdd' onClick={onSubmitCourse}>
+              추가하기
+            </button>
           </div>
 
           <div id='chefCourseInfoDataWrap'>
-            <div className='chefCourseInfoData'>
-              <div className='chefCourseInfoBtn'>
-                <div className='chefCourseInfoBtnWrap'>
-                  <button>수정하기</button>
-                  <button>삭제하기</button>
-                </div>
-              </div>
-              <div className='chefCourseInfoItem'>
-                <h3>코스 이름</h3>
-                <p>~~~~~~</p>
-              </div>
-              <div className='chefCourseInfoItem'>
-                <h3>최소 인원</h3>
-                <p>3</p>
-              </div>
+            {chefState.courses.length === 0 ? (
+              <div id='noCourseContent'>작성한 코스가 없습니다.</div>
+            ) : (
+              chefState.courses.map((el, idx) => {
+                return (
+                  <div key={idx} className='chefCourseInfoData'>
+                    <div className='chefCourseInfoBtn'>
+                      <div className='chefCourseInfoBtnWrap'>
+                        <button onClick={onEditCourse}>수정하기</button>
+                        <button onClick={onDeleteCourse}>삭제하기</button>
+                      </div>
+                    </div>
+                    <div className='chefCourseInfoItem'>
+                      <h3>코스 이름</h3>
+                      <p>{el.courseName}</p>
+                    </div>
+                    <div className='chefCourseInfoItem'>
+                      <h3>최소 인원</h3>
+                      <p>{el.peopleMin}</p>
+                    </div>
 
-              <div className='chefCourseInfoItem'>
-                <h3>최대 인원</h3>
-                <p>6</p>
-              </div>
-              <div className='chefCourseInfoItem'>
-                <h3>코스 가격</h3>
-                <p>~~~~~~</p>
-              </div>
+                    <div className='chefCourseInfoItem'>
+                      <h3>최대 인원</h3>
+                      <p>{el.peopleMax}</p>
+                    </div>
+                    <div className='chefCourseInfoItem'>
+                      <h3>코스 가격</h3>
+                      <p>{el.price}</p>
+                    </div>
 
-              <div className='chefCourseInfoItemDesc'>fdfdfdfdfdd</div>
-            </div>
-            <div className='chefCourseInfoData'>
-              <div className='chefCourseInfoBtn'>
-                <div className='chefCourseInfoBtnWrap'>
-                  <button>수정하기</button>
-                  <button>삭제하기</button>
-                </div>
-              </div>
-              <div className='chefCourseInfoItem'>
-                <h3>코스 이름</h3>
-                <p>~~~~~~</p>
-              </div>
-
-              <div className='chefCourseInfoItem'>
-                <h3>코스 가격</h3>
-                <p>~~~~~~</p>
-              </div>
-
-              <div className='chefCourseInfoItem'>
-                <h3>최소 인원</h3>
-                <p>3</p>
-              </div>
-
-              <div className='chefCourseInfoItem'>
-                <h3>최대 인원</h3>
-                <p>6</p>
-              </div>
-
-              <div className='chefCourseInfoItemDesc'>fdfdfdfdfdd</div>
-            </div>
+                    <div className='chefCourseInfoItemDesc'>
+                      {el.courseDesc}
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
       </div>

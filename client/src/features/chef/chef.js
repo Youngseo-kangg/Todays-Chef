@@ -10,6 +10,7 @@ const initialState = {
   values: '',
   rating: '',
   chUserId: -1,
+  courses: [],
 };
 
 export const chefSlice = createSlice({
@@ -40,9 +41,13 @@ export const chefSlice = createSlice({
       state.isAdmin = false;
       state.accessToken = null;
     },
+    addCourse: (state, action) => {
+      state.courses.push(action.payload.data);
+    },
   },
 });
 
-export const { chefLogin, chefMypage, chefLogout } = chefSlice.actions;
+export const { chefLogin, chefMypage, chefLogout, addCourse } =
+  chefSlice.actions;
 export const chefStatus = (state) => state.chef;
 export default chefSlice.reducer;
