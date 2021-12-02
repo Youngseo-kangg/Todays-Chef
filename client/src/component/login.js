@@ -50,7 +50,7 @@ function Login() {
         console.log('login 완료', loginResult);
         if (loginResult.data.userInfo.chefId) {
           // 셰프라면
-          dispatch(chefLogin(loginResult.data.userInfo.chefId));
+          dispatch(chefLogin({ chefId: loginResult.data.userInfo.chefId }));
         }
         delete loginResult.data.userInfo.chefId; // 바로 지우기
         dispatch(

@@ -577,7 +577,7 @@ export const MypageEditContent = styled.div`
 export const MypageChefEditContent = styled.div`
   display: grid;
   place-items: center;
-  grid-template-rows: 380px 1fr;
+  grid-template-rows: 400px 1fr;
   row-gap: 50px;
   width: 100%;
   height: 100%;
@@ -669,13 +669,14 @@ export const MypageChefEditContent = styled.div`
       display: grid;
       place-items: center;
       grid-template-rows: 15px 50px repeat(3, 1fr);
+      grid-auto-rows: 20px;
       grid-template-columns: 1fr 1fr;
       row-gap: 10px;
       @media (max-width: 767px) {
         grid-row: 3/3;
         grid-column: 1/3;
       }
-      p {
+      #chefEditDirection {
         width: 100%;
         height: 100%;
         grid-row: 1/1;
@@ -722,18 +723,25 @@ export const MypageChefEditContent = styled.div`
             height: 80%;
           }
         }
-        &:nth-last-child(3) {
+        &:nth-child(3) {
           grid-row: 3/3;
           grid-column: 1/3;
         }
-        &:nth-last-child(2) {
+        &:nth-child(4) {
           grid-row: 4/4;
           grid-column: 1/3;
         }
-        &:nth-last-child(1) {
+        &:nth-child(5) {
           grid-row: 5/5;
           grid-column: 1/3;
         }
+      }
+      #chefEditWarning {
+        width: 100%;
+        height: 100%;
+        grid-row: 6/6;
+        grid-column: 1/3;
+        text-align: center;
       }
     }
   }
