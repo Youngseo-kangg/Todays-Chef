@@ -4,11 +4,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { updateAccessToken, userStatus } from '../features/user/user';
-import {
-  getReview,
-  reviewStatus,
-  writeReview,
-} from '../features/review/review';
+import { getReview, reviewStatus } from '../features/review/review';
 import { modalStatus } from '../features/user/modal';
 import { format, isAfter, isBefore, addDays } from 'date-fns';
 import {
@@ -17,8 +13,6 @@ import {
   openServerErrorModal,
   openIsNeedReLoginModal,
 } from '../features/user/modal';
-import OneSentenceModal from '../modal/oneSentenceModal';
-import OneSentenceSuccessModal from '../modal/oneSentenceSuccessModal';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -27,7 +21,6 @@ function MypageReview() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const dispatch = useDispatch();
   const userState = useSelector(userStatus);
-  const modalState = useSelector(modalStatus);
   const reviewState = useSelector(reviewStatus);
   const [userPic, setUserPic] = useState({}); // 유저가 로컬에서 업로드한 프로필 이미지
   const [userPicTitle, setUserPicTitle] = useState([]); // 사진 제목들
@@ -202,8 +195,6 @@ function MypageReview() {
 
   return (
     <>
-      {modalState.failModalOpen ? <OneSentenceModal /> : null}
-      {modalState.successModalOpen ? <OneSentenceSuccessModal /> : null}
       <MypageReviewContent>
         <div id='mypageReviewTitle'>
           <h2>리뷰 쓰기</h2>
