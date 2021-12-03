@@ -15,6 +15,9 @@ import {
   ChefStar,
   PagenationList,
 } from '../styled/styleFindChef';
+import fullStar from '../todaysChefIMG/ratingStar.svg';
+import halfStar from '../todaysChefIMG/halfStar.svg';
+import noneStar from '../todaysChefIMG/noneStar.svg';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -34,6 +37,8 @@ function FindChef() {
   const handleSelected = (cuisine) => {
     setSelected(cuisine); // select값 업데이트
   }; // select에서 선택하는대로 값 변경 + 요청하기
+
+  console.log('aaa', chefData.rating);
 
   const getChefList = async () => {
     try {
@@ -81,6 +86,125 @@ function FindChef() {
   useEffect(() => {
     getChefList(); // 0~3 데이터값 가져오기
   }, [selected]); // 로드 되자마자 + select값 변경 될때 마다 리렌더링
+
+  const ratingStar = (el) => {
+    const arr = [];
+    const NumRating = Number(el.rating);
+
+    if (NumRating >= 0 && NumRating < 0.5) {
+      arr.push(
+        <div>
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 0.5 && NumRating < 1) {
+      arr.push(
+        <div>
+          <img src={halfStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 1 && NumRating < 1.5) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 1.5 && NumRating < 2) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={halfStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 2 && NumRating < 2.5) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 2.5 && NumRating < 3) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={halfStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 3 && NumRating < 3.5) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 3.5 && NumRating < 4) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={halfStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 4 && NumRating < 4.5) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 4.5 && NumRating < 5) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={halfStar} alt='' />
+        </div>
+      );
+    } else if (NumRating === 5) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+        </div>
+      );
+    }
+
+    return arr;
+  };
 
   return (
     <FindChefGrid>
@@ -152,7 +276,7 @@ function FindChef() {
                       </Link>
                     </h3>
 
-                    <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
+                    <ChefStar>{ratingStar(el)}</ChefStar>
                     <span>{el.rating}</span>
                   </li>
                 );

@@ -93,7 +93,7 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
                           <p>등록한 사진이 없습니다.</p>
                         ) : (
                           <div className='reviewPictureFrame'>
-                            {el.rvImg.map((ele) => {
+                            {el.rvImg.split(',').map((ele) => {
                               return (
                                 <div
                                   className='reviewPicture'
