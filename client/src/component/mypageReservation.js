@@ -107,7 +107,7 @@ function MypageReservation() {
         });
     } else if (modalState.isDeleteReservModalOpen === 0 && userState.isChef) {
       axios
-        .get(`${url}/mypage/reservation/chef?id=${chefState.userId}`, {
+        .get(`${url}/mypage/reservation/chef?id=${chefState.chefId}`, {
           headers: { authorization: `bearer ${userState.accessToken}` },
         })
         .then((result) => {

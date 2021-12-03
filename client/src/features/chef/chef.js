@@ -46,9 +46,8 @@ export const chefSlice = createSlice({
       let target = state.courses.indexOf(
         state.courses.filter((el) => el.id === action.payload.targetId)[0]
       );
-      let left = state.courses.slice(0, target);
-      let right = state.courses.slice(target);
-      state.courses = left.concat(right);
+      state.courses.splice(target, 1);
+      state.courses = state.courses;
     },
     chefLogout: (state) => {
       state.userId = -1;

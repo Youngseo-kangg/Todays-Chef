@@ -257,7 +257,6 @@ function MypageChefEdit() {
             dispatch(updateAccessToken(postResult.data.accessToken));
           }
           // redux 업데이트
-          console.log(postResult.data);
           dispatch(
             addCourse({
               data: {
@@ -386,7 +385,7 @@ function MypageChefEdit() {
       })
     );
   }; // 코스 삭제 버튼 눌렀을때 떠야 하는 모달
-  console.log(chefState.courses);
+
   return (
     <MypageChefEditContent>
       <div id='chefEditIntro'>
