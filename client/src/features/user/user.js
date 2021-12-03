@@ -33,6 +33,12 @@ export const userSlice = createSlice({
     sumbitBechef: (state) => {
       state.isSubmit = true;
     },
+    updateUserImg: (state, action) => {
+      state.userImg = action.payload.userImg;
+    },
+    editUserNickname: (state, action) => {
+      state.nickname = action.payload.nickname;
+    },
     logout: (state) => {
       state.userId = -1;
       state.nickname = '';
@@ -47,7 +53,13 @@ export const userSlice = createSlice({
   },
 });
 
-export const { login, logout, updateAccessToken, sumbitBechef } =
-  userSlice.actions;
+export const {
+  login,
+  logout,
+  updateAccessToken,
+  sumbitBechef,
+  editUserNickname,
+  updateUserImg,
+} = userSlice.actions;
 export const userStatus = (state) => state.user;
 export default userSlice.reducer;

@@ -448,7 +448,7 @@ export const MypageEditContent = styled.div`
     @media (max-width: 767px) {
       height: 100%;
       grid-template-columns: none;
-      grid-template-rows: 50px 280px 1fr;
+      grid-template-rows: 50px 320px 1fr;
     }
     @media (max-width: 420px) {
       padding: 15px 0px;
@@ -532,6 +532,15 @@ export const MypageEditContent = styled.div`
         place-items: center;
         grid-template-rows: repeat(4, 40px);
         row-gap: 10px;
+        &.bothError {
+          grid-template-rows: 40px 20px 40px 20px 40px;
+        }
+        &.passwordError {
+          grid-template-rows: 40px 40px 40px 20px 40px;
+        }
+        &.nicknameError {
+          grid-template-rows: 40px 20px 40px 40px 40px;
+        }
         .myInfoDetailWrap {
           width: 100%;
           height: 100%;
@@ -549,6 +558,8 @@ export const MypageEditContent = styled.div`
           > input {
             width: 90%;
             height: 100%;
+            border: none;
+            outline: none;
             background-color: transparent;
             border-bottom: 2px solid #603224;
             @media (max-width: 420px) {

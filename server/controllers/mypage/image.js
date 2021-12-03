@@ -33,7 +33,13 @@ module.exports = {
             { userImg: req.file.location },
             { where: { id: req.params.id } }
           );
-          res.status(201).json({ accessToken, message: 'user ok' });
+          res
+            .status(201)
+            .json({
+              accessToken,
+              message: 'user ok',
+              location: req.file.location,
+            });
         }
       }
     } else {
@@ -54,7 +60,9 @@ module.exports = {
           { userImg: req.file.location },
           { where: { id: req.params.id } }
         );
-        res.status(200).json({ message: 'user ok' });
+        res
+          .status(200)
+          .json({ message: 'user ok', location: req.file.location });
       }
     }
   },
