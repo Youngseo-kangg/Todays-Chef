@@ -155,12 +155,16 @@ function MainSection3() {
         <h3>각 요리별 최고의 셰프를 알아보고 경험해보세요.</h3>
         <BestOfChefsWrap>
           <ul>
-            {chefData.map((el) => {
+            {chefData.map((el, idx) => {
               return (
-                <li className='chef'>
+                <li key={idx} className='chef'>
                   <div className='bestCuisine'>{el.cuisine}</div>
                   <div className='chefPic'>
-                    <img src={basic_profile} alt='셰프 사진' />
+                    {el.chefImg === '' ? (
+                      <img src={basic_profile} alt='셰프 사진' />
+                    ) : (
+                      <img src={el.chefImg} alt='셰프 사진' />
+                    )}
                   </div>
                   <h4>{el.chefName}</h4>
                   <ChefStar>{ratingStar(el)}</ChefStar>

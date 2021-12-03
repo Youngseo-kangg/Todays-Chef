@@ -257,16 +257,19 @@ function FindChef() {
 
           <ChefItemList>
             <ul>
-              {chefData.map((el) => {
+              {chefData.map((el, idx) => {
                 return (
                   <li
                     className='chef'
-                    key={el.id}
+                    key={idx}
                     onClick={() => history.push(`/chef?chefId=${el.id}`)}
                   >
                     <div className='chefPic'>
-                      <img src={basic_profile} alt='셰프 사진' />{' '}
-                      {/* img파일 지정하고 나면 basic_profile 없애고 랜더링 해주기 */}
+                      {el.chefImg === '' ? (
+                        <img src={basic_profile} alt='셰프 사진' />
+                      ) : (
+                        <img src={el.chefImg} alt='셰프 사진' />
+                      )}
                     </div>
                     <h3>
                       <Link to={`/chef?chefId=${el.id}`}>
