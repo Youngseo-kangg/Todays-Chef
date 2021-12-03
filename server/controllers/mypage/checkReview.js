@@ -79,7 +79,7 @@ module.exports = {
 
   patch: async (req, res) => {
     const accessVerify = isAuthorized(req);
-    const { rating, eval, rvImg, id } = req.body;
+    const { rating, eval, id } = req.body;
 
     if (!accessVerify) {
       const refreshVerify = refreshAuthorized(req);
@@ -88,11 +88,11 @@ module.exports = {
       }else{
         delete refreshVerify.exp;
         const accessToken = basicAccessToken(refreshVerify);
-        await review.update({rating : rating, eval : eval, rvImg : rvImg}, { where: { id: id } });
+        await review.update({rating : rating, eval : eval}, { where: { id: id } });
         res.status(201).json({ accessToken , message: 'ok' });
       }
     }else{
-      await review.update({rating : rating, eval : eval, rvImg : rvImg}, { where: { id: id } });
+      await review.update({rating : rating, eval : eval}, { where: { id: id } });
       res.status(200).json({ message: 'ok' });
     }
   },

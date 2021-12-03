@@ -24,7 +24,7 @@ import { updateAccessToken, userStatus } from '../features/user/user';
 import { openIsDeleteReservModal } from '../features/user/modal';
 import { getReservation } from '../features/reservation/reservation';
 import { modalStatus } from '../features/user/modal';
-import chefStatus from '../features/chef/chef';
+import { chefStatus } from '../features/chef/chef';
 import getMonth from 'date-fns/getMonth';
 
 require('dotenv').config();
@@ -37,7 +37,7 @@ function MypageReservation() {
   const reservationState = useSelector(reservationStatus);
   const userState = useSelector(userStatus);
   const modalState = useSelector(modalStatus);
-  // const chefState = useSelector(chefStatus);
+  const chefState = useSelector(chefStatus);
   // 1. load 되자마자 서버에 get 요청해서 reservation 데이터 다 가져오고, redux reservation 업데이트
   const [selectedDateState, setSelectedDateState] = useState({
     allergy: '',
@@ -57,8 +57,23 @@ function MypageReservation() {
     rsTime: '00:00',
     rsUserId: 0,
   });
+  const [selectedDateStateChef, setSelectedDateStateChef] = useState({
+    id: 0,
+    people: 0,
+    allergy: '',
+    location: '',
+    mobile: '010-0000-0000',
+    rsDate: new Date(),
+    rsTime: '00:00',
+    isOven: false,
+    burner: 0,
+    messageToChef: '',
+    rsUsrId: 0,
+    userNickname: '',
+    courseName: '',
+  });
   useEffect(() => {
-    if (modalState.isDeleteReservModalOpen === 0) {
+    if (modalState.isDeleteReservModalOpen === 0 && !userState.isChef) {
       axios
         .get(`${url}/mypage/reservation/user?id=${userState.userId}`, {
           headers: { authorization: `bearer ${userState.accessToken}` },
@@ -90,39 +105,36 @@ function MypageReservation() {
           });
           dispatch(getReservation({ reservationData: result.data.data }));
         });
+    } else if (modalState.isDeleteReservModalOpen === 0 && userState.isChef) {
+      axios
+        .get(`${url}/mypage/reservation/chef?id=${chefState.userId}`, {
+          headers: { authorization: `bearer ${userState.accessToken}` },
+        })
+        .then((result) => {
+          console.log(result);
+          if (result.data.accessToken) {
+            dispatch(
+              updateAccessToken({ accessToken: result.data.accessToken })
+            );
+          }
+          setSelectedDateStateChef({
+            id: 0,
+            people: 0,
+            allergy: '',
+            location: '',
+            mobile: '',
+            rsDate: new Date(),
+            rsTime: '00:00',
+            isOven: false,
+            burner: 0,
+            messageToChef: '',
+            rsUsrId: 0,
+            userNickname: '',
+            courseName: '',
+          });
+          dispatch(getReservation({ reservationData: result.data.data }));
+        });
     }
-    // else if (modalState.isDeleteReservModalOpen === 0 && userState.isChef) {
-    //   axios
-    //     .get(`${url}/mypage/reservation/chef?id=${chefState.userId}`, {
-    //       headers: { authorization: `bearer ${userState.accessToken}` },
-    //     })
-    //     .then((result) => {
-    //       console.log(result);
-    //       if (result.data.accessToken) {
-    //         dispatch(
-    //           updateAccessToken({ accessToken: result.data.accessToken })
-    //         );
-    //       }
-    //       setSelectedDateState({
-    //         allergy: '',
-    //         burner: 0,
-    //         chefName: '',
-    //         cuisine: '',
-    //         id: 0,
-    //         isOven: false,
-    //         location: '',
-    //         messageToChef: null,
-    //         mobile: '010-0000-0000',
-    //         people: 0,
-    //         rsChefId: 0,
-    //         rsCourseId: 0,
-    //         rsDate: new Date(),
-    //         rsTime: '00:00',
-    //         rsUserId: 0,
-    //       });
-    //       dispatch(getReservation({ reservationData: result.data.data }));
-    //     });
-    // }
   }, [modalState.isDeleteReservModalOpen]);
 
   // 2. 가져온 reservation 데이터 시간 locale:ko로 맞춰서 보여주기 + 정보 보이기 (동그라미로 표시)
@@ -183,8 +195,6 @@ function MypageReservation() {
       isBefore(today, subMonths(currentDate, 1)) ||
       getMonth(today) === getMonth(subMonths(currentDate, 1))
     ) {
-      console.log(isBefore(today, subMonths(currentDate, 1)));
-      console.log(getMonth(today) === getMonth(subMonths(currentDate, 1)));
       setCurrentDate(subMonths(currentDate, 1));
     }
   };
@@ -194,25 +204,47 @@ function MypageReservation() {
       .map((el) => format(new Date(el.rsDate), 'yyyy-MM-dd'))
       .indexOf(format(new Date(day), 'yyyy-MM-dd'));
     if (index !== -1) {
-      setSelectedDateState(reservationState.data[index]);
+      if (!userState.isChef) {
+        setSelectedDateState(reservationState.data[index]);
+      } else {
+        setSelectedDateStateChef(reservationState.data[index]);
+      }
     } else {
-      setSelectedDateState({
-        allergy: '',
-        burner: 0,
-        chefName: '',
-        cuisine: '',
-        id: 0,
-        isOven: false,
-        location: '',
-        messageToChef: null,
-        mobile: '010-0000-0000',
-        people: 0,
-        rsChefId: 0,
-        rsCourseId: 0,
-        rsDate: new Date(),
-        rsTime: '00:00',
-        rsUserId: 0,
-      });
+      if (!userState.isChef) {
+        setSelectedDateState({
+          allergy: '',
+          burner: 0,
+          chefName: '',
+          cuisine: '',
+          id: 0,
+          isOven: false,
+          location: '',
+          messageToChef: null,
+          mobile: '010-0000-0000',
+          people: 0,
+          rsChefId: 0,
+          rsCourseId: 0,
+          rsDate: new Date(),
+          rsTime: '00:00',
+          rsUserId: 0,
+        });
+      } else {
+        setSelectedDateStateChef({
+          id: 0,
+          people: 0,
+          allergy: '',
+          location: '',
+          mobile: '',
+          rsDate: new Date(),
+          rsTime: '00:00',
+          isOven: false,
+          burner: 0,
+          messageToChef: '',
+          rsUsrId: 0,
+          userNickname: '',
+          courseName: '',
+        });
+      }
     }
   };
 
@@ -282,11 +314,29 @@ function MypageReservation() {
         {selectedDateState.id !== 0 ? (
           <>
             <div id='myReservationData'>
-              <p>
-                {selectedDateState.chefName}의 {selectedDateState.courseName}{' '}
-                코스, {selectedDateState.rsTime}
-              </p>
-              <p>{selectedDateState.location}</p>
+              {!userState.isChef ? (
+                <>
+                  <p>
+                    {selectedDateState.chefName}의{' '}
+                    {selectedDateState.courseName} 코스,{' '}
+                    {selectedDateState.rsTime}
+                  </p>
+                  <p>{selectedDateState.location}</p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    {selectedDateStateChef.userNickname} /
+                    {selectedDateStateChef.courseName} 코스,{' '}
+                    {selectedDateStateChef.rsTime}
+                  </p>
+                  <p>인원 : {selectedDateState.people}</p>
+                  <p>장소 : {selectedDateState.location}</p>
+                  <p>연락처: {selectedDateState.mobile}</p>
+                  <p>알러지 : {selectedDateState.allergy}</p>
+                  <p>메세지 : {selectedDateState.messageToChef}</p>
+                </>
+              )}
             </div>
             <div id='deleteReserve'>
               {isBefore(new Date(today), subDays(new Date(selectedDate), 7)) ? (

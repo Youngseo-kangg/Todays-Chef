@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux';
 import { userStatus } from '../features/user/user';
 import { modalStatus } from '../features/user/modal';
 import DeleteReservModal from '../modal/deleteReservModal';
+import OneSentenceModal from '../modal/oneSentenceModal';
+import OneSentenceSuccessModal from '../modal/oneSentenceSuccessModal';
 
 function Mypage() {
   const menuList = {
@@ -28,6 +30,8 @@ function Mypage() {
     <>
       {modalState.isServerErrorModalOpen ? <ServerErrorModal /> : null}
       {modalState.isDeleteReservModalOpen !== 0 ? <DeleteReservModal /> : null}
+      {modalState.failModalOpen ? <OneSentenceModal /> : null}
+      {modalState.successModalOpen ? <OneSentenceSuccessModal /> : null}
       <MypageGrid>
         <div id='mypageGridWrap'>
           <ul>

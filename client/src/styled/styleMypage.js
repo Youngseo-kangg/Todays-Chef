@@ -211,7 +211,7 @@ export const MyReservCalander = styled.div`
 
 export const MypageReviewContent = styled.div`
   display: grid;
-  grid-template-rows: 50px 370px 1fr;
+  grid-template-rows: 50px 405px 1fr;
   row-gap: 20px;
   place-items: center;
   width: 100%;
@@ -251,8 +251,8 @@ export const MypageReviewContent = styled.div`
       }
       > #myRecentReviewExtra {
         display: grid;
-        grid-template-columns: 350px 100px 1fr;
-        padding: 15px;
+        grid-template-columns: 450px 100px 1fr;
+        padding: 10px;
         box-sizing: border-box;
         place-items: center;
         column-gap: 10px;
@@ -266,8 +266,6 @@ export const MypageReviewContent = styled.div`
           display: grid;
           place-items: center;
           h3 {
-            padding-bottom: 15px;
-            border-bottom: 2px solid #fff;
             word-break: keep-all;
           }
         }
@@ -326,10 +324,14 @@ export const MypageReviewContent = styled.div`
             }
           }
         }
+        #myRecentCommentPic.showReview {
+          grid-template-columns: 1fr;
+        }
       }
       > #myRecentReviewContent {
         display: grid;
         grid-template-rows: 240px 40px;
+        grid-auto-rows: 25px;
         row-gap: 10px;
         place-items: center;
         width: 100%;
@@ -362,6 +364,15 @@ export const MypageReviewContent = styled.div`
           }
         }
       }
+      > #myRecentReviewContent.showReview > div {
+        width: calc(100% - 30px);
+        height: 100%;
+        padding: 15px;
+        grid-template-rows: 280px;
+        background-color: rgba(255, 255, 255, 0.1);
+        text-align: left;
+        border-radius: 5px;
+      }
     }
   }
   > #myCommentList {
@@ -386,8 +397,12 @@ export const MypageReviewContent = styled.div`
           height: 100%;
           justify-content: space-evenly;
           align-items: center;
+          cursor: pointer;
           background-color: #dbb89a;
           border-radius: 5px;
+        }
+        > li:hover {
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
       }
     }
@@ -562,7 +577,7 @@ export const MypageEditContent = styled.div`
 export const MypageChefEditContent = styled.div`
   display: grid;
   place-items: center;
-  grid-template-rows: 380px 1fr;
+  grid-template-rows: 400px 1fr;
   row-gap: 50px;
   width: 100%;
   height: 100%;
@@ -654,13 +669,14 @@ export const MypageChefEditContent = styled.div`
       display: grid;
       place-items: center;
       grid-template-rows: 15px 50px repeat(3, 1fr);
+      grid-auto-rows: 20px;
       grid-template-columns: 1fr 1fr;
       row-gap: 10px;
       @media (max-width: 767px) {
         grid-row: 3/3;
         grid-column: 1/3;
       }
-      p {
+      #chefEditDirection {
         width: 100%;
         height: 100%;
         grid-row: 1/1;
@@ -707,18 +723,25 @@ export const MypageChefEditContent = styled.div`
             height: 80%;
           }
         }
-        &:nth-last-child(3) {
+        &:nth-child(3) {
           grid-row: 3/3;
           grid-column: 1/3;
         }
-        &:nth-last-child(2) {
+        &:nth-child(4) {
           grid-row: 4/4;
           grid-column: 1/3;
         }
-        &:nth-last-child(1) {
+        &:nth-child(5) {
           grid-row: 5/5;
           grid-column: 1/3;
         }
+      }
+      #chefEditWarning {
+        width: 100%;
+        height: 100%;
+        grid-row: 6/6;
+        grid-column: 1/3;
+        text-align: center;
       }
     }
   }
@@ -732,10 +755,10 @@ export const MypageChefEditContent = styled.div`
       width: 100%;
       height: 100%;
       display: grid;
-      grid-template-rows: 50px 250px 1fr;
+      grid-template-rows: 50px 300px 1fr;
       row-gap: 10px;
       @media (max-width: 420px) {
-        grid-template-rows: 50px 350px 1fr;
+        grid-template-rows: 50px 450px 1fr;
       }
       h2 {
         width: 280px;
@@ -752,7 +775,6 @@ export const MypageChefEditContent = styled.div`
         grid-template-rows: 1fr 30px;
         row-gap: 10px;
         background-color: #603224;
-        color: #fff;
         padding: 10px;
         border-radius: 5px;
         #chefCourseInfoForm {
@@ -778,7 +800,6 @@ export const MypageChefEditContent = styled.div`
             > input {
               width: 100%;
               height: 100%;
-              color: #fff;
               border-radius: 5px;
               border: none;
               outline: none;
@@ -809,8 +830,6 @@ export const MypageChefEditContent = styled.div`
             height: 100%;
             grid-column: 1 / 3;
             grid-row: 3 / 4;
-            background-color: rgba(255, 255, 255, 0.3);
-            color: #fff;
             border-radius: 5px;
             border: none;
             outline: none;
@@ -837,6 +856,12 @@ export const MypageChefEditContent = styled.div`
         grid-template-rows: 1fr;
         grid-auto-rows: 1fr;
         row-gap: 20px;
+        #noCourseContent {
+          width: 100%;
+          height: 140px;
+          display: grid;
+          place-items: center;
+        }
         .chefCourseInfoData {
           height: 230px;
           display: grid;

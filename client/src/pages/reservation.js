@@ -6,7 +6,7 @@ import ReservationDate from '../component/reservationDate';
 import ReservationInfo from '../component/reservationInfo';
 import ReservationPayment from '../component/reservationPayment';
 import ReservationDone from '../component/reservationDone';
-import ReservDeclinedModal from '../modal/reservDeclinedModal';
+import OneSentenceModal from '../modal/oneSentenceModal';
 import {
   ReservationGrid,
   ReservationTitle,
@@ -14,15 +14,11 @@ import {
   ReservationDesc,
 } from '../styled/styleReservation';
 import { userStatus } from '../features/user/user';
-import {
-  openReservDeclinedModal,
-  openIsAdminOrChefWarningModal,
-  modalStatus,
-} from '../features/user/modal';
+import { openFailModal, modalStatus } from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { setHours, setMinutes } from 'date-fns';
-import AdminOrChefWarningModal from '../modal/adminOrChefWarningModal';
+
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
@@ -89,12 +85,20 @@ function Reservation() {
 
   useEffect(() => {
     if (userState.isChef || userState.isAdmin) {
-      dispatch(openIsAdminOrChefWarningModal());
+      dispatch(
+        openFailModal({
+          message: `관리자 또는 셰프는 <br /> 예약할 수 없습니다.`,
+        })
+      );
     } else if (
       userState.userId === -1 &&
       !modalState.isReservDeclinedModalOpen
     ) {
-      dispatch(openReservDeclinedModal());
+      dispatch(
+        openFailModal({
+          message: `로그인 이후 예약이 가능합니다.`,
+        })
+      );
     } else {
       axios
         .get(
@@ -111,10 +115,7 @@ function Reservation() {
 
   return (
     <>
-      {modalState.isReservDeclinedModalOpen ? <ReservDeclinedModal /> : null}
-      {modalState.isAdminOrChefWarningModalOpen ? (
-        <AdminOrChefWarningModal />
-      ) : null}
+      {modalState.failModalOpen ? <OneSentenceModal /> : null}
       {searchAddress === true ? (
         <AddressModal
           setSearchAddress={setSearchAddress}

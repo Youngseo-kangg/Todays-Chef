@@ -12,6 +12,10 @@ const initialState = {
   isSubmitCompleteModalOpen: false, // 제출 완료 되었다는 모달
   isDeleteReservModalOpen: 0, // 예약 삭제 할건지 + 삭제 하는 모달
   isAdminOrChefWarningModalOpen: false, // 셰프나 admin이라서 예약 안된다는 모달
+  failModalOpen: false,
+  failMessage: '',
+  successModalOpen: false,
+  successMessage: '',
 };
 
 export const modalSlice = createSlice({
@@ -78,11 +82,21 @@ export const modalSlice = createSlice({
     closeIsDeleteReservModal: (state) => {
       state.isDeleteReservModalOpen = 0;
     },
-    openIsAdminOrChefWarningModal: (state) => {
-      state.isAdminOrChefWarningModalOpen = true;
+    openFailModal: (state, action) => {
+      state.failModalOpen = true;
+      state.failMessage = action.payload.message;
     },
-    closeIsAdminOrChefWarningModal: (state) => {
-      state.isAdminOrChefWarningModalOpen = false;
+    closeFailModal: (state) => {
+      state.failModalOpen = false;
+      state.failMessage = '';
+    },
+    openSuccessModal: (state, action) => {
+      state.successModalOpen = true;
+      state.successMessage = action.payload.message;
+    },
+    closeSuccessModal: (state) => {
+      state.successModalOpen = false;
+      state.successMessage = '';
     },
   },
 });
@@ -108,8 +122,10 @@ export const {
   closeIsSubmitCompleteModal,
   openIsDeleteReservModal,
   closeIsDeleteReservModal,
-  openIsAdminOrChefWarningModal,
-  closeIsAdminOrChefWarningModal,
+  openFailModal,
+  closeFailModal,
+  openSuccessModal,
+  closeSuccessModal,
 } = modalSlice.actions;
 export const modalStatus = (state) => state.modal;
 export default modalSlice.reducer;

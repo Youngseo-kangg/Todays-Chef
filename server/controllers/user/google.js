@@ -1,4 +1,4 @@
-const { user } = require('../../models');
+const { user, chef } = require('../../models');
 const { basicAccessToken } = require('../token/accessToken');
 const {
   basicRefreshToken,
@@ -41,6 +41,9 @@ module.exports = {
 
     const userUsingEmail = await user.findOne({
       where: { email: googleEmail },
+    });
+    const findChef = await chef.findOne({
+      where: { chUserId: userUsingEmail.dataValues.id },
     });
 
     // 없으면 가입하기

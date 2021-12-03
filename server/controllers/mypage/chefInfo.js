@@ -48,7 +48,6 @@ module.exports = {
             {
               chefName: data.chefName,
               cuisine: data.cuisine,
-              chefImg: data.chefImg,
               greeting: data.greeting,
               career: data.career,
               values: data.values,
@@ -83,7 +82,6 @@ module.exports = {
           {
             chefName: data.chefName,
             cuisine: data.cuisine,
-            chefImg: data.chefImg,
             greeting: data.greeting,
             career: data.career,
             values: data.values,
