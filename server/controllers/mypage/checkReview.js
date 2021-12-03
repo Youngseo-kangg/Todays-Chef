@@ -41,7 +41,7 @@ module.exports = {
       delete findReservation[i].dataValues.createdAt;
       delete findReservation[i].dataValues.rsUserId;
       delete findReservation[i].dataValues.rsCourseId;
-      delete findReservation[i].dataValues.rsChefId;
+      // delete findReservation[i].dataValues.rsChefId;
 
       delete findReview.dataValues.updatedAt;
       delete findReview.dataValues.createdAt;

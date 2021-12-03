@@ -5,6 +5,8 @@ import {
   userStatus,
   updateAccessToken,
   updateUserImg,
+  editUserNickname,
+  logout,
 } from '../features/user/user';
 import { chefStatus } from '../features/chef/chef';
 import axios from 'axios';
@@ -14,25 +16,28 @@ import {
   openSuccessModal,
   openServerErrorModal,
   openIsNeedReLoginModal,
+  openFailModal,
 } from '../features/user/modal';
+import { useHistory } from 'react-router';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
 function MypageEdit() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const userState = useSelector(userStatus);
   const chefState = useSelector(chefStatus);
   const [userPic, setUserPic] = useState({}); // 유저가 로컬에서 업로드한 프로필 이미지
   const [preview, setPreview] = useState(''); // 사진 미리보기
   const [nicknameInput, setNicknameInput] = useState({
     nickname: '',
-    error: 'fdf',
+    error: '',
   }); // 닉네임 관련 + 에러
   const [passwordInput, setPasswordInput] = useState({
     oldPassword: '',
     newPassword: '',
-    error: 'ㄹㅇ',
+    error: '',
   }); // 비밀번호 변경 관련 + 에러
   // TODO: 1. load 되자마자 서버에 get 요청해서 개인 데이터 다 가져오고, redux user 업데이트
   // TODO: 2. 사진 업데이트, 닉네임 변경, 비밀번호 변경, 회원 탈퇴 + 유효성 검사 + 필요한 modal, redux modal 업데이트
@@ -102,7 +107,121 @@ function MypageEdit() {
     } else {
       return;
     }
+  }; // 에러메세지 관련 클래스 지정 함수
+
+  const submitNickname = async () => {
+    // 유효성검사
+    if (nicknameInput.nickname === '') {
+      setNicknameInput({
+        ...nicknameInput,
+        error: '닉네임을 입력해주세요.',
+      });
+    }
+    // TODO: 유효성검사 작성 필요
+    // else if (/^[a-zA-Z0-9ㄱ-ㅎ가-힣]{2,15}/.test(nicknameInput.nickname)) {
+    //   setNicknameInput({
+    //     ...nicknameInput,
+    //     error: '닉네임은 한글,영문,숫자로 2자 이상 15자 이내여야 합니다.',
+    //   });
+    // }
+    else {
+      try {
+        // axios요청
+        let postResult = await axios.post(
+          `${url}/mypage/${userState.userId}`,
+          {
+            nickname: nicknameInput.nickname,
+            oldPwd: '',
+            newPwd: '',
+          },
+          {
+            headers: { authorization: `bearer ${userState.accessToken}` },
+          }
+        );
+        if (postResult.data.message === 'ok') {
+          if (postResult.data.accessToken) {
+            dispatch(
+              updateAccessToken({ accessToken: postResult.data.accessToken })
+            );
+          }
+          // redux 업데이트
+          dispatch(
+            editUserNickname({
+              nickname: nicknameInput.nickname,
+            })
+          );
+          // 모달로 알려주기
+          dispatch(
+            openSuccessModal({ message: '닉네임 수정이 완료되었습니다.' })
+          );
+        }
+      } catch (err) {
+        console.log(err);
+        if (err.message === 'Network Error') {
+          dispatch(openServerErrorModal());
+        } else if (err.response.data.message === 'Send new Login Request') {
+          dispatch(openIsNeedReLoginModal());
+        }
+      }
+    }
   };
+
+  const submitPassword = async () => {
+    // 유효성검사
+    if (passwordInput.oldPassword === '' || passwordInput.newPassword === '') {
+      setPasswordInput({
+        ...passwordInput,
+        error: '비밀번호를 모두 입력해주세요.',
+      });
+    }
+    // TODO : 유효성검사 작업 필요
+    // else if (
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/.test(
+    //     passwordInput.newPassword
+    //   )
+    // ) {
+    //   setPasswordInput({
+    //     ...passwordInput,
+    //     error:
+    //       '비밀번호는 대문자, 특수문자, 숫자를 포함하여 8자 이상이여야 합니다.',
+    //   });
+    // }
+    else {
+      try {
+        // axios요청
+        let result = await axios.post(
+          `${url}/mypage/${userState.userId}`,
+          {
+            nickname: '',
+            oldPwd: passwordInput.oldPassword,
+            newPwd: passwordInput.newPassword,
+          },
+          { headers: { authorization: `bearer ${userState.accessToken}` } }
+        );
+        console.log(result);
+        dispatch(
+          openSuccessModal({
+            message: `비밀번호 수정이 완료되었습니다. 재로그인이 필요합니다.`,
+          })
+        );
+      } catch (err) {
+        console.log(err);
+        if (err.message === 'Network Error') {
+          dispatch(openServerErrorModal());
+        } else if (err.response.data.message === 'Send new Login Request') {
+          dispatch(openIsNeedReLoginModal());
+        } else if (err.response.data.message === 'wrong password') {
+          // oldPassword가 안맞을때
+          dispatch(openFailModal({ message: '이전 비밀번호가 틀립니다.' }));
+        }
+      }
+    }
+  };
+
+  const deleteUser = async () => {
+    console.log('deleteUser');
+  };
+
   return (
     <MypageEditContent>
       <div id='mypageEditContentWrap'>
@@ -122,17 +241,25 @@ function MypageEdit() {
               alt='유저 사진'
             />
           </div>
-          <label htmlFor='image' id='mypageInfoPicBtn'>
-            사진 업로드
-          </label>
-          <input
-            type='file'
-            id='image'
-            name='image'
-            accept='image/*'
-            onChange={changeProfileBtn}
-          ></input>
-          <button onClick={sendImgToServer}>저장하기</button>
+          <div className='mypageInfoPicButton'>
+            <label
+              className='mypageInfoPicBtn'
+              htmlFor='image'
+              id='mypageInfoPicBtn'
+            >
+              사진 업로드
+            </label>
+            <input
+              type='file'
+              id='image'
+              name='image'
+              accept='image/*'
+              onChange={changeProfileBtn}
+            ></input>
+            <button className='mypageInfoPicBtn' onClick={sendImgToServer}>
+              저장하기
+            </button>
+          </div>
         </div>
 
         <div id='myInfoDetail'>
@@ -145,30 +272,52 @@ function MypageEdit() {
                 defaultValue={userState.nickname ? userState.nickname : ''}
                 onChange={handleNicknameInput}
               />
-              <button>수정하기</button>
+              <button onClick={submitNickname}>수정하기</button>
             </div>
             {nicknameInput.error ? <p>{nicknameInput.error}</p> : null}
-            <div className='myInfoDetailWrap'>
+            <div
+              className={
+                userState.isOauth
+                  ? 'socialLoginWarning myInfoDetailWrap'
+                  : 'myInfoDetailWrap'
+              }
+            >
               <label htmlFor='myInfoDetailPassword'>비밀번호</label>
-              <input
-                type='password'
-                name='myInfoDetailPassword'
-                onChange={handlePasswordInput('oldPassword')}
-              />
+              {userState.isOauth ? (
+                <p>소셜 로그인 비밀번호 변경은 불가능합니다.</p>
+              ) : (
+                <input
+                  type='password'
+                  name='myInfoDetailPassword'
+                  onChange={handlePasswordInput('oldPassword')}
+                />
+              )}
             </div>
-            <div className='myInfoDetailWrap'>
+            <div
+              className={
+                userState.isOauth
+                  ? 'socialLoginWarning myInfoDetailWrap'
+                  : 'myInfoDetailWrap'
+              }
+            >
               <label htmlFor='myInfoDetailNewPassword'>새로운 비밀번호</label>
-              <input
-                type='password'
-                name='myInfoDetailNewPassword'
-                onChange={handlePasswordInput('newPassword')}
-              />
-              <button>수정하기</button>
+              {userState.isOauth ? (
+                <p>소셜 로그인 비밀번호 변경은 불가능합니다.</p>
+              ) : (
+                <input
+                  type='password'
+                  name='myInfoDetailNewPassword'
+                  onChange={handlePasswordInput('newPassword')}
+                />
+              )}
+              {userState.isOauth ? null : (
+                <button onClick={submitPassword}>수정하기</button>
+              )}
             </div>
             {passwordInput.error ? <p>{passwordInput.error}</p> : null}
             <div id='myInfoDetailBtnWrap'>
               <p>탈퇴 시 자동으로 예약이 취소됩니다.</p>
-              <button>탈퇴하기</button>
+              <button onClick={deleteUser}>탈퇴하기</button>
             </div>
           </div>
         </div>

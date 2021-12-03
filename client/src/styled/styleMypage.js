@@ -504,15 +504,20 @@ export const MypageEditContent = styled.div`
         padding: 0;
         border: 0;
       }
-      #mypageInfoPicBtn {
-        display: block;
-        background-color: rgba(255, 255, 255, 0.3);
-        width: 100px;
-        padding: 8px;
-        font-size: 14px;
-        border-radius: 5px;
-        margin: 0 auto;
-        cursor: pointer;
+      .mypageInfoPicButton {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 10px;
+        .mypageInfoPicBtn {
+          display: block;
+          background-color: rgba(255, 255, 255, 0.3);
+          width: 100px;
+          padding: 8px;
+          font-size: 14px;
+          border-radius: 5px;
+          margin: 0 auto;
+          cursor: pointer;
+        }
       }
     }
 
@@ -549,11 +554,20 @@ export const MypageEditContent = styled.div`
           grid-template-columns: 130px 1fr 100px;
           column-gap: 10px;
           word-break: keep-all;
+          &.socialLoginWarning {
+            grid-template-columns: 130px 1fr;
+          }
           @media (max-width: 1080px) {
             grid-template-columns: 90px 1fr 80px;
+            &.socialLoginWarning {
+              grid-template-columns: 90px 1fr;
+            }
           }
           @media (max-width: 420px) {
             grid-template-columns: 70px 1fr 70px;
+            &.socialLoginWarning {
+              grid-template-columns: 70px 1fr;
+            }
           }
           > input {
             width: 90%;

@@ -190,7 +190,9 @@ function MypageChefEdit() {
         console.log(postResult);
         if (postResult.data.message === 'ok') {
           if (postResult.data.accessToken) {
-            dispatch(updateAccessToken(postResult.data.accessToken));
+            dispatch(
+              updateAccessToken({ accessToken: postResult.data.accessToken })
+            );
           }
           // 성공했다는 모달 띄우기
           dispatch(
@@ -254,7 +256,9 @@ function MypageChefEdit() {
         if (postResult.data.message === 'ok') {
           // accessToken 담겨오면 업데이트
           if (postResult.data.accessToken) {
-            dispatch(updateAccessToken(postResult.data.accessToken));
+            dispatch(
+              updateAccessToken({ accessToken: postResult.data.accessToken })
+            );
           }
           // redux 업데이트
           dispatch(
@@ -366,6 +370,11 @@ function MypageChefEdit() {
         }
       } catch (err) {
         console.log(err);
+        if (err.message === 'Network Error') {
+          dispatch(openServerErrorModal());
+        } else if (err.response.data.message === 'Send new Login Request') {
+          dispatch(openIsNeedReLoginModal());
+        }
       }
     }
   }; // 코스 수정하고 제출할때

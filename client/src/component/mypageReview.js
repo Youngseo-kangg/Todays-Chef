@@ -35,6 +35,7 @@ function MypageReview() {
       chefName: '',
       courseName: '',
       id: 0,
+      rsChefId: 0,
       rsDate: new Date(),
       rsTime: '00:00',
     },
@@ -190,6 +191,7 @@ function MypageReview() {
         let patchResult = await axios.patch(
           `${url}/mypage/review/user?id=${writeReviewContent.review.id}`,
           {
+            rsChefId: writeReviewContent.reservation.rsChefId,
             rating: writeReviewContent.review.rating,
             eval: writeReviewContent.review.eval,
             id: writeReviewContent.review.id,
