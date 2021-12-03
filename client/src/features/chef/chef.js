@@ -30,6 +30,9 @@ export const chefSlice = createSlice({
       state.rating = action.payload.rating;
       state.chUserId = action.payload.chUserId;
     },
+    chefCourses: (state, action) => {
+      state.courses = action.payload.courses;
+    },
     chefLogout: (state) => {
       state.userId = -1;
       state.nickname = '';
@@ -40,6 +43,7 @@ export const chefSlice = createSlice({
       state.isSubmit = false;
       state.isAdmin = false;
       state.accessToken = null;
+      state.courses = [];
     },
     addCourse: (state, action) => {
       state.courses.push(action.payload.data);
@@ -47,7 +51,7 @@ export const chefSlice = createSlice({
   },
 });
 
-export const { chefLogin, chefMypage, chefLogout, addCourse } =
+export const { chefLogin, chefMypage, chefCourses, chefLogout, addCourse } =
   chefSlice.actions;
 export const chefStatus = (state) => state.chef;
 export default chefSlice.reducer;

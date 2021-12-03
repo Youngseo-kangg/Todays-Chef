@@ -5,7 +5,12 @@ import { userStatus } from '../features/user/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { updateAccessToken } from '../features/user/user';
-import { addCourse, chefMypage, chefStatus } from '../features/chef/chef';
+import {
+  addCourse,
+  chefMypage,
+  chefCourses,
+  chefStatus,
+} from '../features/chef/chef';
 import {
   openServerErrorModal,
   openIsNeedReLoginModal,
@@ -45,14 +50,14 @@ function MypageChefEdit() {
   const [isEdit, setIsEdit] = useState(false);
   const [editIdx, setEditIdx] = useState(0);
   const [onEdit, setOnEdit] = useState({
-    courseName: chefState.courses[editIdx].courseName,
-    courseDesc: chefState.courses[editIdx].courseDesc,
-    price: chefState.courses[editIdx].price,
-    peopleMax: chefState.courses[editIdx].peopleMax,
-    peopleMin: chefState.courses[editIdx].peopleMin,
+    courseName: chefState.courses[editIdx].courseName || '',
+    courseDesc: chefState.courses[editIdx].courseDesc || '',
+    price: chefState.courses[editIdx].price || 0,
+    peopleMax: chefState.courses[editIdx].peopleMax || 0,
+    peopleMin: chefState.courses[editIdx].peopleMin || 0,
   });
   // TODO: 1. load 되자마자 서버에 get 요청해서 chef 데이터 다 가져오고, redux chef 업데이트
-  const getChefInfo = async () => {
+  const getChefInfoAndCourse = async () => {
     try {
       let result = await axios.get(
         `${url}/mypage/info/chef?id=${chefState.chefId}`,
@@ -60,31 +65,36 @@ function MypageChefEdit() {
           headers: { authorization: `bearer ${userState.accessToken}` },
         }
       );
+      console.log('getChefInfoAndCourse 응답: ', result.data.data.info);
+
       if (result.data.accessToken) {
         dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
       }
       dispatch(
         chefMypage({
-          chefName: result.data.data.chefName,
-          cuisine: result.data.data.cuisine,
-          chefImg: result.data.data.chefImg,
-          greeting: result.data.data.greeting,
-          career: result.data.data.career,
-          values: result.data.data.values,
-          rating: result.data.data.rating,
-          chUserId: result.data.data.chUserId,
+          chefName: result.data.data.info.chefName,
+          cuisine: result.data.data.info.cuisine,
+          chefImg: result.data.data.info.chefImg,
+          greeting: result.data.data.info.greeting,
+          career: result.data.data.info.career,
+          values: result.data.data.info.values,
+          rating: result.data.data.info.rating,
+          chUserId: result.data.data.info.chUserId,
         })
-      );
+      ); // 셰프 정보 redux 업뎃
+      dispatch(chefCourses({ courses: result.data.data.courses }));
+      // 코스 정보 redux 업뎃
+
       setChefEditText({
-        chefName: result.data.data.chefName || '',
-        cuisine: result.data.data.cuisine || '',
-        chefImg: result.data.data.chefImg || '',
-        greeting: result.data.data.greeting || '',
-        career: result.data.data.career || '',
-        values: result.data.data.values || '',
-        rating: result.data.data.rating || '',
-        chUserId: result.data.data.chUserId,
-      });
+        chefName: chefState.chefName || '',
+        cuisine: chefState.cuisine || '',
+        chefImg: chefState.chefImg || '',
+        greeting: chefState.greeting || '',
+        career: chefState.career || '',
+        values: chefState.values || '',
+        rating: chefState.rating || '',
+        chUserId: chefState.chUserId,
+      }); // 초기화
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
@@ -94,9 +104,10 @@ function MypageChefEdit() {
       }
     }
   };
+  console.log('chefEditText: ', chefEditText);
 
   useEffect(() => {
-    getChefInfo();
+    getChefInfoAndCourse();
   }, [update]);
   // TODO: 2. 자기소개 부분 수정 구현하기 + 유효성 검사
   // TODO: 3. 코스 소개 정보 입력 + 유효성 검사 + 서버에 저장하고 아래에 #chefCourseInfo로 렌더 되서 뜨도록 하기 + 필요한 modal, redux modal 업데이트
