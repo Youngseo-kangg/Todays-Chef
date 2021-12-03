@@ -38,8 +38,6 @@ function FindChef() {
     setSelected(cuisine); // select값 업데이트
   }; // select에서 선택하는대로 값 변경 + 요청하기
 
-  console.log('aaa', chefData.rating);
-
   const getChefList = async () => {
     try {
       let encodeSelected = encodeURI(encodeURIComponent(selected));

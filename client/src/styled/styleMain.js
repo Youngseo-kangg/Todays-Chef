@@ -214,6 +214,7 @@ export const BestOfChefsWrap = styled.div`
       > span {
         display: grid;
         place-items: center;
+        margin-top: -20px;
       }
       > .chefPic {
         /* border: 1px solid red; */
@@ -244,14 +245,19 @@ export const BestOfChefsWrap = styled.div`
 `;
 
 export const ChefStar = styled.div`
-  background-color: pink;
   width: 60%;
   height: 100%;
   margin: 0 auto;
   display: grid;
   font-size: 18px;
   place-items: center;
-  margin-top: -10px;
+  > div {
+    > img {
+      padding: 2px;
+      width: 20px;
+      height: 20px;
+    }
+  }
 `;
 
 export const MainSection4Wrap = styled.div`
