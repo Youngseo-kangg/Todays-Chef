@@ -1,4 +1,4 @@
-const { user } = require('../../models');
+const { user, chef } = require('../../models');
 const axios = require('axios');
 const { basicAccessToken } = require('../token/accessToken');
 const {
