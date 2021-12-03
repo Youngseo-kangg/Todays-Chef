@@ -82,31 +82,31 @@ module.exports = {
     const data = req.body;
     const { rating, eval, id } = data;
 
-    const findRating = await review.findAll({where : {rvChefId : req.body.rsChefId}});
-
     if (!accessVerify) {
       const refreshVerify = refreshAuthorized(req);
       if(!refreshVerify){
         res.status(401).json({ message: 'Send new Login Request' });
       }else{
-        const allRating = findRating.map((el) => Number(el.rating));
-        const filter = allRating.filter((el) => el !== 0);
-
-        const addRating = (filter.reduce((acc,cur) => acc + cur))/filter.length;
-
         delete refreshVerify.exp;
         const accessToken = basicAccessToken(refreshVerify);
         await review.update({rating : rating, eval : eval}, { where: { id: id } });
+
+        const findRating = await review.findAll({where : {rvChefId : req.body.rsChefId}});
+        const allRating = findRating.map((el) => Number(el.rating));
+        const filter = allRating.filter((el) => el !== 0);
+        const addRating = (filter.reduce((acc,cur) => acc + cur))/filter.length;
+
         await chef.update({rating: addRating.toFixed(1)},{where: {id : req.body.rsChefId}});
         res.status(201).json({ accessToken , message: 'ok' });
       }
     }else{
+      await review.update({rating : rating, eval : eval}, { where: { id: id } });
+
+      const findRating = await review.findAll({where : {rvChefId : req.body.rsChefId}});
       const allRating = findRating.map((el) => Number(el.rating));
       const filter = allRating.filter((el) => el !== 0);
-
       const addRating = (filter.reduce((acc,cur) => acc + cur))/filter.length;
 
-      await review.update({rating : rating, eval : eval}, { where: { id: id } });
       await chef.update({rating: addRating.toFixed(1)},{where: {id : req.body.rsChefId}});
       res.status(200).json({ message: 'ok' });
     }
