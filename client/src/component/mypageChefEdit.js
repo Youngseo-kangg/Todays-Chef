@@ -371,6 +371,7 @@ function MypageChefEdit() {
   }; // 코스 수정하고 제출할때
 
   const handleEditInputValue = (key) => (e) => {
+    setOnEditErrMsg('');
     setOnEdit({
       ...onEdit,
       [key]: e.target.value,
@@ -595,7 +596,9 @@ function MypageChefEdit() {
                           onChange={handleEditInputValue('courseDesc')}
                           className='chefCourseInfoItemDesc'
                         ></textarea>
-                        {onEditErrMsg ? <p>{onEditErrMsg}</p> : null}
+                        {onEditErrMsg ? (
+                          <p id='editErrorMsg'>{onEditErrMsg}</p>
+                        ) : null}
                       </>
                     ) : (
                       <>

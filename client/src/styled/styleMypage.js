@@ -881,21 +881,50 @@ export const MypageChefEditContent = styled.div`
           place-items: center;
         }
         .chefCourseInfoData {
-          height: 230px;
+          height: 250px;
           display: grid;
           grid-template-rows: 40px 40px 40px 1fr;
+          grid-auto-rows: 20px;
           row-gap: 5px;
           column-gap: 10px;
           grid-template-columns: 1fr 1fr;
           background-color: #dbb89a;
           color: #603224;
           border-radius: 5px;
+          @media (max-width: 420px) {
+            grid-template-rows: 40px 40px 40px 40px 40px 1fr;
+            height: 450px;
+          }
           .chefCourseInfoItem {
             display: grid;
             place-items: center;
-            grid-template-columns: 70px 1fr;
+            grid-template-columns: 90px 1fr;
             column-gap: 10px;
-            p {
+            @media (max-width: 420px) {
+              &:nth-child(1) {
+                grid-column: 1 / 3;
+                grid-row: 3 / 3;
+              }
+              &:nth-child(2) {
+                grid-column: 1 / 3;
+                grid-row: 2 / 2;
+              }
+              &:nth-child(3) {
+                grid-column: 1 / 3;
+                grid-row: 3 / 3;
+              }
+              &:nth-child(4) {
+                grid-column: 1 / 3;
+                grid-row: 4 / 4;
+              }
+              &:nth-child(5) {
+                grid-column: 1 / 3;
+                grid-row: 5 / 5;
+              }
+            }
+
+            p,
+            input {
               width: 100%;
               height: 100%;
               border-radius: 5px;
@@ -912,6 +941,12 @@ export const MypageChefEditContent = styled.div`
             border-radius: 5px;
             border: none;
             outline: none;
+            display: grid;
+            place-items: center;
+            padding: 15px;
+            @media (max-width: 420px) {
+              grid-row: 6 / 6;
+            }
           }
           .chefCourseInfoBtn {
             grid-column: 1 / 3;
@@ -932,6 +967,13 @@ export const MypageChefEditContent = styled.div`
                 border-radius: 5px;
                 cursor: pointer;
               }
+            }
+          }
+          #editErrorMsg {
+            grid-column: 1 / 3;
+            grid-row: 5 / 5;
+            @media (max-width: 420px) {
+              grid-row: 7 / 7;
             }
           }
         }
