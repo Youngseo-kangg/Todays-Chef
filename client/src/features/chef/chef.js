@@ -33,6 +33,23 @@ export const chefSlice = createSlice({
     chefCourses: (state, action) => {
       state.courses = action.payload.courses;
     },
+    addCourse: (state, action) => {
+      state.courses.push(action.payload.data);
+    },
+    updateCourse: (state, action) => {
+      let target = state.courses.indexOf(
+        state.courses.filter((el) => el.id === action.payload.target.id)[0]
+      );
+      state.courses[target] = action.payload.target;
+    },
+    deleteCourse: (state, action) => {
+      let target = state.courses.indexOf(
+        state.courses.filter((el) => el.id === action.payload.targetId)[0]
+      );
+      let left = state.courses.slice(0, target);
+      let right = state.courses.slice(target);
+      state.courses = left.concat(right);
+    },
     chefLogout: (state) => {
       state.userId = -1;
       state.nickname = '';
@@ -45,13 +62,17 @@ export const chefSlice = createSlice({
       state.accessToken = null;
       state.courses = [];
     },
-    addCourse: (state, action) => {
-      state.courses.push(action.payload.data);
-    },
   },
 });
 
-export const { chefLogin, chefMypage, chefCourses, chefLogout, addCourse } =
-  chefSlice.actions;
+export const {
+  chefLogin,
+  chefMypage,
+  chefCourses,
+  chefLogout,
+  addCourse,
+  updateCourse,
+  deleteCourse,
+} = chefSlice.actions;
 export const chefStatus = (state) => state.chef;
 export default chefSlice.reducer;

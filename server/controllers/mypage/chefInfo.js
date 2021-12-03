@@ -31,12 +31,10 @@ module.exports = {
         });
       }
     } else {
-      res
-        .status(200)
-        .json({
-          message: 'ok',
-          data: { info: findChef.dataValues, courses: findCourse },
-        });
+      res.status(200).json({
+        message: 'ok',
+        data: { info: findChef.dataValues, courses: findCourse },
+      });
     }
   },
   post: async (req, res) => {
@@ -71,7 +69,7 @@ module.exports = {
             where: { courseName: data.courseName },
           });
           if (!findSameCoure) {
-            await course.create({
+            let result = await course.create({
               courseName: data.courseName,
               peopleMax: data.peopleMax,
               peopleMin: data.peopleMin,
@@ -80,7 +78,7 @@ module.exports = {
               coChefId: req.query.id,
             });
 
-            res.status(201).json({ accessToken, message: 'ok' });
+            res.status(201).json({ accessToken, message: 'ok', data: result });
           } else {
             res.status(400).json({ message: 'Already same course' });
           }
@@ -105,7 +103,7 @@ module.exports = {
           where: { courseName: data.courseName },
         });
         if (!findSameCoure) {
-          await course.create({
+          const result = await course.create({
             courseName: data.courseName,
             peopleMax: data.peopleMax,
             peopleMin: data.peopleMin,
@@ -114,7 +112,7 @@ module.exports = {
             coChefId: req.query.id,
           });
 
-          res.status(200).json({ message: 'ok' });
+          res.status(200).json({ message: 'ok', data: result });
         } else {
           res.status(400).json({ message: 'Already same course' });
         }
@@ -162,7 +160,6 @@ module.exports = {
   },
   delete: async (req, res) => {
     const accessVerify = isAuthorized(req);
-
     if (!accessVerify) {
       const refreshVerify = refreshAuthorized(req);
       if (!refreshVerify) {

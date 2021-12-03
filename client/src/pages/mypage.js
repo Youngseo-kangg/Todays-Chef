@@ -11,6 +11,7 @@ import { modalStatus } from '../features/user/modal';
 import DeleteReservModal from '../modal/deleteReservModal';
 import OneSentenceModal from '../modal/oneSentenceModal';
 import OneSentenceSuccessModal from '../modal/oneSentenceSuccessModal';
+import ChoiceModal from '../modal/choiceModal';
 
 function Mypage() {
   const menuList = {
@@ -32,6 +33,7 @@ function Mypage() {
       {modalState.isDeleteReservModalOpen !== 0 ? <DeleteReservModal /> : null}
       {modalState.failModalOpen ? <OneSentenceModal /> : null}
       {modalState.successModalOpen ? <OneSentenceSuccessModal /> : null}
+      {modalState.choiceModalOpen !== 0 ? <ChoiceModal /> : null}
       <MypageGrid>
         <div id='mypageGridWrap'>
           <ul>

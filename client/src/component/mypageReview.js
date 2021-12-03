@@ -196,16 +196,20 @@ function MypageReview() {
           },
           { headers: { authorization: `bearer ${userState.accessToken}` } }
         );
-        // accessToken 있으면 업데이트
-        if (patchResult.data.accessToken) {
-          dispatch(updateAccessToken(patchResult.data.accessToken));
+        if (patchResult.data.message === 'ok') {
+          // accessToken 있으면 업데이트
+          if (patchResult.data.accessToken) {
+            dispatch(updateAccessToken(patchResult.data.accessToken));
+          }
+          // 완료 모달 띄워주기
+          dispatch(
+            openSuccessModal({ message: '리뷰 작성이 완료되었습니다.' })
+          );
+          // 서버 다시 요청해서 업뎃
+          getReviews();
+          // 선택한거 없다고 바꿔주기
+          setSelected(false);
         }
-        // 완료 모달 띄워주기
-        dispatch(openSuccessModal({ message: '리뷰 작성이 완료되었습니다.' }));
-        // 서버 다시 요청해서 업뎃
-        getReviews();
-        // 선택한거 없다고 바꿔주기
-        setSelected(false);
       }
     } catch (err) {
       console.log(err);

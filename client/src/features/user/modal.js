@@ -16,6 +16,8 @@ const initialState = {
   failMessage: '',
   successModalOpen: false,
   successMessage: '',
+  choiceModalOpen: 0,
+  choiceMessage: '',
 };
 
 export const modalSlice = createSlice({
@@ -98,6 +100,14 @@ export const modalSlice = createSlice({
       state.successModalOpen = false;
       state.successMessage = '';
     },
+    openChoiceModal: (state, action) => {
+      state.choiceModalOpen = action.payload.target;
+      state.choiceMessage = action.payload.message;
+    },
+    closeChoiceModal: (state) => {
+      state.choiceModalOpen = 0;
+      state.choiceMessage = '';
+    },
   },
 });
 
@@ -126,6 +136,8 @@ export const {
   closeFailModal,
   openSuccessModal,
   closeSuccessModal,
+  openChoiceModal,
+  closeChoiceModal,
 } = modalSlice.actions;
 export const modalStatus = (state) => state.modal;
 export default modalSlice.reducer;
