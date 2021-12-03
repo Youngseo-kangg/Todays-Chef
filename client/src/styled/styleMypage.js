@@ -415,15 +415,15 @@ export const Stars = styled.div`
   }
 
   :hover svg {
-    color: #fcc419;
+    color: #dbb89a;
   }
 
   & svg:hover ~ svg {
     color: gray;
   }
 
-  .yellowStar {
-    color: #fcc419;
+  .brownStar {
+    color: #dbb89a;
   }
 `;
 
@@ -604,7 +604,7 @@ export const MypageEditContent = styled.div`
             word-break: keep-all;
           }
           > button {
-            background-color: rgba(255, 0, 0, 0.7);
+            background-color: #ff6d6d;
             color: #000;
             padding: 8px;
             font-size: 14px;

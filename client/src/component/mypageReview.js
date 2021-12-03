@@ -42,11 +42,11 @@ function MypageReview() {
     review: {
       eval: '',
       id: 0,
-      rating: '',
+      rating: 1,
     },
   }); // 쓴 리뷰 담은 상태
-  const [clicked, setClicked] = useState([false, false, false, false, false]); // 별점 입력 관련
-  let defaultStars = [0, 1, 2, 3, 4]; // 별점 관련
+  const [clicked, setClicked] = useState([true, false, false, false, false]); // 별점 입력 관련
+  let defaultStars = [1, 2, 3, 4, 5]; // 별점 관련
   const [showReviewContent, setShowReviewContent] = useState({
     reservation: {
       burner: 0,
@@ -70,7 +70,7 @@ function MypageReview() {
         headers: { authorization: `bearer ${userState.accessToken}` },
       })
       .then((result) => {
-        // console.log(result.data.data);
+        console.log(result.data.data);
         if (result.data.accessToken) {
           dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
         }
@@ -91,6 +91,7 @@ function MypageReview() {
       reservation: el.reservation,
       review: el.review,
     });
+    handleStarClick(1);
     setSelected(true); // 선택했다고 바꿔줌
     setWriteOrShowReview(false); // 글 쓰는걸로 바꿔주기
   };
@@ -122,7 +123,7 @@ function MypageReview() {
 
   const handleStarClick = (index) => {
     let clickStates = [...clicked];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 1; i <= 5; i++) {
       clickStates[i] = i <= index ? true : false;
     }
     setClicked(clickStates);
@@ -290,7 +291,7 @@ function MypageReview() {
                               key={idx}
                               size='20'
                               onClick={() => handleStarClick(el)}
-                              className={clicked[el] && 'yellowStar'}
+                              className={clicked[el] && 'brownStar'}
                             />
                           );
                         })}
