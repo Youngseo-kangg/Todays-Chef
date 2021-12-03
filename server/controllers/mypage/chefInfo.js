@@ -9,6 +9,9 @@ module.exports = {
   get: async (req, res) => {
     const accessVerify = isAuthorized(req);
     const findChef = await chef.findOne({ where: { id: req.query.id } });
+    const findCourse = await course.findAll({
+      where: { coChefId: req.query.id },
+    });
 
     delete findChef.dataValues.rating;
     delete findChef.dataValues.createdAt;
@@ -21,12 +24,19 @@ module.exports = {
       } else {
         delete refreshVerify.exp;
         const accessToken = basicAccessToken(refreshVerify);
-        res
-          .status(201)
-          .json({ accessToken, message: 'ok', data: findChef.dataValues });
+        res.status(201).json({
+          accessToken,
+          message: 'ok',
+          data: { info: findChef.dataValues, courses: findCourse },
+        });
       }
     } else {
-      res.status(200).json({ message: 'ok', data: findChef.dataValues });
+      res
+        .status(200)
+        .json({
+          message: 'ok',
+          data: { info: findChef.dataValues, courses: findCourse },
+        });
     }
   },
   post: async (req, res) => {
