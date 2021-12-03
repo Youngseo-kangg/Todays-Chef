@@ -5,9 +5,14 @@ import {
   UserReview,
   ChefInfoNone,
 } from '../styled/styleChefInfo';
+import { ChefStar } from '../styled/styleFindChef';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+
+import fullStar from '../todaysChefIMG/ratingStar.svg';
+import halfStar from '../todaysChefIMG/halfStar.svg';
+import noneStar from '../todaysChefIMG/noneStar.svg';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -64,6 +69,75 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
     getReview();
   }, []);
 
+  const ratingStar = (el) => {
+    const arr = [];
+    const NumRating = Number(el.rating);
+
+    if (NumRating >= 0 && NumRating < 1) {
+      arr.push(
+        <div>
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 1 && NumRating < 2) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 2 && NumRating < 3) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={halfStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 3 && NumRating < 4) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 4 && NumRating < 5) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={halfStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating === 5) {
+      arr.push(
+        <div>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+        </div>
+      );
+    }
+
+    return arr;
+  };
+
   return (
     <>
       <ChefAllReviewInfo>
@@ -84,7 +158,7 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
                         </div>
                         <h2 className='userNickname'>{el.nickname}님</h2>
                         <span>{el.rating}</span>
-                        <div>⭐⭐⭐⭐⭐</div>
+                        <ChefStar>{ratingStar(el)}</ChefStar>
                       </div>
                       <div className='reviewTextWrap'>
                         <p className='reviewText'>{el.eval}</p>
