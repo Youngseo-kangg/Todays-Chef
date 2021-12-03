@@ -251,7 +251,7 @@ export const MypageReviewContent = styled.div`
       }
       > #myRecentReviewExtra {
         display: grid;
-        grid-template-columns: 450px 100px 1fr;
+        grid-template-columns: 1fr 100px 1fr;
         padding: 10px;
         box-sizing: border-box;
         place-items: center;
@@ -269,9 +269,7 @@ export const MypageReviewContent = styled.div`
             word-break: keep-all;
           }
         }
-        #myRecentCommentStar {
-          border: 1px solid red;
-        }
+
         #myRecentCommentPic {
           width: 100%;
           height: 100%;
@@ -292,7 +290,7 @@ export const MypageReviewContent = styled.div`
             grid-auto-rows: 1fr;
             p {
               width: 100%;
-              font-size: 13px;
+              font-size: 14px;
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
@@ -406,6 +404,26 @@ export const MypageReviewContent = styled.div`
         }
       }
     }
+  }
+`;
+
+export const Stars = styled.div`
+  display: flex;
+  & svg {
+    color: gray;
+    cursor: pointer;
+  }
+
+  :hover svg {
+    color: #fcc419;
+  }
+
+  & svg:hover ~ svg {
+    color: gray;
+  }
+
+  .yellowStar {
+    color: #fcc419;
   }
 `;
 

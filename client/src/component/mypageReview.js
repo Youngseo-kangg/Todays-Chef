@@ -1,6 +1,7 @@
-import { MypageReviewContent } from '../styled/styleMypage';
+import { MypageReviewContent, Stars } from '../styled/styleMypage';
 import { PagenationList } from '../styled/styleFindChef';
 import axios from 'axios';
+import { FaStar } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { updateAccessToken, userStatus } from '../features/user/user';
@@ -41,9 +42,10 @@ function MypageReview() {
       eval: '',
       id: 0,
       rating: '',
-      rvImg: '',
     },
   }); // 쓴 리뷰 담은 상태
+  const [clicked, setClicked] = useState([false, false, false, false, false]); // 별점 입력 관련
+  let defaultStars = [0, 1, 2, 3, 4]; // 별점 관련
   const [showReviewContent, setShowReviewContent] = useState({
     reservation: {
       burner: 0,
@@ -78,10 +80,10 @@ function MypageReview() {
     getReviews();
   }, []);
 
-  console.log(reviewState);
   // TODO: 2. review에서 예약날짜 이후 + 1주일 지나기 전 이라면 리뷰 쓸 수 있도록 구현하기 -> Y
   // TODO: 3. review에서 예약날짜 이전 + 1주일 후라면 리뷰 쓸 수 없도록 구현하기 -> Y
   // TODO: 4. 목록에서 리뷰를 클릭하면 #myRecentReview에 리뷰 내용 뜨도록 만들기 (상태값으로 input 또는 div 뜨게)
+  // TODO: 5. 별점 클릭해서 만들수 있게 하기
 
   const handleWriting = (el) => {
     setWriteReviewContent({
@@ -112,12 +114,34 @@ function MypageReview() {
         eval: writeReviewContent.review.eval,
         id: writeReviewContent.review.id,
         rating: writeReviewContent.review.rating,
-        rvImg: writeReviewContent.review.rvImg,
         [key]: e.target.value,
       },
     });
   };
 
+  const handleStarClick = (index) => {
+    let clickStates = [...clicked];
+    for (let i = 0; i < 5; i++) {
+      clickStates[i] = i <= index ? true : false;
+    }
+    setClicked(clickStates);
+  };
+
+  useEffect(() => {
+    updateReview();
+  }, [clicked]); // 별 업뎃
+
+  const updateReview = () => {
+    let score = clicked.filter(Boolean).length; // 별을 클릭한 갯수
+    setWriteReviewContent({
+      ...writeReviewContent,
+      review: {
+        eval: writeReviewContent.review.eval,
+        id: writeReviewContent.review.id,
+        rating: Number(score),
+      },
+    });
+  };
   // TODO: 5. 사진 업로드 하면 제목 바뀌기 + 업로드 사진 없으면 다른 문구 처리
   const changeProfileBtn = (event) => {
     let formData = new FormData();
@@ -224,8 +248,8 @@ function MypageReview() {
                         {showReviewContent.review.rvImg.length === 0 ? (
                           <p>업로드한 사진이 없습니다.</p>
                         ) : (
-                          showReviewContent.reservation.rvImg.map((el) => {
-                            return <p>{el}</p>;
+                          showReviewContent.reservation.rvImg.map((el, idx) => {
+                            return <p key={idx}>{el}</p>;
                           })
                         )}
                       </div>
@@ -248,13 +272,26 @@ function MypageReview() {
                         {format(
                           new Date(writeReviewContent.reservation.rsDate),
                           'yyyy-MM-dd'
-                        )}
+                        )}{' '}
                         예약에 대한 리뷰입니다.
                       </h3>
                     </div>
                     <div id='myRecentCommentStar'>
+                      <Stars>
+                        {defaultStars.map((el, idx) => {
+                          return (
+                            <FaStar
+                              key={idx}
+                              size='20'
+                              onClick={() => handleStarClick(el)}
+                              className={clicked[el] && 'yellowStar'}
+                            />
+                          );
+                        })}
+                      </Stars>
+
                       <input
-                        type='text'
+                        type='hidden'
                         onChange={handleInputValue('rating')}
                         value={writeReviewContent.review.rating}
                       />
