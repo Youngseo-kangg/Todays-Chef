@@ -154,7 +154,11 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
                     <UserReview key={idx}>
                       <div className='userProfile'>
                         <div className='userProfileWrap'>
-                          <img src={basic_profile} alt='유저 사진' />
+                          {el.userImg === '' ? (
+                            <img src={basic_profile} alt='유저 사진' />
+                          ) : (
+                            <img src={el.userImg} alt='유저 사진' />
+                          )}
                         </div>
                         <h2 className='userNickname'>{el.nickname}님</h2>
                         <span>{el.rating}</span>
