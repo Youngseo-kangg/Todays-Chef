@@ -218,6 +218,12 @@ export const ChefStar = styled.div`
   display: grid;
   font-size: 18px;
   place-items: center;
+  > div {
+    > img {
+      width: 20px;
+      height: 20px;
+    }
+  }
 `;
 
 export const PagenationList = styled.div`
