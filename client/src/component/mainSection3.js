@@ -30,13 +30,13 @@ function MainSection3() {
     getBestChef();
   }, []);
 
-  const ratingStar = (el) => {
+  const ratingStar = (el, idx) => {
     const arr = [];
     const NumRating = Number(el.rating);
 
     if (NumRating >= 0 && NumRating < 0.5) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={noneStar} alt='' />
           <img src={noneStar} alt='' />
           <img src={noneStar} alt='' />
@@ -46,7 +46,7 @@ function MainSection3() {
       );
     } else if (NumRating >= 0.5 && NumRating < 1) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={halfStar} alt='' />
           <img src={noneStar} alt='' />
           <img src={noneStar} alt='' />
@@ -56,7 +56,7 @@ function MainSection3() {
       );
     } else if (NumRating >= 1 && NumRating < 1.5) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={fullStar} alt='' />
           <img src={noneStar} alt='' />
           <img src={noneStar} alt='' />
@@ -66,7 +66,7 @@ function MainSection3() {
       );
     } else if (NumRating >= 1.5 && NumRating < 2) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={fullStar} alt='' />
           <img src={halfStar} alt='' />
           <img src={noneStar} alt='' />
@@ -76,7 +76,7 @@ function MainSection3() {
       );
     } else if (NumRating >= 2 && NumRating < 2.5) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
           <img src={noneStar} alt='' />
@@ -86,7 +86,7 @@ function MainSection3() {
       );
     } else if (NumRating >= 2.5 && NumRating < 3) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
           <img src={halfStar} alt='' />
@@ -96,7 +96,7 @@ function MainSection3() {
       );
     } else if (NumRating >= 3 && NumRating < 3.5) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
@@ -106,7 +106,7 @@ function MainSection3() {
       );
     } else if (NumRating >= 3.5 && NumRating < 4) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
@@ -116,7 +116,7 @@ function MainSection3() {
       );
     } else if (NumRating >= 4 && NumRating < 4.5) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
@@ -126,7 +126,7 @@ function MainSection3() {
       );
     } else if (NumRating >= 4.5 && NumRating < 5) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
@@ -136,7 +136,7 @@ function MainSection3() {
       );
     } else if (NumRating === 5) {
       arr.push(
-        <div>
+        <div key={idx}>
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
           <img src={fullStar} alt='' />
@@ -157,7 +157,7 @@ function MainSection3() {
           <ul>
             {chefData.map((el, idx) => {
               return (
-                <li key={idx} className='chef'>
+                <li key={el.id} className='chef'>
                   <div className='bestCuisine'>{el.cuisine}</div>
                   <div className='chefPic'>
                     {el.chefImg === '' ? (
@@ -167,7 +167,7 @@ function MainSection3() {
                     )}
                   </div>
                   <h4>{el.chefName}</h4>
-                  <ChefStar>{ratingStar(el)}</ChefStar>
+                  <ChefStar key={idx}>{ratingStar(el, idx)}</ChefStar>
                   <span>{el.rating}</span>
                 </li>
               );
