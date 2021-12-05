@@ -106,6 +106,8 @@ export const ReservationWrap = styled.div`
 export const ReservNotice = styled.div`
   display: grid;
   place-items: center;
+  width: 100%;
+  height: 100%;
   #reservDoneNotice {
     display: grid;
     grid-template-rows: 60px 1fr;
@@ -114,6 +116,12 @@ export const ReservNotice = styled.div`
     word-break: keep-all;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
+    @media screen and (max-width: 767px) {
+      width: 90%;
+    }
+    @media screen and (max-width: 420px) {
+      width: 100%;
+    }
     h3 {
       font-size: 25px;
       border-bottom: 2px solid #fff;

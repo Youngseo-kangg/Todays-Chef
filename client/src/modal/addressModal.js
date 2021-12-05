@@ -1,7 +1,12 @@
 import { ModalBackground, DaumPostCodeWrapper } from '../styled/styledModal';
 import DaumPostCode from 'react-daum-postcode';
 
-function AddressModal({ setSearchAddress, setAddress, setAddressErr }) {
+function AddressModal({
+  setSearchAddress,
+  setAddress,
+  setPostal,
+  setAddressErr,
+}) {
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = '';
@@ -15,6 +20,7 @@ function AddressModal({ setSearchAddress, setAddress, setAddressErr }) {
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : ''; //fullAddress -> 전체 주소반환
       setAddress(fullAddress); // 도로명주소값 넣기
+      setPostal(data.zonecode); // 우편주소 넣기
       setAddressErr(true);
       setSearchAddress(false); // modal끄기
     }
