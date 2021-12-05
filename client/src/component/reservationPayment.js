@@ -72,7 +72,7 @@ function ReservationPayment({
   const iamportPayment = () => {
     // * 2-1. 결제 준비 (가맹점 식별코드 사용해 IMP 객체 초기화)
     const { IMP } = window;
-    IMP.init(''); // 가맹점 식별코드
+    IMP.init(process.env.IAMPORT_STORE_CODE); // 가맹점 식별코드
 
     const data = {
       pg: 'html5_inicis', // 사용할 pg사
@@ -97,10 +97,12 @@ function ReservationPayment({
         status,
       } = response;
       if (success) {
+        console.log('성공성공!!!');
+
         // 결제가 성공한 경우
         // * axios로 서버에 정보 보내서 결제정보 저장
         let postResult = await axios.post(
-          `${url}/서버의_결제정보를_받는_엔드포인트`,
+          `${url}/reservation/payments`,
           {
             data: {
               imp_uid: imp_uid,
