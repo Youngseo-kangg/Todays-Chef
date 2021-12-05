@@ -43,6 +43,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      merchantUid: {
+        type: Sequelize.STRING,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

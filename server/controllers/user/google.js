@@ -42,9 +42,6 @@ module.exports = {
     const userUsingEmail = await user.findOne({
       where: { email: googleEmail },
     });
-    const findChef = await chef.findOne({
-      where: { chUserId: userUsingEmail.dataValues.id },
-    });
 
     // 없으면 가입하기
     if (!userUsingEmail) {
@@ -81,6 +78,10 @@ module.exports = {
         if (!userUsingEmail.dataValues.isChef) {
           res.status(200).json({ accessToken, userInfo: userUsingEmail });
         } else {
+          const findChef = await chef.findOne({
+            where: { chUserId: userUsingEmail.dataValues.id },
+          });
+
           userUsingEmail.dataValues.chefId = findChef.dataValues.id;
           res.status(200).json({ accessToken, userInfo: userUsingEmail });
         }

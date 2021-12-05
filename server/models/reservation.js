@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       messageToChef: DataTypes.STRING,
       rsChefId: DataTypes.INTEGER,
       rsCourseId: DataTypes.INTEGER,
+      merchantUid: DataTypes.STRING,
     },
     {
       sequelize,
