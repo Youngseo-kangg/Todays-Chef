@@ -26,6 +26,7 @@ module.exports = {
           rsUserId: 1,
           rsChefId: 1,
           rsCourseId: 1,
+          merchantUid: 'merchant_2021-12-06_22-33-11',
         },
         {
           people: 4,
@@ -48,6 +49,7 @@ module.exports = {
           rsUserId: 2,
           rsChefId: 1,
           rsCourseId: 1,
+          merchantUid: 'merchant_2021-12-06_05-33-11',
         },
       ],
       {}

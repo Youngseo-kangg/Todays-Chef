@@ -1,3 +1,11 @@
+const { isAuthorized, basicAccessToken } = require('../token/accessToken');
+const {
+  sendRefreshToken,
+  refreshAuthorized,
+} = require('../token/refreshToken');
+
+const { reservation, review } = require('../../models');
+
 const axios = require('axios');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -6,6 +14,98 @@ module.exports = {
   post: async (req, res) => {
     try {
       const { imp_uid, merchant_uid } = req.body.data;
+
+      const {
+        people,
+        allergy,
+        location,
+        mobile,
+        rsDate,
+        rsTime,
+        isOven,
+        burner,
+        messageToChef,
+        rsUserId,
+        rsChefId,
+        rsCourseId,
+        merchent_uid,
+      } = req.body.data.reservationData;
+
+      const accessVerify = isAuthorized(req);
+      const refreshVerify = refreshAuthorized(req);
+
+      // console.log(refreshVerify);
+
+      console.log('req : ', req.headers);
+      console.log('accssVeri : ', accessVerify);
+
+      if (accessVerify) {
+        const makeReservation = await reservation.create({
+          people: people,
+          allergy: allergy,
+          location: location,
+          mobile: mobile,
+          rsDate: rsDate,
+          rsTime: rsTime,
+          isOven: isOven,
+          burner: burner,
+          messageToChef: messageToChef,
+          rsUserId: rsUserId,
+          rsChefId: rsChefId,
+          rsCourseId: rsCourseId,
+          merchantUid: merchant_uid,
+        });
+
+        await review.create({
+          rating: '',
+          eval: '',
+          rvImg: '',
+          rvUserId: rsUserId,
+          rvChefId: rsChefId,
+          rvReservationId: makeReservation.dataValues.id,
+        });
+        res.status(200).json({ message: 'ok' });
+      } else {
+        if (refreshVerify) {
+          // accessToken은 만료 됐지만 refreshToken은 존재할 때
+          const makeReservation = await reservation.create({
+            people: people,
+            allergy: allergy,
+            location: location,
+            mobile: mobile,
+            rsDate: rsDate,
+            rsTime: rsTime,
+            isOven: isOven,
+            burner: burner,
+            messageToChef: messageToChef,
+            rsUserId: rsUserId,
+            rsChefId: rsChefId,
+            rsCourseId: rsCourseId,
+            merchantUid: merchant_uid,
+          });
+
+          await review.create({
+            rating: '',
+            eval: '',
+            rvImg: '',
+            rvUserId: rsUserId,
+            rvChefId: rsChefId,
+            rvReservationId: makeReservation.dataValues.id,
+          });
+
+          delete refreshVerify.iat;
+          delete refreshVerify.exp;
+          const accessToken = basicAccessToken(refreshVerify);
+          res.status(201).json({ message: 'ok', accessToken: accessToken });
+        } else {
+          // token이 둘 다 만료 됐을 때
+          await reservation.destroy({
+            where: { merchantUid: req.body.data.merchant_uid, force: true },
+          });
+          res.status(401).json({ message: 'Send new login request' });
+        }
+      }
+      // !!!!!!!!!!!!!reservation 만들어주기!!!!!!!!!!!!!!!!!!!
 
       console.log('첫빠따');
 
@@ -36,6 +136,9 @@ module.exports = {
       console.log('aaa', paymentData);
     } catch (err) {
       console.log(err);
+      await reservation.destroy({
+        where: { merchantUid: req.body.data.merchant_uid, force: true },
+      });
       res.status(400).json({ message: err });
     }
   },

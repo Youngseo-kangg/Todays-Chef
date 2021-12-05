@@ -35,9 +35,6 @@ module.exports = {
       messageToChef: {
         type: Sequelize.STRING,
       },
-      merchant_uid: {
-        type: Sequelize.STRING,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -45,6 +42,9 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+      },
+      merchantUid: {
+        type: Sequelize.STRING,
       },
     });
   },

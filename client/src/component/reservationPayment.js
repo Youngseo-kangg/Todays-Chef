@@ -79,7 +79,7 @@ function ReservationPayment({
     const data = {
       pg: 'html5_inicis', // 사용할 pg사
       pay_method: 'card', // 사용 메소드
-      merchant_uid: 'merchant_' + new Date().getTime(),
+      merchant_uid: 'merchant_' + format(new Date(), 'yyyy-MM-dd_HH-mm-ss'),
       name: newData.reservCourseName, // 이름
       amount: 10, // 가격
       buyer_email: userState.email,
@@ -132,9 +132,16 @@ function ReservationPayment({
           },
 
           {
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              authorization: `bearer ${userState.accessToken}`,
+              'Content-Type': 'application/json',
+            },
           }
         );
+        if (postResult.data.message === 'ok') {
+          // * 결제 정보 저장 후 다음페이지로
+          setMakeReservation(4); // 다음페이지로 넘겨주기
+        }
       } else {
         // 결제 실패 경우
         console.log('error_msg: ', error_msg);
