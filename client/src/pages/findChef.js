@@ -15,6 +15,9 @@ import {
   ChefStar,
   PagenationList,
 } from '../styled/styleFindChef';
+import fullStar from '../todaysChefIMG/ratingStar.svg';
+import halfStar from '../todaysChefIMG/halfStar.svg';
+import noneStar from '../todaysChefIMG/noneStar.svg';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -26,7 +29,7 @@ function FindChef() {
   const [chefData, setChefData] = useState([]);
   const [chefsPerPage, setChefsPerPage] = useState({
     start: 0,
-    end: 3,
+    end: 4,
     array: [],
     length: 0,
   }); // 몇개를 가져올지
@@ -39,12 +42,11 @@ function FindChef() {
     try {
       let encodeSelected = encodeURI(encodeURIComponent(selected));
       const result = await axios.get(
-        `${url}/chef/${encodeSelected}?startNum=0&endNum=3`
+        `${url}/chef/${encodeSelected}?startNum=0&endNum=4`
       ); // axios 요청 (무조건 처음엔 0~3개만)
       setChefData(result.data.data); // 2. result값으로 chefData 없데이트
-
       let newArr = [];
-      for (let i = 0; i < result.data.length; i += 3) {
+      for (let i = 0; i < result.data.length; i += 4) {
         newArr.push(i); // 3씩 끊은 수 들어가게
       }
       setChefsPerPage({
@@ -66,7 +68,7 @@ function FindChef() {
 
       setChefData(result.data.data); // 2. result값으로 chefData 없데이트
       let newArr = [];
-      for (let i = 0; i < result.data.length; i += 3) {
+      for (let i = 0; i < result.data.length; i += 4) {
         newArr.push(i); // 3씩 끊은 수 들어가게
       }
       setChefsPerPage({
@@ -82,6 +84,125 @@ function FindChef() {
   useEffect(() => {
     getChefList(); // 0~3 데이터값 가져오기
   }, [selected]); // 로드 되자마자 + select값 변경 될때 마다 리렌더링
+
+  const ratingStar = (el, idx) => {
+    const arr = [];
+    const NumRating = Number(el.rating);
+
+    if (NumRating >= 0 && NumRating < 0.5) {
+      arr.push(
+        <div key={idx}>
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 0.5 && NumRating < 1) {
+      arr.push(
+        <div key={idx}>
+          <img src={halfStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 1 && NumRating < 1.5) {
+      arr.push(
+        <div key={idx}>
+          <img src={fullStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 1.5 && NumRating < 2) {
+      arr.push(
+        <div key={idx}>
+          <img src={fullStar} alt='' />
+          <img src={halfStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 2 && NumRating < 2.5) {
+      arr.push(
+        <div key={idx}>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 2.5 && NumRating < 3) {
+      arr.push(
+        <div key={idx}>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={halfStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 3 && NumRating < 3.5) {
+      arr.push(
+        <div key={idx}>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={noneStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 3.5 && NumRating < 4) {
+      arr.push(
+        <div key={idx}>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={halfStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 4 && NumRating < 4.5) {
+      arr.push(
+        <div key={idx}>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={noneStar} alt='' />
+        </div>
+      );
+    } else if (NumRating >= 4.5 && NumRating < 5) {
+      arr.push(
+        <div key={idx}>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={halfStar} alt='' />
+        </div>
+      );
+    } else if (NumRating === 5) {
+      arr.push(
+        <div key={idx}>
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+          <img src={fullStar} alt='' />
+        </div>
+      );
+    }
+
+    return arr;
+  };
 
   return (
     <FindChefGrid>
@@ -136,7 +257,7 @@ function FindChef() {
 
           <ChefItemList>
             <ul>
-              {chefData.map((el) => {
+              {chefData.map((el, idx) => {
                 return (
                   <li
                     className='chef'
@@ -144,16 +265,20 @@ function FindChef() {
                     onClick={() => history.push(`/chef?chefId=${el.id}`)}
                   >
                     <div className='chefPic'>
-                      <img src={basic_profile} alt='셰프 사진' />{' '}
-                      {/* img파일 지정하고 나면 basic_profile 없애고 랜더링 해주기 */}
+                      {el.chefImg === '' ? (
+                        <img src={basic_profile} alt='셰프 사진' />
+                      ) : (
+                        <img src={el.chefImg} alt='셰프 사진' />
+                      )}
                     </div>
                     <h3>
                       <Link to={`/chef?chefId=${el.id}`}>
                         {el.chefName} 셰프
                       </Link>
                     </h3>
+
+                    <ChefStar>{ratingStar(el, idx)}</ChefStar>
                     <span>{el.rating}</span>
-                    <ChefStar>⭐⭐⭐⭐⭐</ChefStar>
                   </li>
                 );
               })}
@@ -164,7 +289,7 @@ function FindChef() {
             <ul>
               {chefsPerPage.array.map((el, idx) => {
                 return (
-                  <li key={idx} onClick={() => getChefListMore(el, el + 3)}>
+                  <li key={idx} onClick={() => getChefListMore(el, el + 4)}>
                     {idx + 1}
                   </li>
                 );

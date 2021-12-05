@@ -1,5 +1,4 @@
-const { reservation } = require('../../models');
-const { course, chef, user } = require('../../models');
+const { reservation, course, chef, user, review } = require('../../models');
 const { isAuthorized, basicAccessToken } = require('../token/accessToken');
 const {
   sendRefreshToken,
@@ -9,6 +8,7 @@ const {
 module.exports = {
   // accessToken 받아와서 기한이 만료 됐는지 안 됐는지 확인 후 예약할 수 있게끔 만들어주기
   post: async (req, res) => {
+    console.log('req.body: ', req.body);
     const {
       people,
       allergy,
@@ -23,14 +23,13 @@ module.exports = {
       rsChefId,
       rsCourseId,
     } = req.body;
-
     const accessVerify = isAuthorized(req);
     const refreshVerify = refreshAuthorized(req);
 
     // console.log(refreshVerify);
 
     if (accessVerify) {
-      await reservation.create({
+      const makeReservation = await reservation.create({
         people: people,
         allergy: allergy,
         location: location,
@@ -43,6 +42,15 @@ module.exports = {
         rsUserId: rsUserId,
         rsChefId: rsChefId,
         rsCourseId: rsCourseId,
+      });
+
+      await review.create({
+        rating: '',
+        eval: '',
+        rvImg: '',
+        rvUserId: rsUserId,
+        rvChefId: rsChefId,
+        rvReservationId: makeReservation.dataValues.id,
       });
       res.status(200).json({ message: 'ok' });
     } else {

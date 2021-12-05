@@ -31,6 +31,8 @@ module.exports = {
         userImg: '',
         isChef: false,
         isOauth: false,
+        isAdmin: false,
+        isSubmit: false,
       });
     }
   },

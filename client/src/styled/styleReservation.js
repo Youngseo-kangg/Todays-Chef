@@ -72,6 +72,11 @@ export const ReservationWrap = styled.div`
   &.none {
     display: none;
   }
+  &#reservDone,
+  #reservPayment {
+    grid-template-columns: none;
+    place-items: center;
+  }
   button {
     display: block;
     background-color: transparent;
@@ -101,9 +106,49 @@ export const ReservationWrap = styled.div`
 export const ReservNotice = styled.div`
   display: grid;
   place-items: center;
+  width: 100%;
+  height: 100%;
+  #reservDoneNotice {
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    width: 600px;
+    height: 150px;
+    word-break: keep-all;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    @media screen and (max-width: 767px) {
+      width: 90%;
+    }
+    @media screen and (max-width: 420px) {
+      width: 100%;
+    }
+    h3 {
+      font-size: 25px;
+      border-bottom: 2px solid #fff;
+    }
+    > * {
+      display: grid;
+      place-items: center;
+    }
+  }
+  #reservPaymentNotice {
+    width: 600px;
+    height: 150px;
+    word-break: keep-all;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    h3 {
+      font-size: 25px;
+      border-bottom: 2px solid #fff;
+    }
+    > * {
+      display: grid;
+      place-items: center;
+    }
+  }
   > #reservationNotice {
     width: 600px;
-    height: 30%;
+    height: auto;
     min-height: 260px;
     word-break: keep-all;
     padding: 10px;
@@ -205,11 +250,4 @@ export const ReservDateAndInfo = styled.div`
       cursor: pointer;
     }
   }
-`;
-
-export const ReservPayment = styled.div`
-  background-color: pink;
-`;
-export const ReservDone = styled.div`
-  background-color: pink;
 `;

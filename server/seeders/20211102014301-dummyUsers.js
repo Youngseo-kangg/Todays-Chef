@@ -12,6 +12,8 @@ module.exports = {
           userImg: '',
           isChef: false,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -28,6 +30,8 @@ module.exports = {
           userImg: '',
           isChef: false,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -44,6 +48,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -60,6 +66,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: true,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -77,6 +85,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -93,6 +103,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -109,6 +121,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -125,6 +139,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -141,6 +157,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: true,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -157,6 +175,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -173,6 +193,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -189,6 +211,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -205,6 +229,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -221,6 +247,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -237,6 +265,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -253,6 +283,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -269,6 +301,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -285,6 +319,8 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')
@@ -301,6 +337,62 @@ module.exports = {
           userImg: '',
           isChef: true,
           isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+        },
+        {
+          email: 'purple@gmail.com',
+          password: 'purple12?!',
+          nickname: '보라돌이',
+          userImg: '',
+          isChef: false,
+          isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+        },
+        {
+          email: 'yellowNana@gmail.com',
+          password: 'yellowNana12?!',
+          nickname: '나나',
+          userImg: '',
+          isChef: false,
+          isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
+          createdAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+          updatedAt: new Date()
+            .toISOString()
+            .replace(/T/, ' ')
+            .replace(/\..+/, ''),
+        },
+        {
+          email: 'ppoppo@gmail.com',
+          password: 'ppoppo12?!',
+          nickname: '뽀잉',
+          userImg: '',
+          isChef: false,
+          isOauth: false,
+          isSubmit: false,
+          isAdmin: false,
           createdAt: new Date()
             .toISOString()
             .replace(/T/, ' ')

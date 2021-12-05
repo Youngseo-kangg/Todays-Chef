@@ -17,9 +17,6 @@ module.exports = {
       rvImg: {
         type: Sequelize.STRING,
       },
-      rvDate: {
-        type: Sequelize.DATE,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
