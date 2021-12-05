@@ -9,6 +9,7 @@ import {
 } from '../features/user/modal';
 import { logout, userStatus } from '../features/user/user';
 import axios from 'axios';
+import { chefLogout } from '../features/chef/chef';
 
 function LogoutModal() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
@@ -22,14 +23,19 @@ function LogoutModal() {
       let result = await axios.get(`${url}/user/logout`, {
         headers: { authorization: `Bearer ${userInfo.accessToken}}` },
       });
-      dispatch(logout());
-      dispatch(closeLogoutModal());
-      window.location.replace('/');
+      if (result.data.message === 'ok') {
+        if (userInfo.isChef) {
+          // 셰프라면 셰프정보도 없애주기
+          dispatch(chefLogout());
+        }
+        dispatch(logout());
+        dispatch(closeLogoutModal());
+        window.location.replace('/');
+      }
     } catch (err) {
       console.log(err.message);
       if (err.message === 'Network Error') {
-        dispatch(closeLogoutModal()); // 로그아웃 모달 닫기
-        // dispatch(setServerErrorTrue()); // 서버 에러 지정 -> 딱히 서버 에러로 나눌 필요는 없긴 함
+        dispatch(closeLogoutModal()); // 로그아웃 모달 닫기\
         dispatch(openServerErrorModal()); // 서버 에러 모달 열기
       } else if (err.response.data.message === 'Send new login request') {
         dispatch(closeLogoutModal()); // 로그아웃 모달 닫기
