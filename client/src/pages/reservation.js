@@ -59,14 +59,17 @@ function Reservation() {
       console.log('submit은 작동했으나 막았음');
       setMakeReservation(2);
       return false;
+    } else {
+      setNewData({
+        ...data,
+        reservMainAddress: address,
+        postal: postal,
+        reservCourseName: titleInfo.course.courseName,
+        reservPrice: titleInfo.course.price * data.reservPeople,
+      });
+      console.log('새로만든 newData: ', newData); // newData 상태값 업데이트
+      setMakeReservation(3); // 다음 페이지로 넘겨주기
     }
-    setNewData({
-      ...data,
-      reservMainAddress: address,
-    });
-    // console.log('새로만든 newData: ', newData); // newData 상태값 업데이트
-    setMakeReservation(3); // 다음 페이지로 넘겨주기
-    // TODO : reservationPayment에서 결제 이후 newData로 axios 요청하기
   };
 
   const onError = (error) => {
@@ -74,6 +77,7 @@ function Reservation() {
   };
   const [searchAddress, setSearchAddress] = useState(false); // 모달 키고 끌 상태
   const [address, setAddress] = useState(''); // 실제 주소 값
+  const [postal, setPostal] = useState(''); // 우표 주소 값
   const [addressErr, setAddressErr] = useState(address ? true : false);
   const [titleInfo, setTitleInfo] = useState({
     chefName: '',
@@ -121,6 +125,7 @@ function Reservation() {
           setSearchAddress={setSearchAddress}
           setAddress={setAddress}
           setAddressErr={setAddressErr}
+          setPostal={setPostal}
         />
       ) : null}
       <ReservationGrid>
