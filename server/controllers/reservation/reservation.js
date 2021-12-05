@@ -22,6 +22,7 @@ module.exports = {
       rsUserId,
       rsChefId,
       rsCourseId,
+      merchent_uid,
     } = req.body;
     const accessVerify = isAuthorized(req);
     const refreshVerify = refreshAuthorized(req);
