@@ -5,11 +5,18 @@ import { userStatus } from '../features/user/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { updateAccessToken } from '../features/user/user';
-import { addCourse, chefMypage, chefStatus } from '../features/chef/chef';
+import {
+  addCourse,
+  chefMypage,
+  chefCourses,
+  updateCourse,
+  chefStatus,
+} from '../features/chef/chef';
 import {
   openServerErrorModal,
   openIsNeedReLoginModal,
   openSuccessModal,
+  openChoiceModal,
 } from '../features/user/modal';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -43,16 +50,18 @@ function MypageChefEdit() {
     peopleMin: 0,
   });
   const [isEdit, setIsEdit] = useState(false);
-  const [editIdx, setEditIdx] = useState(0);
+  // const [editIdx, setEditIdx] = useState(0);
+  const [onEditErrMsg, setOnEditErrMsg] = useState('');
   const [onEdit, setOnEdit] = useState({
-    courseName: chefState.courses[editIdx].courseName,
-    courseDesc: chefState.courses[editIdx].courseDesc,
-    price: chefState.courses[editIdx].price,
-    peopleMax: chefState.courses[editIdx].peopleMax,
-    peopleMin: chefState.courses[editIdx].peopleMin,
+    id: -1,
+    courseName: '',
+    courseDesc: '',
+    price: 0,
+    peopleMax: 0,
+    peopleMin: 0,
   });
   // TODO: 1. load 되자마자 서버에 get 요청해서 chef 데이터 다 가져오고, redux chef 업데이트
-  const getChefInfo = async () => {
+  const getChefInfoAndCourse = async () => {
     try {
       let result = await axios.get(
         `${url}/mypage/info/chef?id=${chefState.chefId}`,
@@ -60,31 +69,37 @@ function MypageChefEdit() {
           headers: { authorization: `bearer ${userState.accessToken}` },
         }
       );
-      if (result.data.accessToken) {
-        dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
+      console.log(result.data.data);
+      if (result.data.message === 'ok') {
+        if (result.data.accessToken) {
+          dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
+        }
+        dispatch(
+          chefMypage({
+            chefName: result.data.data.info.chefName,
+            cuisine: result.data.data.info.cuisine,
+            chefImg: result.data.data.info.chefImg,
+            greeting: result.data.data.info.greeting,
+            career: result.data.data.info.career,
+            values: result.data.data.info.values,
+            rating: result.data.data.info.rating,
+            chUserId: result.data.data.info.chUserId,
+          })
+        ); // 셰프 정보 redux 업뎃
+        dispatch(chefCourses({ courses: result.data.data.courses }));
+        // 코스 정보 redux 업뎃
+
+        setChefEditText({
+          chefName: chefState.chefName || '',
+          cuisine: chefState.cuisine || '',
+          chefImg: chefState.chefImg || '',
+          greeting: chefState.greeting || '',
+          career: chefState.career || '',
+          values: chefState.values || '',
+          rating: chefState.rating || '',
+          chUserId: chefState.chUserId,
+        }); // 초기화
       }
-      dispatch(
-        chefMypage({
-          chefName: result.data.data.chefName,
-          cuisine: result.data.data.cuisine,
-          chefImg: result.data.data.chefImg,
-          greeting: result.data.data.greeting,
-          career: result.data.data.career,
-          values: result.data.data.values,
-          rating: result.data.data.rating,
-          chUserId: result.data.data.chUserId,
-        })
-      );
-      setChefEditText({
-        chefName: result.data.data.chefName || '',
-        cuisine: result.data.data.cuisine || '',
-        chefImg: result.data.data.chefImg || '',
-        greeting: result.data.data.greeting || '',
-        career: result.data.data.career || '',
-        values: result.data.data.values || '',
-        rating: result.data.data.rating || '',
-        chUserId: result.data.data.chUserId,
-      });
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
@@ -96,7 +111,7 @@ function MypageChefEdit() {
   };
 
   useEffect(() => {
-    getChefInfo();
+    getChefInfoAndCourse();
   }, [update]);
   // TODO: 2. 자기소개 부분 수정 구현하기 + 유효성 검사
   // TODO: 3. 코스 소개 정보 입력 + 유효성 검사 + 서버에 저장하고 아래에 #chefCourseInfo로 렌더 되서 뜨도록 하기 + 필요한 modal, redux modal 업데이트
@@ -175,7 +190,9 @@ function MypageChefEdit() {
         console.log(postResult);
         if (postResult.data.message === 'ok') {
           if (postResult.data.accessToken) {
-            dispatch(updateAccessToken(postResult.data.accessToken));
+            dispatch(
+              updateAccessToken({ accessToken: postResult.data.accessToken })
+            );
           }
           // 성공했다는 모달 띄우기
           dispatch(
@@ -193,11 +210,10 @@ function MypageChefEdit() {
         dispatch(openIsNeedReLoginModal());
       }
     }
-  };
+  }; // 셰프 정보 수정 제출
 
   const onSubmitCourse = async () => {
     try {
-      console.log(courseText);
       // 유효성검사
       if (
         courseText.courseName === '' ||
@@ -240,10 +256,21 @@ function MypageChefEdit() {
         if (postResult.data.message === 'ok') {
           // accessToken 담겨오면 업데이트
           if (postResult.data.accessToken) {
-            dispatch(updateAccessToken(postResult.data.accessToken));
+            dispatch(
+              updateAccessToken({ accessToken: postResult.data.accessToken })
+            );
           }
           // redux 업데이트
-          dispatch(addCourse({ data: courseText })); // !! courseId 필요
+          dispatch(
+            addCourse({
+              data: {
+                ...postResult.data.data,
+                peopleMin: Number(postResult.data.data.peopleMin),
+                peopleMax: Number(postResult.data.data.peopleMax),
+                price: Number(postResult.data.data.price),
+              },
+            })
+          );
           // 모달 띄워서 알려주기
           dispatch(openSuccessModal({ message: '코스가 추가되었습니다.' }));
           // 입력창 원상복구
@@ -264,23 +291,110 @@ function MypageChefEdit() {
         dispatch(openIsNeedReLoginModal());
       }
     }
-  };
+  }; // 셰프 코스 새로 작성해서 제출
+
+  const onEditCourse = async (el) => {
+    setOnEdit(el); // 바꿔줄 상태로 내용 업뎃
+    setIsEdit(true); // 변경상태로 바꿔주기
+  }; // 코스 수정한다고 알려주기
+
+  const onEditCourseSubmit = async () => {
+    // 유효성검사
+    if (
+      onEdit.courseName === '' ||
+      onEdit.peopleMin === '' ||
+      onEdit.peopleMax === '' ||
+      onEdit.price === ''
+    ) {
+      setOnEditErrMsg('모든 항목을 작성해주세요.');
+    } else if (
+      typeof Number(onEdit.peopleMin) !== 'number' ||
+      typeof Number(onEdit.peopleMax) !== 'number'
+    ) {
+      setOnEditErrMsg('인원은 숫자로 입력해 주세요.');
+    } else if (
+      String(onEdit.peopleMin).includes('.') ||
+      String(onEdit.peopleMax).includes('.') ||
+      Number(onEdit.peopleMin) < 0 ||
+      Number(onEdit.peopleMax) < 0 ||
+      Number(onEdit.peopleMin) >= Number(onEdit.peopleMax)
+    ) {
+      setOnEditErrMsg('인원을 정확히 입력해 주세요.');
+    } else if (!(Number(onEdit.peopleMax) - Number(onEdit.peopleMin) >= 2)) {
+      setOnEditErrMsg('최소, 최대 인원은 2 이상 차이가 나야 합니다.');
+    } else {
+      try {
+        // onEdit.id로 axios.patch 전달
+        let patchResult = await axios.patch(
+          `${url}/mypage/info/chef?id=${onEdit.id}`,
+          {
+            ...onEdit,
+            price: Number(onEdit.price),
+            peopleMin: Number(onEdit.peopleMin),
+            peopleMax: Number(onEdit.peopleMax),
+          },
+          {
+            headers: { authorization: `bearer ${userState.accessToken}` },
+          }
+        );
+        if (patchResult.data.message === 'ok') {
+          // accessToken 있는지
+          if (patchResult.data.accessToken) {
+            dispatch(
+              updateAccessToken({ accessToken: patchResult.data.accessToken })
+            );
+          }
+          // redux값 업데이트 해주기
+          dispatch(
+            updateCourse({
+              target: {
+                ...onEdit,
+                price: Number(onEdit.price),
+                peopleMin: Number(onEdit.peopleMin),
+                peopleMax: Number(onEdit.peopleMax),
+              },
+            })
+          );
+          // 수정 끝났다고 사용했던 상태값 원상복구
+          setIsEdit(false);
+          setOnEdit({
+            id: -1,
+            courseName: '',
+            courseDesc: '',
+            price: 0,
+            peopleMax: 0,
+            peopleMin: 0,
+          });
+          // 모달 띄워 알려주기
+          dispatch(openSuccessModal({ message: '수정이 완료되었습니다.' }));
+        }
+      } catch (err) {
+        console.log(err);
+        if (err.message === 'Network Error') {
+          dispatch(openServerErrorModal());
+        } else if (err.response.data.message === 'Send new Login Request') {
+          dispatch(openIsNeedReLoginModal());
+        }
+      }
+    }
+  }; // 코스 수정하고 제출할때
 
   const handleEditInputValue = (key) => (e) => {
+    setOnEditErrMsg('');
     setOnEdit({
       ...onEdit,
       [key]: e.target.value,
     });
-  };
+  }; // 수정할 내용 입력값 받아오기
 
-  const onEditCourse = async (idx) => {
-    setIsEdit(true); // 변경상태로 바꿔주기
-    setEditIdx(idx); // 몇번째 고치는건지 알려주기
-  };
-
-  const onDeleteCourse = async () => {
-    console.log('삭제');
-  };
+  const onDeleteCourse = async (el) => {
+    dispatch(
+      openChoiceModal({
+        target: el.id,
+        message: `${el.courseName} 코스를 삭제하시겠습니까?`,
+      })
+    );
+  }; // 코스 삭제 버튼 눌렀을때 떠야 하는 모달
 
   return (
     <MypageChefEditContent>
@@ -433,19 +547,19 @@ function MypageChefEdit() {
                       <div className='chefCourseInfoBtnWrap'>
                         <button
                           onClick={
-                            isEdit
-                              ? () => setIsEdit(false)
-                              : () => onEditCourse(idx)
+                            isEdit ? onEditCourseSubmit : () => onEditCourse(el)
                           }
                         >
-                          {isEdit && idx === editIdx ? '저장하기' : '수정하기'}
+                          {isEdit && el.id === onEdit.id
+                            ? '저장하기'
+                            : '수정하기'}
                         </button>
                         <button onClick={() => onDeleteCourse(el)}>
                           삭제하기
                         </button>
                       </div>
                     </div>
-                    {isEdit && idx === editIdx ? (
+                    {isEdit && el.id === onEdit.id ? (
                       <>
                         <div className='chefCourseInfoItem'>
                           <label htmlFor='courseName'>코스 이름</label>
@@ -491,6 +605,9 @@ function MypageChefEdit() {
                           onChange={handleEditInputValue('courseDesc')}
                           className='chefCourseInfoItemDesc'
                         ></textarea>
+                        {onEditErrMsg ? (
+                          <p id='editErrorMsg'>{onEditErrMsg}</p>
+                        ) : null}
                       </>
                     ) : (
                       <>

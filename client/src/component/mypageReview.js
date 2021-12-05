@@ -1,6 +1,7 @@
-import { MypageReviewContent } from '../styled/styleMypage';
+import { MypageReviewContent, Stars } from '../styled/styleMypage';
 import { PagenationList } from '../styled/styleFindChef';
 import axios from 'axios';
+import { FaStar } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { updateAccessToken, userStatus } from '../features/user/user';
@@ -34,16 +35,18 @@ function MypageReview() {
       chefName: '',
       courseName: '',
       id: 0,
+      rsChefId: 0,
       rsDate: new Date(),
       rsTime: '00:00',
     },
     review: {
       eval: '',
       id: 0,
-      rating: '',
-      rvImg: '',
+      rating: 1,
     },
   }); // 쓴 리뷰 담은 상태
+  const [clicked, setClicked] = useState([true, false, false, false, false]); // 별점 입력 관련
+  let defaultStars = [1, 2, 3, 4, 5]; // 별점 관련
   const [showReviewContent, setShowReviewContent] = useState({
     reservation: {
       burner: 0,
@@ -67,7 +70,7 @@ function MypageReview() {
         headers: { authorization: `bearer ${userState.accessToken}` },
       })
       .then((result) => {
-        // console.log(result.data.data);
+        console.log(result.data.data);
         if (result.data.accessToken) {
           dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
         }
@@ -78,16 +81,17 @@ function MypageReview() {
     getReviews();
   }, []);
 
-  console.log(reviewState);
   // TODO: 2. review에서 예약날짜 이후 + 1주일 지나기 전 이라면 리뷰 쓸 수 있도록 구현하기 -> Y
   // TODO: 3. review에서 예약날짜 이전 + 1주일 후라면 리뷰 쓸 수 없도록 구현하기 -> Y
   // TODO: 4. 목록에서 리뷰를 클릭하면 #myRecentReview에 리뷰 내용 뜨도록 만들기 (상태값으로 input 또는 div 뜨게)
+  // TODO: 5. 별점 클릭해서 만들수 있게 하기
 
   const handleWriting = (el) => {
     setWriteReviewContent({
       reservation: el.reservation,
       review: el.review,
     });
+    handleStarClick(1);
     setSelected(true); // 선택했다고 바꿔줌
     setWriteOrShowReview(false); // 글 쓰는걸로 바꿔주기
   };
@@ -112,12 +116,34 @@ function MypageReview() {
         eval: writeReviewContent.review.eval,
         id: writeReviewContent.review.id,
         rating: writeReviewContent.review.rating,
-        rvImg: writeReviewContent.review.rvImg,
         [key]: e.target.value,
       },
     });
   };
 
+  const handleStarClick = (index) => {
+    let clickStates = [...clicked];
+    for (let i = 1; i <= 5; i++) {
+      clickStates[i] = i <= index ? true : false;
+    }
+    setClicked(clickStates);
+  };
+
+  useEffect(() => {
+    updateReview();
+  }, [clicked]); // 별 업뎃
+
+  const updateReview = () => {
+    let score = clicked.filter(Boolean).length; // 별을 클릭한 갯수
+    setWriteReviewContent({
+      ...writeReviewContent,
+      review: {
+        eval: writeReviewContent.review.eval,
+        id: writeReviewContent.review.id,
+        rating: Number(score),
+      },
+    });
+  };
   // TODO: 5. 사진 업로드 하면 제목 바뀌기 + 업로드 사진 없으면 다른 문구 처리
   const changeProfileBtn = (event) => {
     let formData = new FormData();
@@ -166,22 +192,27 @@ function MypageReview() {
         let patchResult = await axios.patch(
           `${url}/mypage/review/user?id=${writeReviewContent.review.id}`,
           {
+            rsChefId: writeReviewContent.reservation.rsChefId,
             rating: writeReviewContent.review.rating,
             eval: writeReviewContent.review.eval,
             id: writeReviewContent.review.id,
           },
           { headers: { authorization: `bearer ${userState.accessToken}` } }
         );
-        // accessToken 있으면 업데이트
-        if (patchResult.data.accessToken) {
-          dispatch(updateAccessToken(patchResult.data.accessToken));
+        if (patchResult.data.message === 'ok') {
+          // accessToken 있으면 업데이트
+          if (patchResult.data.accessToken) {
+            dispatch(updateAccessToken(patchResult.data.accessToken));
+          }
+          // 완료 모달 띄워주기
+          dispatch(
+            openSuccessModal({ message: '리뷰 작성이 완료되었습니다.' })
+          );
+          // 서버 다시 요청해서 업뎃
+          getReviews();
+          // 선택한거 없다고 바꿔주기
+          setSelected(false);
         }
-        // 완료 모달 띄워주기
-        dispatch(openSuccessModal({ message: '리뷰 작성이 완료되었습니다.' }));
-        // 서버 다시 요청해서 업뎃
-        getReviews();
-        // 선택한거 없다고 바꿔주기
-        setSelected(false);
       }
     } catch (err) {
       console.log(err);
@@ -224,8 +255,8 @@ function MypageReview() {
                         {showReviewContent.review.rvImg.length === 0 ? (
                           <p>업로드한 사진이 없습니다.</p>
                         ) : (
-                          showReviewContent.reservation.rvImg.map((el) => {
-                            return <p>{el}</p>;
+                          showReviewContent.reservation.rvImg.map((el, idx) => {
+                            return <p key={idx}>{el}</p>;
                           })
                         )}
                       </div>
@@ -248,13 +279,26 @@ function MypageReview() {
                         {format(
                           new Date(writeReviewContent.reservation.rsDate),
                           'yyyy-MM-dd'
-                        )}
+                        )}{' '}
                         예약에 대한 리뷰입니다.
                       </h3>
                     </div>
                     <div id='myRecentCommentStar'>
+                      <Stars>
+                        {defaultStars.map((el, idx) => {
+                          return (
+                            <FaStar
+                              key={idx}
+                              size='20'
+                              onClick={() => handleStarClick(el)}
+                              className={clicked[el] && 'brownStar'}
+                            />
+                          );
+                        })}
+                      </Stars>
+
                       <input
-                        type='text'
+                        type='hidden'
                         onChange={handleInputValue('rating')}
                         value={writeReviewContent.review.rating}
                       />

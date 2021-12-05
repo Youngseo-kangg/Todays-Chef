@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAccessToken, userStatus } from '../features/user/user';
 import { ReservationWrap, ReservPayment } from '../styled/styleReservation';
+import {
+  openServerErrorModal,
+  openIsNeedReLoginModal,
+} from '../features/user/modal';
 import { format, getHours, getMinutes } from 'date-fns';
 
 import axios from 'axios';
@@ -64,26 +68,37 @@ function ReservationPayment({
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      if (reservation.data.accessToken) {
-        dispatch(
-          updateAccessToken({ accessToken: reservation.data.accessToken })
-        );
+      if (reservation.data.message === 'ok') {
+        // 넘겨주기 ok
+        if (reservation.data.accessToken) {
+          dispatch(
+            updateAccessToken({ accessToken: reservation.data.accessToken })
+          );
+        }
+        setMakeReservation(4); // 다음페이지로 넘겨주기
       }
     } catch (err) {
       console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal()); // 서버 에러 모달 열기
+      } else if (err.response.data.message === 'Send new login request') {
+        dispatch(openIsNeedReLoginModal()); // 재로그인 필요하다는 모달 띄우기
+      }
     }
   };
 
   useEffect(() => {
-    // 실제 결제 프로세스 일어나야 함
+    // TODO : 실제 결제 프로세스 일어나야 함
     makeReservation(); // reservation 테이블에 예약 추가
   }, []);
 
   return (
-    <ReservationWrap>
-      <button>&lt;</button>
-      <ReservPayment>this is reservationPayment(4단계)</ReservPayment>
-      <button onClick={() => setMakeReservation(4)}>&gt;</button>
+    <ReservationWrap id='reservPayment'>
+      <ReservNotice>
+        <div id='reservPaymentNotice'>
+          <h3>결제를 진행해 주세요.</h3>
+        </div>
+      </ReservNotice>
     </ReservationWrap>
   );
 }

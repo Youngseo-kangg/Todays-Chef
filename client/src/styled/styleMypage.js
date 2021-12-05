@@ -251,7 +251,7 @@ export const MypageReviewContent = styled.div`
       }
       > #myRecentReviewExtra {
         display: grid;
-        grid-template-columns: 450px 100px 1fr;
+        grid-template-columns: 1fr 100px 1fr;
         padding: 10px;
         box-sizing: border-box;
         place-items: center;
@@ -269,9 +269,7 @@ export const MypageReviewContent = styled.div`
             word-break: keep-all;
           }
         }
-        #myRecentCommentStar {
-          border: 1px solid red;
-        }
+
         #myRecentCommentPic {
           width: 100%;
           height: 100%;
@@ -292,7 +290,7 @@ export const MypageReviewContent = styled.div`
             grid-auto-rows: 1fr;
             p {
               width: 100%;
-              font-size: 13px;
+              font-size: 14px;
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
@@ -392,11 +390,11 @@ export const MypageReviewContent = styled.div`
         grid-template-rows: repeat(4, 40px);
         row-gap: 10px;
         > li {
-          display: flex;
           width: 100%;
           height: 100%;
-          justify-content: space-evenly;
-          align-items: center;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          place-items: center;
           cursor: pointer;
           background-color: #dbb89a;
           border-radius: 5px;
@@ -406,6 +404,26 @@ export const MypageReviewContent = styled.div`
         }
       }
     }
+  }
+`;
+
+export const Stars = styled.div`
+  display: flex;
+  & svg {
+    color: gray;
+    cursor: pointer;
+  }
+
+  :hover svg {
+    color: #dbb89a;
+  }
+
+  & svg:hover ~ svg {
+    color: gray;
+  }
+
+  .brownStar {
+    color: #dbb89a;
   }
 `;
 
@@ -430,7 +448,7 @@ export const MypageEditContent = styled.div`
     @media (max-width: 767px) {
       height: 100%;
       grid-template-columns: none;
-      grid-template-rows: 50px 280px 1fr;
+      grid-template-rows: 50px 320px 1fr;
     }
     @media (max-width: 420px) {
       padding: 15px 0px;
@@ -486,15 +504,20 @@ export const MypageEditContent = styled.div`
         padding: 0;
         border: 0;
       }
-      #mypageInfoPicBtn {
-        display: block;
-        background-color: rgba(255, 255, 255, 0.3);
-        width: 100px;
-        padding: 8px;
-        font-size: 14px;
-        border-radius: 5px;
-        margin: 0 auto;
-        cursor: pointer;
+      .mypageInfoPicButton {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 10px;
+        .mypageInfoPicBtn {
+          display: block;
+          background-color: rgba(255, 255, 255, 0.3);
+          width: 100px;
+          padding: 8px;
+          font-size: 14px;
+          border-radius: 5px;
+          margin: 0 auto;
+          cursor: pointer;
+        }
       }
     }
 
@@ -514,6 +537,15 @@ export const MypageEditContent = styled.div`
         place-items: center;
         grid-template-rows: repeat(4, 40px);
         row-gap: 10px;
+        &.bothError {
+          grid-template-rows: 40px 20px 40px 20px 40px;
+        }
+        &.passwordError {
+          grid-template-rows: 40px 40px 40px 20px 40px;
+        }
+        &.nicknameError {
+          grid-template-rows: 40px 20px 40px 40px 40px;
+        }
         .myInfoDetailWrap {
           width: 100%;
           height: 100%;
@@ -522,15 +554,26 @@ export const MypageEditContent = styled.div`
           grid-template-columns: 130px 1fr 100px;
           column-gap: 10px;
           word-break: keep-all;
+          &.socialLoginWarning {
+            grid-template-columns: 130px 1fr;
+          }
           @media (max-width: 1080px) {
             grid-template-columns: 90px 1fr 80px;
+            &.socialLoginWarning {
+              grid-template-columns: 90px 1fr;
+            }
           }
           @media (max-width: 420px) {
             grid-template-columns: 70px 1fr 70px;
+            &.socialLoginWarning {
+              grid-template-columns: 70px 1fr;
+            }
           }
           > input {
             width: 90%;
             height: 100%;
+            border: none;
+            outline: none;
             background-color: transparent;
             border-bottom: 2px solid #603224;
             @media (max-width: 420px) {
@@ -561,7 +604,7 @@ export const MypageEditContent = styled.div`
             word-break: keep-all;
           }
           > button {
-            background-color: rgba(255, 0, 0, 0.7);
+            background-color: #ff6d6d;
             color: #000;
             padding: 8px;
             font-size: 14px;
@@ -863,21 +906,50 @@ export const MypageChefEditContent = styled.div`
           place-items: center;
         }
         .chefCourseInfoData {
-          height: 230px;
+          height: 250px;
           display: grid;
           grid-template-rows: 40px 40px 40px 1fr;
+          grid-auto-rows: 20px;
           row-gap: 5px;
           column-gap: 10px;
           grid-template-columns: 1fr 1fr;
           background-color: #dbb89a;
           color: #603224;
           border-radius: 5px;
+          @media (max-width: 420px) {
+            grid-template-rows: 40px 40px 40px 40px 40px 1fr;
+            height: 450px;
+          }
           .chefCourseInfoItem {
             display: grid;
             place-items: center;
-            grid-template-columns: 70px 1fr;
+            grid-template-columns: 90px 1fr;
             column-gap: 10px;
-            p {
+            @media (max-width: 420px) {
+              &:nth-child(1) {
+                grid-column: 1 / 3;
+                grid-row: 3 / 3;
+              }
+              &:nth-child(2) {
+                grid-column: 1 / 3;
+                grid-row: 2 / 2;
+              }
+              &:nth-child(3) {
+                grid-column: 1 / 3;
+                grid-row: 3 / 3;
+              }
+              &:nth-child(4) {
+                grid-column: 1 / 3;
+                grid-row: 4 / 4;
+              }
+              &:nth-child(5) {
+                grid-column: 1 / 3;
+                grid-row: 5 / 5;
+              }
+            }
+
+            p,
+            input {
               width: 100%;
               height: 100%;
               border-radius: 5px;
@@ -894,6 +966,12 @@ export const MypageChefEditContent = styled.div`
             border-radius: 5px;
             border: none;
             outline: none;
+            display: grid;
+            place-items: center;
+            padding: 15px;
+            @media (max-width: 420px) {
+              grid-row: 6 / 6;
+            }
           }
           .chefCourseInfoBtn {
             grid-column: 1 / 3;
@@ -914,6 +992,13 @@ export const MypageChefEditContent = styled.div`
                 border-radius: 5px;
                 cursor: pointer;
               }
+            }
+          }
+          #editErrorMsg {
+            grid-column: 1 / 3;
+            grid-row: 5 / 5;
+            @media (max-width: 420px) {
+              grid-row: 7 / 7;
             }
           }
         }
