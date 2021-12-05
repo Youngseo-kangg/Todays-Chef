@@ -71,21 +71,22 @@ function ReservationPayment({
 
   const iamportPayment = () => {
     // * 2-1. 결제 준비 (가맹점 식별코드 사용해 IMP 객체 초기화)
-    const { IMP } = window;
-    IMP.init(process.env.IAMPORT_STORE_CODE); // 가맹점 식별코드
+    const IMP = window.IMP;
+    IMP.init('imp52890096'); // 가맹점 식별코드
 
     const data = {
       pg: 'html5_inicis', // 사용할 pg사
       pay_method: 'card', // 사용 메소드
       merchant_uid: 'merchant_' + new Date().getTime(),
-      name: newData.courseName, // 이름
-      amount: 0, // 가격
+      name: newData.reservCourseName, // 이름
+      amount: 10, // 가격
       buyer_email: userState.email,
       buyer_name: userState.nickname,
       buyer_tel: newData.reservMobile,
       buyer_addr: newData.reservMainAddress,
       buyer_postcode: newData.postal,
     }; // IMP.request_pay에 담길 data
+    console.log('aaa', data);
     const callback = async (response) => {
       const {
         success,
@@ -127,21 +128,8 @@ function ReservationPayment({
   };
 
   useEffect(() => {
-    // TODO : 실제 결제 프로세스 일어나야 함
-    // * iamport #1. jquery, iamport 호출하기
-    const jquery = document.createElement('script');
-    jquery.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
-    const iamport = document.createElement('script');
-    iamport.src = 'https://cdn.iamport.kr.js/iamport.payment-1.1.7.js';
-    document.head.appendChild(jquery);
-    document.head.appendChild(iamport);
     // *iamport #2. iamport 결제 실행
     iamportPayment();
-
-    return () => {
-      document.head.removeChild(jquery);
-      document.head.removeChild(iamport);
-    };
   }, []);
 
   return (
