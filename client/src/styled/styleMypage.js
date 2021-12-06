@@ -216,6 +216,9 @@ export const MypageReviewContent = styled.div`
   place-items: center;
   width: 100%;
   height: 100%;
+  &.noReview {
+    grid-template-rows: 50px 1fr;
+  }
   @media (max-width: 1080px) {
     grid-template-rows: 50px 450px 1fr;
   }
