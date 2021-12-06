@@ -18,6 +18,8 @@ function OneSentenceModal() {
       return returnToMypage();
     } else if (window.location.href.includes('/findChef')) {
       return returnToFindChef();
+    } else if (window.location.href.includes('/reservation')) {
+      return returnToFindChef();
     }
   };
 

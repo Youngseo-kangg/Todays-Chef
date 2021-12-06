@@ -17,6 +17,7 @@ const initialState = {
   successModalOpen: false,
   successMessage: '',
   choiceModalOpen: 0,
+  choiceTitle: '',
   choiceMessage: '',
 };
 
@@ -102,10 +103,12 @@ export const modalSlice = createSlice({
     },
     openChoiceModal: (state, action) => {
       state.choiceModalOpen = action.payload.target;
+      state.choiceTitle = action.payload.choiceTitle;
       state.choiceMessage = action.payload.message;
     },
     closeChoiceModal: (state) => {
       state.choiceModalOpen = 0;
+      state.choiceTitle = '';
       state.choiceMessage = '';
     },
   },

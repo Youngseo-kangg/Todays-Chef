@@ -391,6 +391,7 @@ function MypageChefEdit() {
     dispatch(
       openChoiceModal({
         target: el.id,
+        choiceTitle: '코스 삭제',
         message: `${el.courseName} 코스를 삭제하시겠습니까?`,
       })
     );

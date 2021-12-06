@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   openServerErrorModal,
   closeChoiceModal,
-  closeIsDeleteReservModal,
+  openIsNeedReLoginModal,
   modalStatus,
 } from '../features/user/modal';
+import { logout } from '../features/user/user';
 import { userStatus, updateAccessToken } from '../features/user/user';
 import axios from 'axios';
 import { chefStatus, deleteCourse } from '../features/chef/chef';
@@ -37,6 +38,39 @@ function ChoiceModal() {
       }
     } catch (err) {
       console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      } else if (err.response.data.message === 'Send new Login Request') {
+        dispatch(openIsNeedReLoginModal());
+      }
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      let deleteResult = await axios.delete(
+        `${url}/mypage/${modalState.choiceModalOpen}`
+      );
+      if (deleteResult.data.message === 'ok') {
+        dispatch(logout()); // 로그아웃 상태로 만들어주기
+        dispatch(closeChoiceModal()); // 모달 끄기
+        window.location.replace('/');
+      }
+    } catch (err) {
+      console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      } else if (err.response.data.message === 'Send new Login Request') {
+        dispatch(openIsNeedReLoginModal());
+      }
+    }
+  };
+
+  const clickOk = () => {
+    if (modalState.choiceTitle === '코스 삭제') {
+      return deleteCourseItem();
+    } else if (modalState.choiceTitle === '회원 탈퇴') {
+      return deleteUser();
     }
   };
 
@@ -48,12 +82,12 @@ function ChoiceModal() {
     <>
       <ModalBackground>
         <LogoutModalBox>
-          <span>삭제</span>
+          <span>{modalState.choiceTitle}</span>
           <div id='logoutDesc'>
             <p>{modalState.choiceMessage}</p>
           </div>
           <div id='confirmBtn'>
-            <button onClick={deleteCourseItem}>확인</button>
+            <button onClick={clickOk}>확인</button>
             <button onClick={clickCancel}>취소</button>
           </div>
         </LogoutModalBox>

@@ -11,10 +11,6 @@ export const ReservationGrid = styled.article`
   @media screen and (max-width: 420px) {
     row-gap: 15px;
   }
-  /* > * {
-    border: 1px solid red;
-    box-sizing: border-box;
-  } */
 `;
 
 export const ReservationTitle = styled.section`
@@ -73,7 +69,7 @@ export const ReservationWrap = styled.div`
     display: none;
   }
   &#reservDone,
-  #reservPayment {
+  &#reservPayment {
     grid-template-columns: none;
     place-items: center;
   }
@@ -133,12 +129,22 @@ export const ReservNotice = styled.div`
   }
   #reservPaymentNotice {
     width: 600px;
-    height: 150px;
+    height: auto;
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    min-height: 100px;
     word-break: keep-all;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
+    @media screen and (max-width: 767px) {
+      width: 90%;
+    }
+    @media screen and (max-width: 420px) {
+      width: 100%;
+    }
     h3 {
       font-size: 25px;
+      line-height: 30px;
       border-bottom: 2px solid #fff;
     }
     > * {
@@ -156,8 +162,10 @@ export const ReservNotice = styled.div`
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.6);
     @media screen and (max-width: 767px) {
+      width: 90%;
+    }
+    @media screen and (max-width: 420px) {
       width: 100%;
-      height: auto;
     }
     h3 {
       font-size: 25px;

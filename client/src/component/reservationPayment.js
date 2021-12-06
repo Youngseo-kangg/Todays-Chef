@@ -2,10 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAccessToken, userStatus } from '../features/user/user';
 import { ReservationWrap, ReservNotice } from '../styled/styleReservation';
-import {
-  openServerErrorModal,
-  openIsNeedReLoginModal,
-} from '../features/user/modal';
+import { openFailModal } from '../features/user/modal';
 import { format, getHours, getMinutes } from 'date-fns';
 
 import axios from 'axios';
@@ -145,6 +142,11 @@ function ReservationPayment({
       } else {
         // 결제 실패 경우
         console.log('error_msg: ', error_msg);
+        dispatch(
+          openFailModal({
+            message: '결제가 중단되었습니다.',
+          })
+        );
       }
     }; // IMP.request_pay에 담길 data
     // * 2-2. IMP.request_pay(param, callback) 결제창 호출
@@ -162,6 +164,7 @@ function ReservationPayment({
       <ReservNotice>
         <div id='reservPaymentNotice'>
           <h3>결제를 진행해 주세요.</h3>
+          <p>결제가 완료되면 자동으로 페이지가 이동됩니다.</p>
         </div>
       </ReservNotice>
     </ReservationWrap>
