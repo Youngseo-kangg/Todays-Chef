@@ -36,7 +36,7 @@ module.exports = {
 
       // console.log(refreshVerify);
 
-      console.log('req : ', req.headers);
+      console.log('req : ', req.body.data);
       console.log('accssVeri : ', accessVerify);
 
       if (accessVerify) {
@@ -64,7 +64,62 @@ module.exports = {
           rvChefId: rsChefId,
           rvReservationId: makeReservation.dataValues.id,
         });
-        res.status(200).json({ message: 'ok' });
+
+        console.log('첫빠따');
+
+        const getToken = await axios({
+          url: 'https://api.iamport.kr/users/getToken',
+          method: 'post', // POST method
+          headers: { 'Content-Type': 'application/json' }, // "Content-Type": "application/json"
+          data: {
+            imp_key: process.env.IAMPORT_RESTAPI_KEY, // REST API 키
+            imp_secret: process.env.IAMPORT_RESTAPI_SECRET, // REST API Secret
+          },
+        });
+        const { access_token } = getToken.data.response; // 인증 토큰
+
+        console.log('req_body', req.body);
+        console.log('getToken : ', getToken.data);
+
+        console.log('imp_uid', req.body.data.imp_uid);
+
+        const getPaymentData = await axios({
+          url: `https://api.iamport.kr/payments/${imp_uid}`, // imp_uid 전달
+          method: 'get', // GET method
+          headers: { Authorization: access_token }, // 인증 토큰 Authorization header에 추가
+        });
+        const paymentData = getPaymentData.data.response; // 조회한 결제 정보
+
+        console.log('getPaymentData : ', getPaymentData);
+        console.log('aaa', paymentData);
+
+        await reservation.update(
+          {
+            impUid: getPaymentData.data.response.imp_uid,
+            receiptUrl: getPaymentData.data.response.receipt_url,
+            amount: getPaymentData.data.response.amount,
+          },
+          { where: { id: makeReservation.dataValues.id } }
+        );
+
+        const findReservation = await reservation.findOne({
+          where: { merchantUid: paymentData.merchant_uid },
+        });
+
+        const { amount, status } = paymentData;
+
+        if (amount === 10) {
+          switch (status) {
+            case 'paid': // 결제 완료
+              res.status(200).json({
+                status: 'success',
+                message: '일반 결제 성공',
+              });
+              break;
+          }
+        } else {
+          throw { status: 'forgery', message: '위조된 결제시도' };
+        }
       } else {
         if (refreshVerify) {
           // accessToken은 만료 됐지만 refreshToken은 존재할 때
@@ -96,7 +151,63 @@ module.exports = {
           delete refreshVerify.iat;
           delete refreshVerify.exp;
           const accessToken = basicAccessToken(refreshVerify);
-          res.status(201).json({ message: 'ok', accessToken: accessToken });
+
+          console.log('첫빠따');
+
+          const getToken = await axios({
+            url: 'https://api.iamport.kr/users/getToken',
+            method: 'post', // POST method
+            headers: { 'Content-Type': 'application/json' }, // "Content-Type": "application/json"
+            data: {
+              imp_key: process.env.IAMPORT_RESTAPI_KEY, // REST API 키
+              imp_secret: process.env.IAMPORT_RESTAPI_SECRET, // REST API Secret
+            },
+          });
+          const { access_token } = getToken.data.response; // 인증 토큰
+
+          console.log('req_body', req.body);
+          console.log('getToken : ', getToken.data);
+
+          console.log('imp_uid', req.body.data.imp_uid);
+
+          const getPaymentData = await axios({
+            url: `https://api.iamport.kr/payments/${imp_uid}`, // imp_uid 전달
+            method: 'get', // GET method
+            headers: { Authorization: access_token }, // 인증 토큰 Authorization header에 추가
+          });
+          const paymentData = getPaymentData.data.response; // 조회한 결제 정보
+
+          console.log('getPaymentData : ', getPaymentData);
+          console.log('aaa', paymentData);
+
+          await reservation.update(
+            {
+              impUid: getPaymentData.data.response.imp_uid,
+              receiptUrl: getPaymentData.data.response.receipt_url,
+              amount: getPaymentData.data.response.amount,
+            },
+            { where: { id: makeReservation.dataValues.id } }
+          );
+
+          const findReservation = await reservation.findOne({
+            where: { merchantUid: paymentData.merchant_uid },
+          });
+
+          const { amount, status } = paymentData;
+
+          if (amount === 10) {
+            switch (status) {
+              case 'paid': // 결제 완료
+                res.status(201).json({
+                  status: 'success',
+                  message: '일반 결제 성공',
+                  accessToken: accessToken,
+                });
+                break;
+            }
+          } else {
+            throw { status: 'forgery', message: '위조된 결제시도' };
+          }
         } else {
           // token이 둘 다 만료 됐을 때
           await reservation.destroy({
@@ -106,50 +217,6 @@ module.exports = {
         }
       }
       // !!!!!!!!!!!!!reservation 만들어주기!!!!!!!!!!!!!!!!!!!
-
-      console.log('첫빠따');
-
-      const getToken = await axios({
-        url: 'https://api.iamport.kr/users/getToken',
-        method: 'post', // POST method
-        headers: { 'Content-Type': 'application/json' }, // "Content-Type": "application/json"
-        data: {
-          imp_key: process.env.IAMPORT_RESTAPI_KEY, // REST API 키
-          imp_secret: process.env.IAMPORT_RESTAPI_SECRET, // REST API Secret
-        },
-      });
-      const { access_token } = getToken.data.response; // 인증 토큰
-
-      console.log('req_body', req.body);
-      console.log('getToken : ', getToken.data);
-
-      console.log('imp_uid', req.body.data.imp_uid);
-
-      const getPaymentData = await axios({
-        url: `https://api.iamport.kr/payments/${imp_uid}`, // imp_uid 전달
-        method: 'get', // GET method
-        headers: { Authorization: access_token }, // 인증 토큰 Authorization header에 추가
-      });
-      const paymentData = getPaymentData.data.response; // 조회한 결제 정보
-
-      console.log('getPaymentData : ', getPaymentData);
-      console.log('aaa', paymentData);
-
-      const findReservation = await reservation.findOne({
-        where: { merchantUid: paymentData.merchant_uid },
-      });
-
-      const { amount, status } = paymentData;
-
-      if (amount === 10) {
-        switch (status) {
-          case 'paid': // 결제 완료
-            res.send({ status: 'success', message: '일반 결제 성공' });
-            break;
-        }
-      } else {
-        throw { status: 'forgery', message: '위조된 결제시도' };
-      }
     } catch (err) {
       console.log(err);
       await reservation.destroy({

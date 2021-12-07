@@ -53,6 +53,9 @@ module.exports = {
 
     console.log('cancel', req.body);
 
+    const { body } = req;
+    const { merchant_uid, reason, cancel_request_amount } = body; // 클라이언트로부터 전달받은 주문번호, 환불사유, 환불금액
+
     // if (!accessVerify) {
     //   const refreshVerify = refreshAuthorized(req);
     //   if (!refreshVerify) {
