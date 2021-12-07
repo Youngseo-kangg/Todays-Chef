@@ -7,6 +7,10 @@ import subDays from 'date-fns/subDays';
 import { ko } from 'date-fns/esm/locale';
 import { getYear, getMonth, setHours, setMinutes } from 'date-fns';
 import { Controller } from 'react-hook-form';
+import { useEffect } from 'react';
+import { reservationStatus } from '../features/reservation/reservation';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 function ReservationDate({
   makeReservation,
@@ -19,6 +23,7 @@ function ReservationDate({
   address,
   addressErr,
   titleInfo,
+  queryChefId,
 }) {
   const months = [
     '1월',
@@ -34,9 +39,12 @@ function ReservationDate({
     '11월',
     '12월',
   ];
-
+  const reservationState = useSelector(reservationStatus);
   let dateFormat = 'yyyy년 MMMM dd일, aa h:mm';
-
+  useEffect(() => {
+    // chefId로 셰프 예약 내역 갖고오고
+    // reservationState에서 내가 예약한 내역 갖고오기 -> reservationState.data
+  }, []);
   return (
     <>
       <ReservationWrap className={makeReservation === 1 ? null : 'none'}>

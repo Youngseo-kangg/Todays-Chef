@@ -109,6 +109,7 @@ function Reservation() {
           `${url}/reservation?chefId=${queryChefId}&courseId=${queryCourseId}`
         )
         .then((data) => {
+          console.log(data);
           setTitleInfo({
             chefName: data.data.data.chefName,
             course: data.data.data.course,
@@ -160,6 +161,7 @@ function Reservation() {
                 setAddressErr={setAddressErr}
                 addressErr={addressErr}
                 titleInfo={titleInfo}
+                queryChefId={queryChefId}
               />
               <ReservationInfo
                 makeReservation={makeReservation}

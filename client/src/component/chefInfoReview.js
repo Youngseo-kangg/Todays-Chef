@@ -141,7 +141,7 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
   return (
     <>
       <ChefAllReviewInfo>
-        {reviewLength === 0 ? (
+        {reviewData.length === 0 ? (
           <ChefInfoNone>
             <p>아직 등록된 리뷰가 없습니다.</p>
           </ChefInfoNone>

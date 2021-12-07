@@ -90,12 +90,12 @@ export const MyPageContent = styled.article`
 export const MypageReservContent = styled.div`
   display: grid;
   place-items: center;
-  grid-template-rows: 50px 1fr 60px;
+  grid-template-rows: 50px 530px 1fr;
   row-gap: 20px;
   width: 100%;
   height: 100%;
   @media (max-width: 420px) {
-    grid-template-rows: 50px 1fr 130px;
+    grid-template-rows: 50px 340px 1fr;
   }
   > #myReservationTitleWrap {
     display: grid;
@@ -137,13 +137,14 @@ export const MypageReservContent = styled.div`
     width: 100%;
     max-width: 1080px;
     height: 100%;
+    min-height: 40px;
     display: grid;
     place-items: center;
     grid-template-columns: 100px 1fr 100px;
     column-gap: 10px;
     @media (max-width: 420px) {
       grid-template-columns: none;
-      grid-template-rows: 40px 40px 50px;
+      grid-template-rows: 40px 1fr 50px;
     }
     #deleteReserve {
       width: 100%;

@@ -135,7 +135,8 @@ function ReservationPayment({
             },
           }
         );
-        if (postResult.data.message === 'ok') {
+        console.log(postResult);
+        if (postResult.data.status === 'success') {
           // * 결제 정보 저장 후 다음페이지로
           setMakeReservation(4); // 다음페이지로 넘겨주기
         }

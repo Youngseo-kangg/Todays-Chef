@@ -21,7 +21,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { reservationStatus } from '../features/reservation/reservation';
 import { updateAccessToken, userStatus } from '../features/user/user';
-import { openIsDeleteReservModal } from '../features/user/modal';
+import { openFailModal, openIsDeleteReservModal } from '../features/user/modal';
 import { getReservation } from '../features/reservation/reservation';
 import { modalStatus } from '../features/user/modal';
 import { chefStatus } from '../features/chef/chef';
@@ -57,6 +57,7 @@ function MypageReservation() {
     rsTime: '00:00',
     rsUserId: 0,
     merchantUid: '',
+    receiptUrl: '',
   });
   const [selectedDateStateChef, setSelectedDateStateChef] = useState({
     id: 0,
@@ -73,6 +74,7 @@ function MypageReservation() {
     userNickname: '',
     courseName: '',
     merchantUid: '',
+    receiptUrl: '',
   });
   useEffect(() => {
     if (modalState.isDeleteReservModalOpen === 0 && !userState.isChef) {
@@ -105,6 +107,7 @@ function MypageReservation() {
             rsTime: '00:00',
             rsUserId: 0,
             merchantUid: '',
+            receiptUrl: '',
           });
           dispatch(getReservation({ reservationData: result.data.data }));
         });
@@ -195,7 +198,6 @@ function MypageReservation() {
     }
   };
 
-  console.log('bbb', selectedDateState);
   const prevMonth = () => {
     if (
       isBefore(today, subMonths(currentDate, 1)) ||
@@ -234,6 +236,7 @@ function MypageReservation() {
           rsTime: '00:00',
           rsUserId: 0,
           merchantUid: '',
+          receiptUrl: '',
         });
       } else {
         setSelectedDateStateChef({
@@ -251,10 +254,12 @@ function MypageReservation() {
           userNickname: '',
           courseName: '',
           merchantUid: '',
+          receiptUrl: '',
         });
       }
     }
   };
+  console.log(selectedDateStateChef);
 
   return (
     <MypageReservContent>
@@ -319,7 +324,7 @@ function MypageReservation() {
       </div>
       <div id='myReservationInfo'>
         <div id='myReservationDate'>{format(selectedDate, 'yyyy-MM-dd')}</div>
-        {selectedDateState.id !== 0 ? (
+        {selectedDateState.id !== 0 || selectedDateStateChef.id !== 0 ? (
           <>
             <div id='myReservationData'>
               {!userState.isChef ? (
@@ -334,20 +339,31 @@ function MypageReservation() {
               ) : (
                 <>
                   <p>
-                    {selectedDateStateChef.userNickname} /
+                    {selectedDateStateChef.userName} /
                     {selectedDateStateChef.courseName} 코스,{' '}
                     {selectedDateStateChef.rsTime}
                   </p>
-                  <p>인원 : {selectedDateState.people}</p>
-                  <p>장소 : {selectedDateState.location}</p>
-                  <p>연락처: {selectedDateState.mobile}</p>
-                  <p>알러지 : {selectedDateState.allergy}</p>
-                  <p>메세지 : {selectedDateState.messageToChef}</p>
+                  <p>인원 : {selectedDateStateChef.people}</p>
+                  <p>장소 : {selectedDateStateChef.location}</p>
+                  <p>연락처: {selectedDateStateChef.mobile}</p>
+                  <p>
+                    알러지 :{' '}
+                    {selectedDateStateChef.allergy
+                      ? selectedDateStateChef.allergy
+                      : '없음'}
+                  </p>
+                  <p>
+                    메세지 :{' '}
+                    {selectedDateStateChef.messageToChef
+                      ? selectedDateStateChef.messageToChef
+                      : '없음'}
+                  </p>
                 </>
               )}
             </div>
             <div id='deleteReserve'>
-              {isBefore(new Date(today), subDays(new Date(selectedDate), 7)) ? (
+              {isBefore(new Date(today), subDays(new Date(selectedDate), 7)) &&
+              !userState.isChef ? (
                 <>
                   <button
                     onClick={() =>
@@ -363,22 +379,52 @@ function MypageReservation() {
                   </button>
                 </>
               ) : (
-                <button>취소 불가</button>
+                <button
+                  onClick={
+                    userState.isChef
+                      ? () =>
+                          dispatch(
+                            openFailModal({
+                              message:
+                                '셰프가 취소하는 경우 고객 센터에 문의 바랍니다.',
+                            })
+                          )
+                      : () =>
+                          dispatch(
+                            openFailModal({
+                              message:
+                                '예약날까지 1주일 이하로 남은 경우 취소가 불가능 합니다.',
+                            })
+                          )
+                  }
+                >
+                  취소 불가
+                </button>
               )}
-              <button
-                onClick={() => console.log(selectedDateState.merchantUid)}
-              >
-                영수증 보기
-              </button>
+              {selectedDateState.receiptUrl ? (
+                <button
+                  onClick={() =>
+                    window.open(
+                      selectedDateState.receiptUrl,
+                      '영수증 보기',
+                      'width=430,height=500,location=no,status=no,scrollbars=yes'
+                    )
+                  }
+                >
+                  영수증 보기
+                </button>
+              ) : null}
             </div>
           </>
         ) : (
           <>
             <div id='myReservationData'>예약 내역이 없습니다.</div>
             <div id='deleteReserve'>
-              <button onClick={() => history.push('/findChef')}>
-                예약하러 가기
-              </button>
+              {userState.isChef ? null : (
+                <button onClick={() => history.push('/findChef')}>
+                  예약하러 가기
+                </button>
+              )}
             </div>
           </>
         )}
