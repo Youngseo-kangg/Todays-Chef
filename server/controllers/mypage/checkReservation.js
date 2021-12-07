@@ -51,20 +51,22 @@ module.exports = {
   post: async (req, res) => {
     const accessVerify = isAuthorized(req);
 
-    if (!accessVerify) {
-      const refreshVerify = refreshAuthorized(req);
-      if (!refreshVerify) {
-        // refreshToken 까지 만료 됐을 때
-        res.status(401).json({ message: 'Send new Login Request' });
-      } else {
-        delete refreshVerify.exp;
-        const accessToken = basicAccessToken(refreshVerify);
-        await reservation.destroy({ where: { id: req.body.id }, force: true });
-        res.status(201).json({ accessToken, message: 'ok' });
-      }
-    } else {
-      await reservation.destroy({ where: { id: req.body.id }, force: true });
-      res.status(200).json({ message: 'cancel ready ok' });
-    }
+    console.log('cancel', req.body);
+
+    // if (!accessVerify) {
+    //   const refreshVerify = refreshAuthorized(req);
+    //   if (!refreshVerify) {
+    //     // refreshToken 까지 만료 됐을 때
+    //     res.status(401).json({ message: 'Send new Login Request' });
+    //   } else {
+    //     delete refreshVerify.exp;
+    //     const accessToken = basicAccessToken(refreshVerify);
+    //     await reservation.destroy({ where: { id: req.body.id }, force: true });
+    //     res.status(201).json({ accessToken, message: 'ok' });
+    //   }
+    // } else {
+    //   await reservation.destroy({ where: { id: req.body.id }, force: true });
+    //   res.status(200).json({ message: 'cancel ready ok' });
+    // }
   },
 };
