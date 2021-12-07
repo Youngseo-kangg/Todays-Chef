@@ -134,6 +134,22 @@ module.exports = {
 
       console.log('getPaymentData : ', getPaymentData);
       console.log('aaa', paymentData);
+
+      const findReservation = await reservation.findOne({
+        where: { merchantUid: paymentData.merchant_uid },
+      });
+
+      const { amount, status } = paymentData;
+
+      if (amount === 10) {
+        switch (status) {
+          case 'paid': // 결제 완료
+            res.send({ status: 'success', message: '일반 결제 성공' });
+            break;
+        }
+      } else {
+        throw { status: 'forgery', message: '위조된 결제시도' };
+      }
     } catch (err) {
       console.log(err);
       await reservation.destroy({
