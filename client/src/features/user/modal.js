@@ -12,7 +12,7 @@ const initialState = {
   isSubmitCompleteModalOpen: false, // 제출 완료 되었다는 모달
   isDeleteReservModalOpen: 0, // 예약 삭제 할건지 + 삭제 하는 모달
   isAdminOrChefWarningModalOpen: false, // 셰프나 admin이라서 예약 안된다는 모달
-  merchant_uid: '',
+  merchantUid: '',
   failModalOpen: false,
   failMessage: '',
   successModalOpen: false,
@@ -82,11 +82,11 @@ export const modalSlice = createSlice({
     },
     openIsDeleteReservModal: (state, action) => {
       state.isDeleteReservModalOpen = action.payload.id;
-      state.merchant_uid = action.payload.merchant_uid;
+      state.merchantUid = action.payload.merchantUid;
     },
     closeIsDeleteReservModal: (state) => {
       state.isDeleteReservModalOpen = 0;
-      state.merchant_uid = '';
+      state.merchantUid = '';
     },
     openFailModal: (state, action) => {
       state.failModalOpen = true;

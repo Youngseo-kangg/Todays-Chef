@@ -56,6 +56,7 @@ function MypageReservation() {
     rsDate: new Date(),
     rsTime: '00:00',
     rsUserId: 0,
+    merchantUid: '',
   });
   const [selectedDateStateChef, setSelectedDateStateChef] = useState({
     id: 0,
@@ -71,6 +72,7 @@ function MypageReservation() {
     rsUsrId: 0,
     userNickname: '',
     courseName: '',
+    merchantUid: '',
   });
   useEffect(() => {
     if (modalState.isDeleteReservModalOpen === 0 && !userState.isChef) {
@@ -102,6 +104,7 @@ function MypageReservation() {
             rsDate: new Date(),
             rsTime: '00:00',
             rsUserId: 0,
+            merchantUid: '',
           });
           dispatch(getReservation({ reservationData: result.data.data }));
         });
@@ -131,6 +134,7 @@ function MypageReservation() {
             rsUsrId: 0,
             userNickname: '',
             courseName: '',
+            merchantUid: '',
           });
           dispatch(getReservation({ reservationData: result.data.data }));
         });
@@ -190,6 +194,8 @@ function MypageReservation() {
       setCurrentDate(addMonths(currentDate, 1));
     }
   };
+
+  console.log('bbb', selectedDateState);
   const prevMonth = () => {
     if (
       isBefore(today, subMonths(currentDate, 1)) ||
@@ -227,7 +233,7 @@ function MypageReservation() {
           rsDate: new Date(),
           rsTime: '00:00',
           rsUserId: 0,
-          merchant_uid: '',
+          merchantUid: '',
         });
       } else {
         setSelectedDateStateChef({
@@ -244,6 +250,7 @@ function MypageReservation() {
           rsUsrId: 0,
           userNickname: '',
           courseName: '',
+          merchantUid: '',
         });
       }
     }
@@ -347,7 +354,7 @@ function MypageReservation() {
                       dispatch(
                         openIsDeleteReservModal({
                           id: selectedDateState.id,
-                          merchant_uid: selectedDateState.merchant_uid,
+                          merchantUid: selectedDateState.merchantUid,
                         })
                       )
                     }
@@ -359,7 +366,7 @@ function MypageReservation() {
                 <button>취소 불가</button>
               )}
               <button
-                onClick={() => console.log(selectedDateState.merchant_uid)}
+                onClick={() => console.log(selectedDateState.merchantUid)}
               >
                 영수증 보기
               </button>

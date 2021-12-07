@@ -17,12 +17,16 @@ function DeleteReservModal() {
 
   const clickOk = async () => {
     try {
+      console.log('ccc', modalState);
+
       let result = await axios.post(
         `${url}/mypage/reservation/user?id=${userState.userId}`,
         {
           id: modalState.isDeleteReservModalOpen,
           // TODO: 서버쪽에서 이거 받고 결제 취소 해주기
-          merchant_uid: modalState.merchant_uid,
+          merchantUid: modalState.merchantUid,
+          cancel_request_amount: 10, // 환불금액
+          reason: '테스트 결제 환불', // 환불사유
         },
         {
           headers: { authorization: `bearer ${userState.accessToken}` },
