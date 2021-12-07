@@ -226,168 +226,185 @@ function MypageReview() {
 
   return (
     <>
-      <MypageReviewContent>
+      <MypageReviewContent
+        className={reviewState.data.length === 0 ? 'noReview' : null}
+      >
         <div id='mypageReviewTitle'>
           <h2>리뷰 쓰기</h2>
         </div>
 
-        <div id='myRecentComment'>
-          {!selected ? (
-            '아래 항목을 클릭하여 리뷰를 작성하거나, 확인해보세요.'
-          ) : (
-            <>
-              {writeOrShowReview ? ( //true면 글 읽기, false면 쓰기
-                <div id='myRecentReview'>
-                  <div id='myRecentReviewExtra'>
-                    <div id='myRecentCommentTitle' className='showReview'>
-                      <h3>
-                        {userState.nickname}님이 작성하신{' '}
-                        {format(
-                          new Date(showReviewContent.reservation.rsDate),
-                          'yyyy-MM-dd'
-                        )}
-                        예약에 대한 리뷰입니다.
-                      </h3>
-                    </div>
-                    <div id='myRecentCommentStar'>⭐⭐⭐⭐⭐</div>
-                    <div id='myRecentCommentPic'>
-                      <div id='myRecentCommentPicList'>
-                        {showReviewContent.review.rvImg.length === 0 ? (
-                          <p>업로드한 사진이 없습니다.</p>
-                        ) : (
-                          showReviewContent.reservation.rvImg.map((el, idx) => {
-                            return <p key={idx}>{el}</p>;
-                          })
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <div id='myRecentReviewContent' className='showReview'>
-                    <div>
-                      {showReviewContent.review.eval === ''
-                        ? '리뷰를 작성하지 않았습니다.'
-                        : showReviewContent.review.eval}
-                    </div>
-                  </div>
-                </div>
+        {reviewState.data.length === 0 ? (
+          <p id='noMyComments'>이용 내역이 없습니다.</p>
+        ) : (
+          <>
+            <div id='myRecentComment'>
+              {!selected ? (
+                '아래 항목을 클릭하여 리뷰를 작성하거나, 확인해보세요.'
               ) : (
-                <div id='myRecentReview'>
-                  <div id='myRecentReviewExtra'>
-                    <div id='myRecentCommentTitle'>
-                      <h3>
-                        {userState.nickname}님의{' '}
-                        {format(
-                          new Date(writeReviewContent.reservation.rsDate),
-                          'yyyy-MM-dd'
-                        )}{' '}
-                        예약에 대한 리뷰입니다.
-                      </h3>
+                <>
+                  {writeOrShowReview ? ( //true면 글 읽기, false면 쓰기
+                    <div id='myRecentReview'>
+                      <div id='myRecentReviewExtra'>
+                        <div id='myRecentCommentTitle' className='showReview'>
+                          <h3>
+                            {userState.nickname}님이 작성하신{' '}
+                            {format(
+                              new Date(showReviewContent.reservation.rsDate),
+                              'yyyy-MM-dd'
+                            )}
+                            예약에 대한 리뷰입니다.
+                          </h3>
+                        </div>
+                        <div id='myRecentCommentStar'>⭐⭐⭐⭐⭐</div>
+                        <div id='myRecentCommentPic'>
+                          <div id='myRecentCommentPicList'>
+                            {showReviewContent.review.rvImg.length === 0 ? (
+                              <p>업로드한 사진이 없습니다.</p>
+                            ) : (
+                              showReviewContent.reservation.rvImg.map(
+                                (el, idx) => {
+                                  return <p key={idx}>{el}</p>;
+                                }
+                              )
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div id='myRecentReviewContent' className='showReview'>
+                        <div>
+                          {showReviewContent.review.eval === ''
+                            ? '리뷰를 작성하지 않았습니다.'
+                            : showReviewContent.review.eval}
+                        </div>
+                      </div>
                     </div>
-                    <div id='myRecentCommentStar'>
-                      <Stars>
-                        {defaultStars.map((el, idx) => {
-                          return (
-                            <FaStar
-                              key={idx}
-                              size='20'
-                              onClick={() => handleStarClick(el)}
-                              className={clicked[el] && 'brownStar'}
+                  ) : (
+                    <div id='myRecentReview'>
+                      <div id='myRecentReviewExtra'>
+                        <div id='myRecentCommentTitle'>
+                          <h3>
+                            {userState.nickname}님의{' '}
+                            {format(
+                              new Date(writeReviewContent.reservation.rsDate),
+                              'yyyy-MM-dd'
+                            )}{' '}
+                            예약에 대한 리뷰입니다.
+                          </h3>
+                        </div>
+                        <div id='myRecentCommentStar'>
+                          <Stars>
+                            {defaultStars.map((el, idx) => {
+                              return (
+                                <FaStar
+                                  key={idx}
+                                  size='20'
+                                  onClick={() => handleStarClick(el)}
+                                  className={clicked[el] && 'brownStar'}
+                                />
+                              );
+                            })}
+                          </Stars>
+
+                          <input
+                            type='hidden'
+                            onChange={handleInputValue('rating')}
+                            value={writeReviewContent.review.rating}
+                          />
+                        </div>
+                        <div id='myRecentCommentPic'>
+                          <div id='myRecentCommentPicList'>
+                            {userPicTitle.length === 0 ? (
+                              <p>업로드한 사진이 없습니다.</p>
+                            ) : (
+                              userPicTitle.map((el) => {
+                                return <p>{el}</p>;
+                              })
+                            )}
+                          </div>
+                          <div className='myRecentReviewBtn'>
+                            <label htmlFor='image'>사진 업로드</label>
+                            <input
+                              type='file'
+                              name='image'
+                              id='image'
+                              multiple
+                              accept='image/*'
+                              onChange={changeProfileBtn}
                             />
-                          );
-                        })}
-                      </Stars>
-
-                      <input
-                        type='hidden'
-                        onChange={handleInputValue('rating')}
-                        value={writeReviewContent.review.rating}
-                      />
-                    </div>
-                    <div id='myRecentCommentPic'>
-                      <div id='myRecentCommentPicList'>
-                        {userPicTitle.length === 0 ? (
-                          <p>업로드한 사진이 없습니다.</p>
-                        ) : (
-                          userPicTitle.map((el) => {
-                            return <p>{el}</p>;
-                          })
-                        )}
+                          </div>
+                        </div>
                       </div>
-                      <div className='myRecentReviewBtn'>
-                        <label htmlFor='image'>사진 업로드</label>
-                        <input
-                          type='file'
-                          name='image'
-                          id='image'
-                          multiple
-                          accept='image/*'
-                          onChange={changeProfileBtn}
+                      <div id='myRecentReviewContent'>
+                        <textarea
+                          placeholder='리뷰를 입력해주세요.'
+                          onChange={handleInputValue('eval')}
+                          value={writeReviewContent.review.eval}
                         />
+                        <div className='myRecentReviewBtn'>
+                          <button onClick={onSubmit}>저장하기</button>
+                        </div>
+                        {errorMsg ? <p>{errorMsg}</p> : null}
                       </div>
                     </div>
-                  </div>
-                  <div id='myRecentReviewContent'>
-                    <textarea
-                      placeholder='리뷰를 입력해주세요.'
-                      onChange={handleInputValue('eval')}
-                      value={writeReviewContent.review.eval}
-                    />
-                    <div className='myRecentReviewBtn'>
-                      <button onClick={onSubmit}>저장하기</button>
-                    </div>
-                    {errorMsg ? <p>{errorMsg}</p> : null}
-                  </div>
-                </div>
+                  )}
+                </>
               )}
-            </>
-          )}
-        </div>
+            </div>
 
-        <div id='myCommentList'>
-          <div id='myCommentListWrap'>
-            <ul id='myComments'>
-              {reviewState.data.map((el, idx) => {
-                return isAfter(new Date(), new Date(el.reservation.rsDate)) ===
-                  true ? (
-                  <li
-                    key={idx}
-                    onClick={
-                      el.review.eval === '' && // el.review.eval 작성한적이 없고
-                      isBefore(
-                        new Date(),
-                        addDays(new Date(el.reservation.rsDate), 7)
-                      ) // 오늘과 예약날짜+7일 비교했을때 1주일 이내일때
-                        ? () => handleWriting(el)
-                        : () => handleShowing(el)
-                    }
-                  >
-                    <p>
-                      {format(new Date(el.reservation.rsDate), 'yyyy-MM-dd')}
-                    </p>
-                    <p>{el.reservation.chefName} 셰프님</p>
-                    <p>{el.reservation.courseName} 코스</p>
-                  </li>
-                ) : (
-                  <li key={idx} onClick={handleNotyet}>
-                    <p>
-                      {format(new Date(el.reservation.rsDate), 'yyyy-MM-dd')}
-                    </p>
-                    <p>{el.reservation.chefName} 셰프님</p>
-                    <p>{el.reservation.courseName} 코스</p>
-                  </li>
-                );
-              })}
-            </ul>
-
-            <PagenationList>
-              <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-              </ul>
-            </PagenationList>
-          </div>
-        </div>
+            <div id='myCommentList'>
+              <div id='myCommentListWrap'>
+                <ul id='myComments'>
+                  {reviewState.data.map((el, idx) => {
+                    return isAfter(
+                      new Date(),
+                      new Date(el.reservation.rsDate)
+                    ) === true ? (
+                      <li
+                        key={idx}
+                        onClick={
+                          el.review.eval === '' && // el.review.eval 작성한적이 없고
+                          isBefore(
+                            new Date(),
+                            addDays(new Date(el.reservation.rsDate), 7)
+                          ) // 오늘과 예약날짜+7일 비교했을때 1주일 이내일때
+                            ? () => handleWriting(el)
+                            : () => handleShowing(el)
+                        }
+                      >
+                        <p>
+                          {format(
+                            new Date(el.reservation.rsDate),
+                            'yyyy-MM-dd'
+                          )}
+                        </p>
+                        <p>{el.reservation.chefName} 셰프님</p>
+                        <p>{el.reservation.courseName} 코스</p>
+                      </li>
+                    ) : (
+                      <li key={idx} onClick={handleNotyet}>
+                        <p>
+                          {format(
+                            new Date(el.reservation.rsDate),
+                            'yyyy-MM-dd'
+                          )}
+                        </p>
+                        <p>{el.reservation.chefName} 셰프님</p>
+                        <p>{el.reservation.courseName} 코스</p>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <PagenationList>
+                  <ul>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                  </ul>
+                </PagenationList>
+              </div>
+            </div>
+          </>
+        )}
       </MypageReviewContent>
     </>
   );

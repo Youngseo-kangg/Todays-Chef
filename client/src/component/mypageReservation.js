@@ -227,6 +227,7 @@ function MypageReservation() {
           rsDate: new Date(),
           rsTime: '00:00',
           rsUserId: 0,
+          merchant_uid: '',
         });
       } else {
         setSelectedDateStateChef({
@@ -340,18 +341,28 @@ function MypageReservation() {
             </div>
             <div id='deleteReserve'>
               {isBefore(new Date(today), subDays(new Date(selectedDate), 7)) ? (
-                <button
-                  onClick={() =>
-                    dispatch(
-                      openIsDeleteReservModal({ id: selectedDateState.id })
-                    )
-                  }
-                >
-                  취소하기
-                </button>
+                <>
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        openIsDeleteReservModal({
+                          id: selectedDateState.id,
+                          merchant_uid: selectedDateState.merchant_uid,
+                        })
+                      )
+                    }
+                  >
+                    취소하기
+                  </button>
+                </>
               ) : (
                 <button>취소 불가</button>
               )}
+              <button
+                onClick={() => console.log(selectedDateState.merchant_uid)}
+              >
+                영수증 보기
+              </button>
             </div>
           </>
         ) : (

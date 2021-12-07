@@ -8,16 +8,17 @@ import {
   editUserNickname,
   logout,
 } from '../features/user/user';
-import { chefStatus } from '../features/chef/chef';
+import { reservationStatus } from '../features/reservation/reservation';
 import axios from 'axios';
 import { useState } from 'react';
-import { useEffect } from 'react';
 import {
   openSuccessModal,
   openServerErrorModal,
   openIsNeedReLoginModal,
   openFailModal,
+  openChoiceModal,
 } from '../features/user/modal';
+import { isAfter } from 'date-fns';
 import { useHistory } from 'react-router';
 
 require('dotenv').config();
@@ -27,7 +28,7 @@ function MypageEdit() {
   const dispatch = useDispatch();
   const history = useHistory();
   const userState = useSelector(userStatus);
-  const chefState = useSelector(chefStatus);
+  const reservationState = useSelector(reservationStatus);
   const [userPic, setUserPic] = useState({}); // 유저가 로컬에서 업로드한 프로필 이미지
   const [preview, setPreview] = useState(''); // 사진 미리보기
   const [nicknameInput, setNicknameInput] = useState({
@@ -81,7 +82,7 @@ function MypageEdit() {
         dispatch(openIsNeedReLoginModal());
       }
     }
-  };
+  }; // 이미지 변경 서버에다가 요청 + redux 업뎃
 
   const handlePasswordInput = (key) => (e) => {
     setPasswordInput({
@@ -116,15 +117,13 @@ function MypageEdit() {
         ...nicknameInput,
         error: '닉네임을 입력해주세요.',
       });
-    }
-    // TODO: 유효성검사 작성 필요
-    // else if (/^[a-zA-Z0-9ㄱ-ㅎ가-힣]{2,15}/.test(nicknameInput.nickname)) {
-    //   setNicknameInput({
-    //     ...nicknameInput,
-    //     error: '닉네임은 한글,영문,숫자로 2자 이상 15자 이내여야 합니다.',
-    //   });
-    // }
-    else {
+    } else if (!/^[a-zA-zㄱ-ㅎ가-힣0-9]{2,15}$/.test(nicknameInput.nickname)) {
+      // TODO: 유효성검사 작성 필요
+      setNicknameInput({
+        ...nicknameInput,
+        error: '닉네임은 한글,영문,숫자로 2자 이상 15자 이내여야 합니다.',
+      });
+    } else {
       try {
         // axios요청
         let postResult = await axios.post(
@@ -175,18 +174,17 @@ function MypageEdit() {
       });
     }
     // TODO : 유효성검사 작업 필요
-    // else if (
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/.test(
-    //     passwordInput.newPassword
-    //   )
-    // ) {
-    //   setPasswordInput({
-    //     ...passwordInput,
-    //     error:
-    //       '비밀번호는 대문자, 특수문자, 숫자를 포함하여 8자 이상이여야 합니다.',
-    //   });
-    // }
-    else {
+    else if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/.test(
+        passwordInput.newPassword
+      )
+    ) {
+      setPasswordInput({
+        ...passwordInput,
+        error:
+          '비밀번호는 대문자, 특수문자, 숫자를 포함하여 8자 이상이여야 합니다.',
+      });
+    } else {
       try {
         // axios요청
         let result = await axios.post(
@@ -219,7 +217,33 @@ function MypageEdit() {
   };
 
   const deleteUser = async () => {
-    console.log('deleteUser');
+    if (userState.isChef) {
+      // 셰프라면 직접 서비스센터에 메일 보내라 하기
+      dispatch(
+        openFailModal({
+          message: '셰프는 지원센터에 유선으로 문의 부탁드립니다.',
+        })
+      );
+    } else if (
+      reservationState.data.map((el) =>
+        isAfter(new Date(el.rsDate), new Date())
+      )
+    ) {
+      // 미래 예약 내역이 없을때에만 탈퇴하기 ok하기
+      dispatch(
+        openFailModal({
+          message: '예약 내역이 있는 경우 탈퇴가 불가능 합니다.',
+        })
+      );
+    } else {
+      dispatch(
+        openChoiceModal({
+          target: userState.userId,
+          choiceTitle: '회원 탈퇴',
+          message: `탈퇴 하시겠습니까?`,
+        })
+      );
+    }
   };
 
   return (

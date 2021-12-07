@@ -21,6 +21,8 @@ function DeleteReservModal() {
         `${url}/mypage/reservation/user?id=${userState.userId}`,
         {
           id: modalState.isDeleteReservModalOpen,
+          // TODO: 서버쪽에서 이거 받고 결제 취소 해주기
+          merchant_uid: modalState.merchant_uid,
         },
         {
           headers: { authorization: `bearer ${userState.accessToken}` },

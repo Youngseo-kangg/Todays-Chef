@@ -85,7 +85,7 @@ function Signup() {
             {...register('signupNickname', {
               required: '닉네임 입력이 필요합니다.',
               pattern: {
-                value: /^[a-zA-Z0-9ㄱ-ㅎ가-힣]{2,15}/,
+                value: /^[a-zA-zㄱ-ㅎ가-힣0-9]{2,15}$/,
                 message:
                   '한글, 영어, 숫자만 가능하며, 2자 이상 15자 이내여야 합니다.',
               },
