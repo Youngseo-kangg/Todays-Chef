@@ -22,7 +22,8 @@ module.exports = {
       },
     });
 
-    console.log('access_token 확인 : ', kakaoData.data);
+    // console.log('access_token 확인 : ', kakaoData.data);
+    res.json({ reqBody: authorizationCode, accessToken: kakaoData.data });
 
     const userData = await axios({
       method: 'get',
