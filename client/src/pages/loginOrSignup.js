@@ -53,7 +53,7 @@ function LoginOrSignup() {
       setSmallComp(false);
     }
   }, []);
-  console.log(modalState.failModalOpen);
+
   useEffect(() => {
     window.addEventListener('resize', handleSmallComp);
     return () => {

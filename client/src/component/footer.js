@@ -48,7 +48,14 @@ function Footer() {
             />
           </li>
         </ul>
-
+        <ul id='middleFooter'>
+          <li>
+            <h2>고객 지원 센터</h2>
+            <p>todayschefClick.gmail.com</p>
+            <p>070-0000-0000</p>
+            <p>월~금, 10:00 ~ 18:00</p>
+          </li>
+        </ul>
         <ul id='rightFooter'>
           <li
             onClick={() =>

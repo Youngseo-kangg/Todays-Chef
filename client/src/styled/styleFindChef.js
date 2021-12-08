@@ -30,6 +30,7 @@ export const SelectCuisine = styled.div`
       flex-direction: column;
     }
     @media (max-width: 430px) {
+      width: 95%;
       height: 270px;
     }
 
@@ -115,6 +116,7 @@ export const ChefList = styled.section`
       grid-template-rows: 35px 1fr 20px;
     }
     @media (max-width: 430px) {
+      width: 100%;
       grid-template-rows: 30px 1fr 20px;
     }
   }
@@ -202,9 +204,9 @@ export const ChefItemList = styled.div`
             width: 180px;
             height: 180px;
           }
-          @media (max-width: 430px) {
-            width: 240px;
-            height: 240px;
+          @media (max-width: 420px) {
+            width: 200px;
+            height: 200px;
           }
         }
       }

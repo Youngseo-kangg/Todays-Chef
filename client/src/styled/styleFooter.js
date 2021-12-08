@@ -7,8 +7,8 @@ export const FooterWrap = styled.footer`
   place-items: center;
   color: #fff;
   background-color: #603224;
-  @media screen and (max-width: 420px) {
-    height: 250px;
+  @media screen and (max-width: 430px) {
+    height: 270px;
   }
 `;
 
@@ -17,17 +17,13 @@ export const FooterList = styled.div`
   max-width: 1400px;
   height: 100px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  > * {
-    border: 1px solid red;
-  }
+  grid-template-columns: 1fr 1fr 1fr;
   @media screen and (max-width: 767px) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media screen and (max-width: 420px) {
     width: 100%;
-    height: 150px;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media screen and (max-width: 430px) {
+    height: 230px;
     grid-template-columns: none;
   }
   #leftFooter {
@@ -36,7 +32,7 @@ export const FooterList = styled.div`
     grid-template-rows: 1fr 50px;
     li:nth-child(1) {
       h2 {
-        font-size: 25px;
+        font-size: 20px;
       }
       p {
         font-size: 14px;
@@ -57,11 +53,31 @@ export const FooterList = styled.div`
       }
     }
   }
+  #middleFooter {
+    display: grid;
+    place-items: center;
+    li:nth-child(1) {
+      display: grid;
+      place-items: center;
+      grid-template-rows: 30px 15px 15px;
+      h2 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
   #rightFooter {
     display: grid;
     place-items: center;
     height: 100%;
     grid-template-columns: 1fr 1fr;
+    font-size: 14px;
+    @media screen and (max-width: 420px) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: none;
+    }
     > li {
       cursor: pointer;
       transition: all 0.3s;
