@@ -153,11 +153,12 @@ export const ChefTextWrap = styled.div`
   #chefsCareer,
   #chefsMindset {
     display: grid;
-    grid-template-rows: 25px 1fr;
+    grid-template-rows: 30px 1fr;
     row-gap: 10px;
     text-align: left;
     h3 {
-      font-size: 25px;
+      font-size: 20px;
+      padding: 5px 0px 5px 5px;
       background-color: #dbb89a;
     }
     p:before {
@@ -412,4 +413,11 @@ export const UserReview = styled.div`
       }
     }
   }
+`;
+
+export const ChefInfoNone = styled.div`
+  width: 100%;
+  height: 300px;
+  display: grid;
+  place-items: center;
 `;

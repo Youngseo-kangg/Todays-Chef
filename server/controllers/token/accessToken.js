@@ -7,6 +7,7 @@ module.exports = {
     return jwt.sign(data, process.env.ACCESS_SECRET, { expiresIn: '4h' });
   },
   isAuthorized: (req) => {
+    console.log(req.headers);
     if (!req.headers.authorization) {
       return false;
     }

@@ -1,7 +1,11 @@
 import Login from '../component/login';
 import LoginModal from '../modal/loginModal';
 import SignupModal from '../modal/signupModal';
+import LoginErrorModal from '../modal/loginErrorModal';
 import Signup from '../component/signup';
+
+import { modalStatus } from '../features/user/modal';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect, useMemo } from 'react';
 import { throttle } from 'lodash';
 import {
@@ -12,23 +16,30 @@ import {
 } from '../styled/styleLoginOrSignup';
 
 function LoginOrSignup() {
+  const modalState = useSelector(modalStatus);
   const [loginOrSignupComp, setloginOrSignupComp] = useState(false); // 큰 창에서 animation 구현
   const [smallComp, setSmallComp] = useState(false); // 작은 창인지 확인
   const [smallCompPart, setSmallCompPart] = useState(false); // 작은 창에서 뭘 보여줄지 결정
   const changeloginOrSignupComp = () => {
     setloginOrSignupComp(!loginOrSignupComp);
   }; // menuList에서 몇번째 내용이 보여져야 할지 지정해주는 함수
+  // const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false); // 회원가입 모달창 상태
 
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // 로그인 모달창 상태
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false); // 회원가입 모달창 상태
+  // useEffect(() => {
+  //   if (window.innerWidth < 421) {
+  //     setSmallComp(true);
+  //   } else {
+  //     setSmallComp(false);
+  //   }
+  // }, []);
 
-  useEffect(() => {
+  const initialHandleSmallComp = () => {
     if (window.innerWidth < 421) {
       setSmallComp(true);
     } else {
       setSmallComp(false);
     }
-  }, []);
+  };
 
   const handleSmallComp = useMemo(
     () =>
@@ -43,19 +54,31 @@ function LoginOrSignup() {
   );
 
   useEffect(() => {
+    window.addEventListener('onload', initialHandleSmallComp);
     window.addEventListener('resize', handleSmallComp);
     return () => {
+      window.removeEventListener('onload', initialHandleSmallComp);
       window.removeEventListener('resize', handleSmallComp);
     };
   }, [handleSmallComp]);
 
   return (
     <>
-      {isLoginModalOpen ? (
-        <LoginModal setIsLoginModalOpen={setIsLoginModalOpen} />
+      {modalState.isLoginModalOpen ? (
+        // <LoginModal setIsLoginModalOpen={setIsLoginModalOpen} />
+        <LoginModal />
       ) : null}
-      {isSignUpModalOpen ? (
-        <SignupModal setIsSignUpModalOpen={setIsSignUpModalOpen} />
+      {modalState.isLoginErrorModalOpen ? (
+        // <LoginErrorModal
+        //   setIsLoginErrorModalOpen={setIsLoginErrorModalOpen}
+        //   setIsServerError={setIsServerError}
+        //   isServerError={isServerError}
+        // />
+        <LoginErrorModal />
+      ) : null}
+      {modalState.isSignUpModalOpen ? (
+        // <SignupModal setIsSignUpModalOpen={setIsSignUpModalOpen} />
+        <SignupModal />
       ) : null}
       <LoginOrSignupGrid>
         {smallComp ? (
@@ -76,7 +99,8 @@ function LoginOrSignup() {
             </ul>
             {!smallCompPart ? (
               <div id='loginSmallContainer' className='formSmallContainer'>
-                <Login setIsLoginModalOpen={setIsLoginModalOpen} />
+                {/* <Login setIsLoginModalOpen={setIsLoginModalOpen} /> */}
+                <Login />
               </div>
             ) : (
               <div id='signupSmallContainer' className='formSmallContainer'>
@@ -89,10 +113,12 @@ function LoginOrSignup() {
             className={!loginOrSignupComp ? null : 'active'}
           >
             <div id='signupContainer' className='formContainer'>
-              <Signup setIsSignUpModalOpen={setIsSignUpModalOpen} />
+              {/* <Signup setIsSignUpModalOpen={setIsSignUpModalOpen} /> */}
+              <Signup />
             </div>
             <div id='loginContainer' className='formContainer'>
-              <Login setIsLoginModalOpen={setIsLoginModalOpen} />
+              {/* <Login setIsLoginModalOpen={setIsLoginModalOpen} /> */}
+              <Login />
             </div>
 
             <LoginOrSignupOverlayWrap

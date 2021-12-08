@@ -1,16 +1,19 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { SignupFormWrap } from '../styled/styledSignup';
 import { useForm } from 'react-hook-form';
+import { openSignUpModal } from '../features/user/modal';
+import { useDispatch } from 'react-redux';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function Signup({ setIsSignUpModalOpen }) {
+// function Signup({ setIsSignUpModalOpen }) {
+function Signup() {
   const [isErrorSignup, setIsErrorSignup] = useState(false);
   const [isUser, setIsUser] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-
+  const dispatch = useDispatch();
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
@@ -23,18 +26,21 @@ function Signup({ setIsSignUpModalOpen }) {
       signupNickname: '',
       signupEmail: '',
       signupPassword: '',
+      signupRePassword: '',
     },
   });
-
+  const signupPassword = useRef({});
+  signupPassword.current = watch('signupPassword', '');
   const onSubmit = async (data) => {
     // console.log('onSubmit: ', data);
     try {
-      let signupResult = await axios.post(`${url}/user/signup`, {
+      const result = await axios.post(`${url}/user/signup`, {
         email: data.signupEmail,
         password: data.signupPassword,
         nickname: data.signupNickname,
       });
-      setIsSignUpModalOpen(true);
+      // setIsSignUpModalOpen(true);
+      dispatch(openSignUpModal());
     } catch (err) {
       if (err.response.data.message === 'invalid User') {
         setIsErrorSignup(true);
@@ -42,9 +48,6 @@ function Signup({ setIsSignUpModalOpen }) {
       } else if (err.response.data.message === 'same email') {
         setIsErrorSignup(true);
         setErrorMsg('이미 존재하는 이메일 입니다.');
-      } else if (err.response.data.message === 'same nickname') {
-        setIsErrorSignup(true);
-        setErrorMsg('이미 존재하는 별명 입니다.');
       }
     }
   };
@@ -52,10 +55,6 @@ function Signup({ setIsSignUpModalOpen }) {
   const onError = (error) => {
     console.log(error);
   };
-
-  // const axiosErrorMessage = () => {
-  //   setIsErrorSignup(true);
-  // };
 
   return (
     <SignupFormWrap>
@@ -86,8 +85,9 @@ function Signup({ setIsSignUpModalOpen }) {
             {...register('signupNickname', {
               required: '닉네임 입력이 필요합니다.',
               pattern: {
-                value: /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,6}/i,
-                message: '한글만 가능하며, 2자 이상 6자 이내여야 합니다.',
+                value: /^[a-zA-zㄱ-ㅎ가-힣0-9]{2,15}$/,
+                message:
+                  '한글, 영어, 숫자만 가능하며, 2자 이상 15자 이내여야 합니다.',
               },
             })}
           />
@@ -103,7 +103,7 @@ function Signup({ setIsSignUpModalOpen }) {
               required: '비밀번호 입력이 필요합니다.',
               pattern: {
                 value:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/,
                 message:
                   '대문자, 특수문자, 숫자를 포함하여 8자 이상이여야 합니다.',
               },
@@ -111,6 +111,29 @@ function Signup({ setIsSignUpModalOpen }) {
           />
           {errors.signupPassword && (
             <span className='loginError'>{errors.signupPassword.message}</span>
+          )}
+          <input
+            type='password'
+            placeholder='비밀번호 재입력'
+            name='signupRePassword'
+            id='signupRePassword'
+            {...register('signupRePassword', {
+              required: '비밀번호 재입력이 필요합니다.',
+              validate: (value) =>
+                value === signupPassword.current ||
+                '비밀번호가 일치하지 않습니다.',
+              pattern: {
+                value:
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                message:
+                  '대문자, 특수문자, 숫자를 포함하여 8자 이상이여야 합니다.',
+              },
+            })}
+          />
+          {errors.signupRePassword && (
+            <span className='loginError'>
+              {errors.signupRePassword.message}
+            </span>
           )}
           <button>회원가입</button>
         </form>

@@ -1,8 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
+import { openLogoutModal } from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, userStatus } from '../features/user/user';
+import { userStatus } from '../features/user/user';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import {
   NavbarWrap,
@@ -12,7 +13,7 @@ import {
   NavBarIcon,
 } from '../styled/styleNav';
 
-function Nav({ setIsLogout }) {
+function Nav() {
   const userInfo = useSelector(userStatus); // user의 상태
   const dispatch = useDispatch();
   const [mymenuState, setMymenuState] = useState(false); // 세부메뉴 보일지 말지
@@ -27,7 +28,7 @@ function Nav({ setIsLogout }) {
       throttle(() => {
         // ~420까지는 100vh, 420~으로는 90vh이상일때 변경해주기
         // const nextTabnavOn = window.scrollY > window.innerHeight - 140;
-        const nextTabnavOn = window.scrollY > 80;
+        const nextTabnavOn = window.scrollY > 70;
         if (nextTabnavOn !== transNav) setTransNav(nextTabnavOn);
       }, 300),
     [transNav]
@@ -112,10 +113,15 @@ function Nav({ setIsLogout }) {
                   id='myMenuSmallWrap'
                   className={mymenuState ? 'showMyMenu' : null}
                 >
-                  <MymenuSmall>
+                  <MymenuSmall id='loginState'>
                     <li>
                       <p>안녕하세요, {userInfo.nickname}님!</p>
-                      <img src={basic_profile} alt='user profile' />
+                      <img
+                        src={
+                          userInfo.userImg ? userInfo.userImg : basic_profile
+                        }
+                        alt='user profile'
+                      />
                     </li>
                     <li onClick={showMiniMenu}>
                       <Link to='/findChef'>findChef</Link>
@@ -123,14 +129,20 @@ function Nav({ setIsLogout }) {
                     <li onClick={showMiniMenu}>
                       <Link to='/beChef'>BeChef</Link>
                     </li>
-                    <li onClick={showMiniMenu}>
-                      <Link to='/mypage'>mypage</Link>
-                    </li>
+                    {userInfo.isAdmin ? (
+                      <li onClick={showMiniMenu}>
+                        <Link to='/admin'>관리자</Link>
+                      </li>
+                    ) : (
+                      <li onClick={showMiniMenu}>
+                        <Link to='/mypage'>mypage</Link>
+                      </li>
+                    )}
                     <li
                       onClick={() => {
                         showMiniMenu();
-                        setIsLogout(true);
-                        // dispatch(logout());
+                        // setIsLogout(true);
+                        dispatch(openLogoutModal());
                       }}
                     >
                       Logout
@@ -167,17 +179,27 @@ function Nav({ setIsLogout }) {
               <li>
                 <div className='afterLogin' onClick={showMiniMenu}>
                   <p>안녕하세요, {userInfo.nickname}님!</p>
-                  <img src={basic_profile} alt='user profile' />
+                  <img
+                    src={userInfo.userImg ? userInfo.userImg : basic_profile}
+                    alt='user profile'
+                  />
                 </div>
                 <Mymenu className={mymenuState ? 'showMyMenu' : null}>
-                  <li onClick={showMiniMenu}>
-                    <Link to='/mypage'>mypage</Link>
-                  </li>
+                  {userInfo.isAdmin ? (
+                    <li onClick={showMiniMenu}>
+                      <Link to='/admin'>관리자</Link>
+                    </li>
+                  ) : (
+                    <li onClick={showMiniMenu}>
+                      <Link to='/mypage'>mypage</Link>
+                    </li>
+                  )}
                   <li
                     onClick={() => {
                       showMiniMenu();
+                      dispatch(openLogoutModal());
                       // dispatch(logout());
-                      setIsLogout(true);
+                      // setIsLogout(true);
                     }}
                   >
                     Logout

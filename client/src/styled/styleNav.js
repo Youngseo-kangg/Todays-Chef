@@ -2,14 +2,18 @@ import styled from 'styled-components';
 
 export const NavbarWrap = styled.div`
   width: 100%;
-  height: 80px;
-  line-height: 80px;
+  height: 70px;
+  line-height: 70px;
   background-color: transparent;
   position: fixed;
   z-index: 9999;
   transition: all 0.3s;
   &.scrolled {
     background-color: #603224;
+  }
+  @media (max-width: 420px) {
+    height: 60px;
+    line-height: 60px;
   }
 `;
 
@@ -93,20 +97,23 @@ export const NavBarIcon = styled.div`
   justify-content: center;
   align-items: center;
   width: 50px;
-  height: 80px;
+  height: 70px;
   cursor: pointer;
   transition: all 0.5s ease-in-out;
+  @media (max-width: 420px) {
+    height: 60px;
+  }
   > .menu-btn__burger {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 35px;
+    width: 30px;
     height: 3px;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(255, 101, 47, 0.2);
     transition: all 0.3s ease-in-out;
-    @media (max-width: 320px) {
+    @media (max-width: 420px) {
       width: 30px;
     }
   }
@@ -114,26 +121,26 @@ export const NavBarIcon = styled.div`
   .menu-btn__burger::after {
     content: '';
     position: absolute;
-    width: 35px;
+    width: 30px;
     height: 3px;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(255, 101, 47, 0.2);
     transition: all 0.3s ease-in-out;
-    @media (max-width: 320px) {
+    @media (max-width: 420px) {
       width: 30px;
     }
   }
   > .menu-btn__burger::before {
-    transform: translateY(-13px);
-    @media (max-width: 320px) {
-      transform: translateY(-10px);
+    transform: translateY(-11px);
+    @media (max-width: 420px) {
+      transform: translateY(-12px);
     }
   }
   > .menu-btn__burger::after {
-    transform: translateY(13px);
-    @media (max-width: 320px) {
-      transform: translateY(10px);
+    transform: translateY(11px);
+    @media (max-width: 420px) {
+      transform: translateY(12px);
     }
   }
   /* ANIMATION */
@@ -179,12 +186,32 @@ export const Mymenu = styled.ul`
 
 export const MymenuSmall = styled.ul`
   width: 100%;
-  height: 510px;
+  height: auto;
   display: grid;
-  grid-template-rows: 190px 80px 80px 80px 80px;
+  grid-template-rows: 80px 80px 80px;
+  grid-auto-rows: 80px;
   @media (max-width: 430px) {
-    height: 350px;
-    grid-template-rows: 190px 30px 30px 30px 30px;
+    height: auto;
+    grid-template-rows: 40px 40px 40px;
+    grid-auto-rows: 40px;
+  }
+  &#loginState {
+    grid-template-rows: 190px 80px 80px 80px 80px;
+    @media (max-width: 430px) {
+      height: 350px;
+      grid-template-rows: 190px 40px 40px 40px 40px;
+    }
+    li:nth-child(1) {
+      display: grid;
+      height: 190px;
+      grid-template-rows: 40px 150px;
+      > p {
+        line-height: 40px;
+      }
+    }
+    li:hover:not(:nth-child(1)) {
+      background-color: #603224;
+    }
   }
   > li {
     border-radius: 5px;
@@ -192,8 +219,8 @@ export const MymenuSmall = styled.ul`
     height: 80px;
     line-height: 80px;
     @media (max-width: 430px) {
-      height: 30px;
-      line-height: 30px;
+      height: 40px;
+      line-height: 40px;
     }
     cursor: pointer;
     display: grid;
@@ -204,21 +231,10 @@ export const MymenuSmall = styled.ul`
       height: 80px;
       line-height: 80px;
       @media (max-width: 430px) {
-        height: 30px;
-        line-height: 30px;
+        height: 40px;
+        line-height: 40px;
       }
     }
-  }
-  > li:nth-child(1) {
-    display: grid;
-    height: 190px;
-    grid-template-rows: 40px 150px;
-    > p {
-      line-height: 40px;
-    }
-  }
-  > li:hover:not(:nth-child(1)) {
-    background-color: #603224;
   }
 
   img {

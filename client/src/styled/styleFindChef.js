@@ -212,17 +212,22 @@ export const ChefItemList = styled.div`
   }
 `;
 export const ChefStar = styled.div`
-  background-color: pink;
   width: 60%;
   height: 100%;
   margin: 0 auto;
   display: grid;
   font-size: 18px;
   place-items: center;
+  > div {
+    > img {
+      padding: 2px;
+      width: 20px;
+      height: 20px;
+    }
+  }
 `;
 
 export const PagenationList = styled.div`
-  border: 1px solid red;
   max-width: 1400px;
   width: 100%;
   height: 100%;
@@ -235,6 +240,8 @@ export const PagenationList = styled.div`
     justify-content: space-evenly;
     > li {
       cursor: pointer;
+      display: grid;
+      place-items: center;
     }
   }
 `;

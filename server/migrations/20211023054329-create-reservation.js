@@ -43,6 +43,18 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      merchantUid: {
+        type: Sequelize.STRING,
+      },
+      impUid: {
+        type: Sequelize.STRING,
+      },
+      receiptUrl: {
+        type: Sequelize.STRING,
+      },
+      amount: {
+        type: Sequelize.INTEGER,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
