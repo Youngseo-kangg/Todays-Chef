@@ -2,6 +2,7 @@ import Login from '../component/login';
 import LoginModal from '../modal/loginModal';
 import SignupModal from '../modal/signupModal';
 import LoginErrorModal from '../modal/loginErrorModal';
+import OneSentenceModal from '../modal/oneSentenceModal';
 import Signup from '../component/signup';
 
 import { modalStatus } from '../features/user/modal';
@@ -25,14 +26,6 @@ function LoginOrSignup() {
   }; // menuList에서 몇번째 내용이 보여져야 할지 지정해주는 함수
   // const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false); // 회원가입 모달창 상태
 
-  // useEffect(() => {
-  //   if (window.innerWidth < 421) {
-  //     setSmallComp(true);
-  //   } else {
-  //     setSmallComp(false);
-  //   }
-  // }, []);
-
   const initialHandleSmallComp = () => {
     if (window.innerWidth < 421) {
       setSmallComp(true);
@@ -54,32 +47,25 @@ function LoginOrSignup() {
   );
 
   useEffect(() => {
-    window.addEventListener('onload', initialHandleSmallComp);
+    if (window.innerWidth < 421) {
+      setSmallComp(true);
+    } else {
+      setSmallComp(false);
+    }
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('resize', handleSmallComp);
     return () => {
-      window.removeEventListener('onload', initialHandleSmallComp);
       window.removeEventListener('resize', handleSmallComp);
     };
   }, [handleSmallComp]);
-
   return (
     <>
-      {modalState.isLoginModalOpen ? (
-        // <LoginModal setIsLoginModalOpen={setIsLoginModalOpen} />
-        <LoginModal />
-      ) : null}
-      {modalState.isLoginErrorModalOpen ? (
-        // <LoginErrorModal
-        //   setIsLoginErrorModalOpen={setIsLoginErrorModalOpen}
-        //   setIsServerError={setIsServerError}
-        //   isServerError={isServerError}
-        // />
-        <LoginErrorModal />
-      ) : null}
-      {modalState.isSignUpModalOpen ? (
-        // <SignupModal setIsSignUpModalOpen={setIsSignUpModalOpen} />
-        <SignupModal />
-      ) : null}
+      {modalState.isLoginModalOpen ? <LoginModal /> : null}
+      {modalState.isLoginErrorModalOpen ? <LoginErrorModal /> : null}
+      {modalState.isSignUpModalOpen ? <SignupModal /> : null}
+      {modalState.failModalOpen ? <OneSentenceModal /> : null}
       <LoginOrSignupGrid>
         {smallComp ? (
           <LoginOrSignupSmallContainer>
@@ -99,7 +85,6 @@ function LoginOrSignup() {
             </ul>
             {!smallCompPart ? (
               <div id='loginSmallContainer' className='formSmallContainer'>
-                {/* <Login setIsLoginModalOpen={setIsLoginModalOpen} /> */}
                 <Login />
               </div>
             ) : (
@@ -113,11 +98,9 @@ function LoginOrSignup() {
             className={!loginOrSignupComp ? null : 'active'}
           >
             <div id='signupContainer' className='formContainer'>
-              {/* <Signup setIsSignUpModalOpen={setIsSignUpModalOpen} /> */}
               <Signup />
             </div>
             <div id='loginContainer' className='formContainer'>
-              {/* <Login setIsLoginModalOpen={setIsLoginModalOpen} /> */}
               <Login />
             </div>
 
