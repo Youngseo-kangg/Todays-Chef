@@ -11,7 +11,9 @@ require('dotenv').config();
 module.exports = {
   post: async (req, res) => {
     const { authorizationCode } = req.body;
+    console.log('authorizationCode', authorizationCode);
     if (!authorizationCode) {
+      console.log('첫쨰');
       res.status(400).json({ message: 'authorizationCode does not exist' });
     }
 
@@ -24,10 +26,14 @@ module.exports = {
       googleClientSecret,
       redirect_url
     );
+
+    console.log('googleClient', googleClient);
+
     let code;
     try {
       code = await googleClient.getToken(authorizationCode);
     } catch (error) {
+      console.log('둘쨰');
       console.log(error);
       res.status(400).json({ message: 'authorizationCode does not exist' });
     }
