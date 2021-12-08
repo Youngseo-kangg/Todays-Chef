@@ -17,53 +17,22 @@ module.exports = {
       else {
         delete refreshVerify.exp;
         const accessToken = basicAccessToken(refreshVerify);
-        const findBooleanChef = await user.findOne({
-          where: { id: req.params.id },
+        // const findBooleanChef = await user.findOne({
+        //   where: { id: req.params.id },
+        // });
+
+        res.status(201).json({
+          accessToken,
+          message: 'user ok',
+          location: req.file.location,
         });
-
-        if (findBooleanChef.dataValues.isChef) {
-          await chef.update(
-            { chefImg: req.file.location },
-            { where: { chUserId: req.params.id } }
-          );
-
-          res.status(201).json({ accessToken, message: 'chef ok' });
-        } else {
-          await user.update(
-            { userImg: req.file.location },
-            { where: { id: req.params.id } }
-          );
-          res
-            .status(201)
-            .json({
-              accessToken,
-              message: 'user ok',
-              location: req.file.location,
-            });
-        }
       }
     } else {
-      const findBooleanChef = await user.findOne({
-        where: { id: req.params.id },
-      });
-
-      if (findBooleanChef.dataValues.isChef) {
-        await chef.update(
-          { chefImg: req.file.location },
-          { where: { chUserId: req.params.id } }
-        );
-
-        console.log('chefchef');
-        res.status(200).json({ message: 'chef ok' });
-      } else {
-        await user.update(
-          { userImg: req.file.location },
-          { where: { id: req.params.id } }
-        );
-        res
-          .status(200)
-          .json({ message: 'user ok', location: req.file.location });
-      }
+      await user.update(
+        { userImg: req.file.location },
+        { where: { id: req.params.id } }
+      );
+      res.status(200).json({ message: 'user ok', location: req.file.location });
     }
   },
 };

@@ -27,4 +27,10 @@ router.post('/info/chef', mypageController.chefInfo.post);
 router.patch('/info/chef', mypageController.chefInfo.patch);
 router.delete('/info/chef', mypageController.chefInfo.delete);
 
+router.post(
+  '/info/image/chef',
+  upload.single('image'),
+  mypageController.chefImg.post
+);
+
 module.exports = router;

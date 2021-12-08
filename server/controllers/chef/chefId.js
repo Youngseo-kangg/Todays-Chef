@@ -41,14 +41,17 @@ module.exports = {
         delete findReview[i].dataValues.createdAt;
         delete findReview[i].dataValues.updatedAt;
 
-        chefReview.push(findReview[i]);
+        if (findReview[i].dataValues.rating !== '') {
+          chefReview.push(findReview[i]);
+        }
       }
 
       for (let i = 0; i < chefReview.length; i++) {
-        let test = findReview[i].rvUserId;
+        let reviewId = findReview[i].rvUserId;
         const findUser = await user.findOne({
-          where: { id: test },
+          where: { id: reviewId },
         });
+
         chefReview[i].dataValues.nickname = findUser.dataValues.nickname;
         chefReview[i].dataValues.userImg = findUser.dataValues.userImg;
       }
