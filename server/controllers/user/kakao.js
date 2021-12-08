@@ -14,16 +14,18 @@ module.exports = {
 
     // console.log('req.body : ', authorizationCode);
 
-    const kakaoData = await axios({
-      method: 'post',
-      url: `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_REST_API}&redirect_uri=${kakaoRedirectUri}&code=${authorizationCode}`,
-      headers: {
-        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-      },
-    });
+    res.json({ data: authorizationCode });
+
+    // const kakaoData = await axios({
+    //   method: 'post',
+    //   url: `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_REST_API}&redirect_uri=${kakaoRedirectUri}&code=${authorizationCode}`,
+    //   headers: {
+    //     'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    //   },
+    // });
 
     // console.log('access_token 확인 : ', kakaoData.data);
-    res.json({ reqBody: authorizationCode, accessToken: kakaoData.data });
+    // res.json({ reqBody: authorizationCode, accessToken: kakaoData.data });
 
     // const userData = await axios({
     //   method: 'get',
