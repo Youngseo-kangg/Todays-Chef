@@ -79,7 +79,7 @@ export const Navbar = styled.nav`
     #myMenuSmallWrap {
       display: none;
       width: 100%;
-      height: calc(100vh - 80px);
+      height: calc(100vh - 60px);
       position: absolute;
       left: 0;
       background-color: #dbb89a;

@@ -3,14 +3,14 @@ import basic_background from '../todaysChefIMG/basic_background.jpg';
 import small_basic_background from '../todaysChefIMG/small_basic_background.jpg';
 
 export const LoginOrSignupGrid = styled.div`
-  height: 800px;
+  height: 100vh;
   background-color: #dbb89a;
-  padding: 160px 0px 50px;
+  padding: 140px 0px 140px;
   display: flex;
   position: relative;
   @media screen and (max-width: 420px) {
-    padding: 80px 0px 50px;
-    height: 700px;
+    padding: 60px 0px 60px;
+    height: 100vh;
   }
 `;
 
