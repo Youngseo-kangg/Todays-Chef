@@ -227,9 +227,14 @@ function MypageEdit() {
     } else if (
       reservationState.data.map((el) =>
         isAfter(new Date(el.rsDate), new Date())
-      )
+      ).length !== 0
     ) {
       // 미래 예약 내역이 없을때에만 탈퇴하기 ok하기
+      console.log(
+        reservationState.data.map((el) =>
+          isAfter(new Date(el.rsDate), new Date())
+        ).length !== 0
+      );
       dispatch(
         openFailModal({
           message: '예약 내역이 있는 경우 탈퇴가 불가능 합니다.',
