@@ -37,23 +37,25 @@ function AdminpageChef() {
         }
       );
       // console.log(result);
-      if (result.data.accessToken) {
-        dispatch(
-          updateAccessToken({
-            accessToken: result.data.accessToken,
-          })
-        );
+      if (result.data.message === 'ok') {
+        if (result.data.accessToken) {
+          dispatch(
+            updateAccessToken({
+              accessToken: result.data.accessToken,
+            })
+          );
+        }
+        setAdminChef(result.data.data);
+        let newArr = [];
+        for (let i = 0; i < result.data.length; i += 5) {
+          newArr.push(i); // 4씩 끊은 수 들어가게
+        }
+        setAdminChefPerPage({
+          ...adminChefPerPage,
+          array: newArr,
+          length: result.data.length,
+        });
       }
-      setAdminChef(result.data.data);
-      let newArr = [];
-      for (let i = 0; i < result.data.length; i += 5) {
-        newArr.push(i); // 4씩 끊은 수 들어가게
-      }
-      setAdminChefPerPage({
-        ...adminChefPerPage,
-        array: newArr,
-        length: result.data.length,
-      });
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
@@ -74,23 +76,25 @@ function AdminpageChef() {
         }
       );
       // console.log(result);
-      if (result.data.accessToken) {
-        dispatch(
-          updateAccessToken({
-            accessToken: result.data.accessToken,
-          })
-        );
+      if (result.data.message === 'ok') {
+        if (result.data.accessToken) {
+          dispatch(
+            updateAccessToken({
+              accessToken: result.data.accessToken,
+            })
+          );
+        }
+        setAdminChef(result.data.data);
+        let newArr = [];
+        for (let i = 0; i < result.data.length; i += 5) {
+          newArr.push(i); // 4씩 끊은 수 들어가게
+        }
+        setAdminChefPerPage({
+          ...adminChefPerPage,
+          array: newArr,
+          length: result.data.length,
+        });
       }
-      setAdminChef(result.data.data);
-      let newArr = [];
-      for (let i = 0; i < result.data.length; i += 5) {
-        newArr.push(i); // 4씩 끊은 수 들어가게
-      }
-      setAdminChefPerPage({
-        ...adminChefPerPage,
-        array: newArr,
-        length: result.data.length,
-      });
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
@@ -112,14 +116,16 @@ function AdminpageChef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      if (result.data.accessToken) {
-        dispatch(
-          updateAccessToken({
-            accessToken: result.data.accessToken,
-          })
-        );
+      if (result.data.message === 'ok') {
+        if (result.data.accessToken) {
+          dispatch(
+            updateAccessToken({
+              accessToken: result.data.accessToken,
+            })
+          );
+        }
+        setUpdateAdminChef(!updateAdminChef);
       }
-      setUpdateAdminChef(!updateAdminChef);
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {

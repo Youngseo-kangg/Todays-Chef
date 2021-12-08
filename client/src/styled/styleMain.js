@@ -6,6 +6,7 @@ export const MainGrid = styled.div`
   display: grid;
   grid-template-rows: 100vh 150px 550px 550px;
   row-gap: 50px;
+  padding-bottom: 50px;
   @media (max-width: 767px) {
     grid-template-rows: 100vh 450px 1050px 550px;
   }

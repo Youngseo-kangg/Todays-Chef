@@ -24,8 +24,6 @@ function MainSection3() {
     setChefData(chefInfo.data.data);
   };
 
-  console.log(chefData);
-
   useEffect(() => {
     getBestChef();
   }, []);

@@ -11,8 +11,6 @@ module.exports = {
       where: { rvChefId: findChefId },
     }); // 그 셰프에 맞는 리뷰 찾기
 
-    console.log('aa', req.query);
-
     if (!chefInfo) {
       res.status(400).json({ message: 'undefined chefId' });
     } else {

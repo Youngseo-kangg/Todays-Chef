@@ -27,7 +27,7 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
   }; // 사진 크게 보여주는 함수
   // console.log('chefAllReview에서 reviewLength', reviewLength); // 2
   const [reviewData, setReviewData] = useState([]);
-  console.log(reviewData);
+
   const [reviewsPerPage, setReviewsPerPage] = useState({
     start: 0,
     end: 4,

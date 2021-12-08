@@ -2,7 +2,6 @@ import { AdminContent } from '../styled/styleAdminpage';
 import { PagenationList } from '../styled/styleFindChef';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { updateAccessToken, userStatus } from '../features/user/user';
 import { openIsNeedReLoginModal } from '../features/user/modal';
 import { openServerErrorModal } from '../features/user/modal';
@@ -33,25 +32,26 @@ function AdminpageBechef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      // console.log(result);
-      if (result.data.accessToken) {
-        dispatch(
-          updateAccessToken({
-            accessToken: result.data.accessToken,
-          })
-        );
+      // console.log(result.data);
+      if (result.data.message === 'ok') {
+        if (result.data.accessToken) {
+          dispatch(
+            updateAccessToken({
+              accessToken: result.data.accessToken,
+            })
+          );
+        }
+        setAdminBechef(result.data.data);
+        let newArr = [];
+        for (let i = 0; i < result.data.length; i += 5) {
+          newArr.push(i); // 4씩 끊은 수 들어가게
+        }
+        setAdminBechefPerPage({
+          ...adminBechefPerPage,
+          array: newArr,
+          length: result.data.length,
+        });
       }
-      console.log(result.data);
-      setAdminBechef(result.data.data);
-      let newArr = [];
-      for (let i = 0; i < result.data.length; i += 5) {
-        newArr.push(i); // 4씩 끊은 수 들어가게
-      }
-      setAdminBechefPerPage({
-        ...adminBechefPerPage,
-        array: newArr,
-        length: result.data.length,
-      });
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
@@ -71,23 +71,25 @@ function AdminpageBechef() {
         }
       );
       console.log(result.data);
-      if (result.data.accessToken) {
-        dispatch(
-          updateAccessToken({
-            accessToken: result.data.accessToken,
-          })
-        );
+      if (result.data.message === 'ok') {
+        if (result.data.accessToken) {
+          dispatch(
+            updateAccessToken({
+              accessToken: result.data.accessToken,
+            })
+          );
+        }
+        setAdminBechef(result.data.data);
+        let newArr = [];
+        for (let i = 0; i < result.data.length; i += 5) {
+          newArr.push(i); // 4씩 끊은 수 들어가게
+        }
+        setAdminBechefPerPage({
+          ...adminBechefPerPage,
+          array: newArr,
+          length: result.data.length,
+        });
       }
-      setAdminBechef(result.data.data);
-      let newArr = [];
-      for (let i = 0; i < result.data.length; i += 5) {
-        newArr.push(i); // 4씩 끊은 수 들어가게
-      }
-      setAdminBechefPerPage({
-        ...adminBechefPerPage,
-        array: newArr,
-        length: result.data.length,
-      });
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
@@ -109,15 +111,16 @@ function AdminpageBechef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      console.log(result);
-      if (result.accessToken) {
-        dispatch(
-          updateAccessToken({
-            accessToken: result.data.accessToken,
-          })
-        );
+      if (result.data.message === 'ok') {
+        if (result.data.accessToken) {
+          dispatch(
+            updateAccessToken({
+              accessToken: result.data.accessToken,
+            })
+          );
+        }
+        setUpdateAdminBechef(!updateAdminBechef);
       }
-      setUpdateAdminBechef(!updateAdminBechef);
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
@@ -139,15 +142,16 @@ function AdminpageBechef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      console.log(result);
-      if (result.accessToken) {
-        dispatch(
-          updateAccessToken({
-            accessToken: result.data.accessToken,
-          })
-        );
+      if (result.data.accessToken) {
+        if (result.accessToken) {
+          dispatch(
+            updateAccessToken({
+              accessToken: result.data.accessToken,
+            })
+          );
+        }
+        setUpdateAdminBechef(!updateAdminBechef);
       }
-      setUpdateAdminBechef(!updateAdminBechef);
     } catch (err) {
       console.log(err);
       if (err.message === 'Network Error') {
