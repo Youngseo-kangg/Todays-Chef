@@ -22,7 +22,7 @@ module.exports = {
       },
     });
 
-    // console.log('access_token 확인 : ', kakaoData.data);
+    console.log('access_token 확인 : ', kakaoData.data);
 
     const userData = await axios({
       method: 'get',
@@ -31,7 +31,7 @@ module.exports = {
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     }); // 카카오에서 가지고 온 유저 정보
-    // console.log('유저 정보 : ', userData.data);
+    console.log('유저 정보 : ', userData.data);
 
     const findUser = await user.findOne({
       where: { email: userData.data.kakao_account.email },
