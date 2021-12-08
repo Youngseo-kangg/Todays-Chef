@@ -34,7 +34,7 @@ function MypageChefEdit() {
   const [chefEditText, setChefEditText] = useState({
     chefId: -1,
     chefName: '',
-    cuisine: '',
+    cuisine: '한식',
     chefImg: '',
     greeting: '',
     career: '',
@@ -88,16 +88,15 @@ function MypageChefEdit() {
         ); // 셰프 정보 redux 업뎃
         dispatch(chefCourses({ courses: result.data.data.courses }));
         // 코스 정보 redux 업뎃
-
         setChefEditText({
-          chefName: chefState.chefName || '',
-          cuisine: chefState.cuisine || '',
-          chefImg: chefState.chefImg || '',
-          greeting: chefState.greeting || '',
-          career: chefState.career || '',
-          values: chefState.values || '',
-          rating: chefState.rating || '',
-          chUserId: chefState.chUserId,
+          chefName: result.data.data.info.chefName || '',
+          cuisine: result.data.data.info.cuisine || '',
+          chefImg: result.data.data.info.chefImg || '',
+          greeting: result.data.data.info.greeting || '',
+          career: result.data.data.info.career || '',
+          values: result.data.data.info.values || '',
+          rating: result.data.data.info.rating || '',
+          chUserId: result.data.data.info.chUserId,
         }); // 초기화
       }
     } catch (err) {
@@ -147,7 +146,6 @@ function MypageChefEdit() {
       [key]: e.target.value,
     });
   }; // 자기 소개 입력값 받아오기
-
   const handleCourseInputValue = (key) => (e) => {
     setCourseErrorMsg(''); // 에러 메세지 초기화
     setCourseText({
@@ -159,7 +157,6 @@ function MypageChefEdit() {
   const onSubmitIntro = async () => {
     try {
       // 유효성 검사하기
-      console.log(chefEditText);
       if (
         chefEditText.chefName === '' ||
         chefEditText.greeting === '' ||
@@ -187,7 +184,6 @@ function MypageChefEdit() {
           },
           { headers: { authorization: `bearer ${userState.accessToken}` } }
         );
-        console.log(postResult);
         if (postResult.data.message === 'ok') {
           if (postResult.data.accessToken) {
             dispatch(
@@ -198,8 +194,23 @@ function MypageChefEdit() {
           dispatch(
             openSuccessModal({ message: '셰프 정보 변경이 완료되었습니다.' })
           );
-          // redux 업뎃해주기
-          setUpdate(!update);
+          // preview있다면 주소때매 서버에 다시 요청 + 아니라면 redux 업뎃해주기
+          if (preview !== '') {
+            setUpdate(!update); // 사진 img 주소때문에 업뎃해줘야함
+          } else {
+            dispatch(
+              chefMypage({
+                chefName: chefEditText.chefName,
+                cuisine: chefEditText.cuisine,
+                chefImg: chefEditText.chefImg,
+                greeting: chefEditText.greeting,
+                career: chefEditText.career,
+                values: chefEditText.values,
+                rating: chefEditText.rating,
+                chUserId: chefEditText.chUserId,
+              })
+            );
+          }
         }
       }
     } catch (err) {
@@ -397,6 +408,16 @@ function MypageChefEdit() {
     );
   }; // 코스 삭제 버튼 눌렀을때 떠야 하는 모달
 
+  const imgSrc = () => {
+    if (preview) {
+      return preview;
+    } else if (chefEditText.chefImg) {
+      return chefEditText.chefImg;
+    } else {
+      return basic_profile;
+    }
+  }; // 사진 미리보여주기 함수
+
   return (
     <MypageChefEditContent>
       <div id='chefEditIntro'>
@@ -405,16 +426,7 @@ function MypageChefEdit() {
           <button onClick={onSubmitIntro}>저장하기</button>
         </div>
         <div id='chefEditIntroPic'>
-          <img
-            src={
-              chefEditText.chefImg === ''
-                ? preview === ''
-                  ? basic_profile
-                  : preview
-                : chefEditText.chefImg
-            }
-            alt='셰프 사진'
-          />
+          <img src={imgSrc()} alt='셰프 사진' />
           <label htmlFor='chefPicUpload'>사진 업로드</label>
           <input
             type='file'
@@ -438,9 +450,7 @@ function MypageChefEdit() {
               placeholder='셰프 이름을 입력해주세요.'
             />
             <select
-              defaultValue={
-                chefEditText.cuisine ? chefEditText.cuisine : '한식'
-              }
+              value={chefEditText.cuisine ? chefEditText.cuisine : '한식'}
               onChange={handleIntroInputValue('cuisine')}
             >
               <option value='한식'>한식</option>
