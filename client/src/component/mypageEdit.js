@@ -227,7 +227,7 @@ function MypageEdit() {
     } else if (
       reservationState.data.map((el) =>
         isAfter(new Date(el.rsDate), new Date())
-      )
+      ).length !== 0
     ) {
       // 미래 예약 내역이 없을때에만 탈퇴하기 ok하기
       dispatch(
