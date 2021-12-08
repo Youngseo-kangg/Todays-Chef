@@ -69,6 +69,17 @@ module.exports = {
   },
 
   get: async (req, res) => {
+    const findReservation = await reservation.findAll({
+      where: { rsCourseId: req.query.courseId },
+    });
+
+    const filterReservationDate = findReservation.filter(
+      (el) => el.rsDate >= new Date()
+    );
+    const mapReservationDate = filterReservationDate.map(
+      (el) => el.dataValues.rsDate
+    );
+
     if (req.query.chefId && req.query.courseId) {
       const findChefName = await chef.findOne({
         where: { id: req.query.chefId },
@@ -89,6 +100,7 @@ module.exports = {
         data: {
           chefName: findChefName.dataValues.chefName,
           course: sendCourse,
+          rsDate: mapReservationDate,
         },
       });
     } else if (!req.query.courseId || !req.query.chefId) {
