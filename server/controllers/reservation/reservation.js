@@ -69,6 +69,9 @@ module.exports = {
   },
 
   get: async (req, res) => {
+    const accessVerify = isAuthorized(req);
+    const refreshVerify = refreshAuthorized(req);
+
     const findReservation = await reservation.findAll({
       where: { rsCourseId: req.query.courseId },
     });
@@ -89,20 +92,46 @@ module.exports = {
         where: { id: req.query.courseId },
       });
 
-      const sendCourse = findCourse.dataValues;
-      delete sendCourse.createdAt;
-      delete sendCourse.updatedAt;
-      if (!findCourse || !findChefName) {
-        res.status(400).json({ message: 'undefined Info' });
+      if (!accessVerify) {
+        const refreshVerify = refreshAuthorized(req);
+        if (!refreshVerify) {
+          res.status(401).json({ message: 'Send new Login Request' });
+        } else {
+          delete refreshVerify.exp;
+          const accessToken = basicAccessToken(refreshVerify);
+
+          const sendCourse = findCourse.dataValues;
+          delete sendCourse.createdAt;
+          delete sendCourse.updatedAt;
+          if (!findCourse || !findChefName) {
+            res.status(400).json({ message: 'undefined Info' });
+          }
+          res.status(201).json({
+            accessToken,
+            message: 'ok',
+            data: {
+              chefName: findChefName.dataValues.chefName,
+              course: sendCourse,
+              rsDate: mapReservationDate,
+            },
+          });
+        }
+      } else {
+        const sendCourse = findCourse.dataValues;
+        delete sendCourse.createdAt;
+        delete sendCourse.updatedAt;
+        if (!findCourse || !findChefName) {
+          res.status(400).json({ message: 'undefined Info' });
+        }
+        res.status(200).json({
+          message: 'ok',
+          data: {
+            chefName: findChefName.dataValues.chefName,
+            course: sendCourse,
+            rsDate: mapReservationDate,
+          },
+        });
       }
-      res.status(200).json({
-        message: 'ok',
-        data: {
-          chefName: findChefName.dataValues.chefName,
-          course: sendCourse,
-          rsDate: mapReservationDate,
-        },
-      });
     } else if (!req.query.courseId || !req.query.chefId) {
       res.status(400).json({ message: 'plz input both chefId and courseId' });
     }
