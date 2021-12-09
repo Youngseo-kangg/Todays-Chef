@@ -23,8 +23,10 @@ function ReservationDate({
   address,
   addressErr,
   titleInfo,
+  reservation,
   queryChefId,
 }) {
+  // console.log(reservation); // ['2021-12-24T07:00:00.000Z']
   const months = [
     '1월',
     '2월',
@@ -39,7 +41,18 @@ function ReservationDate({
     '11월',
     '12월',
   ];
+  const handleTouchStart = (e) => e.stopPropagation();
+  const handleCalendarOpen = () => {
+    document.addEventListener('touchstart', handleTouchStart, true);
+    const [element] =
+      document.getElementsByClassName('react-datepicker__day') || [];
+    if (element) element.focus();
+  };
+  // const handleCalendarClose = () =>
+  //   document.removeEventListener('touchstart', handleTouchStart, true);
+
   const reservationState = useSelector(reservationStatus);
+
   let dateFormat = 'yyyy년 MMMM dd일, aa h:mm';
   useEffect(() => {
     // chefId로 셰프 예약 내역 갖고오고
@@ -71,6 +84,7 @@ function ReservationDate({
                       selected={field.value}
                       onChange={(e) => field.onChange(e)}
                       minDate={new Date()}
+                      onCalendarOpen={handleCalendarOpen}
                       includeTimes={[
                         setHours(setMinutes(new Date(), 0), 12),
                         setHours(setMinutes(new Date(), 0), 13),
@@ -81,7 +95,14 @@ function ReservationDate({
                         setHours(setMinutes(new Date(), 0), 18),
                         setHours(setMinutes(new Date(), 0), 19),
                       ]}
-                      excludeDates={[new Date(), subDays(new Date(), -1)]}
+                      excludeDates={[
+                        new Date(),
+                        subDays(new Date(), -1),
+                        ...reservation.map((el) => new Date(el)),
+                        ...reservationState.data.map(
+                          (el) => new Date(el.rsDate)
+                        ),
+                      ]}
                       dateFormat={dateFormat}
                       showTimeSelect
                       renderCustomHeader={({
