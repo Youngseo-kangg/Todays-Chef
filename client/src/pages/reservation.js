@@ -14,7 +14,12 @@ import {
   ReservationDesc,
 } from '../styled/styleReservation';
 import { userStatus } from '../features/user/user';
-import { openFailModal, modalStatus } from '../features/user/modal';
+import {
+  openFailModal,
+  openServerErrorModal,
+  openIsNeedReLoginModal,
+  modalStatus,
+} from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { setHours, setMinutes } from 'date-fns';
@@ -82,6 +87,7 @@ function Reservation() {
   const [titleInfo, setTitleInfo] = useState({
     chefName: '',
     course: {},
+    reservation: [],
   });
   const querys = window.location.search.slice(1).split('&');
   const queryChefId = querys[0].split('=')[1];
@@ -91,7 +97,7 @@ function Reservation() {
     if (userState.isChef || userState.isAdmin) {
       dispatch(
         openFailModal({
-          message: `관리자 또는 셰프는 <br /> 예약할 수 없습니다.`,
+          message: `관리자 또는 셰프는 예약할 수 없습니다.`,
         })
       );
     } else if (
@@ -109,11 +115,20 @@ function Reservation() {
           `${url}/reservation?chefId=${queryChefId}&courseId=${queryCourseId}`
         )
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setTitleInfo({
             chefName: data.data.data.chefName,
             course: data.data.data.course,
+            reservation: data.data.data.rsDate,
           });
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.message === 'Network Error') {
+            dispatch(openServerErrorModal());
+          } else if (err.response.data.message === 'Send new Login Request') {
+            dispatch(openIsNeedReLoginModal());
+          }
         });
     }
   }, []);
@@ -162,6 +177,7 @@ function Reservation() {
                 addressErr={addressErr}
                 titleInfo={titleInfo}
                 queryChefId={queryChefId}
+                reservation={titleInfo.reservation}
               />
               <ReservationInfo
                 makeReservation={makeReservation}
