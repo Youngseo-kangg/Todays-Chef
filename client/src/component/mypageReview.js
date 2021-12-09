@@ -202,7 +202,9 @@ function MypageReview() {
         if (patchResult.data.message === 'ok') {
           // accessToken 있으면 업데이트
           if (patchResult.data.accessToken) {
-            dispatch(updateAccessToken(patchResult.data.accessToken));
+            dispatch(
+              updateAccessToken({ accessToken: patchResult.data.accessToken })
+            );
           }
           // 완료 모달 띄워주기
           dispatch(

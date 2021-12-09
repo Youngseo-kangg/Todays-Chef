@@ -11,8 +11,6 @@ module.exports = {
       where: { rvChefId: findChefId },
     }); // 그 셰프에 맞는 리뷰 찾기
 
-    console.log('aa', req.query);
-
     if (!chefInfo) {
       res.status(400).json({ message: 'undefined chefId' });
     } else {
@@ -41,14 +39,17 @@ module.exports = {
         delete findReview[i].dataValues.createdAt;
         delete findReview[i].dataValues.updatedAt;
 
-        chefReview.push(findReview[i]);
+        if (findReview[i].dataValues.rating !== '') {
+          chefReview.push(findReview[i]);
+        }
       }
 
       for (let i = 0; i < chefReview.length; i++) {
-        let test = findReview[i].rvUserId;
+        let reviewId = findReview[i].rvUserId;
         const findUser = await user.findOne({
-          where: { id: test },
+          where: { id: reviewId },
         });
+
         chefReview[i].dataValues.nickname = findUser.dataValues.nickname;
         chefReview[i].dataValues.userImg = findUser.dataValues.userImg;
       }
