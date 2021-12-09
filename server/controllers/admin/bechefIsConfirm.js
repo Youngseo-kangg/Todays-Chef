@@ -23,7 +23,7 @@ module.exports = {
           // ***nodeMail 해주기
           delete refreshVerify.exp;
           const accessToken = basicAccessToken(refreshVerify);
-          let mail = successMail(
+          let mail = await successMail(
             findEmail.dataValues.email,
             findEmail.dataValues.nickname
           );
@@ -48,7 +48,7 @@ module.exports = {
         }
       } else {
         // ***nodeMail 해주기
-        let mail = successMail(
+        let mail = await successMail(
           findEmail.dataValues.email,
           findEmail.dataValues.nickname
         );
