@@ -111,7 +111,8 @@ function AdminpageBechef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      if (result.data.message === 'ok') {
+      console.log('refuseBechef : ', result);
+      if (result.data.message === 'refuse ok') {
         if (result.data.accessToken) {
           dispatch(
             updateAccessToken({
@@ -142,8 +143,9 @@ function AdminpageBechef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      if (result.data.accessToken) {
-        if (result.accessToken) {
+      console.log('acceptBechef : ', result);
+      if (result.data.message === 'confirm ok') {
+        if (result.data.accessToken) {
           dispatch(
             updateAccessToken({
               accessToken: result.data.accessToken,
