@@ -1,7 +1,7 @@
 const { user, bechef, chef } = require('../../models');
 const { isAuthorized, basicAccessToken } = require('../token/accessToken');
 const { refreshAuthorized } = require('../token/refreshToken');
-const { successMail, await failMail } = require('../sendMail');
+const { successMail, failMail } = require('../sendMail');
 
 module.exports = {
   post: async (req, res) => {
