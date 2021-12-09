@@ -54,10 +54,6 @@ function ReservationDate({
   const reservationState = useSelector(reservationStatus);
 
   let dateFormat = 'yyyy년 MMMM dd일, aa h:mm';
-  useEffect(() => {
-    // chefId로 셰프 예약 내역 갖고오고
-    // reservationState에서 내가 예약한 내역 갖고오기 -> reservationState.data
-  }, []);
   return (
     <>
       <ReservationWrap className={makeReservation === 1 ? null : 'none'}>
