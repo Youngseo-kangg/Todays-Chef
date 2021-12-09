@@ -85,7 +85,6 @@ function ReservationPayment({
       buyer_addr: newData.reservMainAddress,
       buyer_postcode: newData.postal,
     }; // IMP.request_pay에 담길 data
-    console.log('aaa', data);
     const callback = async (response) => {
       const {
         success,
@@ -135,7 +134,7 @@ function ReservationPayment({
             },
           }
         );
-        console.log(postResult);
+        console.log('aaa', postResult);
         if (postResult.data.status === 'success') {
           // * 결제 정보 저장 후 다음페이지로
           setMakeReservation(4); // 다음페이지로 넘겨주기
