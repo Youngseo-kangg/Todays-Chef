@@ -86,121 +86,26 @@ function FindChef() {
   }, [selected]); // 로드 되자마자 + select값 변경 될때 마다 리렌더링
 
   const ratingStar = (el, idx) => {
-    const arr = [];
-    const NumRating = Number(el.rating);
-
-    if (NumRating >= 0 && NumRating < 0.5) {
-      arr.push(
-        <div key={idx}>
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 0.5 && NumRating < 1) {
-      arr.push(
-        <div key={idx}>
-          <img src={halfStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 1 && NumRating < 1.5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 1.5 && NumRating < 2) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={halfStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 2 && NumRating < 2.5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 2.5 && NumRating < 3) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={halfStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 3 && NumRating < 3.5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 3.5 && NumRating < 4) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={halfStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 4 && NumRating < 4.5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 4.5 && NumRating < 5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={halfStar} alt='' />
-        </div>
-      );
-    } else if (NumRating === 5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-        </div>
-      );
+    let arr = [];
+    let NumRating = Number(el.rating);
+    let parsed = parseInt(NumRating);
+    let rest = NumRating - parsed;
+    //* fullStar 처리 : 정수로 만들어 버려서 있으면 무조건 다 주기
+    for (let i = 0; i < parsed; i++) {
+      arr.push(fullStar);
     }
-
+    // * halfStar 처리 : 0~1 사이에 rest가 있는지, 0~0.5면 none, 0.5이상이면 halfStar
+    if (0 < rest && rest < 1) {
+      if (0 < rest && rest <= 0.5) {
+        arr.push(noneStar);
+      } else {
+        arr.push(halfStar);
+      }
+    }
+    // * 남은 부분에 noneStar 넣어주기
+    for (let i = arr.length; i < 5; i++) {
+      arr.push(noneStar);
+    }
     return arr;
   };
 
@@ -277,7 +182,13 @@ function FindChef() {
                       </Link>
                     </h3>
 
-                    <ChefStar>{ratingStar(el, idx)}</ChefStar>
+                    <ChefStar key={idx}>
+                      <div>
+                        {ratingStar(el, idx).map((ele, idx) => {
+                          return <img src={ele} alt='별점' key={idx} />;
+                        })}
+                      </div>
+                    </ChefStar>
                     <span>{el.rating}</span>
                   </li>
                 );

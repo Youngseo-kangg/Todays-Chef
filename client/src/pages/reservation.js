@@ -7,6 +7,7 @@ import ReservationInfo from '../component/reservationInfo';
 import ReservationPayment from '../component/reservationPayment';
 import ReservationDone from '../component/reservationDone';
 import OneSentenceModal from '../modal/oneSentenceModal';
+import NeedReLoginModal from '../modal/needReLoginModal';
 import {
   ReservationGrid,
   ReservationTitle,
@@ -115,7 +116,7 @@ function Reservation() {
           `${url}/reservation?chefId=${queryChefId}&courseId=${queryCourseId}`
         )
         .then((data) => {
-          // console.log(data);
+          console.log(data);
           setTitleInfo({
             chefName: data.data.data.chefName,
             course: data.data.data.course,
@@ -136,6 +137,7 @@ function Reservation() {
   return (
     <>
       {modalState.failModalOpen ? <OneSentenceModal /> : null}
+      {modalState.isNeedReLoginModalOpen ? <NeedReLoginModal /> : null}
       {searchAddress === true ? (
         <AddressModal
           setSearchAddress={setSearchAddress}

@@ -4,7 +4,7 @@ dotenv.config();
 
 module.exports = {
   basicRefreshToken: (data) => {
-    return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: '30d' });
+    return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: '3m' });
   },
   sendRefreshToken: (res, refreshToken) => {
     if (process.env.CLIENT_URL) {

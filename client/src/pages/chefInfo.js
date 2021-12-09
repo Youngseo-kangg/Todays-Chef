@@ -49,7 +49,7 @@ function ChefInfo() {
   return (
     <>
       {magnifyPic.picState ? (
-        <PictureModal setMagnifyPic={setMagnifyPic} />
+        <PictureModal setMagnifyPic={setMagnifyPic} magnifyPic={magnifyPic} />
       ) : null}
       <ChefInfoGrid>
         <ChefInfoDesc>
