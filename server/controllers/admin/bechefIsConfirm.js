@@ -1,7 +1,7 @@
 const { user, bechef, chef } = require('../../models');
 const { isAuthorized, basicAccessToken } = require('../token/accessToken');
 const { refreshAuthorized } = require('../token/refreshToken');
-const { successMail, failMail } = require('../sendMail');
+const { successMail, await failMail } = require('../sendMail');
 
 module.exports = {
   post: async (req, res) => {
@@ -80,7 +80,7 @@ module.exports = {
           // ***nodeMail 해주기
           delete refreshVerify.exp;
           const accessToken = basicAccessToken(refreshVerify);
-          let failmail = failMail(
+          let failmail = await failMail(
             findEmail.dataValues.email,
             findEmail.dataValues.nickname
           );
@@ -95,7 +95,7 @@ module.exports = {
         }
       } else {
         // ***nodeMail 해주기
-        let failmail = failMail(
+        let failmail = await failMail(
           findEmail.dataValues.email,
           findEmail.dataValues.nickname
         );
