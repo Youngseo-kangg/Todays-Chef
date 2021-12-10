@@ -4,7 +4,8 @@ export const ChefInfoGrid = styled.article`
   display: grid;
   grid-template-rows: 280px 1fr;
   row-gap: 50px;
-  margin-bottom: 50px;
+
+  padding-bottom: 50px;
   @media screen and (max-width: 767px) {
     grid-template-rows: 480px 1fr;
   }

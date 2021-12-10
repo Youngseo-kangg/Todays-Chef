@@ -4,8 +4,9 @@ export const FindChefGrid = styled.article`
   display: grid;
   grid-template-rows: 300px 1fr;
   row-gap: 50px;
-  margin-bottom: 50px;
+  padding-bottom: 50px;
   min-width: 280px;
+  background-color: rgba(219, 184, 154, 0.4);
   @media (max-width: 767px) {
     grid-template-rows: 380px 1fr;
   }
@@ -54,6 +55,7 @@ export const SelectCuisine = styled.div`
         border-radius: 10px;
         width: calc(100% / 4 - 20px);
         transition: 0.3s;
+        cursor: pointer;
         @media (max-width: 767px) {
           width: calc(100% / 2 - 10px);
           :nth-child(1),
@@ -214,7 +216,7 @@ export const ChefItemList = styled.div`
   }
 `;
 export const ChefStar = styled.div`
-  width: 60%;
+  width: 100px;
   height: 100%;
   margin: 0 auto;
   display: grid;
