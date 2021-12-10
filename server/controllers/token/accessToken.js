@@ -4,7 +4,7 @@ dotenv.config();
 
 module.exports = {
   basicAccessToken: (data) => {
-    return jwt.sign(data, process.env.ACCESS_SECRET, { expiresIn: '5s' });
+    return jwt.sign(data, process.env.ACCESS_SECRET, { expiresIn: '1d' });
   },
   isAuthorized: (req) => {
     if (!req.headers.authorization) {
