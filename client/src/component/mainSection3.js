@@ -1,13 +1,11 @@
 import {
   MainSection3Wrap,
   BestOfChefsWrap,
-  BestChefBox,
-  RatingStar,
   ChefStar,
 } from '../styled/styleMain';
 
 import { useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import axios from 'axios';
 
@@ -21,6 +19,7 @@ function MainSection3() {
 
   const getBestChef = async () => {
     const chefInfo = await axios.get(`${url}/main`);
+    console.log(chefInfo.data);
     setChefData(chefInfo.data.data);
   };
 
@@ -61,23 +60,25 @@ function MainSection3() {
             {chefData.map((el, idx) => {
               return (
                 <li key={el.id} className='chef'>
-                  <div className='bestCuisine'>{el.cuisine}</div>
-                  <div className='chefPic'>
-                    {el.chefImg === '' ? (
-                      <img src={basic_profile} alt='셰프 사진' />
-                    ) : (
-                      <img src={el.chefImg} alt='셰프 사진' />
-                    )}
-                  </div>
-                  <h4>{el.chefName}</h4>
-                  <ChefStar key={idx}>
-                    <div>
-                      {ratingStar(el, idx).map((ele, idx) => {
-                        return <img src={ele} alt='' key={idx} />;
-                      })}
+                  <Link to={`/chef?chefId=${el.id}`}>
+                    <div className='bestCuisine'>{el.cuisine}</div>
+                    <div className='chefPic'>
+                      {el.chefImg === '' ? (
+                        <img src={basic_profile} alt='셰프 사진' />
+                      ) : (
+                        <img src={el.chefImg} alt='셰프 사진' />
+                      )}
                     </div>
-                  </ChefStar>
-                  <span>{el.rating}</span>
+                    <h4>{el.chefName}</h4>
+                    <ChefStar key={idx}>
+                      <div>
+                        {ratingStar(el, idx).map((ele, idx) => {
+                          return <img src={ele} alt='' key={idx} />;
+                        })}
+                      </div>
+                    </ChefStar>
+                    <span>{el.rating}</span>
+                  </Link>
                 </li>
               );
             })}
