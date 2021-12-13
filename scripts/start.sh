@@ -1,6 +1,7 @@
 #!/bin/bash
 cd /home/ubuntu/Todays-Chef/server
 
+
 export ACCESS_SECRET=$(aws ssm get-parameters --region ap-northeast-2 --names ACCESS_SECRET --query Parameters[0].Value | sed 's/"//g')
 export ACCESS_KEY_AWS=$(aws ssm get-parameters --region ap-northeast-2 --names ACCESS_KEY_AWS --query Parameters[0].Value | sed 's/"//g')
 export ACCESS_SECRET_KEY_AWS=$(aws ssm get-parameters --region ap-northeast-2 --names ACCESS_SECRET_KEY_AWS --query Parameters[0].Value | sed 's/"//g')
