@@ -58,7 +58,7 @@ function ReservationInfo({
             </div>
           </div>
           <div className='reservInputWrap large'>
-            <div className='reservInput'>
+            <div className='reservInput large'>
               <label htmlFor='reservComment'>셰프에게 전달할 코멘트</label>
               <textarea
                 name='reservComment'

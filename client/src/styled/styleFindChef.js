@@ -172,6 +172,7 @@ export const ChefItemList = styled.div`
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       transition: 0.3s;
+      background-color: #fff;
       :hover {
         transform: translateY(-10px);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);

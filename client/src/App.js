@@ -7,6 +7,7 @@ import ChefInfo from './pages/chefInfo';
 import Reservation from './pages/reservation';
 import Mypage from './pages/mypage';
 import Adminpage from './pages/adminpage';
+import MobileReservationDonePage from './pages/reservationDonePage';
 import LoginOrSignup from './pages/loginOrSignup';
 import Footer from './component/footer';
 import LogoutModal from './modal/logoutModal';
@@ -123,14 +124,10 @@ function App() {
           <Adminpage />
         </Route>
         <Route path='/loginOrSignup'>
-          <LoginOrSignup
-          // isLoginModalOpen={isLoginModalOpen}
-          // setIsLoginModalOpen={setIsLoginModalOpen}
-          // setIsLoginErrorModalOpen={setIsLoginErrorModalOpen}
-          // isLoginErrorModalOpen={isLoginErrorModalOpen}
-          // isServerError={isServerError}
-          // setIsServerError={setIsServerError}
-          />
+          <LoginOrSignup />
+        </Route>
+        <Route path='/mobile/reservationDone'>
+          <MobileReservationDonePage />
         </Route>
 
         <Footer />

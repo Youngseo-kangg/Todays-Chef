@@ -90,9 +90,9 @@ function Reservation() {
     course: {},
     reservation: [],
   });
-  const querys = window.location.search.slice(1).split('&');
-  const queryChefId = querys[0].split('=')[1];
-  const queryCourseId = querys[1].split('=')[1];
+  const URLSearch = new URLSearchParams(window.location.search);
+  const queryChefId = URLSearch.get('chefId');
+  const queryCourseId = URLSearch.get('courseId');
 
   useEffect(() => {
     if (userState.isChef || userState.isAdmin) {
@@ -200,9 +200,7 @@ function Reservation() {
             />
           ) : null}
 
-          {makeReservation === 4 ? (
-            <ReservationDone setMakeReservation={setMakeReservation} />
-          ) : null}
+          {makeReservation === 4 ? <ReservationDone /> : null}
         </ReservationDesc>
       </ReservationGrid>
     </>

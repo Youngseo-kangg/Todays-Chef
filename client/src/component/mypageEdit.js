@@ -217,6 +217,11 @@ function MypageEdit() {
   };
 
   const deleteUser = async () => {
+    const reserv = reservationState.data.filter((el) =>
+      isAfter(new Date(el.rsDate), new Date())
+    );
+    // console.log('reserv: ', reserv);
+    // console.log('reserv.length: ', reserv.length);
     if (userState.isChef) {
       // 셰프라면 직접 서비스센터에 메일 보내라 하기
       dispatch(
@@ -224,11 +229,7 @@ function MypageEdit() {
           message: '셰프는 지원센터에 유선으로 문의 부탁드립니다.',
         })
       );
-    } else if (
-      reservationState.data.map((el) =>
-        isAfter(new Date(el.rsDate), new Date())
-      ).length !== 0
-    ) {
+    } else if (reserv.length !== 0) {
       // 미래 예약 내역이 없을때에만 탈퇴하기 ok하기
       dispatch(
         openFailModal({
