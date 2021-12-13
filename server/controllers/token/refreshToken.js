@@ -7,16 +7,20 @@ module.exports = {
     return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: '30d' });
   },
   sendRefreshToken: (res, refreshToken) => {
-    if (process.env.CLIENT_URL) {
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-      });
-    } else {
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-      });
+    try {
+      if (process.env.CLIENT_URL) {
+        res.cookie('refreshToken', refreshToken, {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'none',
+        });
+      } else {
+        res.cookie('refreshToken', refreshToken, {
+          httpOnly: true,
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
   refreshAuthorized: (req) => {

@@ -21,7 +21,7 @@ module.exports = {
     });
 
     console.log('access_token 확인 : ', kakaoData.data);
-    res.json({ reqBody: authorizationCode, accessToken: kakaoData.data });
+    // res.json({ reqBody: authorizationCode, accessToken: kakaoData.data });
 
     const userData = await axios({
       method: 'get',
@@ -49,8 +49,13 @@ module.exports = {
           delete userInfo.updatedAt;
           delete userInfo.createdAt;
 
+          console.log(userInfo);
+
           const accessToken = basicAccessToken(userInfo);
           const refreshToken = basicRefreshToken(userInfo);
+
+          console.log('accessToken', accessToken);
+          console.log('refresh', refreshToken);
 
           sendRefreshToken(res, refreshToken);
 
