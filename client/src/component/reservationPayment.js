@@ -16,7 +16,7 @@ function ReservationPayment({
   queryCourseId,
 }) {
   console.log('payment에서 프롭스로 받아온 newData: ', newData);
-  const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  const url = process.env.REACT_PAYMENT_REDIRECT || `http://localhost:3000`;
   const userState = useSelector(userStatus);
   const dispatch = useDispatch();
   const reservationData = {
