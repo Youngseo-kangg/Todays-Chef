@@ -20,7 +20,7 @@ function ReservationPayment({
   const userState = useSelector(userStatus);
   const dispatch = useDispatch();
   const reservationData = {
-    rsDate: new Date(format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss')),
+    rsDate: format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss'),
     rsTime: `${getHours(newData.reservDateAndTime)}:${format(
       newData.reservDateAndTime,
       'mm'
@@ -75,7 +75,12 @@ function ReservationPayment({
           `${url}/reservation/payments`,
           {
             data: {
-              reservationData,
+              reservationData: {
+                ...reservationData,
+                rsDate: new Date(
+                  format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss')
+                ),
+              },
               imp_uid,
               merchant_uid,
             },
