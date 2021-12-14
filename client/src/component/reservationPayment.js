@@ -16,7 +16,9 @@ function ReservationPayment({
   queryCourseId,
 }) {
   console.log('payment에서 프롭스로 받아온 newData: ', newData);
-  const url = process.env.REACT_PAYMENT_REDIRECT || `http://localhost:3000`;
+  const url =
+    process.env.REACT_PAYMENT_REDIRECT ||
+    `http://localhost:3000/mobile/reservationDone`;
   const userState = useSelector(userStatus);
   const dispatch = useDispatch();
   const reservationData = {
@@ -53,7 +55,7 @@ function ReservationPayment({
       buyer_tel: newData.reservMobile,
       buyer_addr: newData.reservMainAddress,
       buyer_postcode: newData.postal,
-      m_redirect_url: `${url}/mobile/reservationDone?reservationData=${JSON.stringify(
+      m_redirect_url: `${url}?reservationData=${JSON.stringify(
         reservationData
       )}`,
     }; // IMP.request_pay에 담길 data
