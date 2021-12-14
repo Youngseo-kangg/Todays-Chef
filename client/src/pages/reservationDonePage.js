@@ -50,7 +50,7 @@ function MobileReservationDonePage() {
       )
       .then((data) => {
         console.log(data);
-        if (data.status === 'success') {
+        if (data.data.status === 'success') {
           // * 결제 정보 저장 후 다음페이지로
           setSaveStatus(true); // 저장 완료 상태
         }
