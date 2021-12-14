@@ -49,7 +49,8 @@ export const ChefInformation = styled.div`
     grid-template-rows: 50px 1fr;
   }
   > #chefInfoOrder {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     width: 90%;
     max-width: 1400px;
     margin: 0 auto;
@@ -59,7 +60,6 @@ export const ChefInformation = styled.div`
       width: 100%;
     }
     > li {
-      flex: 1 1 auto;
       display: flex;
       justify-content: center;
       align-items: center;

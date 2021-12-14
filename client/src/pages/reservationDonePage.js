@@ -11,7 +11,16 @@ import {
 function MobileReservationDonePage() {
   // * 성공하면 ${url}/mobile/reservationDone?reservationData=${JSON.stringify(reservationData)&imp_uid=~~~&merchant_uid=~~~&imp_success=true}
   const URLSearch = new URLSearchParams(window.location.search);
-  console.log('URLSearch.toString(): ', URLSearch.toString());
+  let reservationData = JSON.parse(URLSearch.get('reservationData'));
+  let imp_uid = URLSearch.get('imp_uid');
+  let merchant_uid = URLSearch.get('merchant_uid');
+  let imp_success = URLSearch.get('imp_success');
+  // console.log('URLSearch.toString(): ', URLSearch.toString());
+
+  console.log('reservationData: ', reservationData);
+  console.log('imp_uid: ', imp_uid);
+  console.log('merchant_uid: ', merchant_uid);
+  console.log('imp_success: ', imp_success);
 
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userState = useSelector(userStatus);
@@ -24,9 +33,9 @@ function MobileReservationDonePage() {
         `${url}/reservation/payments`,
         {
           data: {
-            // reservationData,
-            // imp_uid,
-            // merchant_uid,
+            reservationData,
+            imp_uid,
+            merchant_uid,
           },
         },
         {
