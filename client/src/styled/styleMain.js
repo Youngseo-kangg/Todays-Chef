@@ -180,13 +180,11 @@ export const BestOfChefsWrap = styled.div`
       /* border: 1px solid blue; */
       box-sizing: border-box;
       width: calc(100% / 4 - 10px);
-      display: grid;
-      grid-template-rows: 50px 300px 1fr 1fr 1fr;
-      row-gap: 15px;
       margin-bottom: 15px;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       transition: 0.3s;
+      background-color: #fff;
       @media (max-width: 767px) {
         width: calc(100% / 2 - 10px);
       }
@@ -198,47 +196,54 @@ export const BestOfChefsWrap = styled.div`
         transform: translateY(-10px);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
       }
-      > .bestCuisine {
-        width: 60%;
-        font-size: 18px;
-        line-height: 50px;
-        border-bottom: 2px solid #dbb89a;
-        margin: 0 auto;
-      }
-      > h4 {
-        width: 60%;
-        border-bottom: 2px solid #dbb89a;
-        display: grid;
-        place-items: center;
-        box-sizing: border-box;
-        margin: 0 auto;
-      }
-      > span {
-        display: grid;
-        place-items: center;
-        margin-top: -20px;
-      }
-      > .chefPic {
-        /* border: 1px solid red; */
-        display: grid;
-        place-items: center;
+      > a {
         width: 100%;
         height: 100%;
-        img {
-          width: 230px;
-          height: 230px;
-          border-radius: 100%;
-          @media (max-width: 1080px) {
-            width: 160px;
-            height: 160px;
-          }
-          @media (max-width: 767px) {
-            width: 180px;
-            height: 180px;
-          }
-          @media (max-width: 430px) {
-            width: 240px;
-            height: 240px;
+        display: grid;
+        grid-template-rows: 50px 300px 1fr 1fr 1fr;
+        row-gap: 15px;
+        > .bestCuisine {
+          width: 60%;
+          font-size: 18px;
+          line-height: 50px;
+          border-bottom: 2px solid #dbb89a;
+          margin: 0 auto;
+        }
+        > h4 {
+          width: 60%;
+          border-bottom: 2px solid #dbb89a;
+          display: grid;
+          place-items: center;
+          box-sizing: border-box;
+          margin: 0 auto;
+        }
+        > span {
+          display: grid;
+          place-items: center;
+          margin-top: -20px;
+        }
+        > .chefPic {
+          /* border: 1px solid red; */
+          display: grid;
+          place-items: center;
+          width: 100%;
+          height: 100%;
+          img {
+            width: 230px;
+            height: 230px;
+            border-radius: 100%;
+            @media (max-width: 1080px) {
+              width: 160px;
+              height: 160px;
+            }
+            @media (max-width: 767px) {
+              width: 180px;
+              height: 180px;
+            }
+            @media (max-width: 430px) {
+              width: 240px;
+              height: 240px;
+            }
           }
         }
       }

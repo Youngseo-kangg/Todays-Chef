@@ -4,7 +4,6 @@ export const ChefInfoGrid = styled.article`
   display: grid;
   grid-template-rows: 280px 1fr;
   row-gap: 50px;
-
   padding-bottom: 50px;
   @media screen and (max-width: 767px) {
     grid-template-rows: 480px 1fr;
@@ -50,17 +49,17 @@ export const ChefInformation = styled.div`
     grid-template-rows: 50px 1fr;
   }
   > #chefInfoOrder {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     width: 90%;
     max-width: 1400px;
     margin: 0 auto;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 280px) {
       width: 100%;
     }
     > li {
-      flex: 1 1 auto;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -147,7 +146,7 @@ export const ChefTextWrap = styled.div`
     width: 90%;
     margin: 0 auto;
   }
-  @media screen and (max-width: 430px) {
+  @media screen and (max-width: 280px) {
     width: 100%;
   }
   > #chefsGreeting,
@@ -190,7 +189,7 @@ export const ChefAllCourseInfo = styled.section`
     grid-template-rows: 1fr;
     grid-auto-rows: 1fr;
     row-gap: 10px;
-    flex-wrap: wrap;
+    place-items: center;
     @media screen and (max-width: 767px) {
       width: 100%;
       grid-template-rows: 1fr;
@@ -200,19 +199,19 @@ export const ChefAllCourseInfo = styled.section`
 `;
 
 export const CourseItem = styled.li`
-  width: 100%;
+  width: 90%;
   display: grid;
   grid-template-rows: 40px 1fr 100px 50px 50px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   @media screen and (max-width: 767px) {
-    width: 100%;
-    /* height: calc(100% / 3 - 20px); */
     grid-template-rows: 40px 1fr 100px 50px 50px;
   }
   @media screen and (max-width: 420px) {
-    width: 100%;
-    /* height: calc(100% / 3 - 20px); */
+    width: 95%;
     grid-template-rows: 40px 1fr 100px 50px 50px;
+  }
+  @media screen and (max-width: 280px) {
+    width: 100%;
   }
   > .courseName {
     display: grid;
@@ -306,12 +305,11 @@ export const ReviewWrap = styled.div`
   grid-template-rows: 1fr;
   grid-auto-rows: 1fr;
   row-gap: 10px;
-  flex-wrap: wrap;
   @media screen and (max-width: 767px) {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
   }
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 280px) {
     width: 100%;
   }
 `;

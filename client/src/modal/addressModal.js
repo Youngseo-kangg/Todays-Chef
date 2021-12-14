@@ -25,12 +25,19 @@ function AddressModal({
       setSearchAddress(false); // modal끄기
     }
   }; // 다음 주소 검색 API
-
+  const postCodeStyle = {
+    width: '100%',
+    height: '400px',
+  };
   return (
     <>
       <ModalBackground onClick={() => setSearchAddress(false)}>
         <DaumPostCodeWrapper>
-          <DaumPostCode onComplete={handleComplete} setAddress={setAddress} />
+          <DaumPostCode
+            onComplete={handleComplete}
+            setAddress={setAddress}
+            style={postCodeStyle}
+          />
         </DaumPostCodeWrapper>
       </ModalBackground>
     </>
