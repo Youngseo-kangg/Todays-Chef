@@ -37,8 +37,7 @@ function MobileReservationDonePage() {
             reservationData: {
               ...reservationData,
               rsDate: new Date(
-                format(reservationData.rsDate),
-                'yyyy-MM-dd HH:mm:ss'
+                format(reservationData.rsDate, 'yyyy-MM-dd HH:mm:ss')
               ),
             },
             imp_uid,
