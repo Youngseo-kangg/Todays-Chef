@@ -33,7 +33,10 @@ function MobileReservationDonePage() {
         `${url}/reservation/payments`,
         {
           data: {
-            reservationData,
+            reservationData: {
+              ...reservationData,
+              rsDate: new Date(reservationData.rsDate),
+            },
             imp_uid,
             merchant_uid,
           },
