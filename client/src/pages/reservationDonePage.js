@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { updateAccessToken, userStatus } from '../features/user/user';
 import { useSelector } from 'react-redux';
+import { format } from 'date-fns';
 import {
   MobileReservation,
   ReservationWrap,
@@ -35,7 +36,10 @@ function MobileReservationDonePage() {
           data: {
             reservationData: {
               ...reservationData,
-              rsDate: new Date(reservationData.rsDate),
+              rsDate: new Date(
+                format(reservationData.rsDate),
+                'yyyy-MM-dd HH:mm:ss'
+              ),
             },
             imp_uid,
             merchant_uid,

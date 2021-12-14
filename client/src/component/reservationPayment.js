@@ -20,7 +20,8 @@ function ReservationPayment({
   const userState = useSelector(userStatus);
   const dispatch = useDispatch();
   const reservationData = {
-    rsDate: format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss'),
+    rsDate: newData.reservDateAndTime,
+    // format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss'),
     rsTime: `${getHours(newData.reservDateAndTime)}:${format(
       newData.reservDateAndTime,
       'mm'
