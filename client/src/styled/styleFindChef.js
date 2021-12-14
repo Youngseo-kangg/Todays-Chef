@@ -30,7 +30,7 @@ export const SelectCuisine = styled.div`
       height: 170px;
       flex-direction: column;
     }
-    @media (max-width: 430px) {
+    @media (max-width: 420px) {
       width: 95%;
       height: 270px;
     }
@@ -118,8 +118,10 @@ export const ChefList = styled.section`
       grid-template-rows: 35px 1fr 20px;
     }
     @media (max-width: 430px) {
-      width: 100%;
       grid-template-rows: 30px 1fr 20px;
+    }
+    @media (max-width: 280px) {
+      width: 100%;
     }
   }
 `;
