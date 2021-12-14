@@ -65,10 +65,13 @@ export const ReservationWrap = styled.div`
   display: grid;
   grid-template-columns: 50px 1fr 50px;
   background: url(${basic_background}) center;
+  @media screen and (max-width: 420px) {
+    grid-template-columns: 30px 1fr 30px;
+  }
   &.none {
     display: none;
   }
-  &#reservDone,
+  &.reservDone,
   &#reservPayment {
     grid-template-columns: none;
     place-items: center;
@@ -79,6 +82,9 @@ export const ReservationWrap = styled.div`
     font-size: 45px;
     cursor: pointer;
     transition: all 0.2s;
+    @media screen and (max-width: 420px) {
+      font-size: 35px;
+    }
   }
   .arrow {
     display: grid;
@@ -86,6 +92,9 @@ export const ReservationWrap = styled.div`
     font-size: 45px;
     cursor: pointer;
     transition: all 0.2s;
+    @media screen and (max-width: 420px) {
+      font-size: 35px;
+    }
   }
   button:hover,
   .arrow:hover {
@@ -104,7 +113,8 @@ export const ReservNotice = styled.div`
   place-items: center;
   width: 100%;
   height: 100%;
-  #reservDoneNotice {
+  padding: 15px;
+  .reservDoneNotice {
     display: grid;
     grid-template-rows: 60px 1fr;
     width: 600px;
@@ -194,20 +204,44 @@ export const ReservDateAndInfo = styled.div`
   display: grid;
   grid-template-rows: 25px 1fr 1fr 1fr 1fr;
   grid-auto-rows: 1fr;
-  row-gap: 15px;
+  row-gap: 10px;
   word-break: keep-all;
   background-color: rgba(255, 255, 255, 0.6);
   &#reservInfo {
     min-height: 300px;
+    height: auto;
     grid-template-rows: 25px 50px 50px 50px 1fr;
     grid-auto-rows: 50px;
+    @media screen and (max-width: 420px) {
+      grid-template-rows: 25px 70px 70px 70px 1fr;
+    }
   }
   @media screen and (max-width: 767px) {
     width: 100%;
+    grid-template-rows: 30px 1fr 1fr 1fr 1fr;
+    height: auto;
+    padding: 15px;
+  }
+  @media screen and (max-width: 420px) {
+    width: 100%;
+    padding: 10px;
+    grid-template-rows: 40px 1fr 1fr 1fr 1fr;
     height: auto;
   }
+  @media screen and (max-width: 280px) {
+    width: 100%;
+    padding: 5px;
+    grid-template-rows: 40px 1fr 1fr 1fr 1fr;
+    height: auto;
+  }
+
   h2 {
     font-size: 25px;
+    display: grid;
+    place-items: center;
+    @media screen and (max-width: 420px) {
+      font-size: 20px;
+    }
   }
   .reservInputWrap {
     width: 100%;
@@ -215,12 +249,14 @@ export const ReservDateAndInfo = styled.div`
     display: grid;
     place-items: center;
     &.large {
-      height: 80px;
+      height: 150px;
     }
     .reservAlert {
-      height: 20px;
-      line-height: 20px;
       color: red;
+      font-size: 14px;
+      @media screen and (max-width: 420px) {
+        font-size: 12px;
+      }
     }
     @media screen and (max-width: 420px) {
       height: 70px;
@@ -237,11 +273,16 @@ export const ReservDateAndInfo = styled.div`
       height: 70px;
       grid-template-columns: none;
       grid-template-rows: 1fr 1fr;
+      &.large {
+        height: 150px;
+        grid-template-columns: none;
+        grid-template-rows: 35px 1fr;
+      }
     }
+
     > label {
       display: grid;
       place-items: center;
-      line-height: 1.5;
     }
     > input,
     select {
@@ -250,12 +291,21 @@ export const ReservDateAndInfo = styled.div`
       border: none;
     }
     > textarea {
-      height: 80px;
+      height: 110px;
       outline: none;
       border: none;
+      box-sizing: border-box;
     }
     #reservMainAddress {
       cursor: pointer;
     }
   }
+`;
+
+export const MobileReservation = styled.div`
+  width: 100vw;
+  min-width: 280px;
+  height: 100vh;
+  display: grid;
+  place-items: center;
 `;
