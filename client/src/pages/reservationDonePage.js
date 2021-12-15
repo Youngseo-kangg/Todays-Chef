@@ -13,15 +13,27 @@ function MobileReservationDonePage() {
   // * 성공하면 ${url}/mobile/reservationDone?reservationData=${JSON.stringify(reservationData)&imp_uid=~~~&merchant_uid=~~~&imp_success=true}
   const URLSearch = new URLSearchParams(window.location.search);
   let reservationData = JSON.parse(URLSearch.get('reservationData'));
+  let reservationRsDate = reservationData.rsDate;
   let imp_uid = URLSearch.get('imp_uid');
   let merchant_uid = URLSearch.get('merchant_uid');
   let imp_success = URLSearch.get('imp_success');
   // console.log('URLSearch.toString(): ', URLSearch.toString());
 
   console.log('reservationData: ', reservationData);
-  console.log('imp_uid: ', imp_uid);
-  console.log('merchant_uid: ', merchant_uid);
-  console.log('imp_success: ', imp_success);
+  console.log('reservationRsDate: ', reservationRsDate);
+  console.log('typeof reservationRsDate: ', typeof reservationRsDate);
+  console.log(
+    'new Date(reservationData.rsDate): ',
+    new Date(reservationData.rsDate)
+  );
+  console.log(
+    'format(new Date(reservationData.rsDate), "yyyy-MM-dd HH:mm:ss"): ',
+    format(new Date(reservationData.rsDate), 'yyyy-MM-dd HH:mm:ss')
+  );
+  console.log(
+    'new Date(format(new Date(reservationData.rsDate), "yyyy-MM-dd HH:mm:ss")): ',
+    new Date(format(new Date(reservationData.rsDate), 'yyyy-MM-dd HH:mm:ss'))
+  );
 
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userState = useSelector(userStatus);

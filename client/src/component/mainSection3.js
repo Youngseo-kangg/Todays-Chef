@@ -38,7 +38,7 @@ function MainSection3() {
     }
     // * halfStar 처리 : 0~1 사이에 rest가 있는지, 0~0.5면 none, 0.5이상이면 halfStar
     if (0 < rest && rest < 1) {
-      if (0 < rest && rest <= 0.5) {
+      if (0 < rest && rest < 0.5) {
         arr.push(noneStar);
       } else {
         arr.push(halfStar);

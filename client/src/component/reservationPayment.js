@@ -21,6 +21,7 @@ function ReservationPayment({
   const dispatch = useDispatch();
   const reservationData = {
     rsDate: newData.reservDateAndTime,
+    // rsDate 자체는 date객체
     // format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss'),
     rsTime: `${getHours(newData.reservDateAndTime)}:${format(
       newData.reservDateAndTime,
