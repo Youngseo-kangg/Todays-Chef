@@ -121,44 +121,49 @@ export const MainSection2Wrap = styled.div`
       row-gap: 15px;
     }
     > .cuisineBtn {
-      width: 100%;
-      height: 80px;
-      border-radius: 10px;
-      background-color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      @media (max-width: 767px) {
-      }
-      :hover {
-        background-color: #603224;
-        color: #fff;
-      }
-      > img {
-        width: 50px;
-        height: 50px;
-        @media (max-width: 1080px) {
-          width: 40px;
-          height: 40px;
+      > a {
+        width: 100%;
+        height: 100%;
+        display: block;
+        width: 100%;
+        height: 80px;
+        border-radius: 10px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        @media (max-width: 767px) {
         }
-      }
-      > .cuisineText {
-        margin-left: 10px;
-        > h4 {
-          font-size: 20px;
-          text-align: left;
+        :hover {
+          background-color: #603224;
+          color: #fff;
+        }
+        > img {
+          width: 50px;
+          height: 50px;
           @media (max-width: 1080px) {
-            font-size: 15px;
+            width: 40px;
+            height: 40px;
           }
         }
-        > p {
-          padding-top: 5px;
-          font-size: 13px;
-          @media (max-width: 1080px) {
-            font-size: 9px;
+        > .cuisineText {
+          margin-left: 10px;
+          > h4 {
+            font-size: 20px;
+            text-align: left;
+            @media (max-width: 1080px) {
+              font-size: 15px;
+            }
+          }
+          > p {
+            padding-top: 5px;
+            font-size: 13px;
+            @media (max-width: 1080px) {
+              font-size: 9px;
+            }
           }
         }
       }

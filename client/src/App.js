@@ -29,15 +29,8 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch();
-  // const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // 로그인 모달창 상태
-  // const [isLoginErrorModalOpen, setIsLoginErrorModalOpen] = useState(false); // 로그인 에러 모당창 상태
-  // const [isServerError, setIsServerError] = useState(false);
-  // const [isLogout, setIsLogout] = useState(false);
-
   const modalState = useSelector(modalStatus);
   const userState = useSelector(userStatus);
-  // console.log('App.js에서 userStatus: ', userState);
-
   useEffect(() => {
     if (
       window.location.href === 'https://www.todayschef.click' ||
