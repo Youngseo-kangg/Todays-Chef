@@ -4,14 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  openLoginErrorModal,
+  openServerErrorModal,
+  openLoginModal,
+} from '../features/user/modal';
 import { login, userStatus } from '../features/user/user';
 import { LoginFormWrap } from '../styled/styledLogin';
 import { useForm } from 'react-hook-form';
+import { chefLogin } from '../features/chef/chef';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function Login({ setIsLoginModalOpen }) {
+// function Login({ setIsLoginModalOpen }) {
+function Login() {
+  const userState = useSelector(userStatus);
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
@@ -37,29 +45,55 @@ function Login({ setIsLoginModalOpen }) {
         email: data.loginEmail,
         password: data.loginPassword,
       });
-      console.log('login 완료', loginResult.data.message);
-
+      // console.log('login 완료', loginResult.data.message);
       if (loginResult.data.message === 'ok') {
-        console.log('login 완료', loginResult);
+        if (loginResult.data.userInfo.chefId) {
+          // 셰프라면
+          dispatch(chefLogin({ chefId: loginResult.data.userInfo.chefId }));
+        }
+        delete loginResult.data.userInfo.chefId; // 바로 지우기
+        // console.log({
+        //   ...loginResult.data.userInfo,
+        //   accessToken: loginResult.data.accessToken,
+        // });
         dispatch(
           login({
             ...loginResult.data.userInfo,
             accessToken: loginResult.data.accessToken,
           })
         );
-        setIsLoginModalOpen(true);
+        dispatch(openLoginModal());
       }
     } catch (err) {
-      console.log(err.response.data.message);
-      if (err.response.data.message === 'Invalid User') {
-        // alert('로그인에 실패하였습니다.');
-        setIsErrorLogin(true);
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      } else if (err.response.data.message === 'Invalid User') {
+        dispatch(openLoginErrorModal());
+      } else if (err.response.data.message === 'You Already Signed up') {
+        dispatch(openLoginErrorModal());
       }
     }
   };
 
   const onError = (error) => {
     console.log(error);
+  };
+
+  const redirect_uri =
+    process.env.REACT_APP_REDIRECT_URI || `http://localhost:3000`;
+
+  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${redirect_uri}&response_type=code`;
+
+  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${redirect_uri}&response_type=code&scope=profile email&access_type=offline`;
+
+  const handleKakaoLogin = () => {
+    localStorage.setItem('socialType', 'kakao');
+    window.location.assign(KAKAO_LOGIN_URL);
+  };
+
+  const handleGoogleLogin = () => {
+    localStorage.setItem('socialType', 'google');
+    window.location.assign(GOOGLE_LOGIN_URL);
   };
 
   // console.log('loginState: ', loginState);
@@ -112,10 +146,10 @@ function Login({ setIsLoginModalOpen }) {
       <div id='socialLogin'>
         <p>간편 로그인/회원가입</p>
         <ul>
-          <li>
+          <li onClick={handleKakaoLogin}>
             <FontAwesomeIcon icon={faComment} />
           </li>
-          <li>
+          <li onClick={handleGoogleLogin}>
             <FontAwesomeIcon icon={faGoogle} />
           </li>
         </ul>

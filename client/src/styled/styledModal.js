@@ -2,13 +2,15 @@ import styled from 'styled-components';
 
 export const ModalBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.25);
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: fixed;
   z-index: 99999;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  display: grid;
+  place-items: center;
 `;
 
 export const ModalBox = styled.div`
@@ -128,5 +130,22 @@ export const LogoutModalBox = styled.div`
         margin-left: 20px;
       }
     }
+  }
+`;
+
+export const PictureModalBox = styled.div`
+  > img {
+    width: 100px;
+    height: 100px;
+  }
+`;
+
+export const DaumPostCodeWrapper = styled.div`
+  width: 600px;
+  @media screen and (max-width: 767px) {
+    width: 95%;
+  }
+  @media screen and (max-width: 420px) {
+    width: 100%;
   }
 `;

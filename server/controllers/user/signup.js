@@ -6,11 +6,9 @@ dotenv.config();
 module.exports = {
   post: async (req, res) => {
     const newUserData = req.body;
-    console.log('newUserData: ', newUserData);
     const { email, password, nickname } = newUserData;
 
     const encryptedPw = encryptPwd(password);
-    console.log('encryptedPw: ', encryptedPw);
 
     const findNickname = await user.findOne({
       where: { nickname },
@@ -21,11 +19,9 @@ module.exports = {
 
     if (findEmail && !findNickname) {
       res.status(400).json({ message: 'same email' });
-    } else if (!findEmail && findNickname) {
-      res.status(400).json({ message: 'same nickname' });
     } else if (findNickname && findEmail) {
       res.status(400).json({ message: 'invalid User' });
-    } else if (!findNickname && !findEmail) {
+    } else if ((!findNickname && !findEmail) || (!findEmail && findNickname)) {
       res.status(200).json({ message: 'ok' });
 
       await user.create({
@@ -35,6 +31,8 @@ module.exports = {
         userImg: '',
         isChef: false,
         isOauth: false,
+        isAdmin: false,
+        isSubmit: false,
       });
     }
   },

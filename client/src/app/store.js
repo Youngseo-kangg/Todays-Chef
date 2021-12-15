@@ -12,19 +12,23 @@ import {
 } from 'redux-persist';
 
 import userReducer from '../features/user/user';
+import modalReducer from '../features/user/modal';
 import reviewReducer from '../features/review/review';
 import reservationReducer from '../features/reservation/reservation';
+import chefReducer from '../features/chef/chef';
 
 const reducers = combineReducers({
   user: userReducer,
+  modal: modalReducer,
   review: reviewReducer,
   reservation: reservationReducer,
+  chef: chefReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'chef', 'modal'],
   blacklist: ['review', 'reservation'],
 };
 

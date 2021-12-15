@@ -2,15 +2,16 @@ import styled from 'styled-components';
 
 export const FindChefGrid = styled.article`
   display: grid;
-  grid-template-rows: 300px 1055px;
+  grid-template-rows: 300px 1fr;
   row-gap: 50px;
-  margin-bottom: 50px;
+  padding-bottom: 50px;
   min-width: 280px;
+  background-color: rgba(219, 184, 154, 0.4);
   @media (max-width: 767px) {
-    grid-template-rows: 380px 1915px;
+    grid-template-rows: 380px 1fr;
   }
   @media (max-width: 430px) {
-    grid-template-rows: 460px 3470px;
+    grid-template-rows: 460px 1fr;
   }
 `;
 
@@ -29,7 +30,8 @@ export const SelectCuisine = styled.div`
       height: 170px;
       flex-direction: column;
     }
-    @media (max-width: 430px) {
+    @media (max-width: 420px) {
+      width: 95%;
       height: 270px;
     }
 
@@ -101,23 +103,25 @@ export const SelectCuisine = styled.div`
 `;
 
 export const ChefList = styled.section`
-  /* border: 1px solid red; */
   box-sizing: border-box;
   display: grid;
   place-items: center;
+
   #chefListWrap {
-    /* border: 1px solid red; */
     box-sizing: border-box;
     width: 95%;
     max-width: 1400px;
     display: grid;
-    grid-template-rows: 35px 940px 20px;
+    grid-template-rows: 35px 1fr 20px;
     grid-row-gap: 25px;
     @media (max-width: 767px) {
-      grid-template-rows: 35px 1800px 20px;
+      grid-template-rows: 35px 1fr 20px;
     }
     @media (max-width: 430px) {
-      grid-template-rows: 30px 3370px 20px;
+      grid-template-rows: 30px 1fr 20px;
+    }
+    @media (max-width: 280px) {
+      width: 100%;
     }
   }
 `;
@@ -145,27 +149,32 @@ export const ChefListTitleWrap = styled.div`
 export const ChefItemList = styled.div`
   display: flex;
   ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-auto-rows: 1fr;
+    row-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-columns: 1fr;
+    column-gap: 10px;
+    @media (max-width: 767px) {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 420px) {
+      grid-template-columns: 1fr;
+    }
     li {
-      /* border: 1px solid blue; */
       box-sizing: border-box;
-      width: calc(100% / 4 - 10px);
+      width: 100%;
+      cursor: pointer;
       display: grid;
-      grid-template-rows: 300px 1fr 1fr 1fr;
-      row-gap: 15px;
-      margin-bottom: 15px;
+      grid-template-rows: 300px 30px 20px 20px;
+      row-gap: 10px;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       transition: 0.3s;
-      @media (max-width: 767px) {
-        width: calc(100% / 2 - 10px);
-      }
-      @media (max-width: 430px) {
-        width: 100%;
-        row-gap: 10px;
-      }
+      background-color: #fff;
       :hover {
         transform: translateY(-10px);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -200,9 +209,9 @@ export const ChefItemList = styled.div`
             width: 180px;
             height: 180px;
           }
-          @media (max-width: 430px) {
-            width: 240px;
-            height: 240px;
+          @media (max-width: 420px) {
+            width: 200px;
+            height: 200px;
           }
         }
       }
@@ -210,17 +219,22 @@ export const ChefItemList = styled.div`
   }
 `;
 export const ChefStar = styled.div`
-  background-color: pink;
-  width: 60%;
+  width: 100px;
   height: 100%;
   margin: 0 auto;
   display: grid;
   font-size: 18px;
   place-items: center;
+  > div {
+    > img {
+      padding: 2px;
+      width: 20px;
+      height: 20px;
+    }
+  }
 `;
 
 export const PagenationList = styled.div`
-  border: 1px solid red;
   max-width: 1400px;
   width: 100%;
   height: 100%;
@@ -233,6 +247,8 @@ export const PagenationList = styled.div`
     justify-content: space-evenly;
     > li {
       cursor: pointer;
+      display: grid;
+      place-items: center;
     }
   }
 `;

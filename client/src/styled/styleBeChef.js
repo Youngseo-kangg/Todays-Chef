@@ -11,6 +11,7 @@ export const BeAChefGrid = styled.article`
   grid-template-rows: 90vh 761px 300px;
   grid-row-gap: 200px;
   min-width: 280px;
+  background-color: rgba(219, 184, 154, 0.4);
   @media (max-width: 767px) {
     grid-template-rows: 90vh 726px 300px;
     grid-row-gap: 150px;
@@ -55,6 +56,8 @@ export const BeAChefIntro = styled.section`
 
 export const BeAChefDesc = styled.section`
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   display: grid;
   grid-template-rows: 35px 486px 200px;
   grid-row-gap: 20px;
@@ -140,7 +143,8 @@ export const BeAChefDesc = styled.section`
     height: 80px;
     word-break: keep-all;
     > p {
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: rgba(96, 50, 36, 0.5);
+      color: #fff;
       font-size: 16px;
       display: grid;
       place-items: center;
@@ -153,7 +157,7 @@ export const BeAChefDesc = styled.section`
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: rgba(96, 50, 36, 0.5);
       color: #fff;
       font-size: 20px;
       display: grid;
@@ -176,7 +180,9 @@ export const BeAChefResumeWrap = styled.section`
   display: grid;
   padding: 0 50px;
   grid-template-rows: 35px 53px 212px;
-
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   #resumeTitleWrap {
     width: 100%;
     display: flex;
@@ -204,7 +210,7 @@ export const BeAChefResumeWrap = styled.section`
     width: 100%;
     height: 100%;
     place-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(96, 50, 36, 0.5);
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
@@ -212,17 +218,18 @@ export const BeAChefResumeWrap = styled.section`
   #resumeForm {
     /* border: 1px solid red; */
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 40px;
     grid-row-gap: 20px;
-    width: 80%;
-    height: 50%;
+    width: 60%;
+    height: auto;
     > #submitBtn {
       width: 30%;
       min-width: 100px;
       margin: 0 auto;
-      background-color: #dbb89a;
+      background-color: rgba(255, 255, 255, 0.9);
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       border-radius: 5px;
+      cursor: pointer;
       border: none;
       outline: none;
     }
@@ -230,18 +237,20 @@ export const BeAChefResumeWrap = styled.section`
       display: block;
       width: 100%;
       height: 100%;
-      background-color: rgba(255, 255, 255, 0.3);
       border-radius: 5px;
       display: grid;
-      grid-template-columns: 1fr 3fr;
-      grid-column-gap: 10px;
-      grid-template-rows: 100%;
+      /* grid-template-rows: 100%; */
+      grid-template-rows: 50px;
+      row-gap: 5px;
+      grid-auto-rows: 20px;
       > input {
         height: 100%;
       }
-      > select {
-        border: none;
-        border-radius: 5px;
+      > p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
       }
       #resumeFileWrap {
         display: grid;
@@ -262,6 +271,9 @@ export const BeAChefResumeWrap = styled.section`
           min-width: 45px;
         }
       }
+    }
+    @media (max-width: 767px) {
+      width: 90%;
     }
     @media (max-width: 420px) {
       width: 100%;
