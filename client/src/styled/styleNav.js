@@ -205,6 +205,7 @@ export const MymenuSmall = styled.ul`
       display: grid;
       height: 190px;
       grid-template-rows: 40px 150px;
+      margin-top: 0;
       > p {
         line-height: 40px;
       }
@@ -218,6 +219,7 @@ export const MymenuSmall = styled.ul`
     width: 100%;
     height: 80px;
     line-height: 80px;
+    margin-top: 20px;
     @media (max-width: 430px) {
       height: 40px;
       line-height: 40px;
