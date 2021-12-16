@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const ModalBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.25);
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: fixed;
   z-index: 99999;
   /* display: flex;
@@ -142,4 +142,10 @@ export const PictureModalBox = styled.div`
 
 export const DaumPostCodeWrapper = styled.div`
   width: 600px;
+  @media screen and (max-width: 767px) {
+    width: 95%;
+  }
+  @media screen and (max-width: 420px) {
+    width: 100%;
+  }
 `;

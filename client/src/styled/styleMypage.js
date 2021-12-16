@@ -144,13 +144,21 @@ export const MypageReservContent = styled.div`
     column-gap: 10px;
     @media (max-width: 420px) {
       grid-template-columns: none;
-      grid-template-rows: 40px 1fr 50px;
+      grid-template-rows: 40px 1fr 70px;
     }
     #deleteReserve {
       width: 100%;
       height: 100%;
       display: grid;
+      grid-template-rows: repeat(2, 1fr);
+      row-gap: 10px;
       place-items: center;
+      @media (max-width: 420px) {
+        grid-template-rows: none;
+        row-gap: 0px;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 10px;
+      }
       > button {
         background-color: rgba(255, 255, 255, 0.3);
         color: #fff;

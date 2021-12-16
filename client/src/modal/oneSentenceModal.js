@@ -9,17 +9,16 @@ function OneSentenceModal() {
     dispatch(closeFailModal());
     window.location.replace('/findChef');
   };
-  const returnToMypage = () => {
-    dispatch(closeFailModal());
-  };
 
   const relocation = () => {
     if (window.location.href.includes('/mypage')) {
-      return returnToMypage();
+      return dispatch(closeFailModal());
     } else if (window.location.href.includes('/findChef')) {
       return returnToFindChef();
     } else if (window.location.href.includes('/reservation')) {
       return returnToFindChef();
+    } else if (window.location.href.includes('/loginOrSignup')) {
+      return dispatch(closeFailModal());
     }
   };
 

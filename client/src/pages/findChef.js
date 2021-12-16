@@ -18,6 +18,8 @@ import {
 import fullStar from '../todaysChefIMG/ratingStar.svg';
 import halfStar from '../todaysChefIMG/halfStar.svg';
 import noneStar from '../todaysChefIMG/noneStar.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateSearchWord, modalStatus } from '../features/user/modal';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -25,7 +27,9 @@ axios.defaults.withCredentials = true;
 function FindChef() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const history = useHistory();
-  const [selected, setSelected] = useState('한식'); // select 선택값 -> 최신순, 별점순
+  // const [selected, setSelected] = useState('한식'); // select 선택값 -> 최신순, 별점순
+  const dispatch = useDispatch();
+  const modalState = useSelector(modalStatus);
   const [chefData, setChefData] = useState([]);
   const [chefsPerPage, setChefsPerPage] = useState({
     start: 0,
@@ -35,12 +39,12 @@ function FindChef() {
   }); // 몇개를 가져올지
 
   const handleSelected = (cuisine) => {
-    setSelected(cuisine); // select값 업데이트
+    dispatch(updateSearchWord({ searchWord: cuisine })); // select값 업데이트
   }; // select에서 선택하는대로 값 변경 + 요청하기
 
   const getChefList = async () => {
     try {
-      let encodeSelected = encodeURI(encodeURIComponent(selected));
+      let encodeSelected = encodeURI(encodeURIComponent(modalState.searchWord));
       const result = await axios.get(
         `${url}/chef/${encodeSelected}?startNum=0&endNum=4`
       ); // axios 요청 (무조건 처음엔 0~3개만)
@@ -61,7 +65,7 @@ function FindChef() {
 
   const getChefListMore = async (start, end) => {
     try {
-      let encodeSelected = encodeURI(encodeURIComponent(selected));
+      let encodeSelected = encodeURI(encodeURIComponent(modalState.searchWord));
       const result = await axios.get(
         `${url}/chef/${encodeSelected}?startNum=${start}&endNum=${end}`
       ); // axios 요청 (무조건 처음엔 0~3개만)
@@ -82,125 +86,30 @@ function FindChef() {
   };
 
   useEffect(() => {
-    getChefList(); // 0~3 데이터값 가져오기
-  }, [selected]); // 로드 되자마자 + select값 변경 될때 마다 리렌더링
+    getChefList(); // 기본값 한식으로 0~3 데이터값 가져오기
+  }, [modalState.searchWord]); // 로드 되자마자 + select값 변경 될때 마다 리렌더링
 
   const ratingStar = (el, idx) => {
-    const arr = [];
-    const NumRating = Number(el.rating);
-
-    if (NumRating >= 0 && NumRating < 0.5) {
-      arr.push(
-        <div key={idx}>
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 0.5 && NumRating < 1) {
-      arr.push(
-        <div key={idx}>
-          <img src={halfStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 1 && NumRating < 1.5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 1.5 && NumRating < 2) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={halfStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 2 && NumRating < 2.5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 2.5 && NumRating < 3) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={halfStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 3 && NumRating < 3.5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={noneStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 3.5 && NumRating < 4) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={halfStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 4 && NumRating < 4.5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={noneStar} alt='' />
-        </div>
-      );
-    } else if (NumRating >= 4.5 && NumRating < 5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={halfStar} alt='' />
-        </div>
-      );
-    } else if (NumRating === 5) {
-      arr.push(
-        <div key={idx}>
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-          <img src={fullStar} alt='' />
-        </div>
-      );
+    let arr = [];
+    let NumRating = Number(el.rating);
+    let parsed = parseInt(NumRating);
+    let rest = NumRating - parsed;
+    //* fullStar 처리 : 정수로 만들어 버려서 있으면 무조건 다 주기
+    for (let i = 0; i < parsed; i++) {
+      arr.push(fullStar);
     }
-
+    // * halfStar 처리 : 0~1 사이에 rest가 있는지, 0~0.5면 none, 0.5이상이면 halfStar
+    if (0 < rest && rest < 1) {
+      if (0 < rest && rest < 0.5) {
+        arr.push(noneStar);
+      } else {
+        arr.push(halfStar);
+      }
+    }
+    // * 남은 부분에 noneStar 넣어주기
+    for (let i = arr.length; i < 5; i++) {
+      arr.push(noneStar);
+    }
     return arr;
   };
 
@@ -252,7 +161,7 @@ function FindChef() {
       <ChefList>
         <div id='chefListWrap'>
           <ChefListTitleWrap>
-            <h2>{selected} 셰프</h2>
+            <h2>{modalState.searchWord} 셰프</h2>
           </ChefListTitleWrap>
 
           <ChefItemList>
@@ -277,7 +186,13 @@ function FindChef() {
                       </Link>
                     </h3>
 
-                    <ChefStar>{ratingStar(el, idx)}</ChefStar>
+                    <ChefStar key={idx}>
+                      <div>
+                        {ratingStar(el, idx).map((ele, idx) => {
+                          return <img src={ele} alt='별점' key={idx} />;
+                        })}
+                      </div>
+                    </ChefStar>
                     <span>{el.rating}</span>
                   </li>
                 );

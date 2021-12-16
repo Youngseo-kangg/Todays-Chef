@@ -11,6 +11,7 @@ import { modalStatus } from '../features/user/modal';
 import DeleteReservModal from '../modal/deleteReservModal';
 import OneSentenceModal from '../modal/oneSentenceModal';
 import OneSentenceSuccessModal from '../modal/oneSentenceSuccessModal';
+import NeedReLoginModal from '../modal/needReLoginModal';
 import ChoiceModal from '../modal/choiceModal';
 
 function Mypage() {
@@ -29,6 +30,7 @@ function Mypage() {
 
   return (
     <>
+      {modalState.isNeedReLoginModalOpen ? <NeedReLoginModal /> : null}
       {modalState.isServerErrorModalOpen ? <ServerErrorModal /> : null}
       {modalState.isDeleteReservModalOpen !== 0 ? <DeleteReservModal /> : null}
       {modalState.failModalOpen ? <OneSentenceModal /> : null}

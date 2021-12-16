@@ -12,6 +12,7 @@ const initialState = {
   isSubmitCompleteModalOpen: false, // 제출 완료 되었다는 모달
   isDeleteReservModalOpen: 0, // 예약 삭제 할건지 + 삭제 하는 모달
   isAdminOrChefWarningModalOpen: false, // 셰프나 admin이라서 예약 안된다는 모달
+  searchWord: '한식',
   merchantUid: '',
   failModalOpen: false,
   failMessage: '',
@@ -114,6 +115,9 @@ export const modalSlice = createSlice({
       state.choiceTitle = '';
       state.choiceMessage = '';
     },
+    updateSearchWord: (state, action) => {
+      state.searchWord = action.payload.searchWord;
+    },
   },
 });
 
@@ -144,6 +148,7 @@ export const {
   closeSuccessModal,
   openChoiceModal,
   closeChoiceModal,
+  updateSearchWord,
 } = modalSlice.actions;
 export const modalStatus = (state) => state.modal;
 export default modalSlice.reducer;

@@ -21,7 +21,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { reservationStatus } from '../features/reservation/reservation';
 import { updateAccessToken, userStatus } from '../features/user/user';
-import { openFailModal, openIsDeleteReservModal } from '../features/user/modal';
+import {
+  openFailModal,
+  openIsNeedReLoginModal,
+  openServerErrorModal,
+  openIsDeleteReservModal,
+} from '../features/user/modal';
 import { getReservation } from '../features/reservation/reservation';
 import { modalStatus } from '../features/user/modal';
 import { chefStatus } from '../features/chef/chef';
@@ -76,6 +81,7 @@ function MypageReservation() {
     merchantUid: '',
     receiptUrl: '',
   });
+
   useEffect(() => {
     if (modalState.isDeleteReservModalOpen === 0 && !userState.isChef) {
       axios
@@ -83,8 +89,8 @@ function MypageReservation() {
           headers: { authorization: `bearer ${userState.accessToken}` },
         })
         .then((result) => {
-          console.log(result);
           if (result.data.accessToken) {
+            console.log('accessToken 있어서 들어옴');
             dispatch(
               updateAccessToken({ accessToken: result.data.accessToken })
             );
@@ -110,6 +116,14 @@ function MypageReservation() {
             receiptUrl: '',
           });
           dispatch(getReservation({ reservationData: result.data.data }));
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.message === 'Network Error') {
+            dispatch(openServerErrorModal());
+          } else if (err.response.data.message === 'Send new Login Request') {
+            dispatch(openIsNeedReLoginModal());
+          }
         });
     } else if (modalState.isDeleteReservModalOpen === 0 && userState.isChef) {
       axios
@@ -119,6 +133,7 @@ function MypageReservation() {
         .then((result) => {
           console.log(result);
           if (result.data.accessToken) {
+            console.log('accessToken 있어서 들어옴');
             dispatch(
               updateAccessToken({ accessToken: result.data.accessToken })
             );
@@ -140,6 +155,14 @@ function MypageReservation() {
             merchantUid: '',
           });
           dispatch(getReservation({ reservationData: result.data.data }));
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.message === 'Network Error') {
+            dispatch(openServerErrorModal());
+          } else if (err.response.data.message === 'Send new Login Request') {
+            dispatch(openIsNeedReLoginModal());
+          }
         });
     }
   }, [modalState.isDeleteReservModalOpen]);
@@ -259,7 +282,6 @@ function MypageReservation() {
       }
     }
   };
-  console.log(selectedDateStateChef);
 
   return (
     <MypageReservContent>
@@ -309,10 +331,10 @@ function MypageReservation() {
                         ? format(new Date(day), 'MM/dd')
                         : format(new Date(day), 'dd')}
                     </div>
-                    {reservationState.data.map((el) =>
+                    {reservationState.data.map((el, idx) =>
                       format(new Date(el.rsDate), 'yyyy-MM-dd') ===
                       format(new Date(day), 'yyyy-MM-dd') ? (
-                        <div className='reservedDate'></div>
+                        <div key={idx} className='reservedDate'></div>
                       ) : null
                     )}
                   </div>

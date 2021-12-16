@@ -2,7 +2,7 @@ import { ModalBackground, PictureModalBox } from '../styled/styledModal';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import { useState } from 'react';
 
-function PictureModal({ setMagnifyPic }) {
+function PictureModal({ setMagnifyPic, magnifyPic }) {
   const clickOk = () => {
     setMagnifyPic({
       picState: false, // 사진 모달 상태 다시 끄기
@@ -14,7 +14,10 @@ function PictureModal({ setMagnifyPic }) {
     <>
       <ModalBackground>
         <PictureModalBox>
-          <img src={basic_profile} alt='예시 사진' />
+          <img
+            src={magnifyPic.picAddress ? magnifyPic.picAddress : basic_profile}
+            alt='예시 사진'
+          />
           <div id='confirmBtn'>
             <button onClick={clickOk}>닫기</button>
           </div>

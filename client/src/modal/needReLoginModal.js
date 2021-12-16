@@ -5,9 +5,9 @@ import { closeIsNeedReLoginModal } from '../features/user/modal';
 
 function NeedReLoginModal() {
   const dispatch = useDispatch();
-  const clickOk = () => {
+  const clickOk = async () => {
     dispatch(closeIsNeedReLoginModal()); // 모달 끄기
-    dispatch(logout()); // 로그아웃 처리
+    await dispatch(logout()); // 로그아웃 처리
     window.location.replace('/');
   };
 
