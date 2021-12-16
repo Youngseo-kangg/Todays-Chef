@@ -396,18 +396,19 @@ export const UserReview = styled.div`
       width: 210px;
       height: 90%;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr;
+      grid-auto-columns: 1fr;
       column-gap: 10px;
     }
     .reviewPicture {
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
+
       img {
         width: 60px;
         height: 60px;
-
+        cursor: pointer;
         display: grid;
         place-items: center;
       }

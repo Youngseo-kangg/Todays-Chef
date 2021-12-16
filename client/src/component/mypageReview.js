@@ -22,7 +22,7 @@ import {
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function MypageReview() {
+function MypageReview({ setMagnifyPic, magnifyPic }) {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const dispatch = useDispatch();
   const userState = useSelector(userStatus);
@@ -74,7 +74,6 @@ function MypageReview() {
         headers: { authorization: `bearer ${userState.accessToken}` },
       })
       .then((result) => {
-        console.log(result.data.data);
         if (result.data.accessToken) {
           dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
         }
@@ -101,9 +100,13 @@ function MypageReview() {
   const handleWriting = (el) => {
     setWriteReviewContent({
       reservation: el.reservation,
-      review: el.review,
+      review: {
+        id: el.review.id,
+        eval: el.review.eval,
+        rating: 1,
+      },
     });
-    handleStarClick(1);
+    handleStarClick(1); // 1점으로 세팅 (아직 안쓴 상태면 el.review.rating이 null이라 해줘야 함)
     setSelected(true); // 선택했다고 바꿔줌
     setWriteOrShowReview(false); // 글 쓰는걸로 바꿔주기
   };
@@ -135,15 +138,22 @@ function MypageReview() {
 
   const handleStarClick = (index) => {
     let clickStates = [...clicked];
-    for (let i = 1; i <= 5; i++) {
-      clickStates[i] = i <= index ? true : false;
+    for (let i = 0; i < 5; i++) {
+      clickStates[i] = i < index ? true : false;
     }
     setClicked(clickStates);
   };
 
+  const showPicture = (address) => {
+    setMagnifyPic({
+      picState: true,
+      picAddress: address,
+    });
+  }; // 사진 크게 보여주는 함수
+
   useEffect(() => {
     updateReview();
-  }, [clicked]); // 별 업뎃
+  }, [clicked]); // 클릭해서 별 업뎃 -> 점수도 업뎃
 
   const updateReview = () => {
     let score = clicked.filter(Boolean).length; // 별을 클릭한 갯수
@@ -154,8 +164,9 @@ function MypageReview() {
         id: writeReviewContent.review.id,
         rating: Number(score),
       },
-    });
+    }); // 점수 업뎃
   };
+
   // TODO: 5. 사진 업로드 하면 제목 바뀌기 + 업로드 사진 없으면 다른 문구 처리
   const changeProfileBtn = (event) => {
     let formData = new FormData();
@@ -190,7 +201,7 @@ function MypageReview() {
         // 만약 사진 업로드 한게 있다면 사진 올려주고
         if (userPicTitle.length !== 0) {
           let imageRes = await axios.post(
-            `${url}/mypage/review/${userState.userId}`,
+            `${url}/mypage/review/${writeReviewContent.review.id}`,
             userPic,
             {
               headers: {
@@ -213,10 +224,6 @@ function MypageReview() {
         );
         if (patchResult.data.message === 'ok') {
           // accessToken 있으면 업데이트
-          console.log(
-            'patchResult.data.accessToken: ',
-            patchResult.data.accessToken
-          );
           if (patchResult.data.accessToken) {
             dispatch(
               updateAccessToken({ accessToken: patchResult.data.accessToken })
@@ -263,7 +270,6 @@ function MypageReview() {
     for (let i = arr.length; i < 5; i++) {
       arr.push(noneStar);
     }
-    console.log(arr);
     return arr;
   };
   return (
@@ -285,15 +291,15 @@ function MypageReview() {
               ) : (
                 <>
                   {writeOrShowReview ? ( //true면 글 읽기, false면 쓰기
-                    <div id='myRecentReview'>
+                    <div id='myRecentReview' className='showPic'>
                       <div id='myRecentReviewExtra'>
-                        <div id='myRecentCommentTitle' className='showReview'>
+                        <div id='myRecentCommentTitle'>
                           <h3>
                             {userState.nickname}님이 작성하신{' '}
                             {format(
                               new Date(showReviewContent.reservation.rsDate),
                               'yyyy-MM-dd'
-                            )}
+                            )}{' '}
                             예약에 대한 리뷰입니다.
                           </h3>
                         </div>
@@ -308,14 +314,21 @@ function MypageReview() {
                         </ChefStar>
                         <div id='myRecentCommentPic'>
                           <div id='myRecentCommentPicList'>
-                            {showReviewContent.review.rvImg.length === 0 ? (
+                            {showReviewContent.review.rvImg === '' ? (
                               <p>업로드한 사진이 없습니다.</p>
                             ) : (
-                              showReviewContent.reservation.rvImg.map(
-                                (el, idx) => {
-                                  return <p key={idx}>{el}</p>;
-                                }
-                              )
+                              showReviewContent.review.rvImg
+                                .split(',')
+                                .map((el, idx) => {
+                                  return (
+                                    <img
+                                      src={el}
+                                      key={idx}
+                                      alt='리뷰 사진'
+                                      onClick={() => showPicture(el)}
+                                    />
+                                  );
+                                })
                             )}
                           </div>
                         </div>
@@ -349,7 +362,7 @@ function MypageReview() {
                                   key={idx}
                                   size='20'
                                   onClick={() => handleStarClick(el)}
-                                  className={clicked[el] && 'brownStar'}
+                                  className={clicked[el - 1] && 'brownStar'}
                                 />
                               );
                             })}
@@ -412,7 +425,7 @@ function MypageReview() {
                       <li
                         key={idx}
                         onClick={
-                          el.review.eval === '' && // el.review.eval 작성한적이 없고
+                          (el.review.eval === '' || el.review.eval === null) && // el.review.eval 작성한적이 없고
                           isBefore(
                             new Date(),
                             addDays(new Date(el.reservation.rsDate), 7)
@@ -444,13 +457,6 @@ function MypageReview() {
                     );
                   })}
                 </ul>
-                <PagenationList>
-                  <ul>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                  </ul>
-                </PagenationList>
               </div>
             </div>
           </>
