@@ -388,29 +388,22 @@ export const UserReview = styled.div`
     }
   }
   .reviewPicture {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    place-items: center;
     background-color: #dbb89a;
     > .reviewPictureFrame {
-      width: 210px;
       height: 90%;
       display: grid;
-      grid-template-columns: 1fr;
-      grid-auto-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
       column-gap: 10px;
-    }
-    .reviewPicture {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      img {
-        width: 60px;
-        height: 60px;
-        cursor: pointer;
+      .reviewPictureItem {
         display: grid;
         place-items: center;
+        img {
+          width: 60px;
+          height: 60px;
+          cursor: pointer;
+        }
       }
     }
   }
