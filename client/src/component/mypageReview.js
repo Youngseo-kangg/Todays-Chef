@@ -7,6 +7,10 @@ import { useEffect, useState } from 'react';
 import { updateAccessToken, userStatus } from '../features/user/user';
 import { getReview, reviewStatus } from '../features/review/review';
 import { modalStatus } from '../features/user/modal';
+import { ChefStar } from '../styled/styleFindChef';
+import fullStar from '../todaysChefIMG/ratingStar.svg';
+import halfStar from '../todaysChefIMG/halfStar.svg';
+import noneStar from '../todaysChefIMG/noneStar.svg';
 import { format, isAfter, isBefore, addDays } from 'date-fns';
 import {
   openFailModal,
@@ -75,6 +79,14 @@ function MypageReview() {
           dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
         }
         dispatch(getReview({ data: result.data.data }));
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.message === 'Network Error') {
+          dispatch(openServerErrorModal());
+        } else if (err.response.data.message === 'Send new Login Request') {
+          dispatch(openIsNeedReLoginModal());
+        }
       });
   };
   useEffect(() => {
@@ -201,6 +213,10 @@ function MypageReview() {
         );
         if (patchResult.data.message === 'ok') {
           // accessToken 있으면 업데이트
+          console.log(
+            'patchResult.data.accessToken: ',
+            patchResult.data.accessToken
+          );
           if (patchResult.data.accessToken) {
             dispatch(
               updateAccessToken({ accessToken: patchResult.data.accessToken })
@@ -226,6 +242,30 @@ function MypageReview() {
     }
   };
 
+  const ratingStar = (el) => {
+    let arr = [];
+    let NumRating = Number(el);
+    let parsed = parseInt(NumRating);
+    let rest = NumRating - parsed;
+    //* fullStar 처리 : 정수로 만들어 버려서 있으면 무조건 다 주기
+    for (let i = 0; i < parsed; i++) {
+      arr.push(fullStar);
+    }
+    // * halfStar 처리 : 0~1 사이에 rest가 있는지, 0~0.5면 none, 0.5이상이면 halfStar
+    if (0 < rest && rest < 1) {
+      if (0 < rest && rest < 0.5) {
+        arr.push(noneStar);
+      } else {
+        arr.push(halfStar);
+      }
+    }
+    // * 남은 부분에 noneStar 넣어주기
+    for (let i = arr.length; i < 5; i++) {
+      arr.push(noneStar);
+    }
+    console.log(arr);
+    return arr;
+  };
   return (
     <>
       <MypageReviewContent
@@ -257,7 +297,15 @@ function MypageReview() {
                             예약에 대한 리뷰입니다.
                           </h3>
                         </div>
-                        <div id='myRecentCommentStar'>⭐⭐⭐⭐⭐</div>
+                        <ChefStar key={showReviewContent.review.id}>
+                          <div>
+                            {ratingStar(showReviewContent.review.rating).map(
+                              (ele, idx) => {
+                                return <img src={ele} alt='별점' key={idx} />;
+                              }
+                            )}
+                          </div>
+                        </ChefStar>
                         <div id='myRecentCommentPic'>
                           <div id='myRecentCommentPicList'>
                             {showReviewContent.review.rvImg.length === 0 ? (

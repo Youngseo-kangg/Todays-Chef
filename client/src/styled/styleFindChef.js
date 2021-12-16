@@ -4,8 +4,9 @@ export const FindChefGrid = styled.article`
   display: grid;
   grid-template-rows: 300px 1fr;
   row-gap: 50px;
-  margin-bottom: 50px;
+  padding-bottom: 50px;
   min-width: 280px;
+  background-color: rgba(219, 184, 154, 0.4);
   @media (max-width: 767px) {
     grid-template-rows: 380px 1fr;
   }
@@ -29,7 +30,7 @@ export const SelectCuisine = styled.div`
       height: 170px;
       flex-direction: column;
     }
-    @media (max-width: 430px) {
+    @media (max-width: 420px) {
       width: 95%;
       height: 270px;
     }
@@ -54,6 +55,7 @@ export const SelectCuisine = styled.div`
         border-radius: 10px;
         width: calc(100% / 4 - 20px);
         transition: 0.3s;
+        cursor: pointer;
         @media (max-width: 767px) {
           width: calc(100% / 2 - 10px);
           :nth-child(1),
@@ -116,8 +118,10 @@ export const ChefList = styled.section`
       grid-template-rows: 35px 1fr 20px;
     }
     @media (max-width: 430px) {
-      width: 100%;
       grid-template-rows: 30px 1fr 20px;
+    }
+    @media (max-width: 280px) {
+      width: 100%;
     }
   }
 `;
@@ -170,6 +174,7 @@ export const ChefItemList = styled.div`
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       transition: 0.3s;
+      background-color: #fff;
       :hover {
         transform: translateY(-10px);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -214,7 +219,7 @@ export const ChefItemList = styled.div`
   }
 `;
 export const ChefStar = styled.div`
-  width: 60%;
+  width: 100px;
   height: 100%;
   margin: 0 auto;
   display: grid;

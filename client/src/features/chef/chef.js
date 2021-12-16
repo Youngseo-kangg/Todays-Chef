@@ -20,6 +20,18 @@ export const chefSlice = createSlice({
     chefLogin: (state, action) => {
       state.chefId = action.payload.chefId;
     },
+    chefLogout: (state) => {
+      state.chefId = -1;
+      state.chefName = '';
+      state.cuisine = '';
+      state.chefImg = '';
+      state.greeting = '';
+      state.career = '';
+      state.values = '';
+      state.rating = '';
+      state.chUserId = -1;
+      state.courses = [];
+    },
     chefMypage: (state, action) => {
       state.chefName = action.payload.chefName;
       state.cuisine = action.payload.cuisine;
@@ -48,18 +60,6 @@ export const chefSlice = createSlice({
       );
       state.courses.splice(target, 1);
       state.courses = state.courses;
-    },
-    chefLogout: (state) => {
-      state.userId = -1;
-      state.nickname = '';
-      state.userImg = '';
-      state.email = '';
-      state.isChef = false;
-      state.isOauth = false;
-      state.isSubmit = false;
-      state.isAdmin = false;
-      state.accessToken = null;
-      state.courses = [];
     },
   },
 });

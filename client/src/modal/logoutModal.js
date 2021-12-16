@@ -9,22 +9,25 @@ import {
 } from '../features/user/modal';
 import { logout, userStatus } from '../features/user/user';
 import axios from 'axios';
-import { chefLogout } from '../features/chef/chef';
+import { chefLogout, chefStatus } from '../features/chef/chef';
 
 function LogoutModal() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const dispatch = useDispatch();
   const userInfo = useSelector(userStatus);
+  const chefInfo = useSelector(chefStatus);
   // const modalState = useSelector(modalStatus);
   // console.log('LogoutModal에서 modalStatus: ', modalState);
-
+  console.log(userInfo);
+  console.log(chefInfo);
   const clickOk = async () => {
     try {
       let result = await axios.get(`${url}/user/logout`, {
         headers: { authorization: `Bearer ${userInfo.accessToken}}` },
       });
+      console.log(result);
       if (result.data.message === 'ok') {
-        if (userInfo.isChef) {
+        if (userInfo.isChef === true) {
           // 셰프라면 셰프정보도 없애주기
           dispatch(chefLogout());
         }

@@ -9,7 +9,7 @@ import {
   openServerErrorModal,
   openLoginModal,
 } from '../features/user/modal';
-import { login } from '../features/user/user';
+import { login, userStatus } from '../features/user/user';
 import { LoginFormWrap } from '../styled/styledLogin';
 import { useForm } from 'react-hook-form';
 import { chefLogin } from '../features/chef/chef';
@@ -19,6 +19,7 @@ axios.defaults.withCredentials = true;
 
 // function Login({ setIsLoginModalOpen }) {
 function Login() {
+  const userState = useSelector(userStatus);
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
@@ -45,14 +46,16 @@ function Login() {
         password: data.loginPassword,
       });
       // console.log('login 완료', loginResult.data.message);
-      console.log(loginResult.data.userInfo);
       if (loginResult.data.message === 'ok') {
-        console.log('login 완료', loginResult);
         if (loginResult.data.userInfo.chefId) {
           // 셰프라면
           dispatch(chefLogin({ chefId: loginResult.data.userInfo.chefId }));
         }
         delete loginResult.data.userInfo.chefId; // 바로 지우기
+        // console.log({
+        //   ...loginResult.data.userInfo,
+        //   accessToken: loginResult.data.accessToken,
+        // });
         dispatch(
           login({
             ...loginResult.data.userInfo,

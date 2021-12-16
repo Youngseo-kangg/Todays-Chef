@@ -7,9 +7,11 @@ module.exports = {
   post: async (req, res) => {
     const accessVerify = isAuthorized(req);
     const findBechef = await bechef.findOne({ where: { id: req.body.id } });
+    console.log('findBechef: ', findBechef);
     const findEmail = await user.findOne({
       where: { id: findBechef.dataValues.bcUserId },
     });
+    console.log('findEmail: ', findEmail);
 
     if (req.params.isConfirm === 'confirm') {
       if (!accessVerify) {
@@ -21,10 +23,11 @@ module.exports = {
           // ***nodeMail 해주기
           delete refreshVerify.exp;
           const accessToken = basicAccessToken(refreshVerify);
-          successMail(
+          let mail = await successMail(
             findEmail.dataValues.email,
             findEmail.dataValues.nickname
           );
+          console.log('mail: ', mail);
           await user.update(
             { isSubmit: false, isChef: true },
             { where: { id: findBechef.dataValues.bcUserId } }
@@ -45,7 +48,11 @@ module.exports = {
         }
       } else {
         // ***nodeMail 해주기
-        successMail(findEmail.dataValues.email, findEmail.dataValues.nickname);
+        let mail = await successMail(
+          findEmail.dataValues.email,
+          findEmail.dataValues.nickname
+        );
+        console.log('mail: ', mail);
         await user.update(
           { isSubmit: false, isChef: true },
           { where: { id: findBechef.dataValues.bcUserId } }
@@ -73,7 +80,11 @@ module.exports = {
           // ***nodeMail 해주기
           delete refreshVerify.exp;
           const accessToken = basicAccessToken(refreshVerify);
-          failMail(findEmail.dataValues.email, findEmail.dataValues.nickname);
+          let failmail = await failMail(
+            findEmail.dataValues.email,
+            findEmail.dataValues.nickname
+          );
+          console.log('failmail: ', failmail);
           await user.update(
             { isSubmit: false },
             { where: { id: findBechef.dataValues.bcUserId } }
@@ -84,7 +95,11 @@ module.exports = {
         }
       } else {
         // ***nodeMail 해주기
-        failMail(findEmail.dataValues.email, findEmail.dataValues.nickname);
+        let failmail = await failMail(
+          findEmail.dataValues.email,
+          findEmail.dataValues.nickname
+        );
+        console.log('failmail: ', failmail);
         await user.update(
           { isSubmit: false },
           { where: { id: findBechef.dataValues.bcUserId } }

@@ -7,6 +7,7 @@ import ReservationInfo from '../component/reservationInfo';
 import ReservationPayment from '../component/reservationPayment';
 import ReservationDone from '../component/reservationDone';
 import OneSentenceModal from '../modal/oneSentenceModal';
+import NeedReLoginModal from '../modal/needReLoginModal';
 import {
   ReservationGrid,
   ReservationTitle,
@@ -14,7 +15,12 @@ import {
   ReservationDesc,
 } from '../styled/styleReservation';
 import { userStatus } from '../features/user/user';
-import { openFailModal, modalStatus } from '../features/user/modal';
+import {
+  openFailModal,
+  openServerErrorModal,
+  openIsNeedReLoginModal,
+  modalStatus,
+} from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { setHours, setMinutes } from 'date-fns';
@@ -82,16 +88,17 @@ function Reservation() {
   const [titleInfo, setTitleInfo] = useState({
     chefName: '',
     course: {},
+    reservation: [],
   });
-  const querys = window.location.search.slice(1).split('&');
-  const queryChefId = querys[0].split('=')[1];
-  const queryCourseId = querys[1].split('=')[1];
+  const URLSearch = new URLSearchParams(window.location.search);
+  const queryChefId = URLSearch.get('chefId');
+  const queryCourseId = URLSearch.get('courseId');
 
   useEffect(() => {
     if (userState.isChef || userState.isAdmin) {
       dispatch(
         openFailModal({
-          message: `관리자 또는 셰프는 <br /> 예약할 수 없습니다.`,
+          message: `관리자 또는 셰프는 예약할 수 없습니다.`,
         })
       );
     } else if (
@@ -113,7 +120,16 @@ function Reservation() {
           setTitleInfo({
             chefName: data.data.data.chefName,
             course: data.data.data.course,
+            reservation: data.data.data.rsDate,
           });
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.message === 'Network Error') {
+            dispatch(openServerErrorModal());
+          } else if (err.response.data.message === 'Send new Login Request') {
+            dispatch(openIsNeedReLoginModal());
+          }
         });
     }
   }, []);
@@ -121,6 +137,7 @@ function Reservation() {
   return (
     <>
       {modalState.failModalOpen ? <OneSentenceModal /> : null}
+      {modalState.isNeedReLoginModalOpen ? <NeedReLoginModal /> : null}
       {searchAddress === true ? (
         <AddressModal
           setSearchAddress={setSearchAddress}
@@ -162,6 +179,7 @@ function Reservation() {
                 addressErr={addressErr}
                 titleInfo={titleInfo}
                 queryChefId={queryChefId}
+                reservation={titleInfo.reservation}
               />
               <ReservationInfo
                 makeReservation={makeReservation}
@@ -182,9 +200,7 @@ function Reservation() {
             />
           ) : null}
 
-          {makeReservation === 4 ? (
-            <ReservationDone setMakeReservation={setMakeReservation} />
-          ) : null}
+          {makeReservation === 4 ? <ReservationDone /> : null}
         </ReservationDesc>
       </ReservationGrid>
     </>

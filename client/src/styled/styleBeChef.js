@@ -11,7 +11,7 @@ export const BeAChefGrid = styled.article`
   grid-template-rows: 90vh 761px 300px;
   grid-row-gap: 200px;
   min-width: 280px;
-  background: rgba(96, 50, 36, 0.5);
+  background-color: rgba(219, 184, 154, 0.4);
   @media (max-width: 767px) {
     grid-template-rows: 90vh 726px 300px;
     grid-row-gap: 150px;

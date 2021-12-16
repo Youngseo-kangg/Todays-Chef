@@ -93,7 +93,9 @@ function BeAChef() {
             updateAccessToken({ accessToken: submitResult.data.accessToken })
           );
         }
-        dispatch(sumbitBechef()); // dispatch로 submit 바꿔주기
+        setResumeName(''); // 이름 초기화
+        setResumePdf({}); // 파일 초기화
+        dispatch(sumbitBechef()); // dispatch로 isSubmit 바꿔주기
         dispatch(openIsSubmitCompleteModal()); // submit 완료했다는 모달 띄워주기
       }
     } catch (err) {
