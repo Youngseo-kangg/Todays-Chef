@@ -185,7 +185,7 @@ export const ChefAllCourseInfo = styled.section`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-columns: 1fr;
-    column-gap: 10px;
+    column-gap: 20px;
     grid-template-rows: 1fr;
     grid-auto-rows: 1fr;
     row-gap: 10px;
@@ -199,7 +199,8 @@ export const ChefAllCourseInfo = styled.section`
 `;
 
 export const CourseItem = styled.li`
-  width: 90%;
+  width: 100%;
+  height: 100%;
   display: grid;
   grid-template-rows: 40px 1fr 100px 50px 50px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);

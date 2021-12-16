@@ -331,10 +331,10 @@ function MypageReservation() {
                         ? format(new Date(day), 'MM/dd')
                         : format(new Date(day), 'dd')}
                     </div>
-                    {reservationState.data.map((el) =>
+                    {reservationState.data.map((el, idx) =>
                       format(new Date(el.rsDate), 'yyyy-MM-dd') ===
                       format(new Date(day), 'yyyy-MM-dd') ? (
-                        <div className='reservedDate'></div>
+                        <div key={idx} className='reservedDate'></div>
                       ) : null
                     )}
                   </div>
