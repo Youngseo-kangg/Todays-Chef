@@ -617,9 +617,10 @@ export const MypageEditContent = styled.div`
           }
           > button {
             background-color: #ff6d6d;
-            color: #000;
+            color: #fff;
+            font-weight: bold;
             padding: 8px;
-            font-size: 14px;
+            font-size: 12px;
             border-radius: 5px;
             cursor: pointer;
           }
