@@ -202,8 +202,6 @@ export const BestOfChefsWrap = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    background-color: red;
-
     li {
       /* border: 1px solid blue; */
       box-sizing: border-box;
@@ -226,7 +224,6 @@ export const BestOfChefsWrap = styled.div`
       > a {
         width: 100%;
         height: 100%;
-        background-color: orange;
         display: grid;
         grid-template-rows: 50px 300px 1fr 1fr 1fr;
         row-gap: 15px;
@@ -235,7 +232,6 @@ export const BestOfChefsWrap = styled.div`
         }
         > .bestCuisine {
           width: 60%;
-          background-color: pink;
           font-size: 18px;
           line-height: 50px;
           border-bottom: 2px solid #dbb89a;
@@ -248,7 +244,6 @@ export const BestOfChefsWrap = styled.div`
           place-items: center;
           box-sizing: border-box;
           margin: 0 auto;
-          background-color: green;
         }
         > span {
           display: grid;
@@ -259,7 +254,6 @@ export const BestOfChefsWrap = styled.div`
           }
         }
         > .chefPic {
-          /* border: 1px solid red; */
           display: grid;
           place-items: center;
           width: 100%;
