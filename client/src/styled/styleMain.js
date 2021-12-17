@@ -14,6 +14,9 @@ export const MainGrid = styled.div`
   @media (max-width: 430px) {
     grid-template-rows: 100vh 450px 800px 550px;
   }
+  @media (max-width: 280px) {
+    grid-template-rows: 100vh 450px 1500px 550px;
+  }
 `;
 
 export const MainBackgroundWrap = styled.div`
@@ -217,6 +220,9 @@ export const BestOfChefsWrap = styled.div`
       @media (max-width: 430px) {
         height: 350px;
       }
+      @media (max-width: 280px) {
+        width: calc(100% / 1 - 10px);
+      }
       :hover {
         transform: translateY(-10px);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -268,9 +274,6 @@ export const BestOfChefsWrap = styled.div`
             @media (max-width: 767px) {
               width: 180px;
               height: 180px;
-            }
-            @media (max-width: 430px) {
-              width: 90%;
             }
           }
         }
