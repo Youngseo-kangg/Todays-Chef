@@ -134,9 +134,18 @@ export const LogoutModalBox = styled.div`
 `;
 
 export const PictureModalBox = styled.div`
+  #confirmBtn button {
+    background: #dbb89a;
+    border-radius: 100%;
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
   > img {
-    width: 100px;
-    height: 100px;
+    display: block;
+    width: 100%;
+    max-width: 90vw;
+    height: auto;
+    max-height: 90vh;
   }
 `;
 

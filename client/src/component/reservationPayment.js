@@ -70,12 +70,12 @@ function ReservationPayment({
         status,
       } = response;
       if (success) {
-        console.log('성공성공!!!');
         // 결제가 성공한 경우
         // * axios로 서버에 정보 보내서 결제정보 저장
         const webUrl = 'https://server.todayschef.click';
         let postResult = await axios.post(
           `${webUrl}/reservation/payments`,
+          // `http://localhost:4000/reservation/payments`,
           {
             data: {
               reservationData: {

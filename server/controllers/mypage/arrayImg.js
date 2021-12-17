@@ -7,7 +7,6 @@ module.exports = {
     // console.log(req.files);
     const accessVerify = isAuthorized(req);
     const saveImg = req.files.map((el) => el.location).join(',');
-
     if (!accessVerify) {
       const refreshVerify = refreshAuthorized(req);
       // refreshToken 만료

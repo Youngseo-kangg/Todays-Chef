@@ -133,10 +133,11 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
                           <p>등록한 사진이 없습니다.</p>
                         ) : (
                           <div className='reviewPictureFrame'>
-                            {el.rvImg.split(',').map((ele) => {
+                            {el.rvImg.split(',').map((ele, idx) => {
                               return (
                                 <div
-                                  className='reviewPicture'
+                                  key={idx}
+                                  className='reviewPictureItem'
                                   onClick={() => showPicture(ele)}
                                 >
                                   <img src={ele} alt='코스 사진' />

@@ -13,11 +13,17 @@ import OneSentenceModal from '../modal/oneSentenceModal';
 import OneSentenceSuccessModal from '../modal/oneSentenceSuccessModal';
 import NeedReLoginModal from '../modal/needReLoginModal';
 import ChoiceModal from '../modal/choiceModal';
+import PictureModal from '../modal/pictureModal';
 
 function Mypage() {
+  const [magnifyPic, setMagnifyPic] = useState({
+    picState: false, // 사진 모달 상태
+    picAddress: '', // 사진 저장되어 있는 s3버킷의 주소
+  });
+
   const menuList = {
     0: <MypageReservation />,
-    1: <MypageReview />,
+    1: <MypageReview setMagnifyPic={setMagnifyPic} magnifyPic={magnifyPic} />,
     2: <MypageEdit />,
     3: <MypageChefEdit />,
   }; // mypage component 리스트
@@ -30,6 +36,9 @@ function Mypage() {
 
   return (
     <>
+      {magnifyPic.picState ? (
+        <PictureModal setMagnifyPic={setMagnifyPic} magnifyPic={magnifyPic} />
+      ) : null}
       {modalState.isNeedReLoginModalOpen ? <NeedReLoginModal /> : null}
       {modalState.isServerErrorModalOpen ? <ServerErrorModal /> : null}
       {modalState.isDeleteReservModalOpen !== 0 ? <DeleteReservModal /> : null}
