@@ -89,7 +89,6 @@ function Reservation() {
   const URLSearch = new URLSearchParams(window.location.search);
   const queryChefId = URLSearch.get('chefId');
   const queryCourseId = URLSearch.get('courseId');
-
   useEffect(() => {
     if (userState.isChef || userState.isAdmin) {
       dispatch(
@@ -196,6 +195,7 @@ function Reservation() {
             <ReservationPayment
               setMakeReservation={setMakeReservation}
               newData={newData}
+              titleInfo={titleInfo}
               queryChefId={queryChefId}
               queryCourseId={queryCourseId}
             />

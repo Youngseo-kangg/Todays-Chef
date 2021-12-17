@@ -63,48 +63,57 @@ export const ReservationWrap = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 50px 1fr 50px;
+  place-items: center;
   background: url(${basic_background}) center;
-  @media screen and (max-width: 420px) {
-    grid-template-columns: 30px 1fr 30px;
-  }
   &.none {
     display: none;
   }
-  &.reservDone,
-  &#reservPayment {
-    grid-template-columns: none;
-    place-items: center;
-  }
-  button {
-    display: block;
-    background-color: transparent;
-    font-size: 45px;
-    cursor: pointer;
-    transition: all 0.2s;
-    @media screen and (max-width: 420px) {
-      font-size: 35px;
-    }
-  }
-  .arrow {
+  .reservationWrapper {
+    width: 800px;
     display: grid;
-    place-items: center;
-    font-size: 45px;
-    cursor: pointer;
-    transition: all 0.2s;
-    @media screen and (max-width: 420px) {
-      font-size: 35px;
+    grid-template-columns: 50px 1fr 50px;
+    @media screen and (max-width: 767px) {
+      width: 100%;
     }
-  }
-  button:hover,
-  .arrow:hover {
-    color: #fff;
-  }
-  > .reservScheduleAndInfo {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
+    @media screen and (max-width: 420px) {
+      grid-template-columns: 30px 1fr 30px;
+    }
+    &.none {
+      display: none;
+    }
+    &.reservDone,
+    &#reservPayment {
+      grid-template-columns: none;
+      place-items: center;
+    }
+    button {
+      display: block;
+      background-color: transparent;
+      font-size: 45px;
+      cursor: pointer;
+      transition: all 0.2s;
+      @media screen and (max-width: 420px) {
+        font-size: 35px;
+      }
+    }
+    .arrow {
+      display: grid;
+      place-items: center;
+      font-size: 45px;
+      cursor: pointer;
+      transition: all 0.2s;
+      @media screen and (max-width: 420px) {
+        font-size: 35px;
+      }
+    }
+    button:hover,
+    .arrow:hover {
+      color: #fff;
+    }
+    > .reservScheduleAndInfo {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;
 
@@ -196,7 +205,7 @@ export const ReservNotice = styled.div`
 `;
 
 export const ReservDateAndInfo = styled.div`
-  width: 70%;
+  width: 100%;
   height: auto;
   max-width: 700px;
   border-radius: 10px;

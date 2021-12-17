@@ -4,7 +4,7 @@ import { updateAccessToken, userStatus } from '../features/user/user';
 import { ReservationWrap, ReservNotice } from '../styled/styleReservation';
 import { openFailModal } from '../features/user/modal';
 import { format, getHours, getMinutes } from 'date-fns';
-
+import { madeReservation } from '../features/reservation/reservation';
 import axios from 'axios';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -14,6 +14,7 @@ function ReservationPayment({
   newData,
   queryChefId,
   queryCourseId,
+  titleInfo,
 }) {
   console.log('payment에서 프롭스로 받아온 newData: ', newData);
   const url = 'https://todayschef.click/mobile/reservationDone';
@@ -36,7 +37,6 @@ function ReservationPayment({
     rsChefId: Number(queryChefId),
     allergy: newData.reservAllergy,
   };
-  console.log('reservationData: ', reservationData);
   const iamportPayment = () => {
     // * 2-1. 결제 준비 (가맹점 식별코드 사용해 IMP 객체 초기화)
     const IMP = window.IMP;
@@ -53,9 +53,11 @@ function ReservationPayment({
       buyer_tel: newData.reservMobile,
       buyer_addr: newData.reservMainAddress,
       buyer_postcode: newData.postal,
-      m_redirect_url: `${url}?reservationData=${JSON.stringify(
-        reservationData
-      )}`,
+      m_redirect_url: `${url}?chefName=${encodeURIComponent(
+        titleInfo.chefName
+      )}&courseName=${encodeURIComponent(
+        titleInfo.course.courseName
+      )}&reservationData=${JSON.stringify(reservationData)}`,
     }; // IMP.request_pay에 담길 data
     const callback = async (response) => {
       const {
@@ -91,6 +93,16 @@ function ReservationPayment({
         );
         if (postResult.data.status === 'success') {
           // * 결제 정보 저장 후 다음페이지로
+          dispatch(
+            madeReservation({
+              newData: {
+                ...reservationData,
+                rsDate: String(reservationData.rsDate),
+                chefName: titleInfo.chefName,
+                courseName: titleInfo.course.courseName,
+              },
+            })
+          ); // redux reservation 업뎃시켜주기
           setMakeReservation(4); // 다음페이지로 넘겨주기
         }
       } else {
