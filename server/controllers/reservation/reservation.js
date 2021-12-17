@@ -35,7 +35,7 @@ module.exports = {
         allergy: allergy,
         location: location,
         mobile: mobile,
-        rsDate: rsDate,
+        rsDate: cur_date_korea,
         rsTime: rsTime,
         isOven: isOven,
         burner: burner,

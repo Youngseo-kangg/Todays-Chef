@@ -14,7 +14,6 @@ module.exports = {
   post: async (req, res) => {
     try {
       const { imp_uid, merchant_uid } = req.body.data;
-
       const {
         people,
         allergy,
@@ -30,13 +29,7 @@ module.exports = {
         rsCourseId,
         merchent_uid,
       } = req.body.data.reservationData;
-
       const accessVerify = isAuthorized(req);
-
-      // console.log(refreshVerify);
-
-      console.log('req : ', req.body.data);
-      console.log('accssVeri : ', accessVerify);
 
       if (!accessVerify) {
         const refreshVerify = refreshAuthorized(req);
@@ -52,7 +45,7 @@ module.exports = {
             allergy: allergy,
             location: location,
             mobile: mobile,
-            rsDate: rsDate,
+            rsDate: cur_date_korea,
             rsTime: rsTime,
             isOven: isOven,
             burner: burner,
@@ -72,8 +65,6 @@ module.exports = {
             rvReservationId: makeReservation.dataValues.id,
           });
 
-          console.log('첫빠따');
-
           const getToken = await axios({
             url: 'https://api.iamport.kr/users/getToken',
             method: 'post', // POST method
@@ -85,20 +76,12 @@ module.exports = {
           });
           const { access_token } = getToken.data.response; // 인증 토큰
 
-          console.log('req_body', req.body);
-          console.log('getToken : ', getToken.data);
-
-          console.log('imp_uid', req.body.data.imp_uid);
-
           const getPaymentData = await axios({
             url: `https://api.iamport.kr/payments/${imp_uid}`, // imp_uid 전달
             method: 'get', // GET method
             headers: { Authorization: access_token }, // 인증 토큰 Authorization header에 추가
           });
           const paymentData = getPaymentData.data.response; // 조회한 결제 정보
-
-          console.log('getPaymentData : ', getPaymentData);
-          console.log('aaa', paymentData);
 
           await reservation.update(
             {
@@ -135,7 +118,7 @@ module.exports = {
           allergy: allergy,
           location: location,
           mobile: mobile,
-          rsDate: rsDate,
+          rsDate: cur_date_korea,
           rsTime: rsTime,
           isOven: isOven,
           burner: burner,
@@ -155,8 +138,6 @@ module.exports = {
           rvReservationId: makeReservation.dataValues.id,
         });
 
-        console.log('첫빠따');
-
         const getToken = await axios({
           url: 'https://api.iamport.kr/users/getToken',
           method: 'post', // POST method
@@ -168,20 +149,12 @@ module.exports = {
         });
         const { access_token } = getToken.data.response; // 인증 토큰
 
-        console.log('req_body', req.body);
-        console.log('getToken : ', getToken.data);
-
-        console.log('imp_uid', req.body.data.imp_uid);
-
         const getPaymentData = await axios({
           url: `https://api.iamport.kr/payments/${imp_uid}`, // imp_uid 전달
           method: 'get', // GET method
           headers: { Authorization: access_token }, // 인증 토큰 Authorization header에 추가
         });
         const paymentData = getPaymentData.data.response; // 조회한 결제 정보
-
-        console.log('getPaymentData : ', getPaymentData);
-        console.log('aaa', paymentData);
 
         await reservation.update(
           {

@@ -18,22 +18,11 @@ function MobileReservationDonePage() {
   let merchant_uid = URLSearch.get('merchant_uid');
   let imp_success = URLSearch.get('imp_success');
   // console.log('URLSearch.toString(): ', URLSearch.toString());
-
-  console.log('reservationData: ', reservationData);
-  console.log('reservationRsDate: ', reservationRsDate);
-  console.log('typeof reservationRsDate: ', typeof reservationRsDate);
-  console.log(
-    'new Date(reservationData.rsDate): ',
-    new Date(reservationData.rsDate)
-  );
-  console.log(
-    'format(new Date(reservationData.rsDate), "yyyy-MM-dd HH:mm:ss"): ',
-    format(new Date(reservationData.rsDate), 'yyyy-MM-dd HH:mm:ss')
-  );
-  console.log(
-    'new Date(format(new Date(reservationData.rsDate), "yyyy-MM-dd HH:mm:ss")): ',
-    new Date(format(new Date(reservationData.rsDate), 'yyyy-MM-dd HH:mm:ss'))
-  );
+  let utc =
+    new Date(reservationRsDate).getTime() +
+    new Date(reservationRsDate).getTimezoneOffset() * 60 * 1000;
+  let time_diff = 9 * 60 * 60 * 1000;
+  let cur_date_korea = new Date(utc + time_diff);
 
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userState = useSelector(userStatus);
@@ -48,7 +37,7 @@ function MobileReservationDonePage() {
           data: {
             reservationData: {
               ...reservationData,
-              rsDate: new Date(reservationData.rsDate),
+              rsDate: cur_date_korea,
             },
             imp_uid,
             merchant_uid,

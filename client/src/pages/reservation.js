@@ -23,7 +23,7 @@ import {
 } from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { setHours, setMinutes } from 'date-fns';
+import { addDays, setHours, setMinutes } from 'date-fns';
 import { reservationStatus } from '../features/reservation/reservation';
 
 require('dotenv').config();
@@ -31,14 +31,11 @@ axios.defaults.withCredentials = true;
 
 function Reservation() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
-  let today = new Date(); //오늘
   const dispatch = useDispatch();
   const userState = useSelector(userStatus);
   const modalState = useSelector(modalStatus);
-  const reservationState = useSelector(reservationStatus);
   const [newData, setNewData] = useState({});
   const [makeReservation, setMakeReservation] = useState(0);
-  const [startDate, setStartDate] = useState(new Date());
   const {
     register,
     watch,
@@ -48,7 +45,7 @@ function Reservation() {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      reservDateAndTime: setHours(setMinutes(new Date(startDate), 0), 13),
+      reservDateAndTime: '',
       reservSubAddress: '',
       reservPeople: 2,
       reservMobile: '',
@@ -118,9 +115,14 @@ function Reservation() {
           setTitleInfo({
             chefName: data.data.data.chefName,
             course: data.data.data.course,
-            reservation: data.data.data.rsDate,
+            reservation: data.data.data.rsDate.map((el) => {
+              let utc =
+                new Date(el).getTime() +
+                new Date(el).getTimezoneOffset() * 60 * 1000;
+              let time_diff = 9 * 60 * 60 * 1000;
+              return new Date(utc + time_diff); // 한국 시간차에 맞춤
+            }),
           });
-          // * 시작일 잡아주기
         })
         .catch((err) => {
           console.log(err);
@@ -132,8 +134,7 @@ function Reservation() {
         });
     }
   }, []);
-  console.log('titleInfo.reservation: ', titleInfo.reservation);
-  console.log('reservationState: ', reservationState);
+
   return (
     <>
       {modalState.failModalOpen ? <OneSentenceModal /> : null}

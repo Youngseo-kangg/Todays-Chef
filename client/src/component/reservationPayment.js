@@ -21,8 +21,6 @@ function ReservationPayment({
   const dispatch = useDispatch();
   const reservationData = {
     rsDate: newData.reservDateAndTime,
-    // rsDate 자체는 date객체
-    // format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss'),
     rsTime: `${getHours(newData.reservDateAndTime)}:${format(
       newData.reservDateAndTime,
       'mm'
@@ -38,7 +36,7 @@ function ReservationPayment({
     rsChefId: Number(queryChefId),
     allergy: newData.reservAllergy,
   };
-
+  console.log('reservationData: ', reservationData);
   const iamportPayment = () => {
     // * 2-1. 결제 준비 (가맹점 식별코드 사용해 IMP 객체 초기화)
     const IMP = window.IMP;
@@ -74,16 +72,11 @@ function ReservationPayment({
         // * axios로 서버에 정보 보내서 결제정보 저장
         const webUrl = 'https://server.todayschef.click';
         let postResult = await axios.post(
-          `${webUrl}/reservation/payments`,
-          // `http://localhost:4000/reservation/payments`,
+          // `${webUrl}/reservation/payments`,
+          `http://localhost:4000/reservation/payments`,
           {
             data: {
-              reservationData: {
-                ...reservationData,
-                rsDate: new Date(
-                  format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss')
-                ),
-              },
+              reservationData,
               imp_uid,
               merchant_uid,
             },
@@ -96,7 +89,6 @@ function ReservationPayment({
             },
           }
         );
-        console.log('aaa', postResult);
         if (postResult.data.status === 'success') {
           // * 결제 정보 저장 후 다음페이지로
           setMakeReservation(4); // 다음페이지로 넘겨주기

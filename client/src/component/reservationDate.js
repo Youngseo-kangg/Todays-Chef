@@ -5,12 +5,13 @@ import '../styled/customCalander.css';
 import { ReservationWrap, ReservDateAndInfo } from '../styled/styleReservation';
 import subDays from 'date-fns/subDays';
 import { ko } from 'date-fns/esm/locale';
-import { getYear, getMonth, setHours, setMinutes } from 'date-fns';
+import { getYear, getMonth, setHours, setMinutes, addDays } from 'date-fns';
 import { Controller } from 'react-hook-form';
 import { useEffect } from 'react';
 import { reservationStatus } from '../features/reservation/reservation';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import format from 'date-fns/format';
 
 function ReservationDate({
   makeReservation,
@@ -19,12 +20,10 @@ function ReservationDate({
   control,
   errors,
   setSearchAddress,
-  searchAddress,
   address,
   addressErr,
   titleInfo,
   reservation,
-  queryChefId,
 }) {
   // console.log(reservation); // ['2021-12-24T07:00:00.000Z']
   const months = [
@@ -48,12 +47,26 @@ function ReservationDate({
       document.getElementsByClassName('react-datepicker__day') || [];
     if (element) element.focus();
   };
-  // const handleCalendarClose = () =>
-  //   document.removeEventListener('touchstart', handleTouchStart, true);
-
   const reservationState = useSelector(reservationStatus);
-
   let dateFormat = 'yyyy년 MMMM dd일, aa h:mm';
+
+  useEffect(() => {
+    // * startDate 재설정 -> startDate가 titleInfo.reservation이나 reservationState에서 벗어날 때 까지 while문에서 date++1 해주기?
+    // const newTitleInfo = titleInfo.reservation.map((el) => {
+    //   return format(el, 'yyyy-MM-dd');
+    // }); // ['2021-12-19']
+    // const tempReservationState = reservationState.data.map((el) => {
+    //   let utc =
+    //     new Date(el.rsDate).getTime() +
+    //     new Date(el.rsDate).getTimezoneOffset() * 60 * 1000;
+    //   let time_diff = 9 * 60 * 60 * 1000;
+    //   return new Date(utc + time_diff);
+    // });
+    // const newReservationState = tempReservationState.map((el) => {
+    //   return format(el, 'yyyy-MM-dd');
+    // }); // ['2021-12-19', '2021-12-15'];
+  }, []);
+
   return (
     <>
       <ReservationWrap className={makeReservation === 1 ? null : 'none'}>
@@ -71,6 +84,7 @@ function ReservationDate({
                   name='reservDateAndTime'
                   format={dateFormat}
                   defaultValue={null}
+                  rules={{ required: '날짜를 선택해 주세요.' }}
                   render={({ field }) => (
                     <DatePicker
                       withPortal
@@ -92,9 +106,9 @@ function ReservationDate({
                         setHours(setMinutes(new Date(), 0), 19),
                       ]}
                       excludeDates={[
-                        // new Date(),
-                        // subDays(new Date(), -1),
-                        ...reservation.map((el) => new Date(el)),
+                        new Date(),
+                        addDays(new Date(), 1),
+                        ...titleInfo.reservation.map((el) => new Date(el)),
                         ...reservationState.data.map(
                           (el) => new Date(el.rsDate)
                         ),
@@ -145,6 +159,11 @@ function ReservationDate({
                   )}
                 ></Controller>
               </div>
+              {errors.reservDateAndTime && (
+                <span className='reservAlert'>
+                  {errors.reservDateAndTime.message}
+                </span>
+              )}
             </div>
 
             <div className='reservInputWrap'>
