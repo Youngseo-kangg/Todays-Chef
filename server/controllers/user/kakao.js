@@ -1,4 +1,4 @@
-const { user, chef } = require('../../models');
+const { user, chef, reservation } = require('../../models');
 const axios = require('axios');
 const { basicAccessToken } = require('../token/accessToken');
 const {
@@ -30,8 +30,6 @@ module.exports = {
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     }); // 카카오에서 가지고 온 유저 정보
-    console.log('유저 정보 : ', userData.data);
-
     const findUser = await user.findOne({
       where: { email: userData.data.kakao_account.email },
     });
@@ -49,28 +47,30 @@ module.exports = {
           delete userInfo.updatedAt;
           delete userInfo.createdAt;
 
-          console.log(userInfo);
-
           const accessToken = basicAccessToken(userInfo);
           const refreshToken = basicRefreshToken(userInfo);
-
-          console.log('accessToken', accessToken);
-          console.log('refresh', refreshToken);
-
           sendRefreshToken(res, refreshToken);
 
           if (!userInfo.isChef) {
-            res
-              .status(200)
-              .json({ accessToken: accessToken, userInfo: userInfo });
+            const reservInfo = await reservation.findAll({
+              where: { rsUserId: findUser.dataValues.id },
+            }); // 예약정보
+            res.status(200).json({
+              message: 'ok',
+              accessToken: accessToken,
+              reservInfo: reservInfo,
+              userInfo: userInfo,
+            });
           } else {
             const findChef = await chef.findOne({
               where: { chUserId: findUser.dataValues.id },
             });
             userInfo.chefId = findChef.dataValues.id;
-            res
-              .status(200)
-              .json({ accessToken: accessToken, userInfo: userInfo });
+            res.status(200).json({
+              message: 'ok',
+              accessToken: accessToken,
+              userInfo: userInfo,
+            });
           }
         }
       } else {
@@ -93,7 +93,11 @@ module.exports = {
         const refreshToken = basicRefreshToken(userInfo);
 
         sendRefreshToken(res, refreshToken);
-        res.status(201).json({ accessToken: accessToken, userInfo: userInfo });
+        res.status(201).json({
+          message: 'created',
+          accessToken: accessToken,
+          userInfo: userInfo,
+        });
       }
     }
   },

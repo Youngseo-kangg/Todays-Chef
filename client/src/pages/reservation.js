@@ -24,6 +24,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { setHours, setMinutes } from 'date-fns';
+import { reservationStatus } from '../features/reservation/reservation';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -34,8 +35,10 @@ function Reservation() {
   const dispatch = useDispatch();
   const userState = useSelector(userStatus);
   const modalState = useSelector(modalStatus);
+  const reservationState = useSelector(reservationStatus);
   const [newData, setNewData] = useState({});
   const [makeReservation, setMakeReservation] = useState(0);
+  const [startDate, setStartDate] = useState(new Date());
   const {
     register,
     watch,
@@ -45,10 +48,7 @@ function Reservation() {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      reservDateAndTime: setHours(
-        setMinutes(new Date(today.setDate(today.getDate() + 2)), 0),
-        13
-      ),
+      reservDateAndTime: setHours(setMinutes(new Date(startDate), 0), 13),
       reservSubAddress: '',
       reservPeople: 2,
       reservMobile: '',
@@ -77,7 +77,6 @@ function Reservation() {
       setMakeReservation(3); // 다음 페이지로 넘겨주기
     }
   };
-
   const onError = (error) => {
     console.log('onSubmit에서 error: ', error);
   };
@@ -116,12 +115,12 @@ function Reservation() {
           `${url}/reservation?chefId=${queryChefId}&courseId=${queryCourseId}`
         )
         .then((data) => {
-          console.log(data);
           setTitleInfo({
             chefName: data.data.data.chefName,
             course: data.data.data.course,
             reservation: data.data.data.rsDate,
           });
+          // * 시작일 잡아주기
         })
         .catch((err) => {
           console.log(err);
@@ -133,7 +132,8 @@ function Reservation() {
         });
     }
   }, []);
-
+  console.log('titleInfo.reservation: ', titleInfo.reservation);
+  console.log('reservationState: ', reservationState);
   return (
     <>
       {modalState.failModalOpen ? <OneSentenceModal /> : null}

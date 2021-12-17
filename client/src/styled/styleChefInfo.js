@@ -358,6 +358,7 @@ export const UserReview = styled.div`
         width: 60px;
         height: 60px;
         border-radius: 80px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         text-align: center;
       }
     }
@@ -389,11 +390,13 @@ export const UserReview = styled.div`
   }
   .reviewPicture {
     display: grid;
-    place-items: center;
+    place-items: center left;
+
     background-color: #dbb89a;
     > .reviewPictureFrame {
       height: 90%;
       display: grid;
+      margin-left: 10px;
       grid-template-columns: repeat(2, 1fr);
       column-gap: 10px;
       .reviewPictureItem {

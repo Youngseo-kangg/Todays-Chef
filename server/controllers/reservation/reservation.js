@@ -73,8 +73,8 @@ module.exports = {
     const refreshVerify = refreshAuthorized(req);
 
     const findReservation = await reservation.findAll({
-      where: { rsCourseId: req.query.courseId },
-    });
+      where: { rsChefId: req.query.chefId },
+    }); // 셰프의 모든 예약을 받아와야 해서 chefId로 검색하는걸로 수정
 
     const filterReservationDate = findReservation.filter(
       (el) => el.rsDate >= new Date()

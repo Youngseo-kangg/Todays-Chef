@@ -92,8 +92,8 @@ function ReservationDate({
                         setHours(setMinutes(new Date(), 0), 19),
                       ]}
                       excludeDates={[
-                        new Date(),
-                        subDays(new Date(), -1),
+                        // new Date(),
+                        // subDays(new Date(), -1),
                         ...reservation.map((el) => new Date(el)),
                         ...reservationState.data.map(
                           (el) => new Date(el.rsDate)

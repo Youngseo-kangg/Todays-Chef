@@ -9,6 +9,7 @@ import {
   openServerErrorModal,
   openLoginModal,
 } from '../features/user/modal';
+import { getReservation } from '../features/reservation/reservation';
 import { login, userStatus } from '../features/user/user';
 import { LoginFormWrap } from '../styled/styledLogin';
 import { useForm } from 'react-hook-form';
@@ -51,11 +52,12 @@ function Login() {
           // 셰프라면
           dispatch(chefLogin({ chefId: loginResult.data.userInfo.chefId }));
         }
-        delete loginResult.data.userInfo.chefId; // 바로 지우기
-        // console.log({
-        //   ...loginResult.data.userInfo,
-        //   accessToken: loginResult.data.accessToken,
-        // });
+        // 예약내역이 있다면
+        if (loginResult.data.reservInfo) {
+          dispatch(
+            getReservation({ reservationData: loginResult.data.reservInfo })
+          );
+        }
         dispatch(
           login({
             ...loginResult.data.userInfo,
