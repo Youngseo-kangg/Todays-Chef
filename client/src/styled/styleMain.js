@@ -12,7 +12,7 @@ export const MainGrid = styled.div`
     grid-template-rows: 100vh 450px 1050px 550px;
   }
   @media (max-width: 430px) {
-    grid-template-rows: 100vh 450px 2020px 550px;
+    grid-template-rows: 100vh 450px 800px 550px;
   }
 `;
 
@@ -202,6 +202,8 @@ export const BestOfChefsWrap = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    background-color: red;
+
     li {
       /* border: 1px solid blue; */
       box-sizing: border-box;
@@ -215,8 +217,7 @@ export const BestOfChefsWrap = styled.div`
         width: calc(100% / 2 - 10px);
       }
       @media (max-width: 430px) {
-        width: 100%;
-        row-gap: 10px;
+        height: 350px;
       }
       :hover {
         transform: translateY(-10px);
@@ -225,11 +226,16 @@ export const BestOfChefsWrap = styled.div`
       > a {
         width: 100%;
         height: 100%;
+        background-color: orange;
         display: grid;
         grid-template-rows: 50px 300px 1fr 1fr 1fr;
         row-gap: 15px;
+        @media (max-width: 430px) {
+          grid-template-rows: 50px 200px 1fr 1fr 1fr;
+        }
         > .bestCuisine {
           width: 60%;
+          background-color: pink;
           font-size: 18px;
           line-height: 50px;
           border-bottom: 2px solid #dbb89a;
@@ -242,18 +248,21 @@ export const BestOfChefsWrap = styled.div`
           place-items: center;
           box-sizing: border-box;
           margin: 0 auto;
+          background-color: green;
         }
         > span {
           display: grid;
           place-items: center;
           margin-top: -20px;
+          @media (max-width: 430px) {
+            font-size: 13px;
+          }
         }
         > .chefPic {
           /* border: 1px solid red; */
           display: grid;
           place-items: center;
           width: 100%;
-          height: 100%;
           img {
             width: 230px;
             height: 230px;
@@ -267,8 +276,7 @@ export const BestOfChefsWrap = styled.div`
               height: 180px;
             }
             @media (max-width: 430px) {
-              width: 240px;
-              height: 240px;
+              width: 90%;
             }
           }
         }
@@ -289,6 +297,14 @@ export const ChefStar = styled.div`
       padding: 2px;
       width: 20px;
       height: 20px;
+      @media (max-width: 430px) {
+        width: 15px;
+        height: 15px;
+      }
+      @media (max-width: 280px) {
+        width: 13px;
+        height: 13px;
+      }
     }
   }
 `;
