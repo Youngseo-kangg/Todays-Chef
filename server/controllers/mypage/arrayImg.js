@@ -4,7 +4,6 @@ const { refreshAuthorized } = require('../token/refreshToken');
 
 module.exports = {
   post: async (req, res) => {
-    // console.log(req.files);
     const accessVerify = isAuthorized(req);
     const saveImg = req.files.map((el) => el.location).join(',');
     if (!accessVerify) {
