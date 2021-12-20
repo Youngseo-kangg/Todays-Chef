@@ -256,6 +256,9 @@ export const BeAChefResumeWrap = styled.section`
         display: grid;
         grid-template-columns: 3fr 1fr;
         grid-column-gap: 10px;
+        > #resumeFileName {
+          padding-left: 10px;
+        }
         input {
           border: none;
           border-radius: 5px;

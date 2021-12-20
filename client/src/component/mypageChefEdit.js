@@ -483,7 +483,7 @@ function MypageChefEdit() {
               name='chefEditInfoCareer'
               value={chefEditText.career ? chefEditText.career : ''}
               onChange={handleIntroInputValue('career')}
-              placeholder='경력을 입력해주세요. ex)2015.03~ 2017.02 AA호텔 근무/2017.03~ 2018.02 BB호텔 근무'
+              placeholder='경력을 입력해주세요. - 다음 근무를 입력할 시, 반드시 /를 기입해야합니다. ex)2015.03~ 2017.02 AA호텔 근무/2017.03~ 2018.02 BB호텔 근무'
             />
           </div>
           <div className='chefEditInfoWrap'>
@@ -492,7 +492,7 @@ function MypageChefEdit() {
               name='chefEditInfoValues'
               value={chefEditText.values ? chefEditText.values : ''}
               onChange={handleIntroInputValue('values')}
-              placeholder='가치관을 입력해주세요. ex)건강하면서도 아름다운 음식을 만들려고 합니다./눈이 즐겁고, 입도 즐거운 미식 코스를 추구합니다.'
+              placeholder='가치관을 입력해주세요. ex) 건강하면서도 아름다운 음식을 만들려고 합니다./눈이 즐겁고, 입도 즐거운 미식 코스를 추구합니다.'
             />
           </div>
           {errorMsg ? <p id='chefEditWarning'>{errorMsg}</p> : null}
@@ -547,7 +547,7 @@ function MypageChefEdit() {
                 name='chefCourseDesc'
                 value={courseText.courseDesc}
                 onChange={handleCourseInputValue('courseDesc')}
-                placeholder='코스 설명 ex)감자 수프/angus beef를 사용한 수제 햄버거와 맥앤치즈/유기농 딸기 퓨레를 곁들인 바닐라빈 아이스크림'
+                placeholder='코스 설명 - 다음 디쉬를 설명할 시 반드시 /를 기입해야합니다. ex)감자 수프/angus beef를 사용한 수제 햄버거와 맥앤치즈/유기농 딸기 퓨레를 곁들인 바닐라빈 아이스크림'
               />
             </div>
             {courseErrorMsg ? <p>{courseErrorMsg}</p> : null}

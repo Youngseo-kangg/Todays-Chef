@@ -647,9 +647,11 @@ export const MypageEditContent = styled.div`
             background-color: #ff6d6d;
             color: #000;
             padding: 8px;
-            font-size: 14px;
+            font-size: 13px;
             border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
+            color: #fff;
           }
         }
       }
@@ -788,6 +790,13 @@ export const MypageChefEditContent = styled.div`
           color: #fff;
           font-size: 16px;
           font-family: 'Chosunilbo_myungjo', 'ChosunKm';
+          font-size: 13px;
+          line-height: 20px;
+          padding-left: 10px;
+        }
+        input::placeholder,
+        textarea::placeholder {
+          color: #fff;
         }
         select {
           width: 100%;
@@ -797,6 +806,9 @@ export const MypageChefEditContent = styled.div`
           background-color: transparent;
           border-bottom: 2px solid #fff;
           color: #fff;
+          option {
+            background-color: #603224;
+          }
         }
         &:nth-child(2) {
           grid-row: 2/2;
@@ -886,6 +898,7 @@ export const MypageChefEditContent = styled.div`
               border-radius: 5px;
               border: none;
               outline: none;
+              padding-left: 10px;
             }
 
             @media (max-width: 420px) {
@@ -920,6 +933,9 @@ export const MypageChefEditContent = styled.div`
               grid-row: 5/5;
               grid-column: 1/3;
             }
+          }
+          textarea::placeholder {
+            padding-left: 10px;
           }
         }
         button {
