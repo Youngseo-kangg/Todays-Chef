@@ -64,13 +64,11 @@ module.exports = {
       const refreshToken = basicRefreshToken(userInfo.dataValues);
 
       sendRefreshToken(res, refreshToken);
-      res
-        .status(201)
-        .json({
-          message: 'created',
-          accessToken: accessToken,
-          userInfo: userInfo,
-        });
+      res.status(201).json({
+        message: 'created',
+        accessToken: accessToken,
+        userInfo: userInfo,
+      });
     } else {
       // 있으면 로그인
 
@@ -94,10 +92,10 @@ module.exports = {
             userInfo: userUsingEmail,
           });
         } else {
-          const findChef = await chef.findOne({
-            where: { chUserId: userUsingEmail.dataValues.id },
-          });
-          userUsingEmail.dataValues.chefId = findChef.dataValues.id;
+          // const findChef = await chef.findOne({
+          //   where: { chUserId: userUsingEmail.dataValues.id },
+          // });
+          // userUsingEmail.dataValues.chefId = findChef.dataValues.id;
           res
             .status(200)
             .json({ message: 'ok', accessToken, userInfo: userUsingEmail });
