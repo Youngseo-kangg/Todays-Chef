@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { SignupFormWrap } from '../styled/styledSignup';
 import { useForm } from 'react-hook-form';
 import {
@@ -141,9 +141,6 @@ function Signup() {
           <button>회원가입</button>
         </form>
       </div>
-      {/* <div className='axiosErrorMessage'>
-        <span className='loginError'>{errorMsg}</span>
-      </div> */}
       <div className='formDivider'></div>
       <p id='socialSignup'>
         간편 로그인 / 회원가입은 로그인 탭에서 가능합니다.

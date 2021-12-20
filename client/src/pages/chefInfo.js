@@ -10,10 +10,10 @@ import {
   ChefInformation,
   ChefWrapBox,
 } from '../styled/styleChefInfo';
-import { modalStatus, openServerErrorModal } from '../features/user/modal';
+import { openServerErrorModal } from '../features/user/modal';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 AOS.init();
 
@@ -23,7 +23,6 @@ axios.defaults.withCredentials = true;
 function ChefInfo() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const dispatch = useDispatch();
-  const modalState = useSelector(modalStatus);
   const [chefInfoIdx, setChefInfoIdx] = useState(0);
   const query = window.location.search.split('=')[1]; // chefId=~~에서 '='뒤 텍스트 가져오기
   const [loading, setLoading] = useState(true);

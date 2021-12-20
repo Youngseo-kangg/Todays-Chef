@@ -1,4 +1,4 @@
-import { useState, useEffect, useHistory } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddressModal from '../modal/addressModal';
 import ReservationNotice from '../component/reservationNotice';
@@ -37,7 +37,6 @@ function Reservation() {
   const [makeReservation, setMakeReservation] = useState(0);
   const {
     register,
-    watch,
     handleSubmit,
     control,
     formState: { errors },
