@@ -64,7 +64,13 @@ module.exports = {
       const refreshToken = basicRefreshToken(userInfo.dataValues);
 
       sendRefreshToken(res, refreshToken);
-      res.status(201).json({ accessToken: accessToken, userInfo: userInfo });
+      res
+        .status(201)
+        .json({
+          message: 'created',
+          accessToken: accessToken,
+          userInfo: userInfo,
+        });
     } else {
       // 있으면 로그인
 

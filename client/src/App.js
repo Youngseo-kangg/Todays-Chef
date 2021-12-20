@@ -60,7 +60,10 @@ function App() {
       let loginResult = await axios.post(`${url}/user/${socialType}`, {
         authorizationCode: authorizationCode,
       });
-      if (loginResult.data.message === 'ok') {
+      if (
+        loginResult.data.message === 'ok' ||
+        loginResult.data.message === 'created'
+      ) {
         if (loginResult.data.userInfo.chefId) {
           // 셰프라면
           dispatch(chefLogin({ chefId: loginResult.data.userInfo.chefId }));
