@@ -18,7 +18,10 @@ function ChefInfoDesc({ chefInfo }) {
             <h2>{chefInfo.chefName} 셰프</h2>
           </div>
           <div id='chefImg'>
-            <img src={basic_profile} alt='셰프 사진' />
+            <img
+              src={chefInfo.chefImg ? chefInfo.chefImg : basic_profile}
+              alt='셰프 사진'
+            />
           </div>
         </ChefImgWrap>
 
