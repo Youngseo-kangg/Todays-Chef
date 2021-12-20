@@ -647,9 +647,11 @@ export const MypageEditContent = styled.div`
             background-color: #ff6d6d;
             color: #000;
             padding: 8px;
-            font-size: 14px;
+            font-size: 13px;
             border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
+            color: #fff;
           }
         }
       }
