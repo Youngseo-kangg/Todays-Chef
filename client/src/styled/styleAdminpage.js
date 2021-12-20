@@ -5,10 +5,7 @@ export const AdminpageGrid = styled.article`
   height: auto;
   display: grid;
   place-items: center;
-<<<<<<< HEAD
   background-color: #dbb89a;
-=======
->>>>>>> 169a0d0c8ecf2767afe772a4dccbc599302de49a
   > #adminpageGridWrap {
     width: 90%;
     max-width: 1400px;
@@ -139,7 +136,8 @@ export const AdminContent = styled.article`
     }
     > ul {
       display: grid;
-      grid-template-rows: repeat(5, 1fr);
+      grid-template-rows: 1fr;
+      grid-auto-rows: 1fr;
       row-gap: 12px;
       li.adminReviewContent {
         display: grid;
