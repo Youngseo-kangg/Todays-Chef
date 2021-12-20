@@ -182,7 +182,7 @@ function MypageEdit() {
     } else {
       try {
         // axios요청
-        let result = await axios.post(
+        await axios.post(
           `${url}/mypage/${userState.userId}`,
           {
             nickname: '',

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MypageReservContent, MyReservCalander } from '../styled/styleMypage';
 import axios from 'axios';
-import { ko } from 'date-fns/esm/locale';
 import {
   addDays,
   startOfMonth,
@@ -206,7 +205,6 @@ function MypageReservation() {
     };
   };
 
-  const month = takeMonth(); // 달 구하는 함수 자체
   const today = new Date(); // 지금
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
