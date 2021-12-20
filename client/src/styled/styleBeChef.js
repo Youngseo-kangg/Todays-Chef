@@ -259,6 +259,10 @@ export const BeAChefResumeWrap = styled.section`
         input {
           border: none;
           border-radius: 5px;
+          outline: none;
+        }
+        input::placeholder {
+          padding-left: 10px;
         }
         label {
           cursor: pointer;

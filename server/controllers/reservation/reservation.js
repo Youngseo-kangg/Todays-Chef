@@ -8,7 +8,6 @@ const {
 module.exports = {
   // accessToken 받아와서 기한이 만료 됐는지 안 됐는지 확인 후 예약할 수 있게끔 만들어주기
   post: async (req, res) => {
-    console.log('req.body: ', req.body);
     const {
       people,
       allergy,
@@ -26,8 +25,6 @@ module.exports = {
     } = req.body;
     const accessVerify = isAuthorized(req);
     const refreshVerify = refreshAuthorized(req);
-
-    // console.log(refreshVerify);
 
     if (accessVerify) {
       const makeReservation = await reservation.create({

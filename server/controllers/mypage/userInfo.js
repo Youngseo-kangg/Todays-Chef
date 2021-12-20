@@ -11,7 +11,6 @@ module.exports = {
     const accessVerify = isAuthorized(req);
     const findUser = await user.findOne({ where: { id: req.params.id } });
 
-    console.log(findUser);
     const editUserData = req.body;
     const { nickname, oldPwd, newPwd } = editUserData;
 

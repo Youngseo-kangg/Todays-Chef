@@ -17,8 +17,6 @@ module.exports = {
 
     const sendDataArr = [];
 
-    // console.log(findReservation);
-
     for (let i = 0; i < findReservation.length; i++) {
       const findChef = await chef.findOne({
         where: { id: findReservation[i].dataValues.rsChefId },
@@ -42,10 +40,8 @@ module.exports = {
     const accessVerify = isAuthorized(req);
     if (!accessVerify) {
       const refreshVerify = refreshAuthorized(req);
-      console.log('refreshVerify: ', refreshVerify);
       if (!refreshVerify) {
         // refreshToken 까지 만료 됐을 때
-        console.log('!refreshVerify');
         res.status(401).json({ message: 'Send new Login Request' });
       } else {
         delete refreshVerify.exp;
@@ -62,12 +58,8 @@ module.exports = {
     try {
       const accessVerify = isAuthorized(req);
 
-      console.log('cancel', req.body);
-
       const { body } = req;
       const { merchantUid, reason, cancel_request_amount } = body; // 클라이언트로부터 전달받은 주문번호, 환불사유, 환불금액
-
-      console.log(body);
 
       const findReservation = await reservation.findOne({
         where: { merchantUid: merchantUid },
@@ -93,8 +85,6 @@ module.exports = {
             },
           });
           const { access_token } = getToken.data.response; // 인증 토큰
-
-          console.log('accessToken', access_token);
 
           const getCancelData = await axios({
             url: 'https://api.iamport.kr/payments/cancel',
@@ -141,8 +131,6 @@ module.exports = {
               },
             });
             const { access_token } = getToken.data.response; // 인증 토큰
-
-            console.log('accessToken', access_token);
 
             const getCancelData = await axios({
               url: 'https://api.iamport.kr/payments/cancel',

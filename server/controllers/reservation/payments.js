@@ -33,7 +33,6 @@ module.exports = {
 
       if (!accessVerify) {
         const refreshVerify = refreshAuthorized(req);
-        console.log('refreshVer', refreshVerify);
         if (!refreshVerify) {
           res.status(401).json({ message: 'Send new Login Request' });
         } else {
