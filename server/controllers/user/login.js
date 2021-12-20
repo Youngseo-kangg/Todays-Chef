@@ -1,4 +1,4 @@
-const { user, chef } = require('../../models');
+const { user, chef, reservation } = require('../../models');
 const { basicAccessToken } = require('../token/accessToken');
 const {
   basicRefreshToken,
@@ -11,7 +11,6 @@ module.exports = {
     const { email, password } = req.body;
     const userInfo = await user.findOne({ where: { email } });
 
-    console.log(userInfo);
     if (!userInfo) {
       res.status(400).json({ message: 'Invalid User' });
     } else {
@@ -25,11 +24,15 @@ module.exports = {
         delete userInfo.dataValues.updatedAt;
         const accessToken = basicAccessToken(userInfo.dataValues);
         const refreshToken = basicRefreshToken(userInfo.dataValues);
-
+        const reservInfo = await reservation.findAll({
+          where: { rsUserId: userInfo.dataValues.id },
+        }); // 예약정보
         sendRefreshToken(res, refreshToken);
 
         if (!userInfo.dataValues.isChef) {
-          res.status(200).json({ accessToken, userInfo, message: 'ok' });
+          res
+            .status(200)
+            .json({ accessToken, userInfo, reservInfo, message: 'ok' });
         } else {
           const findChef = await chef.findOne({
             where: { chUserId: userInfo.dataValues.id },

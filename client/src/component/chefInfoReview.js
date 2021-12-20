@@ -25,7 +25,6 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
       picAddress: address,
     });
   }; // 사진 크게 보여주는 함수
-  // console.log('chefAllReview에서 reviewLength', reviewLength); // 2
   const [reviewData, setReviewData] = useState([]);
 
   const [reviewsPerPage, setReviewsPerPage] = useState({
@@ -109,14 +108,12 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
                     <UserReview key={idx}>
                       <div className='userProfile'>
                         <div className='userProfileWrap'>
-                          {el.userImg === '' ? (
-                            <img src={basic_profile} alt='유저 사진' />
-                          ) : (
-                            <img src={el.userImg} alt='유저 사진' />
-                          )}
+                          <img
+                            src={el.userImg === '' ? basic_profile : el.userImg}
+                            alt='유저 사진'
+                          />
                         </div>
                         <h2 className='userNickname'>{el.nickname}님</h2>
-                        <span>{el.rating}</span>
                         <ChefStar key={idx}>
                           <div>
                             {ratingStar(el, idx).map((ele, idx) => {
@@ -125,26 +122,31 @@ function ChefAllReview({ reviewLength, query, setMagnifyPic }) {
                           </div>
                         </ChefStar>
                       </div>
-                      <div className='reviewTextWrap'>
-                        <p className='reviewText'>{el.eval}</p>
-                      </div>
-                      <div className='reviewPicture'>
+                      <div
+                        className={
+                          el.rvImg.length === 0 ? 'noPicture' : 'reviewPicture'
+                        }
+                      >
                         {el.rvImg.length === 0 ? (
                           <p>등록한 사진이 없습니다.</p>
                         ) : (
                           <div className='reviewPictureFrame'>
-                            {el.rvImg.split(',').map((ele) => {
+                            {el.rvImg.split(',').map((ele, idx) => {
                               return (
-                                <div
-                                  className='reviewPicture'
+                                <img
+                                  key={idx}
+                                  src={ele}
+                                  className='reviewPictureItem'
                                   onClick={() => showPicture(ele)}
-                                >
-                                  <img src={ele} alt='코스 사진' />
-                                </div>
+                                  alt='코스 사진'
+                                />
                               );
                             })}
                           </div>
                         )}
+                      </div>
+                      <div className='reviewTextWrap'>
+                        <p className='reviewText'>{el.eval}</p>
                       </div>
                     </UserReview>
                   );

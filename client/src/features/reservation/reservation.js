@@ -14,9 +14,13 @@ export const reservationSlice = createSlice({
     getReservation: (state, action) => {
       state.data = [...action.payload.reservationData];
     },
+    madeReservation: (state, action) => {
+      state.data = [...state.data, action.payload.newData];
+    },
   },
 });
 
-export const { deleteReservation, getReservation } = reservationSlice.actions;
+export const { deleteReservation, getReservation, madeReservation } =
+  reservationSlice.actions;
 export const reservationStatus = (state) => state.reservation;
 export default reservationSlice.reducer;

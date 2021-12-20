@@ -28,7 +28,7 @@ function Nav() {
       throttle(() => {
         // ~420까지는 100vh, 420~으로는 90vh이상일때 변경해주기
         // const nextTabnavOn = window.scrollY > window.innerHeight - 140;
-        const nextTabnavOn = window.scrollY > 70;
+        const nextTabnavOn = window.scrollY > 10;
         if (nextTabnavOn !== transNav) setTransNav(nextTabnavOn);
       }, 300),
     [transNav]

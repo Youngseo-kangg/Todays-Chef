@@ -17,8 +17,10 @@ import {
   openLoginErrorModal,
   modalStatus,
 } from './features/user/modal';
+import { chefLogin } from './features/chef/chef';
+import { getReservation } from './features/reservation/reservation';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, userStatus } from './features/user/user';
+import { login } from './features/user/user';
 
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -29,15 +31,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch();
-  // const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // 로그인 모달창 상태
-  // const [isLoginErrorModalOpen, setIsLoginErrorModalOpen] = useState(false); // 로그인 에러 모당창 상태
-  // const [isServerError, setIsServerError] = useState(false);
-  // const [isLogout, setIsLogout] = useState(false);
-
   const modalState = useSelector(modalStatus);
-  const userState = useSelector(userStatus);
-  // console.log('App.js에서 userStatus: ', userState);
-
   useEffect(() => {
     if (
       window.location.href === 'https://www.todayschef.click' ||
@@ -51,7 +45,6 @@ function App() {
       'code'
     );
     if (authorizationCode) {
-      console.log(authorizationCode);
       socialLoginAccessToken(authorizationCode);
     }
     window.onbeforeunload = function pushRefresh() {
@@ -64,29 +57,36 @@ function App() {
     const socialType = localStorage.getItem('socialType');
 
     try {
-      let userResult = await axios.post(`${url}/user/${socialType}`, {
+      let loginResult = await axios.post(`${url}/user/${socialType}`, {
         authorizationCode: authorizationCode,
       });
-      dispatch(openLoginModal());
-      // setIsLoginModalOpen(true);
-
-      dispatch(
-        login({
-          ...userResult.data.userInfo,
-          accessToken: userResult.data.accessToken,
-        })
-      );
-      localStorage.removeItem('socialType');
+      if (loginResult.data.message === 'ok') {
+        if (loginResult.data.userInfo.chefId) {
+          // 셰프라면
+          dispatch(chefLogin({ chefId: loginResult.data.userInfo.chefId }));
+        }
+        // 예약내역이 있다면
+        if (loginResult.data.reservInfo) {
+          dispatch(
+            getReservation({ reservationData: loginResult.data.reservInfo })
+          );
+        }
+        dispatch(
+          login({
+            ...loginResult.data.userInfo,
+            accessToken: loginResult.data.accessToken,
+          })
+        );
+        dispatch(openLoginModal());
+        localStorage.removeItem('socialType');
+      }
     } catch (err) {
       console.log(err.response);
       if (err.message === 'Network Error') {
         dispatch(openLoginErrorModal());
       } else if ((err.response.data.message = 'You Already Signed up')) {
         dispatch(openLoginErrorModal());
-        // setIsLoginErrorModalOpen(true);
       } else {
-        // setIsServerError(true);
-        // setIsLoginErrorModalOpen(true);
         dispatch(openLoginErrorModal());
       }
     }

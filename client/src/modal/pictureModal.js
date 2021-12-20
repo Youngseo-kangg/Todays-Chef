@@ -1,6 +1,6 @@
 import { ModalBackground, PictureModalBox } from '../styled/styledModal';
+import { IoCloseCircleOutline } from 'react-icons/io5';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
-import { useState } from 'react';
 
 function PictureModal({ setMagnifyPic, magnifyPic }) {
   const clickOk = () => {
@@ -14,13 +14,15 @@ function PictureModal({ setMagnifyPic, magnifyPic }) {
     <>
       <ModalBackground>
         <PictureModalBox>
+          <div id='confirmBtn'>
+            <button onClick={clickOk}>
+              <IoCloseCircleOutline size={50} color='#603224' />
+            </button>
+          </div>
           <img
             src={magnifyPic.picAddress ? magnifyPic.picAddress : basic_profile}
             alt='예시 사진'
           />
-          <div id='confirmBtn'>
-            <button onClick={clickOk}>닫기</button>
-          </div>
         </PictureModalBox>
       </ModalBackground>
     </>

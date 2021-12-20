@@ -20,7 +20,6 @@ function ChoiceModal() {
 
   const deleteCourseItem = async () => {
     try {
-      console.log('요청들어옴');
       let deleteResult = await axios.delete(
         `${url}/mypage/info/chef?id=${chefState.chefId}&courseId=${modalState.choiceModalOpen}`,
         {

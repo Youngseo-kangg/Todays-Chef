@@ -4,7 +4,6 @@ const { refreshAuthorized } = require('../token/refreshToken');
 
 module.exports = {
   post: async (req, res) => {
-    console.log(req.query);
     const accessToken = isAuthorized(req);
 
     if (!accessToken) {
@@ -23,13 +22,11 @@ module.exports = {
           { where: { id: req.query.id } }
         );
 
-        res
-          .status(201)
-          .json({
-            accessToken,
-            message: 'chef ok',
-            location: req.file.location,
-          });
+        res.status(201).json({
+          accessToken,
+          message: 'chef ok',
+          location: req.file.location,
+        });
       }
     } else {
       await chef.update(

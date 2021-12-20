@@ -13,7 +13,13 @@ import {
   BeAChefDesc,
   BeAChefResumeWrap,
 } from '../styled/styleBeChef';
+import {
+  openServerErrorModal,
+  openIsNeedReLoginModal,
+} from '../features/user/modal';
 import SubmitCompleteModal from '../modal/submitCompleteModal';
+import NeedReLoginModal from '../modal/needReLoginModal';
+import ServerErrorModal from '../modal/serverErrorModal';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -57,15 +63,6 @@ function BeAChef() {
     setResumeName(event.target.files[0].name);
     // resume 파일 업뎃
     setResumePdf(formData);
-
-    // FormData의 key 확인
-    for (let key of formData.keys()) {
-      console.log(key);
-    }
-    //FormData의 value 확인
-    for (let value of formData.values()) {
-      console.log(value.name);
-    }
   };
 
   const sendResumeToServer = async () => {
@@ -100,12 +97,19 @@ function BeAChef() {
       }
     } catch (err) {
       console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      } else if (err.response.data.message === 'Send new Login Request') {
+        dispatch(openIsNeedReLoginModal());
+      }
     }
   };
 
   return (
     <>
       {modalState.isSubmitCompleteModalOpen ? <SubmitCompleteModal /> : null}
+      {modalState.isServerErrorModalOpen ? <ServerErrorModal /> : null}
+      {modalState.isNeedReLoginModalOpen ? <NeedReLoginModal /> : null}
       <BeAChefGrid>
         <BeAChefIntro>
           <div id='beChefSlogan'>

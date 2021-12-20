@@ -17,6 +17,7 @@ import {
   openIsNeedReLoginModal,
   openSuccessModal,
   openChoiceModal,
+  openFailModal,
 } from '../features/user/modal';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -69,7 +70,6 @@ function MypageChefEdit() {
           headers: { authorization: `bearer ${userState.accessToken}` },
         }
       );
-      console.log(result.data.data);
       if (result.data.message === 'ok') {
         if (result.data.accessToken) {
           dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
@@ -100,7 +100,6 @@ function MypageChefEdit() {
         }); // 초기화
       }
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new Login Request') {
@@ -127,7 +126,7 @@ function MypageChefEdit() {
   const sendImgToServer = async () => {
     // 선택한 파일을 서버로 axios 요청을 보내 유저 db의 userPic 업데이트
     try {
-      const imageRes = await axios.post(
+      await axios.post(
         `${url}/mypage/info/image/chef?id=${chefState.chefId}`,
         userPic,
         {
@@ -135,7 +134,17 @@ function MypageChefEdit() {
         }
       );
     } catch (error) {
-      console.log(error);
+      if (error.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      } else if (error.response.data.message === 'Send new Login Request') {
+        dispatch(openIsNeedReLoginModal());
+      } else {
+        dispatch(
+          openFailModal({
+            message: '사진 업로드가 실패했습니다. 다시 한번 시도해주세요.',
+          })
+        );
+      }
     }
   };
 

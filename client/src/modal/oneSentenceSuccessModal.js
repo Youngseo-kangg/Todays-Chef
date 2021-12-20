@@ -2,10 +2,8 @@ import { ModalBackground, ModalBox } from '../styled/styledModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeSuccessModal, modalStatus } from '../features/user/modal';
 import { logout } from '../features/user/user';
-import { useHistory } from 'react-router';
 
 function OneSentenceSuccessModal() {
-  const history = useHistory();
   const modalState = useSelector(modalStatus);
   const dispatch = useDispatch();
   const returnToFindChef = () => {
@@ -20,7 +18,6 @@ function OneSentenceSuccessModal() {
     window.location.replace('/');
     dispatch(closeSuccessModal());
   };
-  console.log(modalState.successMessage);
   const relocation = () => {
     if (
       window.location.href.includes('/mypage') &&

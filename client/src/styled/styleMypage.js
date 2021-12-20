@@ -144,13 +144,24 @@ export const MypageReservContent = styled.div`
     column-gap: 10px;
     @media (max-width: 420px) {
       grid-template-columns: none;
-      grid-template-rows: 40px 1fr 50px;
+      grid-template-rows: 30px 1fr 70px;
+      row-gap: 10px;
     }
     #deleteReserve {
       width: 100%;
       height: 100%;
       display: grid;
+      grid-template-rows: 1fr;
+      grid-auto-rows: 1fr;
+      row-gap: 10px;
       place-items: center;
+      @media (max-width: 420px) {
+        grid-template-rows: none;
+        row-gap: 0px;
+        grid-template-columns: 1fr;
+        grid-auto-columns: 1fr;
+        column-gap: 10px;
+      }
       > button {
         background-color: rgba(255, 255, 255, 0.3);
         color: #fff;
@@ -212,7 +223,7 @@ export const MyReservCalander = styled.div`
 
 export const MypageReviewContent = styled.div`
   display: grid;
-  grid-template-rows: 50px 405px 1fr;
+  grid-template-rows: 50px 380px 1fr;
   row-gap: 20px;
   place-items: center;
   width: 100%;
@@ -247,15 +258,36 @@ export const MypageReviewContent = styled.div`
       height: 100%;
       display: grid;
       grid-template-rows: 70px 1fr;
-      row-gap: 10px;
       background-color: #603224;
       border-radius: 5px;
+      &.showPic {
+        > #myRecentReviewExtra {
+          grid-template-columns: 2fr 100px 150px;
+          @media (max-width: 1080px) {
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 100px;
+          }
+          #myRecentCommentPic {
+            grid-template-columns: 1fr;
+            column-gap: 0px;
+            > #myRecentCommentPicList {
+              width: 150px;
+              grid-template-columns: repeat(2, 1fr);
+              place-items: center;
+            }
+          }
+        }
+        > #myRecentReviewContent {
+          grid-template-rows: 300px;
+          padding-bottom: 10px;
+        }
+      }
       @media (max-width: 1080px) {
         grid-template-rows: 150px 1fr;
       }
       > #myRecentReviewExtra {
         display: grid;
-        grid-template-columns: 1fr 100px 1fr;
+        grid-template-columns: 2fr 100px 1fr;
         padding: 10px;
         box-sizing: border-box;
         place-items: center;
@@ -285,13 +317,14 @@ export const MypageReviewContent = styled.div`
             grid-row: 2/2;
             grid-column: 1/3;
           }
+
           #myRecentCommentPicList {
             width: 100%;
             height: 100%;
             display: grid;
             place-items: center left;
-            grid-template-rows: 1fr;
-            grid-auto-rows: 1fr;
+            grid-template-columns: 1fr;
+            grid-auto-columns: 1fr;
             p {
               width: 100%;
               font-size: 14px;
@@ -302,6 +335,11 @@ export const MypageReviewContent = styled.div`
             }
             p:before {
               content: '- ';
+            }
+            img {
+              width: 50px;
+              height: 50px;
+              cursor: pointer;
             }
           }
           .myRecentReviewBtn {
@@ -326,9 +364,6 @@ export const MypageReviewContent = styled.div`
             }
           }
         }
-        #myRecentCommentPic.showReview {
-          grid-template-columns: 1fr;
-        }
       }
       > #myRecentReviewContent {
         display: grid;
@@ -347,7 +382,6 @@ export const MypageReviewContent = styled.div`
           border: none;
           background-color: rgba(255, 255, 255, 0.7);
           outline: none;
-          color: #fff;
           font-size: 16px;
           font-family: 'Chosunilbo_myungjo', 'ChosunKm';
         }
@@ -387,11 +421,13 @@ export const MypageReviewContent = styled.div`
       max-width: 1080px;
       height: 100%;
       display: grid;
-      grid-template-rows: 1fr 30px;
-      row-gap: 10px;
+      place-items: center;
       #myComments {
+        width: 100%;
+        height: 100%;
         display: grid;
         grid-template-rows: repeat(4, 40px);
+        grid-auto-rows: 40px;
         row-gap: 10px;
         > li {
           width: 100%;

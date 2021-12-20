@@ -10,14 +10,22 @@ import {
   ChefInformation,
   ChefWrapBox,
 } from '../styled/styleChefInfo';
+import { openServerErrorModal } from '../features/user/modal';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useDispatch } from 'react-redux';
+
+AOS.init();
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
 function ChefInfo() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  const dispatch = useDispatch();
   const [chefInfoIdx, setChefInfoIdx] = useState(0);
   const query = window.location.search.split('=')[1]; // chefId=~~에서 '='뒤 텍스트 가져오기
+  const [loading, setLoading] = useState(true);
   const [chefInfo, setChefInfo] = useState({
     info: {},
     course: [],
@@ -31,17 +39,19 @@ function ChefInfo() {
   const getChef = async () => {
     try {
       const getChefResult = await axios.get(`${url}/chef?chefId=${query}`);
-      // console.log('chefInfo에서 받아온 정보들: ', getChefResult.data);
       setChefInfo({
         info: getChefResult.data.data,
         course: getChefResult.data.chefCourse,
         reviewLength: getChefResult.data.chefReviewLength,
       });
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      }
     }
   };
-  // console.log(chefInfo);
   useEffect(() => {
     getChef();
   }, []); // 들어오자마자 한번만
@@ -53,9 +63,11 @@ function ChefInfo() {
       ) : null}
       <ChefInfoGrid>
         <ChefInfoDesc>
-          <h2>
-            {chefInfo.info.chefName} 셰프님의 만찬에 오신 것을 환영합니다!
-          </h2>
+          {loading ? null : (
+            <h2 data-aos='fade-zoom-in'>
+              {chefInfo.info.chefName} 셰프님의 만찬을 즐겨보세요
+            </h2>
+          )}
         </ChefInfoDesc>
         <ChefInformation>
           <ul id='chefInfoOrder'>

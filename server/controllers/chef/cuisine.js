@@ -5,8 +5,6 @@ module.exports = {
     const cuisine = decodeURI(decodeURIComponent(req.params.id));
     const chefAllInfo = await chef.findAll({ where: { cuisine } });
     const findChefCuisfine = await chef.findOne({ where: { cuisine } });
-    console.log('params.id', cuisine);
-    console.log(req.query);
     if (!cuisine) {
       // 한,일,중,양식중에 고르지 않았을 떄
       res.status(400).json({ message: 'undefined cuisine' });

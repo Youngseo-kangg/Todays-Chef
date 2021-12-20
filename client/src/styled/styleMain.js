@@ -12,7 +12,10 @@ export const MainGrid = styled.div`
     grid-template-rows: 100vh 450px 1050px 550px;
   }
   @media (max-width: 430px) {
-    grid-template-rows: 100vh 450px 2020px 550px;
+    grid-template-rows: 100vh 450px 800px 550px;
+  }
+  @media (max-width: 280px) {
+    grid-template-rows: 100vh 450px 1500px 550px;
   }
 `;
 
@@ -121,44 +124,49 @@ export const MainSection2Wrap = styled.div`
       row-gap: 15px;
     }
     > .cuisineBtn {
-      width: 100%;
-      height: 80px;
-      border-radius: 10px;
-      background-color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      @media (max-width: 767px) {
-      }
-      :hover {
-        background-color: #603224;
-        color: #fff;
-      }
-      > img {
-        width: 50px;
-        height: 50px;
-        @media (max-width: 1080px) {
-          width: 40px;
-          height: 40px;
+      > a {
+        width: 100%;
+        height: 100%;
+        display: block;
+        width: 100%;
+        height: 80px;
+        border-radius: 10px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        @media (max-width: 767px) {
         }
-      }
-      > .cuisineText {
-        margin-left: 10px;
-        > h4 {
-          font-size: 20px;
-          text-align: left;
+        :hover {
+          background-color: #603224;
+          color: #fff;
+        }
+        > img {
+          width: 50px;
+          height: 50px;
           @media (max-width: 1080px) {
-            font-size: 15px;
+            width: 40px;
+            height: 40px;
           }
         }
-        > p {
-          padding-top: 5px;
-          font-size: 13px;
-          @media (max-width: 1080px) {
-            font-size: 9px;
+        > .cuisineText {
+          margin-left: 10px;
+          > h4 {
+            font-size: 20px;
+            text-align: left;
+            @media (max-width: 1080px) {
+              font-size: 15px;
+            }
+          }
+          > p {
+            padding-top: 5px;
+            font-size: 13px;
+            @media (max-width: 1080px) {
+              font-size: 9px;
+            }
           }
         }
       }
@@ -210,8 +218,10 @@ export const BestOfChefsWrap = styled.div`
         width: calc(100% / 2 - 10px);
       }
       @media (max-width: 430px) {
-        width: 100%;
-        row-gap: 10px;
+        height: 350px;
+      }
+      @media (max-width: 280px) {
+        width: calc(100% / 1 - 10px);
       }
       :hover {
         transform: translateY(-10px);
@@ -223,6 +233,9 @@ export const BestOfChefsWrap = styled.div`
         display: grid;
         grid-template-rows: 50px 300px 1fr 1fr 1fr;
         row-gap: 15px;
+        @media (max-width: 430px) {
+          grid-template-rows: 50px 200px 1fr 1fr 1fr;
+        }
         > .bestCuisine {
           width: 60%;
           font-size: 18px;
@@ -242,13 +255,14 @@ export const BestOfChefsWrap = styled.div`
           display: grid;
           place-items: center;
           margin-top: -20px;
+          @media (max-width: 430px) {
+            font-size: 13px;
+          }
         }
         > .chefPic {
-          /* border: 1px solid red; */
           display: grid;
           place-items: center;
           width: 100%;
-          height: 100%;
           img {
             width: 230px;
             height: 230px;
@@ -260,10 +274,6 @@ export const BestOfChefsWrap = styled.div`
             @media (max-width: 767px) {
               width: 180px;
               height: 180px;
-            }
-            @media (max-width: 430px) {
-              width: 240px;
-              height: 240px;
             }
           }
         }
@@ -284,6 +294,14 @@ export const ChefStar = styled.div`
       padding: 2px;
       width: 20px;
       height: 20px;
+      @media (max-width: 430px) {
+        width: 15px;
+        height: 15px;
+      }
+      @media (max-width: 280px) {
+        width: 13px;
+        height: 13px;
+      }
     }
   }
 `;

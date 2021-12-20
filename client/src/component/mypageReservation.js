@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MypageReservContent, MyReservCalander } from '../styled/styleMypage';
 import axios from 'axios';
-import { ko } from 'date-fns/esm/locale';
 import {
   addDays,
   startOfMonth,
@@ -90,7 +89,6 @@ function MypageReservation() {
         })
         .then((result) => {
           if (result.data.accessToken) {
-            console.log('accessToken 있어서 들어옴');
             dispatch(
               updateAccessToken({ accessToken: result.data.accessToken })
             );
@@ -131,9 +129,7 @@ function MypageReservation() {
           headers: { authorization: `bearer ${userState.accessToken}` },
         })
         .then((result) => {
-          console.log(result);
           if (result.data.accessToken) {
-            console.log('accessToken 있어서 들어옴');
             dispatch(
               updateAccessToken({ accessToken: result.data.accessToken })
             );
@@ -209,7 +205,6 @@ function MypageReservation() {
     };
   };
 
-  const month = takeMonth(); // 달 구하는 함수 자체
   const today = new Date(); // 지금
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -331,10 +326,10 @@ function MypageReservation() {
                         ? format(new Date(day), 'MM/dd')
                         : format(new Date(day), 'dd')}
                     </div>
-                    {reservationState.data.map((el) =>
+                    {reservationState.data.map((el, idx) =>
                       format(new Date(el.rsDate), 'yyyy-MM-dd') ===
                       format(new Date(day), 'yyyy-MM-dd') ? (
-                        <div className='reservedDate'></div>
+                        <div key={idx} className='reservedDate'></div>
                       ) : null
                     )}
                   </div>

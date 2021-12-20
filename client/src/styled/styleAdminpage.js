@@ -5,6 +5,10 @@ export const AdminpageGrid = styled.article`
   height: auto;
   display: grid;
   place-items: center;
+<<<<<<< HEAD
+  background-color: #dbb89a;
+=======
+>>>>>>> 169a0d0c8ecf2767afe772a4dccbc599302de49a
   > #adminpageGridWrap {
     width: 90%;
     max-width: 1400px;

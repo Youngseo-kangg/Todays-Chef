@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateAccessToken, userStatus } from '../features/user/user';
+import { userStatus } from '../features/user/user';
 import { ReservationWrap, ReservNotice } from '../styled/styleReservation';
 import { openFailModal } from '../features/user/modal';
-import { format, getHours, getMinutes } from 'date-fns';
-
+import { format, getHours } from 'date-fns';
+import { madeReservation } from '../features/reservation/reservation';
 import axios from 'axios';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -14,6 +14,7 @@ function ReservationPayment({
   newData,
   queryChefId,
   queryCourseId,
+  titleInfo,
 }) {
   console.log('payment에서 프롭스로 받아온 newData: ', newData);
   const url = 'https://todayschef.click/mobile/reservationDone';
@@ -21,8 +22,6 @@ function ReservationPayment({
   const dispatch = useDispatch();
   const reservationData = {
     rsDate: newData.reservDateAndTime,
-    // rsDate 자체는 date객체
-    // format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss'),
     rsTime: `${getHours(newData.reservDateAndTime)}:${format(
       newData.reservDateAndTime,
       'mm'
@@ -38,7 +37,6 @@ function ReservationPayment({
     rsChefId: Number(queryChefId),
     allergy: newData.reservAllergy,
   };
-
   const iamportPayment = () => {
     // * 2-1. 결제 준비 (가맹점 식별코드 사용해 IMP 객체 초기화)
     const IMP = window.IMP;
@@ -55,35 +53,22 @@ function ReservationPayment({
       buyer_tel: newData.reservMobile,
       buyer_addr: newData.reservMainAddress,
       buyer_postcode: newData.postal,
-      m_redirect_url: `${url}?reservationData=${JSON.stringify(
-        reservationData
-      )}`,
+      m_redirect_url: `${url}?chefName=${encodeURIComponent(
+        titleInfo.chefName
+      )}&courseName=${encodeURIComponent(
+        titleInfo.course.courseName
+      )}&reservationData=${JSON.stringify(reservationData)}`,
     }; // IMP.request_pay에 담길 data
     const callback = async (response) => {
-      const {
-        success,
-        error_msg,
-        imp_uid,
-        merchant_uid,
-        pay_method,
-        paid_amount,
-        status,
-      } = response;
+      const { success, error_msg, imp_uid, merchant_uid } = response;
       if (success) {
-        console.log('성공성공!!!');
         // 결제가 성공한 경우
         // * axios로 서버에 정보 보내서 결제정보 저장
-        const webUrl = 'https://server.todayschef.click';
         let postResult = await axios.post(
-          `${webUrl}/reservation/payments`,
+          `http://localhost:4000/reservation/payments`,
           {
             data: {
-              reservationData: {
-                ...reservationData,
-                rsDate: new Date(
-                  format(newData.reservDateAndTime, 'yyyy-MM-dd HH:mm:ss')
-                ),
-              },
+              reservationData,
               imp_uid,
               merchant_uid,
             },
@@ -96,9 +81,18 @@ function ReservationPayment({
             },
           }
         );
-        console.log('aaa', postResult);
         if (postResult.data.status === 'success') {
           // * 결제 정보 저장 후 다음페이지로
+          dispatch(
+            madeReservation({
+              newData: {
+                ...reservationData,
+                rsDate: String(reservationData.rsDate),
+                chefName: titleInfo.chefName,
+                courseName: titleInfo.course.courseName,
+              },
+            })
+          ); // redux reservation 업뎃시켜주기
           setMakeReservation(4); // 다음페이지로 넘겨주기
         }
       } else {

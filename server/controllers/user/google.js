@@ -1,4 +1,4 @@
-const { user, chef } = require('../../models');
+const { user, chef, reservation } = require('../../models');
 const { basicAccessToken } = require('../token/accessToken');
 const {
   basicRefreshToken,
@@ -11,9 +11,7 @@ require('dotenv').config();
 module.exports = {
   post: async (req, res) => {
     const { authorizationCode } = req.body;
-    console.log('authorizationCode', authorizationCode);
     if (!authorizationCode) {
-      console.log('첫쨰');
       res.status(400).json({ message: 'authorizationCode does not exist' });
     }
 
@@ -27,13 +25,10 @@ module.exports = {
       redirect_url
     );
 
-    console.log('googleClient', googleClient);
-
     let code;
     try {
       code = await googleClient.getToken(authorizationCode);
     } catch (error) {
-      console.log('둘쨰');
       console.log(error);
       res.status(400).json({ message: 'authorizationCode does not exist' });
     }
@@ -72,6 +67,7 @@ module.exports = {
       res.status(201).json({ accessToken: accessToken, userInfo: userInfo });
     } else {
       // 있으면 로그인
+
       if (userUsingEmail.dataValues.isOauth) {
         delete userUsingEmail.dataValues.password;
         delete userUsingEmail.dataValues.createdAt;
@@ -82,14 +78,23 @@ module.exports = {
         sendRefreshToken(res, refreshToken);
 
         if (!userUsingEmail.dataValues.isChef) {
-          res.status(200).json({ accessToken, userInfo: userUsingEmail });
+          const reservInfo = await reservation.findAll({
+            where: { rsUserId: userUsingEmail.dataValues.id },
+          }); // 예약정보
+          res.status(200).json({
+            message: 'ok',
+            accessToken,
+            reservInfo,
+            userInfo: userUsingEmail,
+          });
         } else {
           const findChef = await chef.findOne({
             where: { chUserId: userUsingEmail.dataValues.id },
           });
-
           userUsingEmail.dataValues.chefId = findChef.dataValues.id;
-          res.status(200).json({ accessToken, userInfo: userUsingEmail });
+          res
+            .status(200)
+            .json({ message: 'ok', accessToken, userInfo: userUsingEmail });
         }
       } else {
         res.status(400).json({ message: 'You Already Signed up' });

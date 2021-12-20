@@ -1,13 +1,10 @@
 import { ModalBackground, ModalBox } from '../styled/styledModal';
 import { useDispatch } from 'react-redux';
 import { closeSignUpModal } from '../features/user/modal';
-import { useState } from 'react';
 
-// function SignupModal({ setIsSignUpModalOpen }) {
 function SignupModal() {
   const dispatch = useDispatch();
   const clickOk = () => {
-    // setIsSignUpModalOpen(false);
     dispatch(closeSignUpModal());
     window.location.replace('/loginOrSignup');
   };

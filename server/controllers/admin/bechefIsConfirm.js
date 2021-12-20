@@ -7,11 +7,9 @@ module.exports = {
   post: async (req, res) => {
     const accessVerify = isAuthorized(req);
     const findBechef = await bechef.findOne({ where: { id: req.body.id } });
-    console.log('findBechef: ', findBechef);
     const findEmail = await user.findOne({
       where: { id: findBechef.dataValues.bcUserId },
     });
-    console.log('findEmail: ', findEmail);
 
     if (req.params.isConfirm === 'confirm') {
       if (!accessVerify) {
@@ -27,7 +25,6 @@ module.exports = {
             findEmail.dataValues.email,
             findEmail.dataValues.nickname
           );
-          console.log('mail: ', mail);
           await user.update(
             { isSubmit: false, isChef: true },
             { where: { id: findBechef.dataValues.bcUserId } }
@@ -52,7 +49,6 @@ module.exports = {
           findEmail.dataValues.email,
           findEmail.dataValues.nickname
         );
-        console.log('mail: ', mail);
         await user.update(
           { isSubmit: false, isChef: true },
           { where: { id: findBechef.dataValues.bcUserId } }
@@ -84,7 +80,6 @@ module.exports = {
             findEmail.dataValues.email,
             findEmail.dataValues.nickname
           );
-          console.log('failmail: ', failmail);
           await user.update(
             { isSubmit: false },
             { where: { id: findBechef.dataValues.bcUserId } }
@@ -99,7 +94,6 @@ module.exports = {
           findEmail.dataValues.email,
           findEmail.dataValues.nickname
         );
-        console.log('failmail: ', failmail);
         await user.update(
           { isSubmit: false },
           { where: { id: findBechef.dataValues.bcUserId } }

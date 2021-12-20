@@ -1,14 +1,8 @@
 import { ModalBackground, ModalBox } from '../styled/styledModal';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setServerErrorFalse,
-  closeServerErrorModal,
-  modalStatus,
-} from '../features/user/modal';
+import { useDispatch } from 'react-redux';
+import { closeServerErrorModal } from '../features/user/modal';
 
-// function LoginErrorModal({ setIsLoginErrorModalOpen, isServerError }) {
 function ServerErrorModal() {
-  const modalState = useSelector(modalStatus);
   const dispatch = useDispatch();
   const clickOk = () => {
     dispatch(closeServerErrorModal());

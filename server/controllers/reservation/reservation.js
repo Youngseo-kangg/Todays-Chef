@@ -8,7 +8,6 @@ const {
 module.exports = {
   // accessToken 받아와서 기한이 만료 됐는지 안 됐는지 확인 후 예약할 수 있게끔 만들어주기
   post: async (req, res) => {
-    console.log('req.body: ', req.body);
     const {
       people,
       allergy,
@@ -27,15 +26,13 @@ module.exports = {
     const accessVerify = isAuthorized(req);
     const refreshVerify = refreshAuthorized(req);
 
-    // console.log(refreshVerify);
-
     if (accessVerify) {
       const makeReservation = await reservation.create({
         people: people,
         allergy: allergy,
         location: location,
         mobile: mobile,
-        rsDate: rsDate,
+        rsDate: cur_date_korea,
         rsTime: rsTime,
         isOven: isOven,
         burner: burner,
@@ -73,8 +70,8 @@ module.exports = {
     const refreshVerify = refreshAuthorized(req);
 
     const findReservation = await reservation.findAll({
-      where: { rsCourseId: req.query.courseId },
-    });
+      where: { rsChefId: req.query.chefId },
+    }); // 셰프의 모든 예약을 받아와야 해서 chefId로 검색하는걸로 수정
 
     const filterReservationDate = findReservation.filter(
       (el) => el.rsDate >= new Date()
