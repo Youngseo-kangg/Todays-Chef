@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { updateAccessToken, userStatus } from '../features/user/user';
-import { useSelector } from 'react-redux';
-import { format } from 'date-fns';
+import { userStatus } from '../features/user/user';
+import { madeReservation } from '../features/reservation/reservation';
+import { openFailModal } from '../features/user/modal';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   MobileReservation,
   ReservationWrap,
@@ -10,30 +11,22 @@ import {
 } from '../styled/styleReservation';
 
 function MobileReservationDonePage() {
-  // * 성공하면 ${url}/mobile/reservationDone?reservationData=${JSON.stringify(reservationData)&imp_uid=~~~&merchant_uid=~~~&imp_success=true}
+  // * 성공하면 ${url}/mobile/reservationDone?chefName=~~~&courseName=~~~&reservationData=${JSON.stringify(reservationData)&imp_uid=~~~&merchant_uid=~~~&imp_success=true}
   const URLSearch = new URLSearchParams(window.location.search);
+  const dispatch = useDispatch();
+  let chefName = decodeURIComponent(URLSearch.get('chefName'));
+  let courseName = decodeURIComponent(URLSearch.get('courseName'));
   let reservationData = JSON.parse(URLSearch.get('reservationData'));
   let reservationRsDate = reservationData.rsDate;
   let imp_uid = URLSearch.get('imp_uid');
   let merchant_uid = URLSearch.get('merchant_uid');
   let imp_success = URLSearch.get('imp_success');
   // console.log('URLSearch.toString(): ', URLSearch.toString());
-
-  console.log('reservationData: ', reservationData);
-  console.log('reservationRsDate: ', reservationRsDate);
-  console.log('typeof reservationRsDate: ', typeof reservationRsDate);
-  console.log(
-    'new Date(reservationData.rsDate): ',
-    new Date(reservationData.rsDate)
-  );
-  console.log(
-    'format(new Date(reservationData.rsDate), "yyyy-MM-dd HH:mm:ss"): ',
-    format(new Date(reservationData.rsDate), 'yyyy-MM-dd HH:mm:ss')
-  );
-  console.log(
-    'new Date(format(new Date(reservationData.rsDate), "yyyy-MM-dd HH:mm:ss")): ',
-    new Date(format(new Date(reservationData.rsDate), 'yyyy-MM-dd HH:mm:ss'))
-  );
+  let utc =
+    new Date(reservationRsDate).getTime() +
+    new Date(reservationRsDate).getTimezoneOffset() * 60 * 1000;
+  let time_diff = 9 * 60 * 60 * 1000;
+  let cur_date_korea = new Date(utc + time_diff);
 
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userState = useSelector(userStatus);
@@ -48,7 +41,7 @@ function MobileReservationDonePage() {
           data: {
             reservationData: {
               ...reservationData,
-              rsDate: new Date(reservationData.rsDate),
+              rsDate: cur_date_korea,
             },
             imp_uid,
             merchant_uid,
@@ -65,11 +58,26 @@ function MobileReservationDonePage() {
         console.log(data);
         if (data.data.status === 'success') {
           // * 결제 정보 저장 후 다음페이지로
+          dispatch(
+            madeReservation({
+              newData: {
+                ...reservationData,
+                rsDate: String(reservationData.rsDate),
+                chefName: chefName,
+                courseName: courseName,
+              },
+            })
+          ); // redux reservation 업뎃시켜주기
           setSaveStatus(true); // 저장 완료 상태
         }
       })
       .catch((error) => {
         console.log(error);
+        dispatch(
+          openFailModal({
+            message: '결제가 중단되었습니다.',
+          })
+        );
       });
   }, []);
 

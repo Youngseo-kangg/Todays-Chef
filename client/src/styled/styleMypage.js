@@ -144,19 +144,22 @@ export const MypageReservContent = styled.div`
     column-gap: 10px;
     @media (max-width: 420px) {
       grid-template-columns: none;
-      grid-template-rows: 40px 1fr 70px;
+      grid-template-rows: 30px 1fr 70px;
+      row-gap: 10px;
     }
     #deleteReserve {
       width: 100%;
       height: 100%;
       display: grid;
-      grid-template-rows: repeat(2, 1fr);
+      grid-template-rows: 1fr;
+      grid-auto-rows: 1fr;
       row-gap: 10px;
       place-items: center;
       @media (max-width: 420px) {
         grid-template-rows: none;
         row-gap: 0px;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+        grid-auto-columns: 1fr;
         column-gap: 10px;
       }
       > button {
@@ -642,10 +645,9 @@ export const MypageEditContent = styled.div`
           }
           > button {
             background-color: #ff6d6d;
-            color: #fff;
-            font-weight: bold;
+            color: #000;
             padding: 8px;
-            font-size: 12px;
+            font-size: 14px;
             border-radius: 5px;
             cursor: pointer;
           }

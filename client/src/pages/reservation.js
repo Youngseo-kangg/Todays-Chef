@@ -23,14 +23,14 @@ import {
 } from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { setHours, setMinutes } from 'date-fns';
+import { addDays, setHours, setMinutes } from 'date-fns';
+import { reservationStatus } from '../features/reservation/reservation';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
 function Reservation() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
-  let today = new Date(); //오늘
   const dispatch = useDispatch();
   const userState = useSelector(userStatus);
   const modalState = useSelector(modalStatus);
@@ -45,10 +45,7 @@ function Reservation() {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      reservDateAndTime: setHours(
-        setMinutes(new Date(today.setDate(today.getDate() + 2)), 0),
-        13
-      ),
+      reservDateAndTime: '',
       reservSubAddress: '',
       reservPeople: 2,
       reservMobile: '',
@@ -77,7 +74,6 @@ function Reservation() {
       setMakeReservation(3); // 다음 페이지로 넘겨주기
     }
   };
-
   const onError = (error) => {
     console.log('onSubmit에서 error: ', error);
   };
@@ -93,7 +89,6 @@ function Reservation() {
   const URLSearch = new URLSearchParams(window.location.search);
   const queryChefId = URLSearch.get('chefId');
   const queryCourseId = URLSearch.get('courseId');
-
   useEffect(() => {
     if (userState.isChef || userState.isAdmin) {
       dispatch(
@@ -116,11 +111,16 @@ function Reservation() {
           `${url}/reservation?chefId=${queryChefId}&courseId=${queryCourseId}`
         )
         .then((data) => {
-          console.log(data);
           setTitleInfo({
             chefName: data.data.data.chefName,
             course: data.data.data.course,
-            reservation: data.data.data.rsDate,
+            reservation: data.data.data.rsDate.map((el) => {
+              let utc =
+                new Date(el).getTime() +
+                new Date(el).getTimezoneOffset() * 60 * 1000;
+              let time_diff = 9 * 60 * 60 * 1000;
+              return new Date(utc + time_diff); // 한국 시간차에 맞춤
+            }),
           });
         })
         .catch((err) => {
@@ -195,6 +195,7 @@ function Reservation() {
             <ReservationPayment
               setMakeReservation={setMakeReservation}
               newData={newData}
+              titleInfo={titleInfo}
               queryChefId={queryChefId}
               queryCourseId={queryCourseId}
             />

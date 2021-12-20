@@ -351,27 +351,21 @@ export const ReviewPagenation = styled.div`
 
 export const UserReview = styled.div`
   width: 100%;
+  height: auto;
   display: grid;
-  grid-template-rows: 80px 100px 80px;
+  grid-template-rows: 80px 140px 1fr;
   row-gap: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-
-  @media screen and (max-width: 767px) {
-    width: 100%;
-    height: 280px;
-  }
-  @media screen and (max-width: 420px) {
-    height: 300px;
-    grid-template-rows: 80px 120px 80px;
-  }
+  background-color: rgba(219, 184, 154, 0.4);
   .userProfile {
     display: grid;
-    grid-template-columns: 80px 4fr 1fr 5fr;
+    grid-template-columns: 80px 1fr 1fr;
     .userProfileWrap {
       img {
         width: 60px;
         height: 60px;
         border-radius: 80px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         text-align: center;
       }
     }
@@ -381,42 +375,38 @@ export const UserReview = styled.div`
     }
   }
   .reviewTextWrap {
+    min-height: 60px;
     display: grid;
     place-items: center;
     text-align: left;
+    padding: 5px;
+    background-color: #dbb89a;
     > p {
-      width: 95%;
-      height: 90%;
-      @media screen and (max-width: 767px) {
-        width: 95%;
-        height: 95%;
-      }
-      @media screen and (max-width: 420px) {
-        width: 95%;
-        height: 90%;
-      }
-      @media screen and (max-width: 320px) {
-        width: 100%;
-        height: 100%;
+      line-height: 1.3;
+      &::before {
+        content: ': ';
       }
     }
+  }
+  .noPicture {
+    display: grid;
+    place-items: center;
   }
   .reviewPicture {
     display: grid;
     place-items: center;
-    background-color: #dbb89a;
     > .reviewPictureFrame {
-      height: 90%;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: 10px;
-      .reviewPictureItem {
-        display: grid;
-        place-items: center;
-        img {
-          width: 60px;
-          height: 60px;
-          cursor: pointer;
+      > img {
+        width: 140px;
+        height: 140px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s;
+        &:hover {
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+        &:nth-child(2) {
+          margin-left: 10px;
         }
       }
     }
