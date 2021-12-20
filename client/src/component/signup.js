@@ -2,22 +2,23 @@ import axios from 'axios';
 import { useState, useRef } from 'react';
 import { SignupFormWrap } from '../styled/styledSignup';
 import { useForm } from 'react-hook-form';
-import { openSignUpModal } from '../features/user/modal';
+import {
+  openFailModal,
+  openServerErrorModal,
+  openSignUpModal,
+} from '../features/user/modal';
 import { useDispatch } from 'react-redux';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-// function Signup({ setIsSignUpModalOpen }) {
 function Signup() {
-  const [isErrorSignup, setIsErrorSignup] = useState(false);
-  const [isUser, setIsUser] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
   const dispatch = useDispatch();
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm({
@@ -29,7 +30,9 @@ function Signup() {
       signupRePassword: '',
     },
   });
+
   const signupPassword = useRef({});
+  signupPassword.current = watch('signupPassword', '');
   const onSubmit = async (data) => {
     try {
       const result = await axios.post(`${url}/user/signup`, {
@@ -37,15 +40,17 @@ function Signup() {
         password: data.signupPassword,
         nickname: data.signupNickname,
       });
-      // setIsSignUpModalOpen(true);
+      console.log('result: ', result);
       dispatch(openSignUpModal());
     } catch (err) {
-      if (err.response.data.message === 'invalid User') {
-        setIsErrorSignup(true);
-        setErrorMsg('이미 존재하는 사용자 입니다.');
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      } else if (err.response.data.message === 'invalid User') {
+        dispatch(openFailModal({ message: '이미 존재하는 사용자 입니다.' }));
+        reset();
       } else if (err.response.data.message === 'same email') {
-        setIsErrorSignup(true);
-        setErrorMsg('이미 존재하는 이메일 입니다.');
+        dispatch(openFailModal({ message: '이미 존재하는 이메일 입니다.' }));
+        reset();
       }
     }
   };
@@ -136,11 +141,9 @@ function Signup() {
           <button>회원가입</button>
         </form>
       </div>
-      <div className='axiosErrorMessage'>
-        {/* axios 하고 나서 뜨는 에러 메세지 나타내기 */}
-
+      {/* <div className='axiosErrorMessage'>
         <span className='loginError'>{errorMsg}</span>
-      </div>
+      </div> */}
       <div className='formDivider'></div>
       <p id='socialSignup'>
         간편 로그인 / 회원가입은 로그인 탭에서 가능합니다.
