@@ -11,13 +11,16 @@ function OneSentenceModal() {
   };
 
   const relocation = () => {
-    if (window.location.href.includes('/mypage')) {
+    if (
+      window.location.href.includes('/mypage') ||
+      window.location.href.includes('/loginOrSignup')
+    ) {
       return dispatch(closeFailModal());
     } else if (window.location.href.includes('/findChef')) {
       return returnToFindChef();
     } else if (window.location.href.includes('/reservation')) {
       return returnToFindChef();
-    } else if (window.location.href.includes('/loginOrSignup')) {
+    } else {
       return dispatch(closeFailModal());
     }
   };

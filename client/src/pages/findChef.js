@@ -15,12 +15,16 @@ import {
   ChefStar,
   PagenationList,
 } from '../styled/styleFindChef';
+import ServerErrorModal from '../modal/serverErrorModal';
 import fullStar from '../todaysChefIMG/ratingStar.svg';
 import halfStar from '../todaysChefIMG/halfStar.svg';
 import noneStar from '../todaysChefIMG/noneStar.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateSearchWord, modalStatus } from '../features/user/modal';
-
+import {
+  updateSearchWord,
+  openServerErrorModal,
+  modalStatus,
+} from '../features/user/modal';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
@@ -60,6 +64,9 @@ function FindChef() {
       }); // 3. result값으로 dataLength 업데이트
     } catch (err) {
       console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      }
     }
   };
 
@@ -82,6 +89,9 @@ function FindChef() {
       }); // 3. result값으로 dataLength 업데이트
     } catch (err) {
       console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      }
     }
   };
 
@@ -114,106 +124,109 @@ function FindChef() {
   };
 
   return (
-    <FindChefGrid>
-      <SelectCuisine>
-        <div id='cuisineChoiceWrap'>
-          <ul>
-            <li>
-              <div
-                className='cuisineChoice'
-                onClick={() => handleSelected('한식')}
-              >
-                <img src={koreanFood} alt='한식' />
-                <h2>한식</h2>
-              </div>
-            </li>
-            <li>
-              <div
-                className='cuisineChoice'
-                onClick={() => handleSelected('일식')}
-              >
-                <img src={japaneseFood} alt='일식' />
-                <h2>일식</h2>
-              </div>
-            </li>
-            <li>
-              <div
-                className='cuisineChoice'
-                onClick={() => handleSelected('중식')}
-              >
-                <img src={chineseFood} alt='중식' />
-                <h2>중식</h2>
-              </div>
-            </li>
-            <li>
-              <div
-                className='cuisineChoice'
-                onClick={() => handleSelected('양식')}
-              >
-                <img src={italianFood} alt='양식' />
-                <h2>양식</h2>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </SelectCuisine>
-
-      <ChefList>
-        <div id='chefListWrap'>
-          <ChefListTitleWrap>
-            <h2>{modalState.searchWord} 셰프</h2>
-          </ChefListTitleWrap>
-
-          <ChefItemList>
+    <>
+      {modalState.isServerErrorModalOpen ? <ServerErrorModal /> : null}
+      <FindChefGrid>
+        <SelectCuisine>
+          <div id='cuisineChoiceWrap'>
             <ul>
-              {chefData.map((el, idx) => {
-                return (
-                  <li
-                    className='chef'
-                    key={el.id}
-                    onClick={() => history.push(`/chef?chefId=${el.id}`)}
-                  >
-                    <div className='chefPic'>
-                      {el.chefImg === '' ? (
-                        <img src={basic_profile} alt='셰프 사진' />
-                      ) : (
-                        <img src={el.chefImg} alt='셰프 사진' />
-                      )}
-                    </div>
-                    <h3>
-                      <Link to={`/chef?chefId=${el.id}`}>
-                        {el.chefName} 셰프
-                      </Link>
-                    </h3>
+              <li>
+                <div
+                  className='cuisineChoice'
+                  onClick={() => handleSelected('한식')}
+                >
+                  <img src={koreanFood} alt='한식' />
+                  <h2>한식</h2>
+                </div>
+              </li>
+              <li>
+                <div
+                  className='cuisineChoice'
+                  onClick={() => handleSelected('일식')}
+                >
+                  <img src={japaneseFood} alt='일식' />
+                  <h2>일식</h2>
+                </div>
+              </li>
+              <li>
+                <div
+                  className='cuisineChoice'
+                  onClick={() => handleSelected('중식')}
+                >
+                  <img src={chineseFood} alt='중식' />
+                  <h2>중식</h2>
+                </div>
+              </li>
+              <li>
+                <div
+                  className='cuisineChoice'
+                  onClick={() => handleSelected('양식')}
+                >
+                  <img src={italianFood} alt='양식' />
+                  <h2>양식</h2>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </SelectCuisine>
 
-                    <ChefStar key={idx}>
-                      <div>
-                        {ratingStar(el, idx).map((ele, idx) => {
-                          return <img src={ele} alt='별점' key={idx} />;
-                        })}
+        <ChefList>
+          <div id='chefListWrap'>
+            <ChefListTitleWrap>
+              <h2>{modalState.searchWord} 셰프</h2>
+            </ChefListTitleWrap>
+
+            <ChefItemList>
+              <ul>
+                {chefData.map((el, idx) => {
+                  return (
+                    <li
+                      className='chef'
+                      key={el.id}
+                      onClick={() => history.push(`/chef?chefId=${el.id}`)}
+                    >
+                      <div className='chefPic'>
+                        {el.chefImg === '' ? (
+                          <img src={basic_profile} alt='셰프 사진' />
+                        ) : (
+                          <img src={el.chefImg} alt='셰프 사진' />
+                        )}
                       </div>
-                    </ChefStar>
-                    <span>{el.rating}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          </ChefItemList>
+                      <h3>
+                        <Link to={`/chef?chefId=${el.id}`}>
+                          {el.chefName} 셰프
+                        </Link>
+                      </h3>
 
-          <PagenationList>
-            <ul>
-              {chefsPerPage.array.map((el, idx) => {
-                return (
-                  <li key={idx} onClick={() => getChefListMore(el, el + 4)}>
-                    {idx + 1}
-                  </li>
-                );
-              })}
-            </ul>
-          </PagenationList>
-        </div>
-      </ChefList>
-    </FindChefGrid>
+                      <ChefStar key={idx}>
+                        <div>
+                          {ratingStar(el, idx).map((ele, idx) => {
+                            return <img src={ele} alt='별점' key={idx} />;
+                          })}
+                        </div>
+                      </ChefStar>
+                      <span>{el.rating}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </ChefItemList>
+
+            <PagenationList>
+              <ul>
+                {chefsPerPage.array.map((el, idx) => {
+                  return (
+                    <li key={idx} onClick={() => getChefListMore(el, el + 4)}>
+                      {idx + 1}
+                    </li>
+                  );
+                })}
+              </ul>
+            </PagenationList>
+          </div>
+        </ChefList>
+      </FindChefGrid>
+    </>
   );
 }
 

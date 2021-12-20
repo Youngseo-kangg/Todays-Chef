@@ -19,7 +19,6 @@ function MainSection3() {
 
   const getBestChef = async () => {
     const chefInfo = await axios.get(`${url}/main`);
-    console.log(chefInfo.data);
     setChefData(chefInfo.data.data);
   };
 

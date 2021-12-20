@@ -10,7 +10,6 @@ require('dotenv').config();
 axios.defaults.withCredentials = true;
 
 function ChefAllCourse({ chefCourse, query }) {
-  console.log('chefCourse: ', chefCourse);
   return (
     <ChefAllCourseInfo>
       {chefCourse.length === 0 ? (

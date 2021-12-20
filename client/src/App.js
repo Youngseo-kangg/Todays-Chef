@@ -20,7 +20,7 @@ import {
 import { chefLogin } from './features/chef/chef';
 import { getReservation } from './features/reservation/reservation';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, userStatus } from './features/user/user';
+import { login } from './features/user/user';
 
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -32,7 +32,6 @@ axios.defaults.withCredentials = true;
 function App() {
   const dispatch = useDispatch();
   const modalState = useSelector(modalStatus);
-  const userState = useSelector(userStatus);
   useEffect(() => {
     if (
       window.location.href === 'https://www.todayschef.click' ||
@@ -46,7 +45,6 @@ function App() {
       'code'
     );
     if (authorizationCode) {
-      console.log(authorizationCode);
       socialLoginAccessToken(authorizationCode);
     }
     window.onbeforeunload = function pushRefresh() {

@@ -30,9 +30,7 @@ function Signup() {
     },
   });
   const signupPassword = useRef({});
-  signupPassword.current = watch('signupPassword', '');
   const onSubmit = async (data) => {
-    // console.log('onSubmit: ', data);
     try {
       const result = await axios.post(`${url}/user/signup`, {
         email: data.signupEmail,

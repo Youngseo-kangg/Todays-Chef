@@ -1,7 +1,6 @@
 import { ModalBackground, PictureModalBox } from '../styled/styledModal';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
-import { useState } from 'react';
 
 function PictureModal({ setMagnifyPic, magnifyPic }) {
   const clickOk = () => {

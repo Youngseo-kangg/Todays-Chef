@@ -7,6 +7,7 @@ import ReservationInfo from '../component/reservationInfo';
 import ReservationPayment from '../component/reservationPayment';
 import ReservationDone from '../component/reservationDone';
 import OneSentenceModal from '../modal/oneSentenceModal';
+import ServerErrorModal from '../modal/serverErrorModal';
 import NeedReLoginModal from '../modal/needReLoginModal';
 import {
   ReservationGrid,
@@ -23,8 +24,6 @@ import {
 } from '../features/user/modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { addDays, setHours, setMinutes } from 'date-fns';
-import { reservationStatus } from '../features/reservation/reservation';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -59,7 +58,6 @@ function Reservation() {
   const onSubmit = (data) => {
     if (address.length === 0) {
       // 작성한 내용이 없을 때
-      console.log('submit은 작동했으나 막았음');
       setMakeReservation(2);
       return false;
     } else {
@@ -70,7 +68,6 @@ function Reservation() {
         reservCourseName: titleInfo.course.courseName,
         reservPrice: titleInfo.course.price * data.reservPeople,
       });
-      console.log('새로만든 newData: ', newData); // newData 상태값 업데이트
       setMakeReservation(3); // 다음 페이지로 넘겨주기
     }
   };
@@ -137,6 +134,7 @@ function Reservation() {
   return (
     <>
       {modalState.failModalOpen ? <OneSentenceModal /> : null}
+      {modalState.isServerErrorModalOpen ? <ServerErrorModal /> : null}
       {modalState.isNeedReLoginModalOpen ? <NeedReLoginModal /> : null}
       {searchAddress === true ? (
         <AddressModal

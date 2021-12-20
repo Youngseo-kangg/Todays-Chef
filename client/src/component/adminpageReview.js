@@ -36,7 +36,6 @@ function AdminpageReview() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      // console.log(result);
       setAdminReview(result.data.data);
       if (result.data.accessToken) {
         dispatch(
@@ -55,7 +54,6 @@ function AdminpageReview() {
         length: result.data.length,
       });
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
@@ -73,7 +71,6 @@ function AdminpageReview() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      // console.log(result);
       if (result.data.accessToken) {
         dispatch(
           updateAccessToken({
@@ -92,7 +89,6 @@ function AdminpageReview() {
         length: result.data.length,
       });
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
@@ -121,7 +117,6 @@ function AdminpageReview() {
       }
       setUpdateAdminReview(!updateAdminReview);
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {

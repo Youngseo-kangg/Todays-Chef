@@ -90,7 +90,6 @@ function MypageReservation() {
         })
         .then((result) => {
           if (result.data.accessToken) {
-            console.log('accessToken 있어서 들어옴');
             dispatch(
               updateAccessToken({ accessToken: result.data.accessToken })
             );
@@ -131,9 +130,7 @@ function MypageReservation() {
           headers: { authorization: `bearer ${userState.accessToken}` },
         })
         .then((result) => {
-          console.log(result);
           if (result.data.accessToken) {
-            console.log('accessToken 있어서 들어옴');
             dispatch(
               updateAccessToken({ accessToken: result.data.accessToken })
             );

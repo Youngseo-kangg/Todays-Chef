@@ -20,11 +20,9 @@ axios.defaults.withCredentials = true;
 
 // function Login({ setIsLoginModalOpen }) {
 function Login() {
-  const userState = useSelector(userStatus);
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const {
     register,
-    watch,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -36,17 +34,14 @@ function Login() {
   });
 
   const [isErrorLogin, setIsErrorLogin] = useState(false);
-  // console.log('Login의 watch: ', watch()); // target들 확인
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    // console.log('onSubmit: ', data);
     try {
       let loginResult = await axios.post(`${url}/user/login`, {
         email: data.loginEmail,
         password: data.loginPassword,
       });
-      // console.log('login 완료', loginResult.data.message);
       if (loginResult.data.message === 'ok') {
         if (loginResult.data.userInfo.chefId) {
           // 셰프라면
@@ -97,10 +92,6 @@ function Login() {
     localStorage.setItem('socialType', 'google');
     window.location.assign(GOOGLE_LOGIN_URL);
   };
-
-  // console.log('loginState: ', loginState);
-  // const userInfo = useSelector(userStatus);
-  // console.log('redux store 값: ', userInfo);
 
   return (
     <LoginFormWrap>

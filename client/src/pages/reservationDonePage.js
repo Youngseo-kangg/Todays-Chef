@@ -20,8 +20,6 @@ function MobileReservationDonePage() {
   let reservationRsDate = reservationData.rsDate;
   let imp_uid = URLSearch.get('imp_uid');
   let merchant_uid = URLSearch.get('merchant_uid');
-  let imp_success = URLSearch.get('imp_success');
-  // console.log('URLSearch.toString(): ', URLSearch.toString());
   let utc =
     new Date(reservationRsDate).getTime() +
     new Date(reservationRsDate).getTimezoneOffset() * 60 * 1000;
@@ -55,7 +53,6 @@ function MobileReservationDonePage() {
         }
       )
       .then((data) => {
-        console.log(data);
         if (data.data.status === 'success') {
           // * 결제 정보 저장 후 다음페이지로
           dispatch(

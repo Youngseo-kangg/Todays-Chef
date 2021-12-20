@@ -17,8 +17,6 @@ function DeleteReservModal() {
 
   const clickOk = async () => {
     try {
-      console.log('ccc', modalState);
-
       let result = await axios.post(
         `${url}/mypage/reservation/user?id=${userState.userId}`,
         {
@@ -32,7 +30,6 @@ function DeleteReservModal() {
           headers: { authorization: `bearer ${userState.accessToken}` },
         }
       ); // 서버에 요청
-      console.log(result);
       if (result.data.accessToken) {
         dispatch(updateAccessToken({ accessToken: result.data.accessToken }));
       }

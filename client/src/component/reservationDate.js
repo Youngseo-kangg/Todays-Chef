@@ -25,7 +25,6 @@ function ReservationDate({
   titleInfo,
   reservation,
 }) {
-  // console.log(reservation); // ['2021-12-24T07:00:00.000Z']
   const months = [
     '1월',
     '2월',
@@ -49,23 +48,6 @@ function ReservationDate({
   };
   const reservationState = useSelector(reservationStatus);
   let dateFormat = 'yyyy년 MMMM dd일, aa h:mm';
-
-  useEffect(() => {
-    // * startDate 재설정 -> startDate가 titleInfo.reservation이나 reservationState에서 벗어날 때 까지 while문에서 date++1 해주기?
-    // const newTitleInfo = titleInfo.reservation.map((el) => {
-    //   return format(el, 'yyyy-MM-dd');
-    // }); // ['2021-12-19']
-    // const tempReservationState = reservationState.data.map((el) => {
-    //   let utc =
-    //     new Date(el.rsDate).getTime() +
-    //     new Date(el.rsDate).getTimezoneOffset() * 60 * 1000;
-    //   let time_diff = 9 * 60 * 60 * 1000;
-    //   return new Date(utc + time_diff);
-    // });
-    // const newReservationState = tempReservationState.map((el) => {
-    //   return format(el, 'yyyy-MM-dd');
-    // }); // ['2021-12-19', '2021-12-15'];
-  }, []);
 
   return (
     <>
