@@ -22,6 +22,7 @@ function ChefInfo() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const [chefInfoIdx, setChefInfoIdx] = useState(0);
   const query = window.location.search.split('=')[1]; // chefId=~~에서 '='뒤 텍스트 가져오기
+  const [loading, setLoading] = useState(true);
   const [chefInfo, setChefInfo] = useState({
     info: {},
     course: [],
@@ -41,6 +42,7 @@ function ChefInfo() {
         course: getChefResult.data.chefCourse,
         reviewLength: getChefResult.data.chefReviewLength,
       });
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -57,9 +59,11 @@ function ChefInfo() {
       ) : null}
       <ChefInfoGrid>
         <ChefInfoDesc>
-          <h2 data-aos='fade-zoom-in'>
-            {chefInfo.info.chefName} 셰프님의 만찬을 즐겨보세요
-          </h2>
+          {loading ? null : (
+            <h2 data-aos='fade-zoom-in'>
+              {chefInfo.info.chefName} 셰프님의 만찬을 즐겨보세요
+            </h2>
+          )}
         </ChefInfoDesc>
         <ChefInformation>
           <ul id='chefInfoOrder'>
