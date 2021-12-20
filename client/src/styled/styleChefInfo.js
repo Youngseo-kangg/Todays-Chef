@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import chefInfoImg from '../todaysChefIMG/chefInfoImg.jpg';
 
 export const ChefInfoGrid = styled.article`
   display: grid;
@@ -17,23 +18,28 @@ export const ChefInfoDesc = styled.div`
   display: grid;
   place-items: center;
   background-color: #dbb89a;
+  background-image: url(${chefInfoImg});
+  background-position: center;
   > h2 {
-    width: 80%;
-    max-width: 765px;
+    /* width: 70%; */
+    max-width: 600px;
     height: auto;
     display: grid;
     place-items: center;
     font-size: 35px;
     line-height: 50px;
     box-sizing: border-box;
-    border-bottom: 2px solid #603224;
+    border-bottom: 2px solid #fff;
+    /* background-color: rgba(255, 255, 255, 0.4); */
     word-break: keep-all;
+    color: #fff;
     @media screen and (max-width: 767px) {
-      width: 90%;
-    }
-    @media screen and (max-width: 420px) {
+      /* width: 90%; */
       font-size: 30px;
-      width: 95%;
+    }
+    @media screen and (max-width: 450px) {
+      width: 80%;
+      font-size: 20px;
     }
   }
 `;
@@ -123,6 +129,10 @@ export const ChefImgWrap = styled.div`
   #chefName {
     background-color: #dbb89a;
     font-size: 30px;
+    /* background-color: #603224;
+    font-size: 30px;
+    color: #fff;
+    border-radius: 10px; */
   }
   #chefImg {
     img {
@@ -160,6 +170,9 @@ export const ChefTextWrap = styled.div`
       font-size: 20px;
       padding: 5px 0px 5px 5px;
       background-color: #dbb89a;
+    }
+    p {
+      line-height: 25px;
     }
     p:before {
       content: ': ';
@@ -228,6 +241,7 @@ export const CourseItem = styled.li`
     padding: 15px;
     li {
       margin-bottom: 5px;
+      line-height: 25px;
     }
     li:before {
       content: '- ';

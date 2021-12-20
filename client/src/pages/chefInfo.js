@@ -10,6 +10,10 @@ import {
   ChefInformation,
   ChefWrapBox,
 } from '../styled/styleChefInfo';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+AOS.init();
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
@@ -53,8 +57,8 @@ function ChefInfo() {
       ) : null}
       <ChefInfoGrid>
         <ChefInfoDesc>
-          <h2>
-            {chefInfo.info.chefName} 셰프님의 만찬에 오신 것을 환영합니다!
+          <h2 data-aos='fade-zoom-in'>
+            {chefInfo.info.chefName} 셰프님의 만찬을 즐겨보세요
           </h2>
         </ChefInfoDesc>
         <ChefInformation>

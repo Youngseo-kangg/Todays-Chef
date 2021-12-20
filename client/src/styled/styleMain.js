@@ -14,6 +14,9 @@ export const MainGrid = styled.div`
   @media (max-width: 430px) {
     grid-template-rows: 100vh 450px 800px 550px;
   }
+  @media (max-width: 280px) {
+    grid-template-rows: 100vh 450px 1500px 550px;
+  }
 `;
 
 export const MainBackgroundWrap = styled.div`
@@ -202,8 +205,6 @@ export const BestOfChefsWrap = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    background-color: red;
-
     li {
       /* border: 1px solid blue; */
       box-sizing: border-box;
@@ -219,6 +220,9 @@ export const BestOfChefsWrap = styled.div`
       @media (max-width: 430px) {
         height: 350px;
       }
+      @media (max-width: 280px) {
+        width: calc(100% / 1 - 10px);
+      }
       :hover {
         transform: translateY(-10px);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -226,7 +230,6 @@ export const BestOfChefsWrap = styled.div`
       > a {
         width: 100%;
         height: 100%;
-        background-color: orange;
         display: grid;
         grid-template-rows: 50px 300px 1fr 1fr 1fr;
         row-gap: 15px;
@@ -235,7 +238,6 @@ export const BestOfChefsWrap = styled.div`
         }
         > .bestCuisine {
           width: 60%;
-          background-color: pink;
           font-size: 18px;
           line-height: 50px;
           border-bottom: 2px solid #dbb89a;
@@ -248,7 +250,6 @@ export const BestOfChefsWrap = styled.div`
           place-items: center;
           box-sizing: border-box;
           margin: 0 auto;
-          background-color: green;
         }
         > span {
           display: grid;
@@ -259,7 +260,6 @@ export const BestOfChefsWrap = styled.div`
           }
         }
         > .chefPic {
-          /* border: 1px solid red; */
           display: grid;
           place-items: center;
           width: 100%;
@@ -274,9 +274,6 @@ export const BestOfChefsWrap = styled.div`
             @media (max-width: 767px) {
               width: 180px;
               height: 180px;
-            }
-            @media (max-width: 430px) {
-              width: 90%;
             }
           }
         }
