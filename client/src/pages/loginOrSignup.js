@@ -6,7 +6,7 @@ import OneSentenceModal from '../modal/oneSentenceModal';
 import Signup from '../component/signup';
 
 import { modalStatus } from '../features/user/modal';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState, useEffect, useMemo } from 'react';
 import { throttle } from 'lodash';
 import {
@@ -25,14 +25,6 @@ function LoginOrSignup() {
     setloginOrSignupComp(!loginOrSignupComp);
   }; // menuList에서 몇번째 내용이 보여져야 할지 지정해주는 함수
   // const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false); // 회원가입 모달창 상태
-
-  const initialHandleSmallComp = () => {
-    if (window.innerWidth < 421) {
-      setSmallComp(true);
-    } else {
-      setSmallComp(false);
-    }
-  };
 
   const handleSmallComp = useMemo(
     () =>

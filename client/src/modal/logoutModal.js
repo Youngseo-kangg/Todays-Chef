@@ -8,13 +8,12 @@ import {
 } from '../features/user/modal';
 import { logout, userStatus } from '../features/user/user';
 import axios from 'axios';
-import { chefLogout, chefStatus } from '../features/chef/chef';
+import { chefLogout } from '../features/chef/chef';
 
 function LogoutModal() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const dispatch = useDispatch();
   const userInfo = useSelector(userStatus);
-  const chefInfo = useSelector(chefStatus);
   const clickOk = async () => {
     try {
       let result = await axios.get(`${url}/user/logout`, {

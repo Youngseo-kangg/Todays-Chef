@@ -59,7 +59,6 @@ export const chefSlice = createSlice({
         state.courses.filter((el) => el.id === action.payload.targetId)[0]
       );
       state.courses.splice(target, 1);
-      state.courses = state.courses;
     },
   },
 });
