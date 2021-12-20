@@ -138,6 +138,7 @@ export const ChefImgWrap = styled.div`
     img {
       width: 320px;
       height: 320px;
+      object-fit: cover;
       @media screen and (max-width: 430px) {
         width: 280px;
         height: 280px;
