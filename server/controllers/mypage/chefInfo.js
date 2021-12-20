@@ -64,7 +64,6 @@ module.exports = {
           );
           res.status(201).json({ accessToken, message: 'ok' });
         } else {
-          // console.log(createCourse);
           const findSameCoure = await course.findOne({
             where: { courseName: data.courseName },
           });
@@ -98,7 +97,6 @@ module.exports = {
         );
         res.status(200).json({ message: 'ok' });
       } else {
-        // console.log(createCourse);
         const findSameCoure = await course.findOne({
           where: { courseName: data.courseName },
         });
