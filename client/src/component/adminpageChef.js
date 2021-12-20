@@ -3,7 +3,7 @@ import { AdminContent } from '../styled/styleAdminpage';
 import { PagenationList } from '../styled/styleFindChef';
 import basic_profile from '../todaysChefIMG/basic_profile.jpeg';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateAccessToken, logout, userStatus } from '../features/user/user';
+import { updateAccessToken, userStatus } from '../features/user/user';
 import {
   openServerErrorModal,
   openIsNeedReLoginModal,
@@ -36,7 +36,6 @@ function AdminpageChef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      // console.log(result);
       if (result.data.message === 'ok') {
         if (result.data.accessToken) {
           dispatch(
@@ -57,7 +56,6 @@ function AdminpageChef() {
         });
       }
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
@@ -75,7 +73,6 @@ function AdminpageChef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      // console.log(result);
       if (result.data.message === 'ok') {
         if (result.data.accessToken) {
           dispatch(
@@ -96,7 +93,6 @@ function AdminpageChef() {
         });
       }
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
@@ -127,7 +123,6 @@ function AdminpageChef() {
         setUpdateAdminChef(!updateAdminChef);
       }
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {

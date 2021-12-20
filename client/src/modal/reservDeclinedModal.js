@@ -1,7 +1,6 @@
 import { ModalBackground, ModalBox } from '../styled/styledModal';
 import { useDispatch } from 'react-redux';
 import { closeReservDeclinedModal } from '../features/user/modal';
-import { useState } from 'react';
 
 // function LoginModal({ setIsLoginModalOpen }) {
 function ReservDeclinedModal() {

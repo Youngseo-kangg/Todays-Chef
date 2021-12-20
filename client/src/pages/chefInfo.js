@@ -10,8 +10,10 @@ import {
   ChefInformation,
   ChefWrapBox,
 } from '../styled/styleChefInfo';
+import { modalStatus, openServerErrorModal } from '../features/user/modal';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 AOS.init();
 
@@ -20,6 +22,8 @@ axios.defaults.withCredentials = true;
 
 function ChefInfo() {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
+  const dispatch = useDispatch();
+  const modalState = useSelector(modalStatus);
   const [chefInfoIdx, setChefInfoIdx] = useState(0);
   const query = window.location.search.split('=')[1]; // chefId=~~에서 '='뒤 텍스트 가져오기
   const [loading, setLoading] = useState(true);
@@ -36,7 +40,6 @@ function ChefInfo() {
   const getChef = async () => {
     try {
       const getChefResult = await axios.get(`${url}/chef?chefId=${query}`);
-      // console.log('chefInfo에서 받아온 정보들: ', getChefResult.data);
       setChefInfo({
         info: getChefResult.data.data,
         course: getChefResult.data.chefCourse,
@@ -45,9 +48,11 @@ function ChefInfo() {
       setLoading(false);
     } catch (err) {
       console.log(err);
+      if (err.message === 'Network Error') {
+        dispatch(openServerErrorModal());
+      }
     }
   };
-  // console.log(chefInfo);
   useEffect(() => {
     getChef();
   }, []); // 들어오자마자 한번만

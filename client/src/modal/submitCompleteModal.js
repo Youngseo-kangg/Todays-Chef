@@ -2,7 +2,6 @@ import { ModalBackground, ModalBox } from '../styled/styledModal';
 import { useDispatch } from 'react-redux';
 import { closeIsSubmitCompleteModal } from '../features/user/modal';
 
-// function LoginModal({ setIsLoginModalOpen }) {
 function SubmitCompleteModal() {
   const dispatch = useDispatch();
   const clickOk = () => {

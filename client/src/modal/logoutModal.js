@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
   closeLogoutModal,
-  setServerErrorTrue,
   openServerErrorModal,
   openIsNeedReLoginModal,
 } from '../features/user/modal';
@@ -16,16 +15,11 @@ function LogoutModal() {
   const dispatch = useDispatch();
   const userInfo = useSelector(userStatus);
   const chefInfo = useSelector(chefStatus);
-  // const modalState = useSelector(modalStatus);
-  // console.log('LogoutModal에서 modalStatus: ', modalState);
-  console.log(userInfo);
-  console.log(chefInfo);
   const clickOk = async () => {
     try {
       let result = await axios.get(`${url}/user/logout`, {
         headers: { authorization: `Bearer ${userInfo.accessToken}}` },
       });
-      console.log(result);
       if (result.data.message === 'ok') {
         if (userInfo.isChef === true) {
           // 셰프라면 셰프정보도 없애주기

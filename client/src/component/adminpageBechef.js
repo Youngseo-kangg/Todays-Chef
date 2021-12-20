@@ -32,7 +32,7 @@ function AdminpageBechef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      // console.log(result.data);
+
       if (result.data.message === 'ok') {
         if (result.data.accessToken) {
           dispatch(
@@ -53,7 +53,6 @@ function AdminpageBechef() {
         });
       }
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
@@ -70,7 +69,6 @@ function AdminpageBechef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      console.log(result.data);
       if (result.data.message === 'ok') {
         if (result.data.accessToken) {
           dispatch(
@@ -91,7 +89,6 @@ function AdminpageBechef() {
         });
       }
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
@@ -111,7 +108,6 @@ function AdminpageBechef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      console.log('refuseBechef : ', result);
       if (result.data.message === 'refuse ok') {
         if (result.data.accessToken) {
           dispatch(
@@ -123,7 +119,6 @@ function AdminpageBechef() {
         setUpdateAdminBechef(!updateAdminBechef);
       }
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
@@ -143,7 +138,6 @@ function AdminpageBechef() {
           headers: { authorization: `Bearer ${userState.accessToken}` },
         }
       );
-      console.log('acceptBechef : ', result);
       if (result.data.message === 'confirm ok') {
         if (result.data.accessToken) {
           dispatch(
@@ -155,7 +149,6 @@ function AdminpageBechef() {
         setUpdateAdminBechef(!updateAdminBechef);
       }
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {

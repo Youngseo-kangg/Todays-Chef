@@ -6,7 +6,6 @@ import {
   updateAccessToken,
   updateUserImg,
   editUserNickname,
-  logout,
 } from '../features/user/user';
 import { reservationStatus } from '../features/reservation/reservation';
 import axios from 'axios';
@@ -19,14 +18,12 @@ import {
   openChoiceModal,
 } from '../features/user/modal';
 import { isAfter } from 'date-fns';
-import { useHistory } from 'react-router';
 
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
 function MypageEdit() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const userState = useSelector(userStatus);
   const reservationState = useSelector(reservationStatus);
   const [userPic, setUserPic] = useState({}); // 유저가 로컬에서 업로드한 프로필 이미지
@@ -75,7 +72,6 @@ function MypageEdit() {
         dispatch(openSuccessModal({ message: '사진 변경이 완료되었습니다.' }));
       }
     } catch (err) {
-      console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new Login Request') {
@@ -155,7 +151,6 @@ function MypageEdit() {
           );
         }
       } catch (err) {
-        console.log(err);
         if (err.message === 'Network Error') {
           dispatch(openServerErrorModal());
         } else if (err.response.data.message === 'Send new Login Request') {
@@ -196,14 +191,12 @@ function MypageEdit() {
           },
           { headers: { authorization: `bearer ${userState.accessToken}` } }
         );
-        console.log(result);
         dispatch(
           openSuccessModal({
             message: `비밀번호 수정이 완료되었습니다. 재로그인이 필요합니다.`,
           })
         );
       } catch (err) {
-        console.log(err);
         if (err.message === 'Network Error') {
           dispatch(openServerErrorModal());
         } else if (err.response.data.message === 'Send new Login Request') {
@@ -220,8 +213,6 @@ function MypageEdit() {
     const reserv = reservationState.data.filter((el) =>
       isAfter(new Date(el.rsDate), new Date())
     );
-    // console.log('reserv: ', reserv);
-    // console.log('reserv.length: ', reserv.length);
     if (userState.isChef) {
       // 셰프라면 직접 서비스센터에 메일 보내라 하기
       dispatch(
