@@ -67,6 +67,7 @@ module.exports = {
       res.status(201).json({ accessToken: accessToken, userInfo: userInfo });
     } else {
       // 있으면 로그인
+
       if (userUsingEmail.dataValues.isOauth) {
         delete userUsingEmail.dataValues.password;
         delete userUsingEmail.dataValues.createdAt;
@@ -78,16 +79,14 @@ module.exports = {
 
         if (!userUsingEmail.dataValues.isChef) {
           const reservInfo = await reservation.findAll({
-            where: { rsUserId: findUser.dataValues.id },
+            where: { rsUserId: userUsingEmail.dataValues.id },
           }); // 예약정보
-          res
-            .status(200)
-            .json({
-              message: 'ok',
-              accessToken,
-              reservInfo,
-              userInfo: userUsingEmail,
-            });
+          res.status(200).json({
+            message: 'ok',
+            accessToken,
+            reservInfo,
+            userInfo: userUsingEmail,
+          });
         } else {
           const findChef = await chef.findOne({
             where: { chUserId: userUsingEmail.dataValues.id },
