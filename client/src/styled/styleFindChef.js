@@ -201,6 +201,7 @@ export const ChefItemList = styled.div`
           width: 230px;
           height: 230px;
           border-radius: 100%;
+          object-fit: cover;
           @media (max-width: 1080px) {
             width: 160px;
             height: 160px;

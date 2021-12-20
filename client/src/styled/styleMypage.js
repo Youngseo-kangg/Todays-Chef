@@ -730,6 +730,7 @@ export const MypageChefEditContent = styled.div`
       img {
         width: 250px;
         height: 250px;
+        object-fit: cover;
         border-radius: 5px;
         @media (max-width: 1080px) {
           width: 230px;
