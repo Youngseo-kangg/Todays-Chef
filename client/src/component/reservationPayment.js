@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateAccessToken, userStatus } from '../features/user/user';
+import { userStatus } from '../features/user/user';
 import { ReservationWrap, ReservNotice } from '../styled/styleReservation';
 import { openFailModal } from '../features/user/modal';
-import { format, getHours, getMinutes } from 'date-fns';
+import { format, getHours } from 'date-fns';
 import { madeReservation } from '../features/reservation/reservation';
 import axios from 'axios';
 require('dotenv').config();
@@ -60,21 +60,11 @@ function ReservationPayment({
       )}&reservationData=${JSON.stringify(reservationData)}`,
     }; // IMP.request_pay에 담길 data
     const callback = async (response) => {
-      const {
-        success,
-        error_msg,
-        imp_uid,
-        merchant_uid,
-        pay_method,
-        paid_amount,
-        status,
-      } = response;
+      const { success, error_msg, imp_uid, merchant_uid } = response;
       if (success) {
         // 결제가 성공한 경우
         // * axios로 서버에 정보 보내서 결제정보 저장
-        const webUrl = 'https://server.todayschef.click';
         let postResult = await axios.post(
-          // `${webUrl}/reservation/payments`,
           `http://localhost:4000/reservation/payments`,
           {
             data: {

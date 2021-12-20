@@ -1,16 +1,15 @@
 import axios from 'axios';
-import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   openLoginErrorModal,
   openServerErrorModal,
   openLoginModal,
 } from '../features/user/modal';
 import { getReservation } from '../features/reservation/reservation';
-import { login, userStatus } from '../features/user/user';
+import { login } from '../features/user/user';
 import { LoginFormWrap } from '../styled/styledLogin';
 import { useForm } from 'react-hook-form';
 import { chefLogin } from '../features/chef/chef';
@@ -33,7 +32,6 @@ function Login() {
     },
   });
 
-  const [isErrorLogin, setIsErrorLogin] = useState(false);
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
@@ -128,12 +126,6 @@ function Login() {
           )}
           <button type='submit'>로그인</button>
         </form>
-      </div>
-      <div className='axiosErrorMessage'>
-        {/* axios 하고 나서 뜨는 에러 메세지 나타내기 */}
-        {isErrorLogin ? (
-          <span className='loginError'>로그인에 실패하였습니다.</span>
-        ) : null}
       </div>
       <div className='formDivider'></div>
       <div id='socialLogin'>

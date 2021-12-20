@@ -1,12 +1,10 @@
 import { MypageReviewContent, Stars } from '../styled/styleMypage';
-import { PagenationList } from '../styled/styleFindChef';
 import axios from 'axios';
 import { FaStar } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { updateAccessToken, userStatus } from '../features/user/user';
 import { getReview, reviewStatus } from '../features/review/review';
-import { modalStatus } from '../features/user/modal';
 import { ChefStar } from '../styled/styleFindChef';
 import fullStar from '../todaysChefIMG/ratingStar.svg';
 import halfStar from '../todaysChefIMG/halfStar.svg';
@@ -200,7 +198,7 @@ function MypageReview({ setMagnifyPic, magnifyPic }) {
       } else {
         // 만약 사진 업로드 한게 있다면 사진 올려주고
         if (userPicTitle.length !== 0) {
-          let imageRes = await axios.post(
+          await axios.post(
             `${url}/mypage/review/${writeReviewContent.review.id}`,
             userPic,
             {

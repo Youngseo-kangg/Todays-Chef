@@ -126,7 +126,7 @@ function MypageChefEdit() {
   const sendImgToServer = async () => {
     // 선택한 파일을 서버로 axios 요청을 보내 유저 db의 userPic 업데이트
     try {
-      const imageRes = await axios.post(
+      await axios.post(
         `${url}/mypage/info/image/chef?id=${chefState.chefId}`,
         userPic,
         {
