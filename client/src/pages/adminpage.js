@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import AdminpageBechef from '../component/adminpageBechef';
 import AdminpageReview from '../component/adminpageReview';
 import AdminpageChef from '../component/adminpageChef';
+import LoadingIndicator from '../component/adminpageLoading';
 import NeedReLoginModal from '../modal/needReLoginModal';
 import { AdminpageGrid, AdminPageContent } from '../styled/styleAdminpage';
 import { userStatus } from '../features/user/user';
@@ -13,8 +14,9 @@ function Adminpage() {
   const history = useHistory();
   const userState = useSelector(userStatus);
   const modalState = useSelector(modalStatus);
+  const [loading, setLoading] = useState(false);
   const adminpageMenuList = {
-    0: <AdminpageBechef />,
+    0: <AdminpageBechef setLoading={setLoading} />,
     1: <AdminpageReview />,
     2: <AdminpageChef />,
   }; // adminpage component 리스트
@@ -32,6 +34,7 @@ function Adminpage() {
   return (
     <>
       {modalState.isNeedReLoginModalOpen ? <NeedReLoginModal /> : null}
+      {loading ? <LoadingIndicator /> : null}
       <AdminpageGrid>
         <div id='adminpageGridWrap'>
           <ul>

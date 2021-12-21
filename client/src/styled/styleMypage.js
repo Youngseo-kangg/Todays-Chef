@@ -730,6 +730,7 @@ export const MypageChefEditContent = styled.div`
       img {
         width: 250px;
         height: 250px;
+        object-fit: cover;
         border-radius: 5px;
         @media (max-width: 1080px) {
           width: 230px;
@@ -776,7 +777,7 @@ export const MypageChefEditContent = styled.div`
         height: 100%;
         display: grid;
         place-items: center;
-        grid-template-columns: 70px 1fr;
+        grid-template-columns: 80px 1fr;
         column-gap: 10px;
         font-size: 16px;
         input,
@@ -813,7 +814,7 @@ export const MypageChefEditContent = styled.div`
         &:nth-child(2) {
           grid-row: 2/2;
           grid-column: 1/3;
-          grid-template-columns: 70px 1fr 100px;
+          grid-template-columns: 80px 1fr 100px;
           > input {
             height: 80%;
           }
@@ -898,7 +899,8 @@ export const MypageChefEditContent = styled.div`
               border-radius: 5px;
               border: none;
               outline: none;
-              padding-left: 10px;
+              padding: 8px;
+              box-sizing: border-box;
             }
 
             @media (max-width: 420px) {

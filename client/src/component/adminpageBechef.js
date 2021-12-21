@@ -10,7 +10,7 @@ import axios from 'axios';
 require('dotenv').config();
 axios.defaults.withCredentials = true;
 
-function AdminpageBechef() {
+function AdminpageBechef({ setLoading }) {
   const url = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userState = useSelector(userStatus);
   const dispatch = useDispatch();
@@ -99,6 +99,7 @@ function AdminpageBechef() {
 
   const declineBechef = async (id) => {
     try {
+      setLoading(true);
       let result = await axios.post(
         `${url}/admin/bechef/refuse`,
         {
@@ -116,9 +117,11 @@ function AdminpageBechef() {
             })
           );
         }
+        setLoading(false);
         setUpdateAdminBechef(!updateAdminBechef);
       }
     } catch (err) {
+      setLoading(false);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
@@ -129,6 +132,7 @@ function AdminpageBechef() {
 
   const acceptBechef = async (id) => {
     try {
+      setLoading(true);
       let result = await axios.post(
         `${url}/admin/bechef/confirm`,
         {
@@ -146,9 +150,11 @@ function AdminpageBechef() {
             })
           );
         }
+        setLoading(false);
         setUpdateAdminBechef(!updateAdminBechef);
       }
     } catch (err) {
+      setLoading(false);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
       } else if (err.response.data.message === 'Send new login request') {
