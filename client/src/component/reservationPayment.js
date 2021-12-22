@@ -16,8 +16,8 @@ function ReservationPayment({
   queryCourseId,
   titleInfo,
 }) {
-  console.log('payment에서 프롭스로 받아온 newData: ', newData);
-  const url = 'https://todayschef.click/mobile/reservationDone';
+  const mobileUrl = 'https://todayschef.click/mobile/reservationDone';
+  const webUrl = process.env.REACT_APP_API_URL || `http://localhost:4000`;
   const userState = useSelector(userStatus);
   const dispatch = useDispatch();
   const reservationData = {
@@ -53,7 +53,7 @@ function ReservationPayment({
       buyer_tel: newData.reservMobile,
       buyer_addr: newData.reservMainAddress,
       buyer_postcode: newData.postal,
-      m_redirect_url: `${url}?chefName=${encodeURIComponent(
+      m_redirect_url: `${mobileUrl}?chefName=${encodeURIComponent(
         titleInfo.chefName
       )}&courseName=${encodeURIComponent(
         titleInfo.course.courseName
@@ -65,7 +65,7 @@ function ReservationPayment({
         // 결제가 성공한 경우
         // * axios로 서버에 정보 보내서 결제정보 저장
         let postResult = await axios.post(
-          `http://localhost:4000/reservation/payments`,
+          `${webUrl}/reservation/payments`,
           {
             data: {
               reservationData,

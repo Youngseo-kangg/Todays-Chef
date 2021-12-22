@@ -42,6 +42,12 @@ function MypageReservation() {
   const userState = useSelector(userStatus);
   const modalState = useSelector(modalStatus);
   const chefState = useSelector(chefStatus);
+  let timeDiff = (el) => {
+    let utc =
+      new Date(el).getTime() + new Date(el).getTimezoneOffset() * 60 * 1000;
+    let time_diff = 9 * 60 * 60 * 1000;
+    return new Date(utc + time_diff);
+  };
   // 1. load 되자마자 서버에 get 요청해서 reservation 데이터 다 가져오고, redux reservation 업데이트
   const [selectedDateState, setSelectedDateState] = useState({
     allergy: '',
@@ -209,7 +215,6 @@ function MypageReservation() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const data = takeMonth(currentDate)();
-
   const nextMonth = () => {
     if (addMonths(currentDate, 1) < addMonths(today, 3)) {
       setCurrentDate(addMonths(currentDate, 1));
@@ -227,7 +232,7 @@ function MypageReservation() {
   const changeSelected = (day) => {
     setSelectedDate(day);
     let index = reservationState.data
-      .map((el) => format(new Date(el.rsDate), 'yyyy-MM-dd'))
+      .map((el) => format(new Date(timeDiff(el.rsDate)), 'yyyy-MM-dd'))
       .indexOf(format(new Date(day), 'yyyy-MM-dd'));
     if (index !== -1) {
       if (!userState.isChef) {
@@ -308,7 +313,7 @@ function MypageReservation() {
                 {week.map((day) => (
                   <div
                     className={
-                      isAfter(today, day)
+                      isAfter(new Date(today), new Date(day))
                         ? 'calanderDay'
                         : 'calanderDay thisMonth'
                     }
@@ -327,7 +332,7 @@ function MypageReservation() {
                         : format(new Date(day), 'dd')}
                     </div>
                     {reservationState.data.map((el, idx) =>
-                      format(new Date(el.rsDate), 'yyyy-MM-dd') ===
+                      format(new Date(timeDiff(el.rsDate)), 'yyyy-MM-dd') ===
                       format(new Date(day), 'yyyy-MM-dd') ? (
                         <div key={idx} className='reservedDate'></div>
                       ) : null
