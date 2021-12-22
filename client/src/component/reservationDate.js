@@ -34,6 +34,14 @@ function ReservationDate({
     '11월',
     '12월',
   ];
+  let pplSelect = [];
+  for (
+    let i = titleInfo.course.peopleMin;
+    i <= titleInfo.course.peopleMax;
+    i++
+  ) {
+    pplSelect.push(i);
+  }
   const handleTouchStart = (e) => e.stopPropagation();
   const handleCalendarOpen = () => {
     document.addEventListener('touchstart', handleTouchStart, true);
@@ -43,7 +51,6 @@ function ReservationDate({
   };
   const reservationState = useSelector(reservationStatus);
   let dateFormat = 'yyyy년 MMMM dd일, aa h:mm';
-
   return (
     <>
       <ReservationWrap className={makeReservation === 1 ? null : 'none'}>
@@ -192,15 +199,11 @@ function ReservationDate({
                   <Controller
                     control={control}
                     name='reservPeople'
+                    rules={{ required: '인원을 선택해 주세요.' }}
                     render={({ field }) => (
-                      <select
-                        defaultValue={titleInfo.course.peopleMin}
-                        onChange={(e) => field.onChange(e)}
-                      >
-                        {[
-                          titleInfo.course.peopleMin,
-                          titleInfo.course.peopleMax,
-                        ].map((el, idx) => {
+                      <select onChange={(e) => field.onChange(e)}>
+                        <option>인원을 선택해주세요.</option>
+                        {pplSelect.map((el, idx) => {
                           return (
                             <option value={el} key={idx}>
                               {el}명

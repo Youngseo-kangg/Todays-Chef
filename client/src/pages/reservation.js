@@ -45,7 +45,7 @@ function Reservation() {
     defaultValues: {
       reservDateAndTime: '',
       reservSubAddress: '',
-      reservPeople: 2,
+      reservPeople: null,
       reservMobile: '',
       reservFire: 2,
       reservOven: false,
