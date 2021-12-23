@@ -236,6 +236,7 @@ function MypageChefEdit() {
   }; // 셰프 정보 수정 제출
 
   const onSubmitCourse = async () => {
+    console.log(courseText);
     try {
       // 유효성검사
       if (
@@ -251,8 +252,13 @@ function MypageChefEdit() {
       ) {
         setCourseErrorMsg('인원은 숫자로 입력해 주세요.');
       } else if (
-        courseText.peopleMin.includes('.') ||
-        courseText.peopleMax.includes('.') ||
+        Number(courseText.peopleMin) === 0 ||
+        Number(courseText.peopleMax) === 0
+      ) {
+        setCourseErrorMsg('인원 0명은 입력할 수 없습니다.');
+      } else if (
+        String(courseText.peopleMin).includes('.') ||
+        String(courseText.peopleMax).includes('.') ||
         Number(courseText.peopleMin) < 0 ||
         Number(courseText.peopleMax) < 0 ||
         Number(courseText.peopleMin) >= Number(courseText.peopleMax)
@@ -335,6 +341,11 @@ function MypageChefEdit() {
       typeof Number(onEdit.peopleMax) !== 'number'
     ) {
       setOnEditErrMsg('인원은 숫자로 입력해 주세요.');
+    } else if (
+      Number(onEdit.peopleMin) === 0 ||
+      Number(onEdit.peopleMax) === 0
+    ) {
+      setOnEditErrMsg('인원 0명은 입력할 수 없습니다.');
     } else if (
       String(onEdit.peopleMin).includes('.') ||
       String(onEdit.peopleMax).includes('.') ||
