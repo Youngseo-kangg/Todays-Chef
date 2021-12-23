@@ -236,7 +236,6 @@ function MypageChefEdit() {
   }; // 셰프 정보 수정 제출
 
   const onSubmitCourse = async () => {
-    console.log(courseText);
     try {
       // 유효성검사
       if (
