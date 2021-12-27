@@ -21,14 +21,22 @@ module.exports = {
     const ratingIlikArr = findIlsik.map((el) => Number(el.dataValues.rating));
     // cuisine별 별점 찾기
 
-    const findMaxRatingHansik = Math.max.apply(null, ratingHansikArr);
-    const findMaxRatingYangsik = Math.max.apply(null, ratingYangsikArr);
-    const findMaxRatingJungsik = Math.max.apply(null, ratingJungsikArr);
-    const findMaxRatingIlsik = Math.max.apply(null, ratingIlikArr);
+    console.log(ratingHansikArr);
+
+    const findMaxRatingHansik = Math.max
+      .apply(null, ratingHansikArr)
+      .toFixed(1);
+    const findMaxRatingYangsik = Math.max
+      .apply(null, ratingYangsikArr)
+      .toFixed(1);
+    const findMaxRatingJungsik = Math.max
+      .apply(null, ratingJungsikArr)
+      .toFixed(1);
+    const findMaxRatingIlsik = Math.max.apply(null, ratingIlikArr).toFixed(1);
     // cuisine별 최대 별점 찾기
 
     const findBestHansikChef = await chef.findOne({
-      where: { cuisine: '한식', rating: String(findMaxRatingHansik) },
+      where: { cuisine: '한식', rating: findMaxRatingHansik },
     });
     const findBestYangsikChef = await chef.findOne({
       where: { cuisine: '양식', rating: String(findMaxRatingYangsik) },
