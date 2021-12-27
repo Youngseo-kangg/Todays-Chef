@@ -77,7 +77,7 @@ function MypageChefEdit() {
         dispatch(
           chefMypage({
             chefName: result.data.data.info.chefName,
-            cuisine: result.data.data.info.cuisine,
+            cuisine: result.data.data.info.cuisine || '한식',
             chefImg: result.data.data.info.chefImg,
             greeting: result.data.data.info.greeting,
             career: result.data.data.info.career,
@@ -90,7 +90,7 @@ function MypageChefEdit() {
         // 코스 정보 redux 업뎃
         setChefEditText({
           chefName: result.data.data.info.chefName || '',
-          cuisine: result.data.data.info.cuisine || '',
+          cuisine: result.data.data.info.cuisine || '한식',
           chefImg: result.data.data.info.chefImg || '',
           greeting: result.data.data.info.greeting || '',
           career: result.data.data.info.career || '',
@@ -199,6 +199,8 @@ function MypageChefEdit() {
               updateAccessToken({ accessToken: postResult.data.accessToken })
             );
           }
+          // 에러메세지 초기화
+          setErrorMsg('');
           // 성공했다는 모달 띄우기
           dispatch(
             openSuccessModal({ message: '셰프 정보 변경이 완료되었습니다.' })
@@ -223,6 +225,7 @@ function MypageChefEdit() {
         }
       }
     } catch (err) {
+      setErrorMsg('');
       console.log(err);
       if (err.message === 'Network Error') {
         dispatch(openServerErrorModal());
@@ -248,8 +251,13 @@ function MypageChefEdit() {
       ) {
         setCourseErrorMsg('인원은 숫자로 입력해 주세요.');
       } else if (
-        courseText.peopleMin.includes('.') ||
-        courseText.peopleMax.includes('.') ||
+        Number(courseText.peopleMin) === 0 ||
+        Number(courseText.peopleMax) === 0
+      ) {
+        setCourseErrorMsg('인원 0명은 입력할 수 없습니다.');
+      } else if (
+        String(courseText.peopleMin).includes('.') ||
+        String(courseText.peopleMax).includes('.') ||
         Number(courseText.peopleMin) < 0 ||
         Number(courseText.peopleMax) < 0 ||
         Number(courseText.peopleMin) >= Number(courseText.peopleMax)
@@ -332,6 +340,11 @@ function MypageChefEdit() {
       typeof Number(onEdit.peopleMax) !== 'number'
     ) {
       setOnEditErrMsg('인원은 숫자로 입력해 주세요.');
+    } else if (
+      Number(onEdit.peopleMin) === 0 ||
+      Number(onEdit.peopleMax) === 0
+    ) {
+      setOnEditErrMsg('인원 0명은 입력할 수 없습니다.');
     } else if (
       String(onEdit.peopleMin).includes('.') ||
       String(onEdit.peopleMax).includes('.') ||
@@ -447,7 +460,7 @@ function MypageChefEdit() {
         </div>
         <div id='chefEditIntroText'>
           <p id='chefEditDirection'>
-            줄바꿈은 띄어쓰기 없이 '/'로 표시 바랍니다.{' '}
+            경력사항 작성시 줄바꿈은 띄어쓰기 없이 '/'로 표시 바랍니다.{' '}
           </p>
           <div className='chefEditInfoWrap'>
             <label htmlFor='chefEditInfoChefname'>셰프 이름</label>
@@ -474,7 +487,7 @@ function MypageChefEdit() {
               name='chefEditInfoGreeting'
               value={chefEditText.greeting ? chefEditText.greeting : ''}
               onChange={handleIntroInputValue('greeting')}
-              placeholder='인삿말을 입력해주세요. ex)안녕하세요./한식 셰프 김OO입니다.'
+              placeholder='인삿말을 입력해주세요. ex)안녕하세요.한식 셰프 김OO입니다.'
             />
           </div>
           <div className='chefEditInfoWrap'>
@@ -492,7 +505,7 @@ function MypageChefEdit() {
               name='chefEditInfoValues'
               value={chefEditText.values ? chefEditText.values : ''}
               onChange={handleIntroInputValue('values')}
-              placeholder='가치관을 입력해주세요. ex) 건강하면서도 아름다운 음식을 만들려고 합니다./눈이 즐겁고, 입도 즐거운 미식 코스를 추구합니다.'
+              placeholder='가치관을 입력해주세요. ex) 건강하면서도 아름다운 음식을 만들려고 합니다. 눈이 즐겁고,입도 즐거운 미식 코스를 추구합니다.'
             />
           </div>
           {errorMsg ? <p id='chefEditWarning'>{errorMsg}</p> : null}

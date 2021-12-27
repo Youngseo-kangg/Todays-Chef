@@ -44,7 +44,7 @@ module.exports = {
             allergy: allergy,
             location: location,
             mobile: mobile,
-            rsDate: cur_date_korea,
+            rsDate: rsDate,
             rsTime: rsTime,
             isOven: isOven,
             burner: burner,
@@ -91,10 +91,6 @@ module.exports = {
             { where: { id: makeReservation.dataValues.id } }
           );
 
-          const findReservation = await reservation.findOne({
-            where: { merchantUid: paymentData.merchant_uid },
-          });
-
           const { amount, status } = paymentData;
 
           if (amount === 10) {
@@ -117,7 +113,7 @@ module.exports = {
           allergy: allergy,
           location: location,
           mobile: mobile,
-          rsDate: cur_date_korea,
+          rsDate: rsDate,
           rsTime: rsTime,
           isOven: isOven,
           burner: burner,
@@ -163,10 +159,6 @@ module.exports = {
           },
           { where: { id: makeReservation.dataValues.id } }
         );
-
-        const findReservation = await reservation.findOne({
-          where: { merchantUid: paymentData.merchant_uid },
-        });
 
         const { amount, status } = paymentData;
 
